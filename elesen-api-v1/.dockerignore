@@ -1,0 +1,17 @@
+node_modules
+dist
+.git
+Dockerfile
+README.md
+.vscode/
+test/
+uploads/
+manual.sql
+seed_data.sql
+.prettierrc
+eslint.config.mjs
+nest-cli.json
+.gitignore
+docker-compose.yml
+coverage/
+*.log

@@ -1,0 +1,22 @@
+services:
+  nest-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest-app
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - /app/node_modules  # Avoid node_modules conflict with local system
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true
