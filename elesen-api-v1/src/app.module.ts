@@ -50,6 +50,7 @@ import { ProfilePentadbirHartas } from './vessels/entities/profile-pentadbir-har
 import { AppointmentModule } from './appointment/appointment.module';
 import { Appointment } from './appointment/entities/appointment.entity';
 import { ProfileModule } from './profile/profile.module';
+import { VesselDetailModule } from './vessel-detail/vessel-detail.module';
 import { Profile } from './profile/entities/profile.entity';
 import { MaklumatIndividu } from './profile/entities/maklumat-individu.entity';
 import { MaklumatKewangan } from './profile/entities/maklumat-kewangan.entity';
@@ -58,19 +59,7 @@ import { Vessel as ProfileVessel } from './profile/entities/vessel.entity';
 import { Jeti } from './profile/entities/jeti.entity';
 import { AktivitiPenangkapanIkan } from './profile/entities/aktiviti-penangkapan-ikan.entity';
 import { Kesalahan as ProfileKesalahan } from './profile/entities/kesalahan.entity';
-import { FinancialModule } from './financial/financial.module';
-import { Financial } from './financial/entities/financial.entity';
-import { FishingActivityModule } from './fishing-activity/fishing-activity.module';
-import { FishingActivity } from './fishing-activity/entities/fishing-activity.entity';
-import { PengkalanModule } from './pengkalan/pengkalan.module';
-import { Pengkalan } from './pengkalan/entities/pengkalan.entity';
 import { Kesalahan } from './vessels/entities/kesalahan.entity';
-import { DaratBaseJetty } from './jetties/darat-base-jetties.entity';
-import { Jetty } from './jetties/jetty.entity';
-import { FishingLog } from './fishing-activity/entities/fishing-log.entity';
-import { CatchingLocation } from './fishing-activity/entities/catching-location.entity';
-import { FishLanding } from './fishing-activity/entities/fish-landing.entity';
-import { FishSpecies } from './fish-species/entities/fish-species.entity';
 
 
 @Module({
@@ -90,10 +79,7 @@ import { FishSpecies } from './fish-species/entities/fish-species.entity';
   VesselsModule,
   AppointmentModule,
   ProfileModule,
-  FishingActivityModule,
-  PengkalanModule,
-  FinancialModule,
-
+  VesselDetailModule,
   ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
@@ -142,16 +128,7 @@ import { FishSpecies } from './fish-species/entities/fish-species.entity';
                   Jeti,
                   AktivitiPenangkapanIkan,
                   ProfileKesalahan,
-                  Financial,
-                  FishingActivity,
-                  Pengkalan,
                   Kesalahan,
-                  DaratBaseJetty,
-                  Jetty,
-                  FishingLog,
-                  CatchingLocation,
-                  FishLanding,
-                  FishSpecies
                 ]}),
   
  
