@@ -1,34 +1,43 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, Body, Req, Res } from '@nestjs/common';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
-import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 
-@Controller('/api/v1/applications/appointment')
+@ApiTags('Appointment')
+@Controller('api/appointment')
 export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
 
   @Post()
-  create(@Body() createAppointmentDto: CreateAppointmentDto) {
-    return this.appointmentService.create(createAppointmentDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.appointmentService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.appointmentService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAppointmentDto: UpdateAppointmentDto) {
-    return this.appointmentService.update(id, updateAppointmentDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.appointmentService.remove(id);
+  @ApiOperation({ summary: 'Create Appointment' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Appointment form data with image. Send as multipart/form-data with JSON fields and file uploads.',
+    schema: {
+      type: 'object',
+      properties: {
+        appointment: {
+          type: 'string',
+          description: 'JSON string of appointment object',
+          example: '{"kehadiran": {"hadir": true, "pemilik": true, "wakil": {"nama": "Ali Hassan", "noKadPengenalan": "850120145585", "suratWakilImg": ""}}}'
+        },
+        suratWakilImg: {
+          type: 'string',
+          format: 'binary',
+          description: 'Image file for surat wakil'
+        }
+      },
+      required: ['appointment']
+    }
+  })
+  @UseInterceptors(AnyFilesInterceptor())
+  async create(@Body() body: CreateAppointmentDto, @Req() req, @Res() res) {
+    // Parse the appointment JSON string
+    if (typeof body.appointment === 'string') {
+      body.appointment = JSON.parse(body.appointment);
+    }
+    const uploadedFiles = req.files || [];
+    return this.appointmentService.createAppointment(body, uploadedFiles, res);
   }
 }

@@ -1,13 +1,21 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppointmentService } from './appointment.service';
 import { AppointmentController } from './appointment.controller';
+import { AppointmentService } from './appointment.service';
+import { ImageUploadService } from './image-upload.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { Appointment } from './entities/appointment.entity';
-import { Vessels } from 'src/vessels/entities/vessel.entity';
+import { Kehadiran } from './entities/kehadiran.entity';
+import { Wakil } from './entities/wakil.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Appointment, Vessels])],
   controllers: [AppointmentController],
-  providers: [AppointmentService],
+  providers: [AppointmentService, ImageUploadService],
+  imports: [
+    TypeOrmModule.forFeature([
+      Appointment,
+      Kehadiran,
+      Wakil,
+    ]),
+  ],
 })
 export class AppointmentModule {}

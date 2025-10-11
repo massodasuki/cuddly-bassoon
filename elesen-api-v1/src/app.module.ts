@@ -50,6 +50,8 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ProfilePentadbirHartas } from './vessels/entities/profile-pentadbir-hartas.entity';
 import { AppointmentModule } from './appointment/appointment.module';
 import { Appointment } from './appointment/entities/appointment.entity';
+import { Kehadiran } from './appointment/entities/kehadiran.entity';
+import { Wakil } from './appointment/entities/wakil.entity';
 import { ProfileModule } from './profile/profile.module';
 import { VesselDetailModule } from './vessel-detail/vessel-detail.module';
 import { Profile } from './profile/entities/profile.entity';
@@ -128,6 +130,8 @@ import { UkuranDimensiVesel } from './borang-lpi/entities/ukuran-dimensi-vesel.e
                   Search,
                   DeviceRegistration,
                   Appointment,
+                  Kehadiran,
+                  Wakil,
                   Profile,
                   MaklumatIndividu,
                   MaklumatKewangan,
