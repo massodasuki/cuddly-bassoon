@@ -49,6 +49,15 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ProfilePentadbirHartas } from './vessels/entities/profile-pentadbir-hartas.entity';
 import { AppointmentModule } from './appointment/appointment.module';
 import { Appointment } from './appointment/entities/appointment.entity';
+import { ProfileModule } from './profile/profile.module';
+import { Profile } from './profile/entities/profile.entity';
+import { MaklumatIndividu } from './profile/entities/maklumat-individu.entity';
+import { MaklumatKewangan } from './profile/entities/maklumat-kewangan.entity';
+import { PengkalanPendaratan } from './profile/entities/pengkalan-pendaratan.entity';
+import { Vessel as ProfileVessel } from './profile/entities/vessel.entity';
+import { Jeti } from './profile/entities/jeti.entity';
+import { AktivitiPenangkapanIkan } from './profile/entities/aktiviti-penangkapan-ikan.entity';
+import { Kesalahan as ProfileKesalahan } from './profile/entities/kesalahan.entity';
 import { FinancialModule } from './financial/financial.module';
 import { Financial } from './financial/entities/financial.entity';
 import { FishingActivityModule } from './fishing-activity/fishing-activity.module';
@@ -80,6 +89,7 @@ import { FishSpecies } from './fish-species/entities/fish-species.entity';
   DigitalIdModule,
   VesselsModule,
   AppointmentModule,
+  ProfileModule,
   FishingActivityModule,
   PengkalanModule,
   FinancialModule,
@@ -124,6 +134,14 @@ import { FishSpecies } from './fish-species/entities/fish-species.entity';
                   Search,
                   DeviceRegistration,
                   Appointment,
+                  Profile,
+                  MaklumatIndividu,
+                  MaklumatKewangan,
+                  PengkalanPendaratan,
+                  ProfileVessel,
+                  Jeti,
+                  AktivitiPenangkapanIkan,
+                  ProfileKesalahan,
                   Financial,
                   FishingActivity,
                   Pengkalan,
