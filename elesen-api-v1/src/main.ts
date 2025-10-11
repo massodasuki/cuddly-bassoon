@@ -22,6 +22,7 @@ async function bootstrap() {
     .addTag("DigitalID")
     .addTag("Vessels")
     .addTag("Search")
+    .addTag("Borang LPI")
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

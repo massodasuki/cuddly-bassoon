@@ -22,6 +22,7 @@ import { InfoVessel } from './shared/entities/embedded/info-vessel.entity';
 
 // module import
 import { LpiFormModule } from './lpi-form/lpi-form.module';
+import { BorangLPIModule } from './borang-lpi/borang-lpi.module';
 
 
 //Base
@@ -60,6 +61,12 @@ import { Jeti } from './profile/entities/jeti.entity';
 import { AktivitiPenangkapanIkan } from './profile/entities/aktiviti-penangkapan-ikan.entity';
 import { Kesalahan as ProfileKesalahan } from './profile/entities/kesalahan.entity';
 import { Kesalahan } from './vessels/entities/kesalahan.entity';
+import { BorangLPI } from './borang-lpi/entities/borang-lpi.entity';
+import { NoPendaftaranVesel } from './borang-lpi/entities/no-pendaftaran-vesel.entity';
+import { TandaPenukulBesi } from './borang-lpi/entities/tanda-penukul-besi.entity';
+import { TinPlate } from './borang-lpi/entities/tin-plate.entity';
+import { RumahKemudi } from './borang-lpi/entities/rumah-kemudi.entity';
+import { UkuranDimensiVesel } from './borang-lpi/entities/ukuran-dimensi-vesel.entity';
 
 
 @Module({
@@ -71,6 +78,7 @@ import { Kesalahan } from './vessels/entities/kesalahan.entity';
   UsersModule,
   JwtModule,
   LpiFormModule,
+  BorangLPIModule,
   DeviceRegistrationModule,
   SearchModule,
   ImageModule,
@@ -129,6 +137,12 @@ import { Kesalahan } from './vessels/entities/kesalahan.entity';
                   AktivitiPenangkapanIkan,
                   ProfileKesalahan,
                   Kesalahan,
+                  BorangLPI,
+                  NoPendaftaranVesel,
+                  TandaPenukulBesi,
+                  TinPlate,
+                  RumahKemudi,
+                  UkuranDimensiVesel,
                 ]}),
   
  
