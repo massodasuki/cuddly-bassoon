@@ -20,7 +20,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"username\": \"\", \"password\": \"\"}"
+              "raw": "{\"username\": \"admin\", \"password\": \"password123\"}"
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/auth/login",
@@ -91,6 +91,81 @@
                   "key": "noPendaftaranVesel",
                   "value": "{\"diTebuk\": false, \"diCat\": true}",
                   "type": "text"
+                },
+                {
+                  "key": "tandaPenukulBesi",
+                  "value": "{\"tandaBahagianLaluan\": true, \"hurufKodTanda\": \"A\"}",
+                  "type": "text"
+                },
+                {
+                  "key": "tinPlate",
+                  "value": "{\"tinPlate\": true, \"noTinePlate\": \"TP123\"}",
+                  "type": "text"
+                },
+                {
+                  "key": "pakuPenandaLebar",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "rumahKemudi",
+                  "value": "{\"diCat\": true, \"kodZon\": \"A1\", \"diBumbung\": false}",
+                  "type": "text"
+                },
+                {
+                  "key": "pukatTundaBerlesen",
+                  "value": "{\"jalurPutih\": true, \"diCat\": false}",
+                  "type": "text"
+                },
+                {
+                  "key": "ukuranDimensiVesel",
+                  "value": "{\"panjangMeter\": {\"dalamLesen\": 10.5, \"semasaDiperiksa\": 10.4}, \"lebarMeter\": {\"dalamLesen\": 3.2, \"semasaDiperiksa\": 3.1}, \"kedalamanMeter\": {\"dalamLesen\": 1.8, \"semasaDiperiksa\": 1.7}, \"muatanGRT\": {\"dalamLesen\": 15.0, \"semasaDiperiksa\": 14.8}, \"image\": {\"veselKiriImg\": \"left.jpg\", \"veselKananImg\": \"right.jpg\", \"veselHadapanImg\": \"front.jpg\", \"veselBelakangImg\": \"back.jpg\", \"veselKeseluruhanImg\": \"full.jpg\"}}",
+                  "type": "text"
+                },
+                {
+                  "key": "enjin",
+                  "value": "{\"maklumatEnjin\": {\"jenama\": \"Yamaha\", \"model\": \"F150\", \"turbo\": \"Yes\", \"kuasaKuda\": 150, \"noEnjin\": \"ENG123\", \"penandaVesel\": \"PV001\"}, \"image\": {\"enjinImg\": \"engine.jpg\", \"noEnjinImg\": \"engine_no.jpg\", \"penandaEnjinImg\": \"marker.jpg\", \"turboImg\": \"turbo.jpg\", \"generatorImg\": \"generator.jpg\"}}",
+                  "type": "text"
+                },
+                {
+                  "key": "peralatanKeselamatan",
+                  "value": "{\"jaketKeselamatan\": {\"status\": \"Ada\", \"kuantiti\": \"5\", \"keadaan\": \"Baik\"}, \"boyaKeselamatan\": {\"status\": \"Ada\", \"kuantiti\": \"2\", \"keadaan\": \"Baik\"}, \"alatPemadamApi\": {\"status\": \"Ada\", \"kuantiti\": \"1\", \"keadaan\": \"Baik\"}, \"rakitKeselamatan\": {\"status\": \"Ada\", \"kuantiti\": \"1\", \"keadaan\": \"Baik\"}, \"radioWireless\": {\"status\": \"Ada\", \"kuantiti\": \"1\", \"keadaan\": \"Baik\"}, \"image\": {\"MTUImg\": \"mtu.jpg\", \"AISImg\": \"ais.jpg\"}}",
+                  "type": "text"
+                },
+                {
+                  "key": "kelengkapanMenangkapIkan",
+                  "value": "{\"GPS\": true, \"echoSounder\": true, \"radar\": false, \"satNavigation\": true, \"sonar\": false, \"fishFinder\": true, \"radioWireless\": true, \"ATUR\": false, \"netHouler\": true, \"powerBlock\": true, \"netDrum\": false, \"petakIkan\": true, \"RSW\": false, \"CCTV\": true}",
+                  "type": "text"
+                },
+                {
+                  "key": "peralatan",
+                  "value": "[{\"nama\": \"Net\", \"jenisPeralatan\": \"Fishing Gear\", \"panjangMeter\": \"50\", \"tarikDilesen\": \"100kg\", \"status\": \"Active\"}]",
+                  "type": "text"
+                },
+                {
+                  "key": "jenisPeralatanSemasa",
+                  "value": "Trawl Net",
+                  "type": "text"
+                },
+                {
+                  "key": "keadaanVesel",
+                  "value": "{\"keadaanSemasa\": \"Good\", \"vesel\": \"Fishing Boat\", \"jenisKulit\": \"Steel\", \"veselBaharu\": false}",
+                  "type": "text"
+                },
+                {
+                  "key": "tarikhPemeriksaan",
+                  "value": "2023-10-01",
+                  "type": "text"
+                },
+                {
+                  "key": "perakuanPegawai",
+                  "value": "{\"diSokong\": true, \"tarikhPemeriksaan\": \"2023-10-01\", \"image\": {\"tandaTanganPembantuImg\": \"assistant_sig.jpg\", \"tandatanganPegawaiImg\": \"officer_sig.jpg\"}}",
+                  "type": "text"
+                },
+                {
+                  "key": "perakuanEmpunyaVesel",
+                  "value": "{\"jenisPermohonan\": \"Renewal\", \"tarikhPemeriksaan\": \"2023-10-01\", \"image\": {\"tandaTanganEmpunyaVeselImg\": \"owner_sig.jpg\"}}",
+                  "type": "text"
                 }
               ]
             },
@@ -148,7 +223,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{}"
+              "raw": "{\"id\": \"sample-id\", \"entityId\": \"sample-entity\", \"vesselNo\": \"TRF1234\", \"zone\": \"A1\", \"startDate\": \"2023-01-01\", \"endDate\": \"2023-12-31\", \"isActive\": true, \"createdBy\": \"admin\"}"
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/device-registration",
@@ -203,7 +278,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{}"
+              "raw": "{\"id\": \"sample-id\", \"entityId\": \"sample-entity\", \"vesselNo\": \"TRF1234\", \"zone\": \"A1\", \"startDate\": \"2023-01-01\", \"endDate\": \"2023-12-31\", \"isActive\": true, \"createdBy\": \"admin\"}"
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/device-registration/:id",
@@ -288,7 +363,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"refreshToken\": \"\"}"
+              "raw": "{\"refreshToken\": \"sample-refresh-token\"}"
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/auth/d/logout",
@@ -320,11 +395,11 @@
                 {
                   "key": "file",
                   "type": "file",
-                  "src": []
+                  "src": ["sample-image.jpg"]
                 },
                 {
                   "key": "imageType",
-                  "value": "",
+                  "value": "profile",
                   "type": "text"
                 }
               ]
@@ -355,7 +430,23 @@
             ],
             "body": {
               "mode": "formdata",
-              "formdata": []
+              "formdata": [
+                {
+                  "key": "user",
+                  "value": "sample-user-id",
+                  "type": "text"
+                },
+                {
+                  "key": "formId",
+                  "value": "sample-form-id",
+                  "type": "text"
+                },
+                {
+                  "key": "payload",
+                  "value": "{\"sample\": \"data\"}",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/lpi-form",
@@ -397,7 +488,23 @@
             ],
             "body": {
               "mode": "formdata",
-              "formdata": []
+              "formdata": [
+                {
+                  "key": "user",
+                  "value": "sample-user-id",
+                  "type": "text"
+                },
+                {
+                  "key": "formId",
+                  "value": "sample-form-id",
+                  "type": "text"
+                },
+                {
+                  "key": "payload",
+                  "value": "{\"sample\": \"updated-data\"}",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/lpi-form/:formId",
@@ -468,7 +575,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{}"
+              "raw": "{\"title\": \"Sample Notification\", \"message\": \"Hello World\", \"userId\": \"sample-user\"}"
             },
             "url": {
               "raw": "{{base_url}}/push-notification",
@@ -523,7 +630,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{}"
+              "raw": "{\"title\": \"Updated Notification\", \"message\": \"Updated Hello\"}"
             },
             "url": {
               "raw": "{{base_url}}/push-notification/:id",
@@ -725,7 +832,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"username\": \"\", \"password\": \"\"}"
+              "raw": "{\"name\": \"John Doe\", \"username\": \"johndoe\", \"email\": \"john@example.com\", \"password\": \"password123\", \"user_type\": \"user\"}"
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users",
@@ -818,7 +925,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{}"
+              "raw": "{\"name\": \"Jane Doe\", \"email\": \"jane@example.com\"}"
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/username/:username",
@@ -889,7 +996,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{}"
+              "raw": "{\"id\": \"sample-vessel-id\", \"entityId\": \"sample-entity\", \"vesselNo\": \"TRF5678\", \"zone\": \"B2\", \"startDate\": \"2023-01-01\", \"endDate\": \"2023-12-31\", \"isActive\": true, \"createdBy\": \"admin\"}"
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications",
@@ -989,7 +1096,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{}"
+              "raw": "{\"vesselNo\": \"TRF9999\", \"zone\": \"C3\"}"
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vessels/:id",
@@ -1018,7 +1125,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"deleted_by\": 0}"
+              "raw": "{\"deleted_by\": \"admin\"}"
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vessels/:id",
