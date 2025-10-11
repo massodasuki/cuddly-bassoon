@@ -1,6 +1,10 @@
-import { Column } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity('maklumat_am')
 export class MaklumatAm {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column({ nullable: true })
   email: string;
 

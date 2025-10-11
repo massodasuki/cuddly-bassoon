@@ -58,7 +58,11 @@ import { ProfileModule } from './profile/profile.module';
 import { VesselDetailModule } from './vessel-detail/vessel-detail.module';
 import { Profile } from './profile/entities/profile.entity';
 import { MaklumatIndividu } from './profile/entities/maklumat-individu.entity';
+import { MaklumatAm } from './profile/entities/maklumat-am.entity';
+import { Alamat } from './profile/entities/alamat.entity';
 import { MaklumatKewangan } from './profile/entities/maklumat-kewangan.entity';
+import { MaklumatBank } from './profile/entities/maklumat-bank.entity';
+import { MaklumatTambahan } from './profile/entities/maklumat-tambahan.entity';
 import { PengkalanPendaratan } from './profile/entities/pengkalan-pendaratan.entity';
 import { Vessel as ProfileVessel } from './profile/entities/vessel.entity';
 import { Jeti } from './profile/entities/jeti.entity';
@@ -138,7 +142,11 @@ import { UkuranDimensiVesel } from './borang-lpi/entities/ukuran-dimensi-vesel.e
                   BorangPermohonan,
                   Profile,
                   MaklumatIndividu,
+                  MaklumatAm,
+                  Alamat,
                   MaklumatKewangan,
+                  MaklumatBank,
+                  MaklumatTambahan,
                   PengkalanPendaratan,
                   ProfileVessel,
                   Jeti,

@@ -1,4 +1,5 @@
 import { IsBoolean, IsString, IsObject } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class WakilDto {
@@ -24,7 +25,13 @@ export class KehadiranDto {
 }
 
 export class CreateAppointmentDto {
-  @ApiProperty({ description: 'Appointment details' })
+  @ApiProperty({ description: 'Appointment details as JSON string' })
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      return JSON.parse(value);
+    }
+    return value;
+  })
   @IsObject()
   appointment: {
     kehadiran: KehadiranDto;

@@ -15,15 +15,8 @@ import {
 import { ProfileUser } from './profile-user.entity';
 import { Role } from './role.entity';
 import { Entities } from './entities.entity';
-import { ProfilePentadbirHartas } from 'src/vessels/entities/profile-pentadbir-hartas.entity';
-import { Financial } from 'src/financial/entities/financial.entity';
-import { FishingActivity } from 'src/fishing-activity/entities/fishing-activity.entity';
-import { Pengkalan } from 'src/pengkalan/entities/pengkalan.entity';
 import { Kesalahan } from 'src/vessels/entities/kesalahan.entity';
 import { Vessels } from '../../vessels/entities/vessel.entity';
-import { Jetty } from '../../jetties/jetty.entity';
-import { DaratBaseJetty } from 'src/jetties/darat-base-jetties.entity';
-import { FishingLog } from '../../fishing-activity/entities/fishing-log.entity';
 @Entity('users')
 export class  User {
   @PrimaryGeneratedColumn('uuid')
@@ -159,18 +152,7 @@ export class  User {
   })
   kesalahan: Kesalahan[];
 
-  @OneToMany(() => DaratBaseJetty, dbj => dbj.user)
-  darat_base_jetties: DaratBaseJetty;
 
-  @ManyToMany(() => Jetty, jetty => jetty.users)
-  @JoinTable({
-    name: 'darat_base_jetties',
-    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'jetty_id', referencedColumnName: 'id' },
-  })
-  jetty: Jetty[];
 
-  @OneToMany(() => FishingLog, fishing => fishing.user)
-  fishing_log: FishingLog;
 }
 

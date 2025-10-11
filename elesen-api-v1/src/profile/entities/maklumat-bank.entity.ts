@@ -1,6 +1,10 @@
-import { Column } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity('maklumat_bank')
 export class MaklumatBank {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column({ nullable: true })
   nama: string;
 

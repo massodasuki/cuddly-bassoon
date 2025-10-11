@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, CreateDateColumn, DeleteDateColumn, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, CreateDateColumn, DeleteDateColumn, PrimaryColumn, UpdateDateColumn, Index } from "typeorm";
 import { User } from "./user.entity";
 
 @Entity('roles')
@@ -6,6 +6,7 @@ export class Role {
   @PrimaryColumn({ type: 'char', length: 36 })
   id: string;
 
+  @Index()
   @Column({ type: 'varchar', length: 255 })
   name: string;
 

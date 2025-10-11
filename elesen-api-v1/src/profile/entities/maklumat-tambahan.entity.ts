@@ -1,6 +1,10 @@
-import { Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
+@Entity('maklumat_tambahan')
 export class MaklumatTambahan {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column({ name: 'penerima_esp', type: 'boolean', default: false })
   penerimaESP: boolean;
 

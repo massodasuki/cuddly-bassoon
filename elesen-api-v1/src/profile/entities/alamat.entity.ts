@@ -1,6 +1,10 @@
-import { Column } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity('alamat')
 export class Alamat {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column({ nullable: true })
   address1: string;
 

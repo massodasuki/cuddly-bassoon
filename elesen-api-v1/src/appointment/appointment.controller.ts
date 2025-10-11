@@ -33,10 +33,7 @@ export class AppointmentController {
   })
   @UseInterceptors(AnyFilesInterceptor())
   async create(@Body() body: CreateAppointmentDto, @Req() req, @Res() res) {
-    // Parse the appointment JSON string
-    if (typeof body.appointment === 'string') {
-      body.appointment = JSON.parse(body.appointment);
-    }
+    console.log('body.appointment:', body.appointment, typeof body.appointment);
     const uploadedFiles = req.files || [];
     return this.appointmentService.createAppointment(body, uploadedFiles, res);
   }
