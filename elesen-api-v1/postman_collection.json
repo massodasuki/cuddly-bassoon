@@ -24,9 +24,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/auth/login",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "auth", "login"]
             }
           }
@@ -43,9 +43,9 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/applications/auth/logout",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "auth", "logout"]
             }
           }
@@ -62,9 +62,9 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/applications/auth/refresh",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "auth", "refresh"]
             }
           }
@@ -96,9 +96,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/borang-lpi",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "borang-lpi"]
             }
           }
@@ -114,9 +114,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/borang?page=1&pageSize=5",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "borang"],
               "query": [
                 {
@@ -152,9 +152,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/device-registration",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "device-registration"]
             }
           }
@@ -165,9 +165,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/device-registration",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "device-registration"]
             }
           }
@@ -178,9 +178,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/device-registration/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "device-registration", ":id"],
               "variable": [
                 {
@@ -207,9 +207,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/device-registration/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "device-registration", ":id"],
               "variable": [
                 {
@@ -226,9 +226,9 @@
             "method": "DELETE",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/device-registration/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "device-registration", ":id"],
               "variable": [
                 {
@@ -250,9 +250,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/auth/d/login",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "auth", "d", "login"]
             }
           }
@@ -263,9 +263,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/auth/d/callback?code=",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "auth", "d", "callback"],
               "query": [
                 {
@@ -292,9 +292,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/auth/d/logout",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "auth", "d", "logout"]
             }
           }
@@ -331,9 +331,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/image/upload",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "image", "upload"]
             }
           }
@@ -359,9 +359,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/lpi-form",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "lpi-form"]
             }
           }
@@ -372,9 +372,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/lpi-form/:formId",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "lpi-form", ":formId"],
               "variable": [
                 {
@@ -401,9 +401,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/lpi-form/:formId",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "lpi-form", ":formId"],
               "variable": [
                 {
@@ -425,9 +425,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/profile",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "profile"]
             }
           }
@@ -438,9 +438,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/profile/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "profile", ":id"],
               "variable": [
                 {
@@ -472,9 +472,9 @@
             },
             "url": {
               "raw": "{{base_url}}/push-notification",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["push-notification"]
             }
           }
@@ -485,9 +485,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/push-notification",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["push-notification"]
             }
           }
@@ -498,9 +498,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/push-notification/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["push-notification", ":id"],
               "variable": [
                 {
@@ -527,9 +527,9 @@
             },
             "url": {
               "raw": "{{base_url}}/push-notification/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["push-notification", ":id"],
               "variable": [
                 {
@@ -546,9 +546,9 @@
             "method": "DELETE",
             "url": {
               "raw": "{{base_url}}/push-notification/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["push-notification", ":id"],
               "variable": [
                 {
@@ -570,9 +570,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/search/ic?q=",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "search", "ic"],
               "query": [
                 {
@@ -589,9 +589,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/search/vessel?q=",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "search", "vessel"],
               "query": [
                 {
@@ -613,9 +613,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/nelayan",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "nelayan"]
             }
           }
@@ -626,9 +626,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/nelayan-minimal",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "nelayan-minimal"]
             }
           }
@@ -639,9 +639,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/nelayan/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "nelayan", ":id"],
               "variable": [
                 {
@@ -658,9 +658,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/level/:level",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "level", ":level"],
               "variable": [
                 {
@@ -677,9 +677,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/n?level=&username=",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "n"],
               "query": [
                 {
@@ -700,9 +700,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/v?vessels=",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "v"],
               "query": [
                 {
@@ -729,9 +729,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users"]
             }
           }
@@ -742,9 +742,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users"]
             }
           }
@@ -755,9 +755,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/profile/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "profile", ":id"],
               "variable": [
                 {
@@ -774,9 +774,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/id/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "id", ":id"],
               "variable": [
                 {
@@ -793,9 +793,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/username/:username",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "username", ":username"],
               "variable": [
                 {
@@ -822,9 +822,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/users/username/:username",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "users", "username", ":username"],
               "variable": [
                 {
@@ -846,9 +846,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vesel",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "vesel"]
             }
           }
@@ -859,9 +859,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vesel/detail/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "vesel", "detail", ":id"],
               "variable": [
                 {
@@ -893,9 +893,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications"]
             }
           }
@@ -906,9 +906,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vessels-minimal",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "vessels-minimal"]
             }
           }
@@ -919,9 +919,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vessels",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "vessels"]
             }
           }
@@ -932,9 +932,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications"]
             }
           }
@@ -945,9 +945,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vessels/details/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "vessels", "details", ":id"],
               "variable": [
                 {
@@ -964,9 +964,9 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vessels/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "vessels", ":id"],
               "variable": [
                 {
@@ -993,9 +993,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vessels/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "vessels", ":id"],
               "variable": [
                 {
@@ -1022,9 +1022,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/vessels/:id",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "vessels", ":id"],
               "variable": [
                 {
@@ -1062,9 +1062,9 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/applications/appointment",
-              "protocol": "http",
+              
               "host": ["{{base_url}}"],
-              "port": "3000",
+              
               "path": ["api", "v1", "applications", "appointment"]
             }
           }
