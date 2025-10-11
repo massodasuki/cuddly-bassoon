@@ -52,6 +52,8 @@ import { AppointmentModule } from './appointment/appointment.module';
 import { Appointment } from './appointment/entities/appointment.entity';
 import { Kehadiran } from './appointment/entities/kehadiran.entity';
 import { Wakil } from './appointment/entities/wakil.entity';
+import { BorangPermohonanModule } from './borang-permohonan/borang-permohonan.module';
+import { BorangPermohonan } from './borang-permohonan/entities/borang-permohonan.entity';
 import { ProfileModule } from './profile/profile.module';
 import { VesselDetailModule } from './vessel-detail/vessel-detail.module';
 import { Profile } from './profile/entities/profile.entity';
@@ -88,6 +90,7 @@ import { UkuranDimensiVesel } from './borang-lpi/entities/ukuran-dimensi-vesel.e
   DigitalIdModule,
   VesselsModule,
   AppointmentModule,
+  BorangPermohonanModule,
   ProfileModule,
   VesselDetailModule,
   ServeStaticModule.forRoot({
@@ -132,6 +135,7 @@ import { UkuranDimensiVesel } from './borang-lpi/entities/ukuran-dimensi-vesel.e
                   Appointment,
                   Kehadiran,
                   Wakil,
+                  BorangPermohonan,
                   Profile,
                   MaklumatIndividu,
                   MaklumatKewangan,

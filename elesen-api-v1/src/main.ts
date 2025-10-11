@@ -23,6 +23,8 @@ async function bootstrap() {
     .addTag("Vessels")
     .addTag("Search")
     .addTag("Borang LPI")
+    .addTag("Appointment")
+    .addTag("Borang Permohonan")
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
