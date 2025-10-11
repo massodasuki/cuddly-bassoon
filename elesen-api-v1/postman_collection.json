@@ -88,6 +88,11 @@
               "mode": "formdata",
               "formdata": [
                 {
+                  "key": "noVesel",
+                  "value": "TRF1234",
+                  "type": "text"
+                },
+                {
                   "key": "noPendaftaranVesel",
                   "value": "{\"diTebuk\": false, \"diCat\": true}",
                   "type": "text"

@@ -17,7 +17,12 @@ export class BorangLPIController {
     schema: {
       type: 'object',
       properties: {
-        noPendaftaranVesel: {
+         noVesel: {
+           type: 'string',
+           description: 'Vesel number',
+           example: 'TRF1234'
+         },
+         noPendaftaranVesel: {
           type: 'string',
           description: 'JSON string of noPendaftaranVesel object',
           example: '{"diTebuk": false, "diCat": true}'
@@ -50,17 +55,17 @@ export class BorangLPIController {
         ukuranDimensiVesel: {
           type: 'string',
           description: 'JSON string of ukuranDimensiVesel object',
-          example: '{"panjangMeter": {"dalamLesen": 1, "semasaDiperiksa": 1}, "lebarMeter": {"dalamLesen": 1, "semasaDiperiksa": 1}, "kedalamanMeter": {"dalamLesen": 1, "semasaDiperiksa": 1}, "muatanGRT": {"dalamLesen": 1, "semasaDiperiksa": 1}, "image": {"veselKiriImg": "https://dof.gov/abcg.png", "veselKananImg": "https://dof.gov/abcg.png", "veselHadapanImg": "https://dof.gov/abcg.png", "veselBelakangImg": "https://dof.gov/abcg.png", "veselKeseluruhanImg": "https://dof.gov/abcg.png"}}'
+          example: '{"panjangMeter": {"dalamLesen": 1, "semasaDiperiksa": 1}, "lebarMeter": {"dalamLesen": 1, "semasaDiperiksa": 1}, "kedalamanMeter": {"dalamLesen": 1, "semasaDiperiksa": 1}, "muatanGRT": {"dalamLesen": 1, "semasaDiperiksa": 1}, "image": {"veselKiriImg": "https//dof.gov/abcg.png", "veselKananImg": "https//dof.gov/abcg.png", "veselHadapanImg": "https//dof.gov/abcg.png", "veselBelakangImg": "https//dof.gov/abcg.png", "veselKeseluruhanImg": "https//dof.gov/abcg.png"}}'
         },
         enjin: {
           type: 'string',
           description: 'JSON string of enjin object',
-          example: '{"maklumatEnjin": {"jenama": "Yamaha", "model": "X200", "turbo": null, "kuasaKuda": 60, "noEnjin": "EJ65978", "penandaVesel": "07-05-2025"}, "image": {"enjinImg": "https://dof.gov/abcg.png", "noEnjinImg": "https://dof.gov/abcg.png", "penandaEnjinImg": "https://dof.gov/abcg.png", "turboImg": "https://dof.gov/abcg.png", "generatorImg": "https://dof.gov/abcg.png"}}'
+          example: '{"maklumatEnjin": {"jenama": "Yamaha", "model": "X200", "turbo": null, "kuasaKuda": 60, "noEnjin": "EJ65978", "penandaVesel": "07-05-2025"}, "image": {"enjinImg": "https//dof.gov/abcg.png", "noEnjinImg": "https//dof.gov/abcg.png", "penandaEnjinImg": "https//dof.gov/abcg.png", "turboImg": "https//dof.gov/abcg.png", "generatorImg": "https//dof.gov/abcg.png"}}'
         },
         peralatanKeselamatan: {
           type: 'string',
           description: 'JSON string of peralatanKeselamatan object',
-          example: '{"jaketKeselamatan": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "boyaKeselamatan": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "alatPemadamApi": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "rakitKeselamatan": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "radioWireless": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "image": {"MTUImg": "https://dof.gov/abcg.png", "AISImg": "https://dof.gov/abcg.png"}}'
+          example: '{"jaketKeselamatan": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "boyaKeselamatan": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "alatPemadamApi": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "rakitKeselamatan": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "radioWireless": {"status": "Tiada", "kuantiti": "Tiada", "keadaan": "Baik"}, "image": {"MTUImg": "https//dof.gov/abcg.png", "AISImg": "https//dof.gov/abcg.png"}}'
         },
         kelengkapanMenangkapIkan: {
           type: 'string',
@@ -95,12 +100,12 @@ export class BorangLPIController {
         perakuanPegawai: {
           type: 'string',
           description: 'JSON string of perakuanPegawai object',
-          example: '{"diSokong": true, "tarikhPemeriksaan": "2023-01-27", "image": {"tandaTanganPembantuImg": "", "tandatanganPegawaiImg": ""}}'
+          example: '{"diSokong": true, "tarikhPemeriksaan": "2023-01-27", "image": {"tandaTanganPembantuImg": "https//dof.gov/abcg.png", "tandatanganPegawaiImg": "https//dof.gov/abcg.png"}}'
         },
         perakuanEmpunyaVesel: {
           type: 'string',
           description: 'JSON string of perakuanEmpunyaVesel object',
-          example: '{"jenisPermohonan": "Pendaftaran Baru", "tarikhPemeriksaan": "2023-01-27", "image": {"tandaTanganEmpunyaVeselImg": ""}}'
+          example: '{"jenisPermohonan": "Pendaftaran Baru", "tarikhPemeriksaan": "2023-01-27", "image": {"tandaTanganEmpunyaVeselImg": "https//dof.gov/abcg.png"}}'
         },
         // File upload fields
         veselKiriImg: {
@@ -179,7 +184,7 @@ export class BorangLPIController {
           description: 'Signature image for vessel owner'
         }
       },
-      required: ['noPendaftaranVesel', 'tandaPenukulBesi', 'tinPlate', 'pakuPenandaLebar', 'rumahKemudi', 'pukatTundaBerlesen', 'ukuranDimensiVesel', 'enjin', 'peralatanKeselamatan', 'kelengkapanMenangkapIkan', 'peralatan', 'jenisPeralatanSemasa', 'keadaanVesel', 'tarikhPemeriksaan', 'perakuanPegawai', 'perakuanEmpunyaVesel']
+      required: ['noVesel', 'noPendaftaranVesel', 'tandaPenukulBesi', 'tinPlate', 'pakuPenandaLebar', 'rumahKemudi', 'pukatTundaBerlesen', 'ukuranDimensiVesel', 'enjin', 'peralatanKeselamatan', 'kelengkapanMenangkapIkan', 'peralatan', 'jenisPeralatanSemasa', 'keadaanVesel', 'tarikhPemeriksaan', 'perakuanPegawai', 'perakuanEmpunyaVesel']
     }
   })
   @UseInterceptors(AnyFilesInterceptor())

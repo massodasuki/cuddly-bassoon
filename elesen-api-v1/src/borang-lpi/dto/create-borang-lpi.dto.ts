@@ -247,6 +247,10 @@ export class PerakuanEmpunyaVeselDto {
 }
 
 export class CreateBorangLPIDto {
+  @ApiProperty({ description: 'No Vesel' })
+  @IsString()
+  noVesel: string;
+
   @ApiProperty({ description: 'No Pendaftaran Vesel details' })
   @IsObject()
   noPendaftaranVesel: NoPendaftaranVeselDto;
