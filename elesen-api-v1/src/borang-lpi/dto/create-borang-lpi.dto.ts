@@ -72,11 +72,11 @@ export class UkuranDimensiVeselDto {
 
   @IsObject()
   image: {
-    kiri: string;
-    kanan: string;
-    hadapan: string;
-    belakang: string;
-    keseluruhan: string;
+    veselKiriImg: string;
+    veselKananImg: string;
+    veselHadapanImg: string;
+    veselBelakangImg: string;
+    veselKeseluruhanImg: string;
   };
 }
 
@@ -93,11 +93,11 @@ export class EnjinDto {
 
   @IsObject()
   image: {
-    enjinUrl: string;
-    noEnjinUrl: string;
-    penandaEnjinUrl: string;
-    turboUrl: string;
-    generatorUrl: string;
+    enjinImg: string;
+    noEnjinImg: string;
+    penandaEnjinImg: string;
+    turboImg: string;
+    generatorImg: string;
   };
 }
 
@@ -139,8 +139,8 @@ export class PeralatanKeselamatanDto {
 
   @IsObject()
   image: {
-    MTUUrl: string;
-    AISUrl: string;
+    MTUImg: string;
+    AISImg: string;
   };
 }
 
