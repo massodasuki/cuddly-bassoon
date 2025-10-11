@@ -5,7 +5,7 @@ import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 
 @ApiTags('Appointment')
-@Controller('api/appointment')
+@Controller('/api/v1/applications/appointment')
 export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
 

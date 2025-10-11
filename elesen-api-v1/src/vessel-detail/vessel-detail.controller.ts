@@ -4,7 +4,7 @@ import { VesselDetailResponseDto } from './dto/vessel-detail-response.dto';
 import { ApiTags, ApiResponse, ApiOperation, ApiParam } from '@nestjs/swagger';
 
 @ApiTags('VesselDetail')
-@Controller('api/vesel')
+@Controller('/api/v1/applications/vesel')
 export class VesselDetailController {
   constructor(private readonly vesselDetailService: VesselDetailService) {}
 

@@ -5,7 +5,7 @@ import { BorangLPIService } from './borang-lpi.service';
 import { CreateBorangLPIDto } from './dto/create-borang-lpi.dto';
 
 @ApiTags('Borang LPI')
-@Controller('api/borang-lpi')
+@Controller('/api/v1/applications/borang-lpi')
 export class BorangLPIController {
   constructor(private readonly borangLPIService: BorangLPIService) {}
 
