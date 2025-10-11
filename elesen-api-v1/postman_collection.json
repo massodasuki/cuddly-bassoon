@@ -119,18 +119,78 @@
                 },
                 {
                   "key": "ukuranDimensiVesel",
-                  "value": "{\"panjangMeter\": {\"dalamLesen\": 10.5, \"semasaDiperiksa\": 10.4}, \"lebarMeter\": {\"dalamLesen\": 3.2, \"semasaDiperiksa\": 3.1}, \"kedalamanMeter\": {\"dalamLesen\": 1.8, \"semasaDiperiksa\": 1.7}, \"muatanGRT\": {\"dalamLesen\": 15.0, \"semasaDiperiksa\": 14.8}, \"image\": {\"veselKiriImg\": \"left.jpg\", \"veselKananImg\": \"right.jpg\", \"veselHadapanImg\": \"front.jpg\", \"veselBelakangImg\": \"back.jpg\", \"veselKeseluruhanImg\": \"full.jpg\"}}",
+                  "value": "{\"panjangMeter\": {\"dalamLesen\": 10.5, \"semasaDiperiksa\": 10.4}, \"lebarMeter\": {\"dalamLesen\": 3.2, \"semasaDiperiksa\": 3.1}, \"kedalamanMeter\": {\"dalamLesen\": 1.8, \"semasaDiperiksa\": 1.7}, \"muatanGRT\": {\"dalamLesen\": 15.0, \"semasaDiperiksa\": 14.8}, \"image\": {\"veselKiriImg\": \"\", \"veselKananImg\": \"\", \"veselHadapanImg\": \"\", \"veselBelakangImg\": \"\", \"veselKeseluruhanImg\": \"\"}}",
                   "type": "text"
+                },
+                {
+                  "key": "veselKiriImg",
+                  "type": "file",
+                  "src": ["vessel_left.jpg"]
+                },
+                {
+                  "key": "veselKananImg",
+                  "type": "file",
+                  "src": ["vessel_right.jpg"]
+                },
+                {
+                  "key": "veselHadapanImg",
+                  "type": "file",
+                  "src": ["vessel_front.jpg"]
+                },
+                {
+                  "key": "veselBelakangImg",
+                  "type": "file",
+                  "src": ["vessel_back.jpg"]
+                },
+                {
+                  "key": "veselKeseluruhanImg",
+                  "type": "file",
+                  "src": ["vessel_full.jpg"]
                 },
                 {
                   "key": "enjin",
-                  "value": "{\"maklumatEnjin\": {\"jenama\": \"Yamaha\", \"model\": \"F150\", \"turbo\": \"Yes\", \"kuasaKuda\": 150, \"noEnjin\": \"ENG123\", \"penandaVesel\": \"PV001\"}, \"image\": {\"enjinImg\": \"engine.jpg\", \"noEnjinImg\": \"engine_no.jpg\", \"penandaEnjinImg\": \"marker.jpg\", \"turboImg\": \"turbo.jpg\", \"generatorImg\": \"generator.jpg\"}}",
+                  "value": "{\"maklumatEnjin\": {\"jenama\": \"Yamaha\", \"model\": \"F150\", \"turbo\": \"Yes\", \"kuasaKuda\": 150, \"noEnjin\": \"ENG123\", \"penandaVesel\": \"PV001\"}, \"image\": {\"enjinImg\": \"\", \"noEnjinImg\": \"\", \"penandaEnjinImg\": \"\", \"turboImg\": \"\", \"generatorImg\": \"\"}}",
                   "type": "text"
                 },
                 {
+                  "key": "enjinImg",
+                  "type": "file",
+                  "src": ["engine.jpg"]
+                },
+                {
+                  "key": "noEnjinImg",
+                  "type": "file",
+                  "src": ["engine_number.jpg"]
+                },
+                {
+                  "key": "penandaEnjinImg",
+                  "type": "file",
+                  "src": ["engine_marker.jpg"]
+                },
+                {
+                  "key": "turboImg",
+                  "type": "file",
+                  "src": ["turbo.jpg"]
+                },
+                {
+                  "key": "generatorImg",
+                  "type": "file",
+                  "src": ["generator.jpg"]
+                },
+                {
                   "key": "peralatanKeselamatan",
-                  "value": "{\"jaketKeselamatan\": {\"status\": \"Ada\", \"kuantiti\": \"5\", \"keadaan\": \"Baik\"}, \"boyaKeselamatan\": {\"status\": \"Ada\", \"kuantiti\": \"2\", \"keadaan\": \"Baik\"}, \"alatPemadamApi\": {\"status\": \"Ada\", \"kuantiti\": \"1\", \"keadaan\": \"Baik\"}, \"rakitKeselamatan\": {\"status\": \"Ada\", \"kuantiti\": \"1\", \"keadaan\": \"Baik\"}, \"radioWireless\": {\"status\": \"Ada\", \"kuantiti\": \"1\", \"keadaan\": \"Baik\"}, \"image\": {\"MTUImg\": \"mtu.jpg\", \"AISImg\": \"ais.jpg\"}}",
+                  "value": "{\"jaketKeselamatan\": {\"status\": \"Ada\", \"kuantiti\": \"5\", \"keadaan\": \"Baik\"}, \"boyaKeselamatan\": {\"status\": \"Ada\", \"kuantiti\": \"2\", \"keadaan\": \"Baik\"}, \"alatPemadamApi\": {\"status\": \"Ada\", \"kuantiti\": \"1\", \"keadaan\": \"Baik\"}, \"rakitKeselamatan\": {\"status\": \"Ada\", \"kuantiti\": \"1\", \"keadaan\": \"Baik\"}, \"radioWireless\": {\"status\": \"Ada\", \"kuantiti\": \"1\", \"keadaan\": \"Baik\"}, \"image\": {\"MTUImg\": \"\", \"AISImg\": \"\"}}",
                   "type": "text"
+                },
+                {
+                  "key": "MTUImg",
+                  "type": "file",
+                  "src": ["mtu.jpg"]
+                },
+                {
+                  "key": "AISImg",
+                  "type": "file",
+                  "src": ["ais.jpg"]
                 },
                 {
                   "key": "kelengkapanMenangkapIkan",
@@ -159,13 +219,28 @@
                 },
                 {
                   "key": "perakuanPegawai",
-                  "value": "{\"diSokong\": true, \"tarikhPemeriksaan\": \"2023-10-01\", \"image\": {\"tandaTanganPembantuImg\": \"assistant_sig.jpg\", \"tandatanganPegawaiImg\": \"officer_sig.jpg\"}}",
+                  "value": "{\"diSokong\": true, \"tarikhPemeriksaan\": \"2023-10-01\", \"image\": {\"tandaTanganPembantuImg\": \"\", \"tandatanganPegawaiImg\": \"\"}}",
                   "type": "text"
                 },
                 {
+                  "key": "tandaTanganPembantuImg",
+                  "type": "file",
+                  "src": ["assistant_signature.jpg"]
+                },
+                {
+                  "key": "tandatanganPegawaiImg",
+                  "type": "file",
+                  "src": ["officer_signature.jpg"]
+                },
+                {
                   "key": "perakuanEmpunyaVesel",
-                  "value": "{\"jenisPermohonan\": \"Renewal\", \"tarikhPemeriksaan\": \"2023-10-01\", \"image\": {\"tandaTanganEmpunyaVeselImg\": \"owner_sig.jpg\"}}",
+                  "value": "{\"jenisPermohonan\": \"Renewal\", \"tarikhPemeriksaan\": \"2023-10-01\", \"image\": {\"tandaTanganEmpunyaVeselImg\": \"\"}}",
                   "type": "text"
+                },
+                {
+                  "key": "tandaTanganEmpunyaVeselImg",
+                  "type": "file",
+                  "src": ["owner_signature.jpg"]
                 }
               ]
             },
