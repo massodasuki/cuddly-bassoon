@@ -11,7 +11,7 @@ export class DaratApplicationTempEntity {
   @Column({ nullable: true })
   user_id: string;
 
-  @Column({ nullable: true })
+  @Column('json', { nullable: true })
   form_data: any;
 
   @Column({ nullable: false })

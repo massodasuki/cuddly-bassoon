@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('role_module')
 export class RoleModuleEntity {
-  @Column({ nullable: false })
+  @PrimaryColumn({ nullable: false })
   role_id: string;
 
-  @Column({ nullable: false })
+  @PrimaryColumn({ nullable: false })
   module_id: string;
 
 }

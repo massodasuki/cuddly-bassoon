@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm';
 
 @Entity('fish_landing_nds')
 export class FishLandingNdEntity {
-  @Column({ nullable: false })
+  @PrimaryColumn()
   fish_landing_id: string;
 
   @Column({ nullable: false })

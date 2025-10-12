@@ -41,7 +41,7 @@ export class ShellsQuotaEntity {
   @Column({ nullable: true })
   license_confirmation: number;
 
-  @Column({ nullable: true })
+  @Column('json', { nullable: true })
   location: any;
 
   @Column({ nullable: true })
