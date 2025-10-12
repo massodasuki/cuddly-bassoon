@@ -1,3 +1,4 @@
+
 {
   "info": {
     "name": "eLesen API - All APIs",
@@ -165,27 +166,92 @@
       ]
     },
     {
-      "name": "Darat Vessels",
+      "name": "Code Masters",
       "item": [
         {
-          "name": "Get All Darat Vessels",
+          "name": "Create Code Master",
           "request": {
-            "method": "GET",
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\": \"SAMPLE\", \"description\": \"Sample Code\", \"category\": \"general\"}"
+            },
             "url": {
-              "raw": "{{base_url}}/darat-vessels",
+              "raw": "{{base_url}}/code-masters",
               "host": ["{{base_url}}"],
-              "path": ["darat-vessels"]
+              "path": ["code-masters"]
             }
           }
         },
         {
-          "name": "Get Darat Vessel by ID",
+          "name": "Get All Code Masters",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/darat-vessels/:id",
+              "raw": "{{base_url}}/code-masters",
               "host": ["{{base_url}}"],
-              "path": ["darat-vessels", ":id"],
+              "path": ["code-masters"]
+            }
+          }
+        },
+        {
+          "name": "Get Code Master by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/code-masters/:id",
+              "host": ["{{base_url}}"],
+              "path": ["code-masters", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Code Master",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"description\": \"Updated Description\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/code-masters/:id",
+              "host": ["{{base_url}}"],
+              "path": ["code-masters", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Code Master",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/code-masters/:id",
+              "host": ["{{base_url}}"],
+              "path": ["code-masters", ":id"],
               "variable": [
                 {
                   "key": "id",
@@ -198,27 +264,190 @@
       ]
     },
     {
-      "name": "Darat User Equipments",
+      "name": "Catching Location Nds",
       "item": [
         {
-          "name": "Get All Darat User Equipments",
+          "name": "Create Catching Location Nd",
           "request": {
-            "method": "GET",
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"location_name\": \"Sample Location\", \"latitude\": 3.1390, \"longitude\": 101.6869}"
+            },
             "url": {
-              "raw": "{{base_url}}/darat-user-equipments",
+              "raw": "{{base_url}}/catching-location-nds",
               "host": ["{{base_url}}"],
-              "path": ["darat-user-equipments"]
+              "path": ["catching-location-nds"]
             }
           }
         },
         {
-          "name": "Get Darat User Equipment by ID",
+          "name": "Get All Catching Location Nds",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/darat-user-equipments/:id",
+              "raw": "{{base_url}}/catching-location-nds",
               "host": ["{{base_url}}"],
-              "path": ["darat-user-equipments", ":id"],
+              "path": ["catching-location-nds"]
+            }
+          }
+        },
+        {
+          "name": "Get Catching Location Nd by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/catching-location-nds/:catching_location_id",
+              "host": ["{{base_url}}"],
+              "path": ["catching-location-nds", ":catching_location_id"],
+              "variable": [
+                {
+                  "key": "catching_location_id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Catching Location Nd",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"location_name\": \"Updated Location\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/catching-location-nds/:catching_location_id",
+              "host": ["{{base_url}}"],
+              "path": ["catching-location-nds", ":catching_location_id"],
+              "variable": [
+                {
+                  "key": "catching_location_id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Catching Location Nd",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/catching-location-nds/:catching_location_id",
+              "host": ["{{base_url}}"],
+              "path": ["catching-location-nds", ":catching_location_id"],
+              "variable": [
+                {
+                  "key": "catching_location_id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CM Equipment",
+      "item": [
+        {
+          "name": "Create CM Equipment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\": \"Sample Equipment\", \"type\": \"fishing_gear\", \"quantity\": 10}"
+            },
+            "url": {
+              "raw": "{{base_url}}/cm-equipment",
+              "host": ["{{base_url}}"],
+              "path": ["cm-equipment"]
+            }
+          }
+        },
+        {
+          "name": "Get All CM Equipment",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/cm-equipment",
+              "host": ["{{base_url}}"],
+              "path": ["cm-equipment"]
+            }
+          }
+        },
+        {
+          "name": "Get CM Equipment by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/cm-equipment/:id",
+              "host": ["{{base_url}}"],
+              "path": ["cm-equipment", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update CM Equipment",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"quantity\": 15}"
+            },
+            "url": {
+              "raw": "{{base_url}}/cm-equipment/:id",
+              "host": ["{{base_url}}"],
+              "path": ["cm-equipment", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete CM Equipment",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/cm-equipment/:id",
+              "host": ["{{base_url}}"],
+              "path": ["cm-equipment", ":id"],
               "variable": [
                 {
                   "key": "id",
@@ -231,27 +460,92 @@
       ]
     },
     {
-      "name": "Darat User Fisherman Infos",
+      "name": "CFG Licenses",
       "item": [
         {
-          "name": "Get All Darat User Fisherman Infos",
+          "name": "Create CFG License",
           "request": {
-            "method": "GET",
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"license_number\": \"CFG123456\", \"vessel_id\": \"sample-vessel\", \"issue_date\": \"2023-01-01\"}"
+            },
             "url": {
-              "raw": "{{base_url}}/darat-user-fisherman-infos",
+              "raw": "{{base_url}}/cfg-licenses",
               "host": ["{{base_url}}"],
-              "path": ["darat-user-fisherman-infos"]
+              "path": ["cfg-licenses"]
             }
           }
         },
         {
-          "name": "Get Darat User Fisherman Info by ID",
+          "name": "Get All CFG Licenses",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/darat-user-fisherman-infos/:id",
+              "raw": "{{base_url}}/cfg-licenses",
               "host": ["{{base_url}}"],
-              "path": ["darat-user-fisherman-infos", ":id"],
+              "path": ["cfg-licenses"]
+            }
+          }
+        },
+        {
+          "name": "Get CFG License by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/cfg-licenses/:id",
+              "host": ["{{base_url}}"],
+              "path": ["cfg-licenses", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update CFG License",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"expiry_date\": \"2024-12-31\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/cfg-licenses/:id",
+              "host": ["{{base_url}}"],
+              "path": ["cfg-licenses", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete CFG License",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/cfg-licenses/:id",
+              "host": ["{{base_url}}"],
+              "path": ["cfg-licenses", ":id"],
               "variable": [
                 {
                   "key": "id",
@@ -264,27 +558,92 @@
       ]
     },
     {
-      "name": "Darat Vessel Engines",
+      "name": "Audits",
       "item": [
         {
-          "name": "Get All Darat Vessel Engines",
+          "name": "Create Audit",
           "request": {
-            "method": "GET",
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\": \"CREATE\", \"entity\": \"user\", \"entity_id\": \"123\", \"user_id\": \"admin\"}"
+            },
             "url": {
-              "raw": "{{base_url}}/darat-vessel-engines",
+              "raw": "{{base_url}}/audits",
               "host": ["{{base_url}}"],
-              "path": ["darat-vessel-engines"]
+              "path": ["audits"]
             }
           }
         },
         {
-          "name": "Get Darat Vessel Engine by ID",
+          "name": "Get All Audits",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/darat-vessel-engines/:id",
+              "raw": "{{base_url}}/audits",
               "host": ["{{base_url}}"],
-              "path": ["darat-vessel-engines", ":id"],
+              "path": ["audits"]
+            }
+          }
+        },
+        {
+          "name": "Get Audit by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/audits/:id",
+              "host": ["{{base_url}}"],
+              "path": ["audits", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Audit",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"notes\": \"Updated audit entry\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/audits/:id",
+              "host": ["{{base_url}}"],
+              "path": ["audits", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Audit",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/audits/:id",
+              "host": ["{{base_url}}"],
+              "path": ["audits", ":id"],
               "variable": [
                 {
                   "key": "id",
@@ -297,27 +656,1421 @@
       ]
     },
     {
-      "name": "Darat Vessel Hulls",
+      "name": "Audit Logs",
       "item": [
         {
-          "name": "Get All Darat Vessel Hulls",
+          "name": "Create Audit Log",
           "request": {
-            "method": "GET",
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\": \"LOGIN\", \"user_id\": \"123\", \"ip_address\": \"192.168.1.1\"}"
+            },
             "url": {
-              "raw": "{{base_url}}/darat-vessel-hulls",
+              "raw": "{{base_url}}/audit-logs",
               "host": ["{{base_url}}"],
-              "path": ["darat-vessel-hulls"]
+              "path": ["audit-logs"]
             }
           }
         },
         {
-          "name": "Get Darat Vessel Hull by ID",
+          "name": "Get All Audit Logs",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/darat-vessel-hulls/:id",
+              "raw": "{{base_url}}/audit-logs",
               "host": ["{{base_url}}"],
-              "path": ["darat-vessel-hulls", ":id"],
+              "path": ["audit-logs"]
+            }
+          }
+        },
+        {
+          "name": "Get Audit Log by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/audit-logs/:id",
+              "host": ["{{base_url}}"],
+              "path": ["audit-logs", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Audit Log",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"details\": \"Updated log details\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/audit-logs/:id",
+              "host": ["{{base_url}}"],
+              "path": ["audit-logs", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Audit Log",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/audit-logs/:id",
+              "host": ["{{base_url}}"],
+              "path": ["audit-logs", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attachments",
+      "item": [
+        {
+          "name": "Create Attachment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"file_name\": \"document.pdf\", \"file_path\": \"/uploads/docs/\", \"entity_type\": \"application\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/attachments",
+              "host": ["{{base_url}}"],
+              "path": ["attachments"]
+            }
+          }
+        },
+        {
+          "name": "Get All Attachments",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attachments",
+              "host": ["{{base_url}}"],
+              "path": ["attachments"]
+            }
+          }
+        },
+        {
+          "name": "Get Attachment by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attachments/:id",
+              "host": ["{{base_url}}"],
+              "path": ["attachments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Attachment",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"file_name\": \"updated_document.pdf\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/attachments/:id",
+              "host": ["{{base_url}}"],
+              "path": ["attachments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Attachment",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/attachments/:id",
+              "host": ["{{base_url}}"],
+              "path": ["attachments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Approvals",
+      "item": [
+        {
+          "name": "Create Approval",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"application_id\": \"123\", \"approver_id\": \"456\", \"status\": \"pending\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/approvals",
+              "host": ["{{base_url}}"],
+              "path": ["approvals"]
+            }
+          }
+        },
+        {
+          "name": "Get All Approvals",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/approvals",
+              "host": ["{{base_url}}"],
+              "path": ["approvals"]
+            }
+          }
+        },
+        {
+          "name": "Get Approval by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/approvals/:id",
+              "host": ["{{base_url}}"],
+              "path": ["approvals", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Approval",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"status\": \"approved\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/approvals/:id",
+              "host": ["{{base_url}}"],
+              "path": ["approvals", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Approval",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/approvals/:id",
+              "host": ["{{base_url}}"],
+              "path": ["approvals", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appointments",
+      "item": [
+        {
+          "name": "Create Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\": \"Meeting\", \"date\": \"2023-10-01\", \"time\": \"10:00\", \"location\": \"Office\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/appointments",
+              "host": ["{{base_url}}"],
+              "path": ["appointments"]
+            }
+          }
+        },
+        {
+          "name": "Get All Appointments",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/appointments",
+              "host": ["{{base_url}}"],
+              "path": ["appointments"]
+            }
+          }
+        },
+        {
+          "name": "Get Appointment by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/appointments/:id",
+              "host": ["{{base_url}}"],
+              "path": ["appointments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Appointment",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"time\": \"11:00\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/appointments/:id",
+              "host": ["{{base_url}}"],
+              "path": ["appointments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Appointment",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/appointments/:id",
+              "host": ["{{base_url}}"],
+              "path": ["appointments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appointment Approves",
+      "item": [
+        {
+          "name": "Create Appointment Approve",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"appointment_id\": \"123\", \"approved_by\": \"456\", \"status\": \"approved\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/appointment-approves",
+              "host": ["{{base_url}}"],
+              "path": ["appointment-approves"]
+            }
+          }
+        },
+        {
+          "name": "Get All Appointment Approves",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/appointment-approves",
+              "host": ["{{base_url}}"],
+              "path": ["appointment-approves"]
+            }
+          }
+        },
+        {
+          "name": "Get Appointment Approve by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/appointment-approves/:id",
+              "host": ["{{base_url}}"],
+              "path": ["appointment-approves", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Appointment Approve",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"comments\": \"Approved with conditions\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/appointment-approves/:id",
+              "host": ["{{base_url}}"],
+              "path": ["appointment-approves", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Appointment Approve",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/appointment-approves/:id",
+              "host": ["{{base_url}}"],
+              "path": ["appointment-approves", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Applications",
+      "item": [
+        {
+          "name": "Create Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"applicant_name\": \"John Doe\", \"application_type\": \"license\", \"status\": \"pending\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/applications",
+              "host": ["{{base_url}}"],
+              "path": ["applications"]
+            }
+          }
+        },
+        {
+          "name": "Get All Applications",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/applications",
+              "host": ["{{base_url}}"],
+              "path": ["applications"]
+            }
+          }
+        },
+        {
+          "name": "Get Application by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/applications/:id",
+              "host": ["{{base_url}}"],
+              "path": ["applications", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Application",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"status\": \"approved\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/applications/:id",
+              "host": ["{{base_url}}"],
+              "path": ["applications", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Application",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/applications/:id",
+              "host": ["{{base_url}}"],
+              "path": ["applications", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Applications V2",
+      "item": [
+        {
+          "name": "Create Application V2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"applicant_name\": \"Jane Doe\", \"application_type\": \"renewal\", \"status\": \"draft\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/applications-v2",
+              "host": ["{{base_url}}"],
+              "path": ["applications-v2"]
+            }
+          }
+        },
+        {
+          "name": "Get All Applications V2",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/applications-v2",
+              "host": ["{{base_url}}"],
+              "path": ["applications-v2"]
+            }
+          }
+        },
+        {
+          "name": "Get Application V2 by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/applications-v2/:id",
+              "host": ["{{base_url}}"],
+              "path": ["applications-v2", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Application V2",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"status\": \"submitted\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/applications-v2/:id",
+              "host": ["{{base_url}}"],
+              "path": ["applications-v2", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Application V2",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/applications-v2/:id",
+              "host": ["{{base_url}}"],
+              "path": ["applications-v2", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Application V2 Profile User",
+      "item": [
+        {
+          "name": "Create Application V2 Profile User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"application_id\": \"123\", \"profile_user_id\": \"456\", \"role\": \"owner\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/application-v2-profile-user",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-profile-user"]
+            }
+          }
+        },
+        {
+          "name": "Get All Application V2 Profile Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/application-v2-profile-user",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-profile-user"]
+            }
+          }
+        },
+        {
+          "name": "Get Application V2 Profile User by IDs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/application-v2-profile-user/:application_id/:profile_user_id",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-profile-user", ":application_id", ":profile_user_id"],
+              "variable": [
+                {
+                  "key": "application_id",
+                  "value": ""
+                },
+                {
+                  "key": "profile_user_id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Application V2 Profile User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"role\": \"co-owner\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/application-v2-profile-user/:application_id/:profile_user_id",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-profile-user", ":application_id", ":profile_user_id"],
+              "variable": [
+                {
+                  "key": "application_id",
+                  "value": ""
+                },
+                {
+                  "key": "profile_user_id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Application V2 Profile User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/application-v2-profile-user/:application_id/:profile_user_id",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-profile-user", ":application_id", ":profile_user_id"],
+              "variable": [
+                {
+                  "key": "application_id",
+                  "value": ""
+                },
+                {
+                  "key": "profile_user_id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Application V2 Vessel",
+      "item": [
+        {
+          "name": "Create Application V2 Vessel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"application_id\": \"123\", \"vessel_id\": \"789\", \"vessel_type\": \"fishing_boat\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/application-v2-vessel",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-vessel"]
+            }
+          }
+        },
+        {
+          "name": "Get All Application V2 Vessels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/application-v2-vessel",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-vessel"]
+            }
+          }
+        },
+        {
+          "name": "Get Application V2 Vessel by IDs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/application-v2-vessel/:application_id/:vessel_id",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-vessel", ":application_id", ":vessel_id"],
+              "variable": [
+                {
+                  "key": "application_id",
+                  "value": ""
+                },
+                {
+                  "key": "vessel_id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Application V2 Vessel",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"vessel_type\": \"cargo_ship\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/application-v2-vessel/:application_id/:vessel_id",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-vessel", ":application_id", ":vessel_id"],
+              "variable": [
+                {
+                  "key": "application_id",
+                  "value": ""
+                },
+                {
+                  "key": "vessel_id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Application V2 Vessel",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/application-v2-vessel/:application_id/:vessel_id",
+              "host": ["{{base_url}}"],
+              "path": ["application-v2-vessel", ":application_id", ":vessel_id"],
+              "variable": [
+                {
+                  "key": "application_id",
+                  "value": ""
+                },
+                {
+                  "key": "vessel_id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Application ESH ND",
+      "item": [
+        {
+          "name": "Create Application ESH ND",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"application_type\": \"ESH\", \"status\": \"pending\", \"applicant_id\": \"123\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd"]
+            }
+          }
+        },
+        {
+          "name": "Get All Application ESH ND",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd"]
+            }
+          }
+        },
+        {
+          "name": "Get Application ESH ND by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd/:id",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Application ESH ND",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"status\": \"approved\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd/:id",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Application ESH ND",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd/:id",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Application ESH ND Dokumen",
+      "item": [
+        {
+          "name": "Create Application ESH ND Dokumen",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"application_id\": \"123\", \"document_type\": \"license\", \"file_path\": \"/uploads/docs/\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd-dokumen",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd-dokumen"]
+            }
+          }
+        },
+        {
+          "name": "Get All Application ESH ND Dokumen",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd-dokumen",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd-dokumen"]
+            }
+          }
+        },
+        {
+          "name": "Get Application ESH ND Dokumen by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd-dokumen/:id",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd-dokumen", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Application ESH ND Dokumen",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+            "body": {
+              "mode": "raw",
+              "raw": "{\"file_name\": \"updated_document.pdf\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd-dokumen/:id",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd-dokumen", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Application ESH ND Dokumen",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/application-esh-nd-dokumen/:id",
+              "host": ["{{base_url}}"],
+              "path": ["application-esh-nd-dokumen", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Announcements",
+      "item": [
+        {
+          "name": "Create Announcement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\": \"Important Notice\", \"content\": \"System maintenance scheduled\", \"priority\": \"high\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/announcements",
+              "host": ["{{base_url}}"],
+              "path": ["announcements"]
+            }
+          }
+        },
+        {
+          "name": "Get All Announcements",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/announcements",
+              "host": ["{{base_url}}"],
+              "path": ["announcements"]
+            }
+          }
+        },
+        {
+          "name": "Get Announcement by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/announcements/:id",
+              "host": ["{{base_url}}"],
+              "path": ["announcements", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Announcement",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"content\": \"Updated maintenance schedule\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/announcements/:id",
+              "host": ["{{base_url}}"],
+              "path": ["announcements", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Announcement",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/announcements/:id",
+              "host": ["{{base_url}}"],
+              "path": ["announcements", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AM Pangkalan",
+      "item": [
+        {
+          "name": "Create AM Pangkalan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\": \"Sample Base\", \"location\": \"Port Area\", \"capacity\": 50}"
+            },
+            "url": {
+              "raw": "{{base_url}}/am-pangkalan",
+              "host": ["{{base_url}}"],
+              "path": ["am-pangkalan"]
+            }
+          }
+        },
+        {
+          "name": "Get All AM Pangkalan",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/am-pangkalan",
+              "host": ["{{base_url}}"],
+              "path": ["am-pangkalan"]
+            }
+          }
+        },
+        {
+          "name": "Get AM Pangkalan by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/am-pangkalan/:id",
+              "host": ["{{base_url}}"],
+              "path": ["am-pangkalan", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update AM Pangkalan",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"capacity\": 60}"
+            },
+            "url": {
+              "raw": "{{base_url}}/am-pangkalan/:id",
+              "host": ["{{base_url}}"],
+              "path": ["am-pangkalan", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete AM Pangkalan",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/am-pangkalan/:id",
+              "host": ["{{base_url}}"],
+              "path": ["am-pangkalan", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AM Vessel",
+      "item": [
+        {
+          "name": "Create AM Vessel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"vessel_name\": \"Sample Vessel\", \"type\": \"fishing_boat\", \"capacity\": 100}"
+            },
+            "url": {
+              "raw": "{{base_url}}/am-vessel",
+              "host": ["{{base_url}}"],
+              "path": ["am-vessel"]
+            }
+          }
+        },
+        {
+          "name": "Get All AM Vessels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/am-vessel",
+              "host": ["{{base_url}}"],
+              "path": ["am-vessel"]
+            }
+          }
+        },
+        {
+          "name": "Get AM Vessel by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/am-vessel/:id",
+              "host": ["{{base_url}}"],
+              "path": ["am-vessel", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update AM Vessel",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"capacity\": 120}"
+            },
+            "url": {
+              "raw": "{{base_url}}/am-vessel/:id",
+              "host": ["{{base_url}}"],
+              "path": ["am-vessel", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete AM Vessel",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/am-vessel/:id",
+              "host": ["{{base_url}}"],
+              "path": ["am-vessel", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vessels",
+      "item": [
+        {
+          "name": "Get All Vessels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/vessels",
+              "host": ["{{base_url}}"],
+              "path": ["vessels"]
+            }
+          }
+        },
+        {
+          "name": "Get Vessel by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/vessels/:id",
+              "host": ["{{base_url}}"],
+              "path": ["vessels", ":id"],
               "variable": [
                 {
                   "key": "id",
@@ -337,3 +2090,4 @@
     }
   ]
 }
+              }
