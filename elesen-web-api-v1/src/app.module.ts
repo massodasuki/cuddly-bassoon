@@ -18,6 +18,12 @@ import { AppointmentApprovesModule } from './appointment-approves/appointment-ap
 import { AppointmentsModule } from './appointments/appointments.module';
 import { ApprovalsModule } from './approvals/approvals.module';
 import { AttachmentsModule } from './attachments/attachments.module';
+import { AuditLogsModule } from './audit-logs/audit-logs.module';
+import { AuditsModule } from './audits/audits.module';
+import { CatchingLocationNdsModule } from './catching-location-nds/catching-location-nds.module';
+import { CfgLicensesModule } from './cfg-licenses/cfg-licenses.module';
+import { CmEquipmentModule } from './cm-equipment/cm-equipment.module';
+import { CodeMastersModule } from './code-masters/code-masters.module';
 
 @Module({
   imports: [
@@ -50,6 +56,12 @@ import { AttachmentsModule } from './attachments/attachments.module';
     AppointmentsModule,
     ApprovalsModule,
     AttachmentsModule,
+    AuditLogsModule,
+    AuditsModule,
+    CatchingLocationNdsModule,
+    CfgLicensesModule,
+    CmEquipmentModule,
+    CodeMastersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
