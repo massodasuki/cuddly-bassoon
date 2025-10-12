@@ -1,0 +1,339 @@
+{
+  "info": {
+    "name": "eLesen API - All APIs",
+    "description": "Complete API documentation for Jabatan Perikanan vessel system - All endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "kilo-code"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\": \"admin\", \"password\": \"password123\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/applications/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "applications", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/applications/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "applications", "auth", "logout"]
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/applications/auth/refresh",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "applications", "auth", "refresh"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\": \"John Doe\", \"username\": \"johndoe\", \"email\": \"john@example.com\", \"password\": \"password123\", \"user_type\": \"user\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\": \"Jane Doe\", \"email\": \"jane@example.com\"}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Darat Vessels",
+      "item": [
+        {
+          "name": "Get All Darat Vessels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-vessels",
+              "host": ["{{base_url}}"],
+              "path": ["darat-vessels"]
+            }
+          }
+        },
+        {
+          "name": "Get Darat Vessel by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-vessels/:id",
+              "host": ["{{base_url}}"],
+              "path": ["darat-vessels", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Darat User Equipments",
+      "item": [
+        {
+          "name": "Get All Darat User Equipments",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-user-equipments",
+              "host": ["{{base_url}}"],
+              "path": ["darat-user-equipments"]
+            }
+          }
+        },
+        {
+          "name": "Get Darat User Equipment by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-user-equipments/:id",
+              "host": ["{{base_url}}"],
+              "path": ["darat-user-equipments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Darat User Fisherman Infos",
+      "item": [
+        {
+          "name": "Get All Darat User Fisherman Infos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-user-fisherman-infos",
+              "host": ["{{base_url}}"],
+              "path": ["darat-user-fisherman-infos"]
+            }
+          }
+        },
+        {
+          "name": "Get Darat User Fisherman Info by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-user-fisherman-infos/:id",
+              "host": ["{{base_url}}"],
+              "path": ["darat-user-fisherman-infos", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Darat Vessel Engines",
+      "item": [
+        {
+          "name": "Get All Darat Vessel Engines",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-vessel-engines",
+              "host": ["{{base_url}}"],
+              "path": ["darat-vessel-engines"]
+            }
+          }
+        },
+        {
+          "name": "Get Darat Vessel Engine by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-vessel-engines/:id",
+              "host": ["{{base_url}}"],
+              "path": ["darat-vessel-engines", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Darat Vessel Hulls",
+      "item": [
+        {
+          "name": "Get All Darat Vessel Hulls",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-vessel-hulls",
+              "host": ["{{base_url}}"],
+              "path": ["darat-vessel-hulls"]
+            }
+          }
+        },
+        {
+          "name": "Get Darat Vessel Hull by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/darat-vessel-hulls/:id",
+              "host": ["{{base_url}}"],
+              "path": ["darat-vessel-hulls", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
