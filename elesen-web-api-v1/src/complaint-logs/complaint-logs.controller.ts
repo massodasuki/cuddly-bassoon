@@ -12,7 +12,7 @@ export class ComplaintLogEntityController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<ComplaintLogEntity> {
+  findOne(@Param('id') id: string): Promise<ComplaintLogEntity | null> {
     return this.complaintLogsService.findOne(id);
   }
 }

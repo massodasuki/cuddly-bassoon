@@ -1,15 +1,15 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ApplicationService } from './applications.service';
-import { CreateApplicationEntityDto } from './dto/create-application.dto';
-import { UpdateApplicationEntityDto } from './dto/update-application.dto';
+import { CreateApplicationDto } from './dto/create-application.dto';
+import { UpdateApplicationDto } from './dto/update-application.dto';
 
 @Controller('applications')
 export class ApplicationEntityController {
   constructor(private readonly applicationsService: ApplicationService) {}
 
   @Post()
-  create(@Body() createApplicationEntityDto: CreateApplicationEntityDto) {
-    return this.applicationsService.create(createApplicationEntityDto);
+  create(@Body() createApplicationDto: CreateApplicationDto) {
+    return this.applicationsService.create(createApplicationDto);
   }
 
   @Get()
@@ -23,8 +23,8 @@ export class ApplicationEntityController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateApplicationEntityDto: UpdateApplicationEntityDto) {
-    return this.applicationsService.update(id, updateApplicationEntityDto);
+  update(@Param('id') id: string, @Body() updateApplicationDto: UpdateApplicationDto) {
+    return this.applicationsService.update(id, updateApplicationDto);
   }
 
   @Delete(':id')

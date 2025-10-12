@@ -14,7 +14,7 @@ export class VesselService {
     return this.vesselsRepository.find();
   }
 
-  findOne(id: string): Promise<VesselEntity> {
+  findOne(id: string): Promise<VesselEntity | null> {
     return this.vesselsRepository.findOneBy({ id });
   }
 }

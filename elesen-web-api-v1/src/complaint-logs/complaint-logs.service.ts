@@ -14,7 +14,7 @@ export class ComplaintLogService {
     return this.complaintLogsRepository.find();
   }
 
-  findOne(id: string): Promise<ComplaintLogEntity> {
+  findOne(id: string): Promise<ComplaintLogEntity | null> {
     return this.complaintLogsRepository.findOneBy({ id });
   }
 }
