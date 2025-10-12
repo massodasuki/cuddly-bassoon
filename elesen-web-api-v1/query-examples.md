@@ -221,6 +221,315 @@ ORDER BY m.order ASC;
 
 ## Vessel Management Queries
 
+### Get Complete Vessel Information with All Related Data
+```sql
+SELECT
+    v.id,
+    v.vessel_no,
+    v.no_pendaftaran,
+    v.grt,
+    v.kategori_vessel,
+    v.zon,
+    v.negeri,
+    v.daerah,
+    v.pangkalan,
+    v.bil_enjin,
+    v.license_start,
+    v.license_end,
+    v.is_active,
+    -- Owner information
+    u.name as owner_name,
+    u.username as owner_username,
+    u.email as owner_email,
+    u.contact_number as owner_contact,
+    -- Entity information
+    e.entity_name,
+    e.entity_level,
+    -- Hull information
+    kulit.panjang,
+    kulit.lebar,
+    kulit.dalam,
+    kulit.jenis_kulit,
+    kulit.tarikh_kulit_dilesenkan,
+    -- Engine information
+    enjin.jenama as engine_brand,
+    enjin.kuasa_kuda as engine_power,
+    enjin.model as engine_model,
+    enjin.no_enjin,
+    enjin.jenis_enjin,
+    enjin.status_enjin,
+    -- Ownership information
+    pemilikan.nama_pemilik,
+    pemilikan.jenis_pemilikan,
+    pemilikan.negeri as owner_state,
+    pemilikan.daerah as owner_district,
+    -- License information
+    lesen.no_lesen,
+    lesen.tarikh_keluar as license_issued,
+    lesen.tarikh_tamat as license_expiry,
+    lesen.kod_zon,
+    lesen.kawasan_perairan,
+    -- Compliance information
+    pematuhan.status_pematuhan,
+    pematuhan.tarikh_pemeriksaan_lpi,
+    -- International registration
+    pa.no_ircs,
+    pa.no_rfmo,
+    pa.no_imo,
+    pa.kawasan_penangkapan,
+    pa.spesis_sasaran,
+    -- Profile user associations
+    COUNT(DISTINCT pu.id) as associated_profile_users,
+    -- Application associations
+    COUNT(DISTINCT av2.id) as associated_applications,
+    -- Crew counts
+    COUNT(DISTINCT k.id) as local_crew_count,
+    COUNT(DISTINCT nm.id) as marine_crew_count,
+    COUNT(DISTINCT fc.id) as foreign_crew_count
+FROM vessels v
+LEFT JOIN users u ON v.user_id = u.id
+LEFT JOIN entities e ON v.entity_id = e.id
+LEFT JOIN kulit ON v.no_pendaftaran = kulit.no_pendaftaran
+LEFT JOIN enjin ON v.no_pendaftaran = enjin.no_pendaftaran
+LEFT JOIN pemilikan ON v.no_pendaftaran = pemilikan.no_pendaftaran
+LEFT JOIN lesen ON v.no_pendaftaran = lesen.no_pendaftaran
+LEFT JOIN pematuhan ON v.no_pendaftaran = pematuhan.no_pendaftaran
+LEFT JOIN pendaftaran_antarabangsa pa ON v.id = pa.vessel_id
+LEFT JOIN profile_user_vessel puv ON v.id = puv.vessel_id
+LEFT JOIN profile_users pu ON puv.profile_user_id = pu.id AND pu.is_active = 1
+LEFT JOIN application_v2_vessel av2v ON v.id = av2v.vessel_id
+LEFT JOIN applications_v2 av2 ON av2v.application_id = av2.id AND av2.deleted_at IS NULL
+LEFT JOIN kru k ON v.no_pendaftaran = k.no_pendaftaran
+LEFT JOIN nelayan_marins nm ON v.id = nm.vessel_id
+LEFT JOIN foreign_crews fc ON v.id = fc.vessel_id
+WHERE v.deleted_at IS NULL
+GROUP BY v.id, v.vessel_no, v.no_pendaftaran, v.grt, v.kategori_vessel, v.zon, v.negeri, v.daerah,
+         v.pangkalan, v.bil_enjin, v.license_start, v.license_end, v.is_active,
+         u.name, u.username, u.email, u.contact_number,
+         e.entity_name, e.entity_level,
+         kulit.panjang, kulit.lebar, kulit.dalam, kulit.jenis_kulit, kulit.tarikh_kulit_dilesenkan,
+         enjin.jenama, enjin.kuasa_kuda, enjin.model, enjin.no_enjin, enjin.jenis_enjin, enjin.status_enjin,
+         pemilikan.nama_pemilik, pemilikan.jenis_pemilikan, pemilikan.negeri, pemilikan.daerah,
+         lesen.no_lesen, lesen.tarikh_keluar, lesen.tarikh_tamat, lesen.kod_zon, lesen.kawasan_perairan,
+         pematuhan.status_pematuhan, pematuhan.tarikh_pemeriksaan_lpi,
+         pa.no_ircs, pa.no_rfmo, pa.no_imo, pa.kawasan_penangkapan, pa.spesis_sasaran
+ORDER BY v.vessel_no;
+```
+
+### Get Vessel with Profile User Associations
+```sql
+SELECT
+    v.vessel_no,
+    v.no_pendaftaran,
+    v.kategori_vessel,
+    v.grt,
+    pu.name as profile_user_name,
+    pu.icno as profile_user_ic,
+    pu.user_type,
+    pu.email as profile_user_email,
+    pu.no_phone as profile_user_phone,
+    puv.role as association_role,
+    puv.status as association_status,
+    puv.created_at as association_date,
+    -- SKL license info for profile user
+    pps.no_lesen_skl,
+    pps.jenis_sistem_kultur_laut,
+    pps.tarikh_tamat_lesen,
+    pps.keluasan,
+    -- Owner info
+    u.name as vessel_owner,
+    u.contact_number as owner_contact,
+    -- Entity info
+    e.entity_name
+FROM vessels v
+JOIN profile_user_vessel puv ON v.id = puv.vessel_id
+JOIN profile_users pu ON puv.profile_user_id = pu.id
+LEFT JOIN profile_pengusaha_skls pps ON pu.id = pps.profile_id
+LEFT JOIN users u ON v.user_id = u.id
+LEFT JOIN entities e ON v.entity_id = e.id
+WHERE v.is_active = 1
+  AND v.deleted_at IS NULL
+  AND pu.is_active = 1
+  AND pu.deleted_at IS NULL
+ORDER BY v.vessel_no, pu.name;
+```
+
+### Get Vessel with Application Associations
+```sql
+SELECT
+    v.vessel_no,
+    v.no_pendaftaran,
+    v.kategori_vessel,
+    av2.id as application_id,
+    av2.ref as application_ref,
+    av2.name as application_name,
+    av2.type as application_type,
+    av2.status as application_status,
+    av2.created_at as application_created,
+    u.name as application_created_by,
+    e.entity_name as application_entity,
+    av2v.created_at as vessel_association_date
+FROM vessels v
+JOIN application_v2_vessel av2v ON v.id = av2v.vessel_id
+JOIN applications_v2 av2 ON av2v.application_id = av2.id
+LEFT JOIN users u ON av2.created_by = u.id
+LEFT JOIN entities e ON av2.entity_id = e.id
+WHERE v.is_active = 1
+  AND v.deleted_at IS NULL
+  AND av2.deleted_at IS NULL
+ORDER BY v.vessel_no, av2.created_at DESC;
+```
+
+### Get Vessel with Equipment Information
+```sql
+SELECT
+    v.vessel_no,
+    v.no_pendaftaran,
+    ce.equipment_name,
+    ce.equipment_type,
+    ce.date_licensed,
+    ce.fisherman_type,
+    ce.amount,
+    ce.notes,
+    ce.is_active as equipment_active,
+    ce.created_at as equipment_added,
+    u.name as added_by,
+    e.entity_name
+FROM vessels v
+LEFT JOIN cm_equipment ce ON v.no_pendaftaran = ce.vessel_id
+LEFT JOIN users u ON ce.created_by = u.id
+LEFT JOIN entities e ON ce.entity_id = e.id
+WHERE v.is_active = 1
+  AND v.deleted_at IS NULL
+  AND (ce.is_active = 1 OR ce.id IS NULL)
+ORDER BY v.vessel_no, ce.equipment_name;
+```
+
+### Get Vessel with Violations and Offenses
+```sql
+SELECT
+    v.vessel_no,
+    v.no_pendaftaran,
+    k.akta,
+    k.seksyen,
+    k.kesalahan,
+    k.tarikh,
+    k.keputusan,
+    k.created_at as violation_recorded,
+    u.name as owner_name,
+    e.entity_name
+FROM vessels v
+LEFT JOIN kesalahan k ON v.no_pendaftaran = k.no_pendaftaran
+LEFT JOIN users u ON v.user_id = u.id
+LEFT JOIN entities e ON v.entity_id = e.id
+WHERE v.is_active = 1
+  AND v.deleted_at IS NULL
+ORDER BY v.vessel_no, k.tarikh DESC;
+```
+
+### Get Vessel with Landing Records
+```sql
+SELECT
+    v.vessel_no,
+    v.no_pendaftaran,
+    lp.pelayaran_no,
+    lp.bulan,
+    lp.jumlah_hari_di_laut,
+    lp.tarikh_masa_berlepas,
+    lp.tarikh_masa_tiba,
+    lp.purata_masa_memukat,
+    lp.dokumen_nama,
+    lp.dokumen_type,
+    lp.created_at as landing_recorded,
+    u.name as recorded_by
+FROM vessels v
+LEFT JOIN listing_pendaratan lp ON v.id = lp.vessel_id
+LEFT JOIN users u ON lp.created_at IS NOT NULL -- Need to check how user is linked
+WHERE v.is_active = 1
+  AND v.deleted_at IS NULL
+ORDER BY v.vessel_no, lp.tarikh_masa_tiba DESC;
+```
+
+### Get Vessel with Asset Management (Pentadbir Harta)
+```sql
+SELECT
+    v.vessel_no,
+    v.no_pendaftaran,
+    pph.name as pentadbir_name,
+    pph.icno as pentadbir_ic,
+    pph.phone as pentadbir_phone,
+    pph.email as pentadbir_email,
+    pph.status_pengguna,
+    pph.hubungan,
+    pph.surat_pelantikan_pentadbir,
+    pph.status as pentadbir_status,
+    pphv.created_at as association_date,
+    u.name as vessel_owner
+FROM vessels v
+JOIN profile_pentadbir_harta_vessel pphv ON v.id = pphv.vessel_id
+JOIN profile_pentadbir_hartas pph ON pphv.profile_pentadbir_harta_id = pph.id
+LEFT JOIN users u ON v.user_id = u.id
+WHERE v.is_active = 1
+  AND v.deleted_at IS NULL
+ORDER BY v.vessel_no, pph.name;
+```
+
+### Get Vessel Compliance and Status Summary
+```sql
+SELECT
+    v.vessel_no,
+    v.no_pendaftaran,
+    v.kategori_vessel,
+    -- License status
+    CASE
+        WHEN l.tarikh_tamat IS NULL THEN 'No License'
+        WHEN l.tarikh_tamat < CURDATE() THEN 'Expired'
+        WHEN l.tarikh_tamat <= DATE_ADD(CURDATE(), INTERVAL 30 DAY) THEN 'Expiring Soon'
+        ELSE 'Valid'
+    END as license_status,
+    l.tarikh_tamat as license_expiry,
+    -- Compliance status
+    p.status_pematuhan,
+    p.tarikh_pemeriksaan_lpi,
+    -- Equipment count
+    COUNT(DISTINCT ce.id) as equipment_count,
+    -- Crew count
+    COUNT(DISTINCT k.id) + COUNT(DISTINCT nm.id) + COUNT(DISTINCT fc.id) as total_crew,
+    -- Violation count
+    COUNT(DISTINCT kes.id) as violation_count,
+    -- Owner and entity
+    u.name as owner_name,
+    e.entity_name,
+    -- Last activity
+    GREATEST(
+        COALESCE(v.updated_at, v.created_at),
+        COALESCE(MAX(lp.created_at), '1970-01-01'),
+        COALESCE(MAX(ce.created_at), '1970-01-01')
+    ) as last_activity
+FROM vessels v
+LEFT JOIN users u ON v.user_id = u.id
+LEFT JOIN entities e ON v.entity_id = e.id
+LEFT JOIN lesen l ON v.no_pendaftaran = l.no_pendaftaran
+LEFT JOIN pematuhan p ON v.no_pendaftaran = p.no_pendaftaran
+LEFT JOIN cm_equipment ce ON v.no_pendaftaran = ce.vessel_id AND ce.is_active = 1
+LEFT JOIN kru k ON v.no_pendaftaran = k.no_pendaftaran
+LEFT JOIN nelayan_marins nm ON v.id = nm.vessel_id
+LEFT JOIN foreign_crews fc ON v.id = fc.vessel_id
+LEFT JOIN kesalahan kes ON v.no_pendaftaran = kes.no_pendaftaran
+LEFT JOIN listing_pendaratan lp ON v.id = lp.vessel_id
+WHERE v.deleted_at IS NULL
+GROUP BY v.id, v.vessel_no, v.no_pendaftaran, v.kategori_vessel,
+         l.tarikh_tamat, p.status_pematuhan, p.tarikh_pemeriksaan_lpi,
+         u.name, e.entity_name, v.updated_at, v.created_at
+ORDER BY
+    CASE
+        WHEN l.tarikh_tamat < CURDATE() THEN 1
+        WHEN l.tarikh_tamat <= DATE_ADD(CURDATE(), INTERVAL 30 DAY) THEN 2
+        ELSE 3
+    END,
+    v.vessel_no;
+```
+
 ### Get Complete Vessel Information
 ```sql
 SELECT
