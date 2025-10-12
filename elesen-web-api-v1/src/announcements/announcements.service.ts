@@ -1,36 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Announcement } from './announcement.entity';
-import { CreateAnnouncementDto } from './dto/create-announcement.dto';
-import { UpdateAnnouncementDto } from './dto/update-announcement.dto';
+import { AnnouncementEntity } from './announcement.entity';
+import { CreateAnnouncementEntityDto } from './dto/create-announcement.dto';
+import { UpdateAnnouncementEntityDto } from './dto/update-announcement.dto';
 
 @Injectable()
-export class AnnouncementsService {
+export class AnnouncementService {
   constructor(
-    @InjectRepository(Announcement)
-    private announcementsRepository: Repository<Announcement>,
+    @InjectRepository(AnnouncementEntity)
+    private announcementsRepository: Repository<AnnouncementEntity>,
   ) {}
 
-  findAll(): Promise<Announcement[]> {
+  findAll(): Promise<AnnouncementEntity[]> {
     return this.announcementsRepository.find();
   }
 
-  async findOne(id: string): Promise<Announcement> {
+  async findOne(id: string): Promise<AnnouncementEntity> {
     const announcement = await this.announcementsRepository.findOneBy({ id });
     if (!announcement) {
-      throw new Error('Announcement not found');
+      throw new Error('AnnouncementEntity not found');
     }
     return announcement;
   }
 
-  async create(createAnnouncementDto: CreateAnnouncementDto): Promise<Announcement> {
-    const announcement = this.announcementsRepository.create(createAnnouncementDto);
+  async create(createAnnouncementEntityDto: CreateAnnouncementEntityDto): Promise<AnnouncementEntity> {
+    const announcement = this.announcementsRepository.create(createAnnouncementEntityDto);
     return this.announcementsRepository.save(announcement);
   }
 
-  async update(id: string, updateAnnouncementDto: UpdateAnnouncementDto): Promise<Announcement> {
-    await this.announcementsRepository.update(id, updateAnnouncementDto);
+  async update(id: string, updateAnnouncementEntityDto: UpdateAnnouncementEntityDto): Promise<AnnouncementEntity> {
+    await this.announcementsRepository.update(id, updateAnnouncementEntityDto);
     return this.findOne(id);
   }
 

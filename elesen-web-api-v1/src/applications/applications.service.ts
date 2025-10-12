@@ -1,36 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Application } from './application.entity';
-import { CreateApplicationDto } from './dto/create-application.dto';
-import { UpdateApplicationDto } from './dto/update-application.dto';
+import { ApplicationEntity } from './application.entity';
+import { CreateApplicationEntityDto } from './dto/create-application.dto';
+import { UpdateApplicationEntityDto } from './dto/update-application.dto';
 
 @Injectable()
-export class ApplicationsService {
+export class ApplicationService {
   constructor(
-    @InjectRepository(Application)
-    private applicationsRepository: Repository<Application>,
+    @InjectRepository(ApplicationEntity)
+    private applicationsRepository: Repository<ApplicationEntity>,
   ) {}
 
-  findAll(): Promise<Application[]> {
+  findAll(): Promise<ApplicationEntity[]> {
     return this.applicationsRepository.find();
   }
 
-  async findOne(id: string): Promise<Application> {
+  async findOne(id: string): Promise<ApplicationEntity> {
     const application = await this.applicationsRepository.findOneBy({ id });
     if (!application) {
-      throw new Error('Application not found');
+      throw new Error('ApplicationEntity not found');
     }
     return application;
   }
 
-  async create(createApplicationDto: CreateApplicationDto): Promise<Application> {
-    const application = this.applicationsRepository.create(createApplicationDto);
+  async create(createApplicationEntityDto: CreateApplicationEntityDto): Promise<ApplicationEntity> {
+    const application = this.applicationsRepository.create(createApplicationEntityDto);
     return this.applicationsRepository.save(application);
   }
 
-  async update(id: string, updateApplicationDto: UpdateApplicationDto): Promise<Application> {
-    await this.applicationsRepository.update(id, updateApplicationDto);
+  async update(id: string, updateApplicationEntityDto: UpdateApplicationEntityDto): Promise<ApplicationEntity> {
+    await this.applicationsRepository.update(id, updateApplicationEntityDto);
     return this.findOne(id);
   }
 

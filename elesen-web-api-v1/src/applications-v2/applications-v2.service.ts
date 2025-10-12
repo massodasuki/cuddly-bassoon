@@ -6,7 +6,7 @@ import { CreateApplicationV2Dto } from './dto/create-application-v2.dto';
 import { UpdateApplicationV2Dto } from './dto/update-application-v2.dto';
 
 @Injectable()
-export class ApplicationsV2Service {
+export class ApplicationsV2Entityervice {
   constructor(
     @InjectRepository(ApplicationV2)
     private applicationsV2Repository: Repository<ApplicationV2>,

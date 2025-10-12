@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ApplicationsV2Service } from './applications-v2.service';
+import { ApplicationsV2Entityervice } from './applications-v2.service';
 import { CreateApplicationV2Dto } from './dto/create-application-v2.dto';
 import { UpdateApplicationV2Dto } from './dto/update-application-v2.dto';
 
 @Controller('applications-v2')
-export class ApplicationsV2Controller {
-  constructor(private readonly applicationsV2Service: ApplicationsV2Service) {}
+export class ApplicationsV2EntityController {
+  constructor(private readonly applicationsV2Service: ApplicationsV2Entityervice) {}
 
   @Post()
   create(@Body() createApplicationV2Dto: CreateApplicationV2Dto) {

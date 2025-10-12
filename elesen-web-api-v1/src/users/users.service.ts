@@ -1,36 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserEntity } from './user.entity';
+import { CreateUserEntityDto } from './dto/create-user.dto';
+import { UpdateUserEntityDto } from './dto/update-user.dto';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private usersRepository: Repository<UserEntity>,
   ) {}
 
-  findAll(): Promise<User[]> {
+  findAll(): Promise<UserEntity[]> {
     return this.usersRepository.find();
   }
 
-  async findOne(id: string): Promise<User> {
+  async findOne(id: string): Promise<UserEntity> {
     const user = await this.usersRepository.findOneBy({ id });
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('UserEntity not found');
     }
     return user;
   }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = this.usersRepository.create(createUserDto);
+  async create(createUserEntityDto: CreateUserEntityDto): Promise<UserEntity> {
+    const user = this.usersRepository.create(createUserEntityDto);
     return this.usersRepository.save(user);
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    await this.usersRepository.update(id, updateUserDto);
+  async update(id: string, updateUserEntityDto: UpdateUserEntityDto): Promise<UserEntity> {
+    await this.usersRepository.update(id, updateUserEntityDto);
     return this.findOne(id);
   }
 
