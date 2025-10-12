@@ -2,6 +2,182 @@
 
 This document provides practical SQL query examples demonstrating JOIN operations for common use cases in the eLesen fisheries management system. All queries are based on the analyzed database schema and relationships.
 
+## Profile User Management Queries
+
+### Get Profile User Details with Vessel Associations
+```sql
+SELECT
+    pu.id,
+    pu.user_id,
+    pu.name,
+    pu.icno,
+    pu.email,
+    pu.address1,
+    pu.address2,
+    pu.address3,
+    pu.poskod,
+    pu.district,
+    pu.state,
+    pu.user_type,
+    pu.no_phone,
+    pu.no_phone_office,
+    pu.age,
+    pu.gender,
+    pu.race,
+    pu.wedding_status,
+    pu.bumiputera_status,
+    pu.is_active,
+    pu.verified_at,
+    pu.verify_status,
+    -- Vessel associations
+    COUNT(DISTINCT puv.vessel_id) as associated_vessels,
+    GROUP_CONCAT(DISTINCT v.vessel_no SEPARATOR ', ') as vessel_numbers,
+    -- SKL license info
+    pps.no_lesen_skl,
+    pps.tarikh_tamat_lesen,
+    pps.keluasan,
+    -- Application associations
+    COUNT(DISTINCT avpu.application_id) as application_count
+FROM profile_users pu
+LEFT JOIN profile_user_vessel puv ON pu.id = puv.profile_user_id
+LEFT JOIN vessels v ON puv.vessel_id = v.id AND v.is_active = 1
+LEFT JOIN profile_pengusaha_skls pps ON pu.id = pps.profile_id
+LEFT JOIN application_v2_profile_user avpu ON pu.id = avpu.profile_user_id
+WHERE pu.is_active = 1
+  AND pu.deleted_at IS NULL
+GROUP BY pu.id, pu.user_id, pu.name, pu.icno, pu.email, pu.address1, pu.address2, pu.address3,
+         pu.poskod, pu.district, pu.state, pu.user_type, pu.no_phone, pu.no_phone_office,
+         pu.age, pu.gender, pu.race, pu.wedding_status, pu.bumiputera_status, pu.is_active,
+         pu.verified_at, pu.verify_status, pps.no_lesen_skl, pps.tarikh_tamat_lesen, pps.keluasan
+ORDER BY pu.created_at DESC;
+```
+
+### Get Profile Users with SKL License Details
+```sql
+SELECT
+    pu.name,
+    pu.icno,
+    pu.email,
+    pu.no_phone,
+    pps.no_lesen_skl,
+    pps.jenis_sistem_kultur_laut,
+    pps.jenis_ternakan,
+    pps.tarikh_tamat_lesen,
+    pps.keluasan,
+    pps.salinan_lesen_skl,
+    DATEDIFF(pps.tarikh_tamat_lesen, CURDATE()) as days_until_expiry,
+    CASE
+        WHEN DATEDIFF(pps.tarikh_tamat_lesen, CURDATE()) <= 30 THEN 'Critical'
+        WHEN DATEDIFF(pps.tarikh_tamat_lesen, CURDATE()) <= 90 THEN 'Warning'
+        ELSE 'Valid'
+    END as license_status,
+    u.name as created_by_name,
+    pps.created_at
+FROM profile_users pu
+JOIN profile_pengusaha_skls pps ON pu.id = pps.profile_id
+LEFT JOIN users u ON pps.created_by = u.id
+WHERE pu.is_active = 1
+  AND pu.deleted_at IS NULL
+  AND pps.tarikh_tamat_lesen IS NOT NULL
+ORDER BY pps.tarikh_tamat_lesen ASC;
+```
+
+### Get Profile Users with Application Associations
+```sql
+SELECT
+    pu.name as profile_user_name,
+    pu.icno,
+    pu.email,
+    av2.id as application_id,
+    av2.ref as application_ref,
+    av2.name as application_name,
+    av2.type as application_type,
+    av2.status as application_status,
+    av2.created_at as application_created,
+    u.name as application_created_by,
+    e.entity_name
+FROM profile_users pu
+JOIN application_v2_profile_user avpu ON pu.id = avpu.profile_user_id
+JOIN applications_v2 av2 ON avpu.application_id = av2.id
+LEFT JOIN users u ON av2.created_by = u.id
+LEFT JOIN entities e ON av2.entity_id = e.id
+WHERE pu.is_active = 1
+  AND pu.deleted_at IS NULL
+  AND av2.deleted_at IS NULL
+ORDER BY av2.created_at DESC, pu.name;
+```
+
+### Get Profile Users with Vessel Management Details
+```sql
+SELECT
+    pu.name as profile_user_name,
+    pu.icno,
+    pu.user_type,
+    v.vessel_no,
+    v.no_pendaftaran,
+    v.kategori_vessel,
+    v.grt,
+    puv.role as association_role,
+    puv.status as association_status,
+    puv.created_at as association_date,
+    -- Vessel owner info
+    u.name as vessel_owner_name,
+    u.contact_number as vessel_owner_contact,
+    -- Entity info
+    e.entity_name,
+    -- License info
+    l.no_lesen,
+    l.tarikh_tamat as license_expiry
+FROM profile_users pu
+JOIN profile_user_vessel puv ON pu.id = puv.profile_user_id
+JOIN vessels v ON puv.vessel_id = v.id
+LEFT JOIN users u ON v.user_id = u.id
+LEFT JOIN entities e ON v.entity_id = e.id
+LEFT JOIN lesen l ON v.no_pendaftaran = l.no_pendaftaran
+WHERE pu.is_active = 1
+  AND pu.deleted_at IS NULL
+  AND v.is_active = 1
+  AND v.deleted_at IS NULL
+ORDER BY pu.name, v.vessel_no;
+```
+
+### Get Profile User Activity Summary
+```sql
+SELECT
+    pu.name,
+    pu.icno,
+    pu.user_type,
+    pu.is_active,
+    pu.verify_status,
+    pu.verified_at,
+    -- Vessel associations
+    COUNT(DISTINCT puv.vessel_id) as vessel_count,
+    -- Application associations
+    COUNT(DISTINCT avpu.application_id) as application_count,
+    -- SKL licenses
+    COUNT(DISTINCT pps.id) as skl_license_count,
+    -- Recent activity
+    MAX(GREATEST(
+        COALESCE(pu.updated_at, pu.created_at),
+        COALESCE(puv.created_at, '1970-01-01'),
+        COALESCE(avpu.created_at, '1970-01-01'),
+        COALESCE(pps.created_at, '1970-01-01')
+    )) as last_activity,
+    -- Status summary
+    CASE
+        WHEN pu.verify_status = 1 THEN 'Verified'
+        WHEN pu.verify_status = 0 THEN 'Pending Verification'
+        ELSE 'Not Verified'
+    END as verification_status
+FROM profile_users pu
+LEFT JOIN profile_user_vessel puv ON pu.id = puv.profile_user_id
+LEFT JOIN application_v2_profile_user avpu ON pu.id = avpu.profile_user_id
+LEFT JOIN profile_pengusaha_skls pps ON pu.id = pps.profile_id
+WHERE pu.deleted_at IS NULL
+GROUP BY pu.id, pu.name, pu.icno, pu.user_type, pu.is_active, pu.verify_status, pu.verified_at
+ORDER BY last_activity DESC, pu.name;
+```
+
 ## User Management Queries
 
 ### Get User Details with Roles and Entity
