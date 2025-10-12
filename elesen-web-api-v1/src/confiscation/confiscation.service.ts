@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ConfiscationEntity } from './confiscation.entity';
@@ -14,7 +14,11 @@ export class ConfiscationEntityervice {
     return this.confiscationRepository.find();
   }
 
-  findOne(id: string): Promise<ConfiscationEntity> {
-    return this.confiscationRepository.findOneBy({ id });
+  async findOne(id: string): Promise<ConfiscationEntity> {
+    const confiscation = await this.confiscationRepository.findOneBy({ id });
+    if (!confiscation) {
+      throw new NotFoundException();
+    }
+    return confiscation;
   }
 }

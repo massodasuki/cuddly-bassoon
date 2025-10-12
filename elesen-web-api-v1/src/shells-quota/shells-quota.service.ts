@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ShellsQuotaEntity } from './shells-quota.entity';
@@ -14,7 +14,11 @@ export class ShellsQuotaEntityervice {
     return this.shellsQuotaRepository.find();
   }
 
-  findOne(id: string): Promise<ShellsQuotaEntity> {
-    return this.shellsQuotaRepository.findOneBy({ id });
+  async findOne(id: string): Promise<ShellsQuotaEntity> {
+    const entity = await this.shellsQuotaRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`ShellsQuotaEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DaratUserFishermanInfoEntity } from './darat-user-fisherman-infos.entity';
@@ -14,7 +14,11 @@ export class DaratUserFishermanInfoService {
     return this.daratUserFishermanInfosRepository.find();
   }
 
-  findOne(id: string): Promise<DaratUserFishermanInfoEntity> {
-    return this.daratUserFishermanInfosRepository.findOneBy({ id });
+  async findOne(id: string): Promise<DaratUserFishermanInfoEntity> {
+    const entity = await this.daratUserFishermanInfosRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException();
+    }
+    return entity;
   }
 }

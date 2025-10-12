@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MigrationEntity } from './migrations.entity';
@@ -14,7 +14,11 @@ export class MigrationService {
     return this.migrationsRepository.find();
   }
 
-  findOne(id: string): Promise<MigrationEntity> {
-    return this.migrationsRepository.findOneBy({ id });
+  async findOne(id: number): Promise<MigrationEntity> {
+    const entity = await this.migrationsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`Migration with id ${id} not found`);
+    }
+    return entity;
   }
 }

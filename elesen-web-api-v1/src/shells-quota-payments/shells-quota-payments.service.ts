@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ShellsQuotaPaymentEntity } from './shells-quota-payments.entity';
@@ -14,7 +14,11 @@ export class ShellsQuotaPaymentService {
     return this.shellsQuotaPaymentsRepository.find();
   }
 
-  findOne(id: string): Promise<ShellsQuotaPaymentEntity> {
-    return this.shellsQuotaPaymentsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<ShellsQuotaPaymentEntity> {
+    const entity = await this.shellsQuotaPaymentsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`ShellsQuotaPaymentEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('applications')
-export class Application {
+export class ApplicationEntity {
   @PrimaryColumn({ type: 'char', length: 36 })
   id: string;
 

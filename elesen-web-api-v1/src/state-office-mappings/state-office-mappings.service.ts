@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { StateOfficeMappingEntity } from './state-office-mappings.entity';
@@ -14,7 +14,11 @@ export class StateOfficeMappingService {
     return this.stateOfficeMappingsRepository.find();
   }
 
-  findOne(id: string): Promise<StateOfficeMappingEntity> {
-    return this.stateOfficeMappingsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<StateOfficeMappingEntity> {
+    const entity = await this.stateOfficeMappingsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`StateOfficeMappingEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

@@ -14,7 +14,11 @@ export class SubsistencePaymentStateService {
     return this.subsistencePaymentStatesRepository.find();
   }
 
-  findOne(id: string): Promise<SubsistencePaymentStateEntity> {
-    return this.subsistencePaymentStatesRepository.findOneBy({ id });
+  async findOne(id: string): Promise<SubsistencePaymentStateEntity> {
+    const subsistencePaymentState = await this.subsistencePaymentStatesRepository.findOneBy({ id });
+    if (!subsistencePaymentState) {
+      throw new Error('SubsistencePaymentState not found');
+    }
+    return subsistencePaymentState;
   }
 }

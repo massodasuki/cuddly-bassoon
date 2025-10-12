@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProfileCompanyAssetEntity } from './profile-company-assets.entity';
@@ -14,7 +14,11 @@ export class ProfileCompanyAssetService {
     return this.profileCompanyAssetsRepository.find();
   }
 
-  findOne(id: string): Promise<ProfileCompanyAssetEntity> {
-    return this.profileCompanyAssetsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<ProfileCompanyAssetEntity> {
+    const entity = await this.profileCompanyAssetsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`ProfileCompanyAssetEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProfilePentadbirHartaVesselEntity } from './profile-pentadbir-harta-vessel.entity';
 
 @Injectable()
-export class ProfilePentadbirHartaVesselEntityervice {
+export class ProfilePentadbirHartaVesselService {
   constructor(
     @InjectRepository(ProfilePentadbirHartaVesselEntity)
     private profilePentadbirHartaVesselRepository: Repository<ProfilePentadbirHartaVesselEntity>,
@@ -14,7 +14,11 @@ export class ProfilePentadbirHartaVesselEntityervice {
     return this.profilePentadbirHartaVesselRepository.find();
   }
 
-  findOne(id: string): Promise<ProfilePentadbirHartaVesselEntity> {
-    return this.profilePentadbirHartaVesselRepository.findOneBy({ id });
+  async findOne(id: string): Promise<ProfilePentadbirHartaVesselEntity> {
+    const entity = await this.profilePentadbirHartaVesselRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`ProfilePentadbirHartaVessel with id ${id} not found`);
+    }
+    return entity;
   }
 }

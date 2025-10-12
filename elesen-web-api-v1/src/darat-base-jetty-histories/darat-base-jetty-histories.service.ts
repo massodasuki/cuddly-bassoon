@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DaratBaseJettyHistorieEntity } from './darat-base-jetty-histories.entity';
@@ -14,7 +14,11 @@ export class DaratBaseJettyHistorieService {
     return this.daratBaseJettyHistoriesRepository.find();
   }
 
-  findOne(id: string): Promise<DaratBaseJettyHistorieEntity> {
-    return this.daratBaseJettyHistoriesRepository.findOneBy({ id });
+  async findOne(id: string): Promise<DaratBaseJettyHistorieEntity> {
+    const daratBaseJettyHistorie = await this.daratBaseJettyHistoriesRepository.findOneBy({ id });
+    if (!daratBaseJettyHistorie) {
+      throw new NotFoundException();
+    }
+    return daratBaseJettyHistorie;
   }
 }

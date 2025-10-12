@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FailedJobEntity } from './failed-jobs.entity';
@@ -14,7 +14,11 @@ export class FailedJobService {
     return this.failedJobsRepository.find();
   }
 
-  findOne(id: string): Promise<FailedJobEntity> {
-    return this.failedJobsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<FailedJobEntity> {
+    const entity = await this.failedJobsRepository.findOneBy({ id: parseInt(id) });
+    if (!entity) {
+      throw new NotFoundException();
+    }
+    return entity;
   }
 }

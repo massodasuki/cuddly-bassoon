@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PersonalAccessTokenEntity } from './personal-access-tokens.entity';
@@ -14,7 +14,11 @@ export class PersonalAccessTokenService {
     return this.personalAccessTokensRepository.find();
   }
 
-  findOne(id: string): Promise<PersonalAccessTokenEntity> {
-    return this.personalAccessTokensRepository.findOneBy({ id });
+  async findOne(id: string): Promise<PersonalAccessTokenEntity> {
+    const entity = await this.personalAccessTokensRepository.findOneBy({ id: parseInt(id) });
+    if (!entity) {
+      throw new NotFoundException();
+    }
+    return entity;
   }
 }

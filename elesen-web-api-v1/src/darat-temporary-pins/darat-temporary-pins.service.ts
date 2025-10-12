@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DaratTemporaryPinEntity } from './darat-temporary-pins.entity';
@@ -14,7 +14,11 @@ export class DaratTemporaryPinService {
     return this.daratTemporaryPinsRepository.find();
   }
 
-  findOne(id: string): Promise<DaratTemporaryPinEntity> {
-    return this.daratTemporaryPinsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<DaratTemporaryPinEntity> {
+    const entity = await this.daratTemporaryPinsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException();
+    }
+    return entity;
   }
 }

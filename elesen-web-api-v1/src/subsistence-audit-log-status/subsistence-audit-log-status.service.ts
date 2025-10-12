@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SubsistenceAuditLogStatuEntity } from './subsistence-audit-log-status.entity';
@@ -14,7 +14,11 @@ export class SubsistenceAuditLogStatuService {
     return this.subsistenceAuditLogStatusRepository.find();
   }
 
-  findOne(id: string): Promise<SubsistenceAuditLogStatuEntity> {
-    return this.subsistenceAuditLogStatusRepository.findOneBy({ id });
+  async findOne(id: string): Promise<SubsistenceAuditLogStatuEntity> {
+    const entity = await this.subsistenceAuditLogStatusRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`SubsistenceAuditLogStatuEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

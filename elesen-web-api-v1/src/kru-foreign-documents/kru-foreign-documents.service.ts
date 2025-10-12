@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { KruForeignDocumentEntity } from './kru-foreign-documents.entity';
@@ -14,7 +14,11 @@ export class KruForeignDocumentService {
     return this.kruForeignDocumentsRepository.find();
   }
 
-  findOne(id: string): Promise<KruForeignDocumentEntity> {
-    return this.kruForeignDocumentsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<KruForeignDocumentEntity> {
+    const entity = await this.kruForeignDocumentsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException();
+    }
+    return entity;
   }
 }

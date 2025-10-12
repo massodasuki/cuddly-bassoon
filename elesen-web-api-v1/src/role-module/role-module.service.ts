@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RoleModuleEntity } from './role-module.entity';
@@ -14,7 +14,11 @@ export class RoleModuleEntityervice {
     return this.roleModuleRepository.find();
   }
 
-  findOne(id: string): Promise<RoleModuleEntity> {
-    return this.roleModuleRepository.findOneBy({ id });
+  async findOne(id: string): Promise<RoleModuleEntity> {
+    const entity = await this.roleModuleRepository.findOneBy({ role_id: id });
+    if (!entity) {
+      throw new NotFoundException(`RoleModuleEntity with role_id ${id} not found`);
+    }
+    return entity;
   }
 }

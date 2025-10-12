@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SsdEntity } from './ssds.entity';
@@ -14,7 +14,11 @@ export class SsdService {
     return this.ssdsRepository.find();
   }
 
-  findOne(id: string): Promise<SsdEntity> {
-    return this.ssdsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<SsdEntity> {
+    const entity = await this.ssdsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`SsdEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

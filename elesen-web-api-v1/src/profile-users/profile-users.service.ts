@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProfileUserEntity } from './profile-users.entity';
@@ -14,7 +14,11 @@ export class ProfileUserService {
     return this.profileUsersRepository.find();
   }
 
-  findOne(id: string): Promise<ProfileUserEntity> {
-    return this.profileUsersRepository.findOneBy({ id });
+  async findOne(id: string): Promise<ProfileUserEntity> {
+    const entity = await this.profileUsersRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`ProfileUserEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

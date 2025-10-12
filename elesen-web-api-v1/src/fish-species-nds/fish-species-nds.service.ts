@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FishSpeciesNdEntity } from './fish-species-nds.entity';
@@ -14,7 +14,11 @@ export class FishSpeciesNdService {
     return this.fishSpeciesNdsRepository.find();
   }
 
-  findOne(id: string): Promise<FishSpeciesNdEntity> {
-    return this.fishSpeciesNdsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<FishSpeciesNdEntity> {
+    const entity = await this.fishSpeciesNdsRepository.findOneBy({ fish_species_id: id });
+    if (!entity) {
+      throw new NotFoundException();
+    }
+    return entity;
   }
 }

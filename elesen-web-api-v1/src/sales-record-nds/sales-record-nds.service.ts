@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SalesRecordNdEntity } from './sales-record-nds.entity';
@@ -14,7 +14,11 @@ export class SalesRecordNdService {
     return this.salesRecordNdsRepository.find();
   }
 
-  findOne(id: string): Promise<SalesRecordNdEntity> {
-    return this.salesRecordNdsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<SalesRecordNdEntity> {
+    const entity = await this.salesRecordNdsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`SalesRecordNdEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

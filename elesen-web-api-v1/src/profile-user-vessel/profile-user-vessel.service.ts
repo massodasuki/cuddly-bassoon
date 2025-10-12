@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProfileUserVesselEntity } from './profile-user-vessel.entity';
 
 @Injectable()
-export class ProfileUserVesselEntityervice {
+export class ProfileUserVesselService {
   constructor(
     @InjectRepository(ProfileUserVesselEntity)
     private profileUserVesselRepository: Repository<ProfileUserVesselEntity>,
@@ -14,7 +14,11 @@ export class ProfileUserVesselEntityervice {
     return this.profileUserVesselRepository.find();
   }
 
-  findOne(id: string): Promise<ProfileUserVesselEntity> {
-    return this.profileUserVesselRepository.findOneBy({ id });
+  async findOne(id: string): Promise<ProfileUserVesselEntity> {
+    const entity = await this.profileUserVesselRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`ProfileUserVessel with id ${id} not found`);
+    }
+    return entity;
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LandingMonthlyDocumentEntity } from './landing-monthly-documents.entity';
@@ -14,7 +14,11 @@ export class LandingMonthlyDocumentService {
     return this.landingMonthlyDocumentsRepository.find();
   }
 
-  findOne(id: string): Promise<LandingMonthlyDocumentEntity> {
-    return this.landingMonthlyDocumentsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<LandingMonthlyDocumentEntity> {
+    const entity = await this.landingMonthlyDocumentsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException();
+    }
+    return entity;
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SubsistenceListQuotaHqEntity } from './subsistence-list-quota-hqs.entity';
@@ -14,7 +14,11 @@ export class SubsistenceListQuotaHqService {
     return this.subsistenceListQuotaHqsRepository.find();
   }
 
-  findOne(id: string): Promise<SubsistenceListQuotaHqEntity> {
-    return this.subsistenceListQuotaHqsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<SubsistenceListQuotaHqEntity> {
+    const entity = await this.subsistenceListQuotaHqsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`SubsistenceListQuotaHqEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

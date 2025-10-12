@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LandingWaterTypeEntity } from './landing-water-types.entity';
@@ -14,7 +14,11 @@ export class LandingWaterTypeService {
     return this.landingWaterTypesRepository.find();
   }
 
-  findOne(id: string): Promise<LandingWaterTypeEntity> {
-    return this.landingWaterTypesRepository.findOneBy({ id });
+  async findOne(id: string): Promise<LandingWaterTypeEntity> {
+    const entity = await this.landingWaterTypesRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException();
+    }
+    return entity;
   }
 }

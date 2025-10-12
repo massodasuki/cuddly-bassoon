@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ComplaintEntity } from './complaints.entity';
@@ -14,7 +14,11 @@ export class ComplaintService {
     return this.complaintsRepository.find();
   }
 
-  findOne(id: string): Promise<ComplaintEntity> {
-    return this.complaintsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<ComplaintEntity> {
+    const complaint = await this.complaintsRepository.findOneBy({ id });
+    if (!complaint) {
+      throw new NotFoundException();
+    }
+    return complaint;
   }
 }

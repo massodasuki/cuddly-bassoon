@@ -2,6 +2,9 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('profile_user_vessel')
 export class ProfileUserVesselEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column({ nullable: false })
   profile_user_id: string;
 

@@ -13,6 +13,6 @@ export class MigrationEntityController {
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<MigrationEntity> {
-    return this.migrationsService.findOne(id);
+    return this.migrationsService.findOne(+id);
   }
 }

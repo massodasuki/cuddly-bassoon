@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CulturedShellDetailEntity } from './cultured-shell-details.entity';
@@ -14,7 +14,11 @@ export class CulturedShellDetailService {
     return this.culturedShellDetailsRepository.find();
   }
 
-  findOne(id: string): Promise<CulturedShellDetailEntity> {
-    return this.culturedShellDetailsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<CulturedShellDetailEntity> {
+    const culturedShellDetail = await this.culturedShellDetailsRepository.findOneBy({ id });
+    if (!culturedShellDetail) {
+      throw new NotFoundException();
+    }
+    return culturedShellDetail;
   }
 }

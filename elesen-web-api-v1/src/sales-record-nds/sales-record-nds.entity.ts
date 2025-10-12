@@ -2,6 +2,9 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('sales_record_nds')
 export class SalesRecordNdEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column({ nullable: false })
   sales_record_id: string;
 

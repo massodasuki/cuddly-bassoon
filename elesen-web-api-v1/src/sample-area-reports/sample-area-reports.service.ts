@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SampleAreaReportEntity } from './sample-area-reports.entity';
@@ -14,7 +14,11 @@ export class SampleAreaReportService {
     return this.sampleAreaReportsRepository.find();
   }
 
-  findOne(id: string): Promise<SampleAreaReportEntity> {
-    return this.sampleAreaReportsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<SampleAreaReportEntity> {
+    const entity = await this.sampleAreaReportsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`SampleAreaReportEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }

@@ -1,10 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ProfilePentadbirHartaVesselEntityervice } from './profile-pentadbir-harta-vessel.service';
+import { ProfilePentadbirHartaVesselService } from './profile-pentadbir-harta-vessel.service';
 import { ProfilePentadbirHartaVesselEntity } from './profile-pentadbir-harta-vessel.entity';
 
 @Controller('profile-pentadbir-harta-vessel')
 export class ProfilePentadbirHartaVesselEntityController {
-  constructor(private readonly profilePentadbirHartaVesselService: ProfilePentadbirHartaVesselEntityervice) {}
+  constructor(private readonly profilePentadbirHartaVesselService: ProfilePentadbirHartaVesselService) {}
 
   @Get()
   findAll(): Promise<ProfilePentadbirHartaVesselEntity[]> {

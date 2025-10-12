@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { NelayanMarinEntity } from './nelayan-marins.entity';
@@ -14,7 +14,11 @@ export class NelayanMarinService {
     return this.nelayanMarinsRepository.find();
   }
 
-  findOne(id: string): Promise<NelayanMarinEntity> {
-    return this.nelayanMarinsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<NelayanMarinEntity> {
+    const entity = await this.nelayanMarinsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException();
+    }
+    return entity;
   }
 }

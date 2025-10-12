@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProfilePentadbirSklEntity } from './profile-pentadbir-skls.entity';
@@ -14,7 +14,11 @@ export class ProfilePentadbirSklService {
     return this.profilePentadbirSklsRepository.find();
   }
 
-  findOne(id: string): Promise<ProfilePentadbirSklEntity> {
-    return this.profilePentadbirSklsRepository.findOneBy({ id });
+  async findOne(id: string): Promise<ProfilePentadbirSklEntity> {
+    const entity = await this.profilePentadbirSklsRepository.findOneBy({ id });
+    if (!entity) {
+      throw new NotFoundException(`ProfilePentadbirSklEntity with id ${id} not found`);
+    }
+    return entity;
   }
 }
