@@ -16,6 +16,8 @@ export class AuthController {
     @ApiQuery({ name: 'username', required: true, description: 'ID Pegawai' })
     @ApiQuery({ name: 'password', required: false })
     @ApiQuery({ name: 'sso', required: false })
+    @ApiQuery({ name: 'name', required: false })
+    @ApiQuery({ name: 'nric', required: false })
     @ApiOkResponse({
       description: 'Returns JWT access token after successful login',
       type: LoginResponseDto,
@@ -24,6 +26,9 @@ export class AuthController {
     let user;
     if(dto.sso != null ) {
       user = await this.authService.validateUsername(dto.username);
+      if(user == null) {
+        user = await this.authService.createSSOUser(dto.username, dto.name)
+      }
     }
     if(dto.password != null) {
       user = await this.authService.validateUser(dto.username, dto.password);

@@ -29,8 +29,21 @@ export class AuthService {
       const { ...result } = user;
       return result;
     }
+    return null;
+    // throw new UnauthorizedException('User not found');
+  }
 
-    throw new UnauthorizedException('User not found');
+  async createSSOUser(username: string, name: string){
+    const email =  `noemail+${username}@example.com`;
+    const password = "$2y$10$DummyPasswordHash0000000000000000000000000000000000";
+    const isActive = true;
+    const isAdmin = false;
+
+    const user = await this.usersService.createSSOUser(username, name, email, password, isActive, isAdmin)
+    if (user) {
+      const { ...result } = user;
+      return result;
+    }
   }
 
   getTokens(userId: number, username: string) {

@@ -71,6 +71,17 @@ export class UsersService {
     return this.userRepo.save(user)
   }
 
+  async createSSOUser (username: string, name: string, email : string, password : string, 
+                        isActive : boolean, isAdmin : boolean): Promise<User> {
+    const user = this.userRepo.create({ username : username, 
+                                        name: name, 
+                                        email : email,
+                                        password : password,
+                                        is_active: isActive,
+                                        is_admin : isAdmin})
+    return this.userRepo.save(user)
+  }
+
   // async getAllUsers(): Promise<User[]> {
   //   return this.userRepo.find();
   // }

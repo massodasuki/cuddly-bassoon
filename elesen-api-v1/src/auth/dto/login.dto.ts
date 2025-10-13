@@ -10,4 +10,10 @@ export class LoginDto {
 
   @ApiPropertyOptional({ default: "true" })
   sso: string;
+
+  @ApiPropertyOptional({ default: "abcd" })
+  name: string;
+
+  @ApiPropertyOptional({ default: "abcd" })
+  nric: string;
 }
