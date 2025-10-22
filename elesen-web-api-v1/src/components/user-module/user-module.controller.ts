@@ -1,10 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { UserModuleEntityervice } from './user-module.service';
+import { UserModuleService } from './user-module.service';
 import { UserModuleEntity } from './user-module.entity';
 
 @Controller('user-module')
 export class UserModuleEntityController {
-  constructor(private readonly userModuleService: UserModuleEntityervice) {}
+  constructor(private readonly userModuleService: UserModuleService) {}
 
   @Get()
   findAll(): Promise<UserModuleEntity[]> {

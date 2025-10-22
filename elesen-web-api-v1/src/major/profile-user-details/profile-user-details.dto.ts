@@ -1,3 +1,5 @@
+import { CodeMaster } from "../code-masters/code-masters.entity";
+
 export class AlamatDto {
   address1: string;
   address2: string | null;
@@ -10,9 +12,9 @@ export class AlamatDto {
 export class MaklumatAmDto {
   email: string;
   contact_number: string | null;
-  religion: string | null;
-  bumiputera_type: string | null;
-  isOKU: boolean;
+  religion: CodeMaster | null;
+  bumiputera: string | null;
+  OKU: boolean;
   dun: string | null;
   parlimen: string | null;
 }
@@ -34,10 +36,10 @@ export class MaklumatBankDto {
 }
 
 export class MaklumatTambahanDto {
-  penerimaESP: boolean;
-  penerimaBantuan: boolean;
-  pencarumKWSP: boolean;
-  penerimaPencen: boolean;
+  penerimaESP: boolean | string;
+  penerimaBantuan: boolean | string;
+  pencarumKWSP: boolean | string;
+  penerimaPencen: boolean | string;
 }
 
 export class MaklumatKewanganDto {
@@ -46,9 +48,9 @@ export class MaklumatKewanganDto {
 }
 
 export class PengkalanPendaratanDto {
-  namaSungai: string;
-  district: string;
-  kawasan: string;
+  namaSungai: string | null;
+  district: string | null;
+  kawasan: string | null ;
   noLesenPeralatan: string | null;
   tempohSahLesen: string | null;
   peralatanUtama: string;
@@ -56,11 +58,11 @@ export class PengkalanPendaratanDto {
 }
 
 export class VeseIDto {
-  noPendaftaran: string;
-  jenisKulit: string;
-  panjangMeter: number;
-  jenamaEnjin: string;
-  kuasaKuda: number;
+  noPendaftaran: string | null;
+  jenisKulit: string | null;
+  panjangMeter: number | null;
+  jenamaEnjin: string | null;
+  kuasaKuda: number | null;
 }
 
 export class JetiDto {
@@ -74,11 +76,11 @@ export class AktivitiPenangkapanIkanDto {
 }
 
 export class KesalahanDto {
-  akta: string;
-  seksyen: string;
-  kesalahan: string;
-  tarikh: string;
-  keputusan: string;
+  akta: string | null;
+  seksyen: string | null;
+  kesalahan: string | null;
+  tarikh: string | null;
+  keputusan: string | null;
 }
 
 export class ProfileUserDetailsDto {

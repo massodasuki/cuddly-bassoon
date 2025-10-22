@@ -1,58 +1,86 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('vessels')
 export class VesselEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({ name: 'vessel_no', type: 'varchar', length: 255, nullable: true })
-  vesselNo: string;
+  @Column({ nullable: true })
+  user_id: string;
 
-  @Column({ name: 'no_pendaftaran', type: 'varchar', length: 255, nullable: true })
-  noPendaftaran: string;
-
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
-  grt: number;
-
-  @Column({ name: 'kategori_vessel', type: 'varchar', length: 255, nullable: true })
-  kategoriVessel: string;
-
-  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Column({ nullable: true })
   zon: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Column({ nullable: true })
+  grt: number;
+
+  @Column({ nullable: true })
+  peralatan_utama: string;
+
+  @Column({ nullable: true })
+  no_pendaftaran: string;
+
+  @Column({ nullable: true })
   negeri: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Column({ nullable: true })
   daerah: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Column({ nullable: true })
   pangkalan: string;
 
-  @Column({ name: 'bil_enjin', type: 'int', nullable: true })
-  bilEnjin: number;
+  @Column({ nullable: true })
+  bil_enjin: number;
 
-  @Column({ name: 'license_start', type: 'date', nullable: true })
-  licenseStart: Date;
+  @Column({ nullable: true })
+  kategori_vessel: string;
 
-  @Column({ name: 'license_end', type: 'date', nullable: true })
-  licenseEnd: Date;
+  @Column({ nullable: true })
+  license_start: Date;
 
-  @Column({ name: 'is_active', type: 'tinyint', width: 1, default: 1 })
-  isActive: boolean;
+  @Column({ nullable: true })
+  license_end: Date;
 
-  @Column({ name: 'user_id', type: 'int', nullable: true })
-  userId: number;
+  @Column({ nullable: true })
+  entity_id: string;
 
-  @Column({ name: 'entity_id', type: 'int', nullable: true })
-  entityId: number;
+  @Column({ nullable: true })
+  created_by: string;
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  @Column({ nullable: true })
+  updated_by: string;
 
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
+  @Column({ nullable: true })
+  deleted_by: string;
 
-  @DeleteDateColumn({ name: 'deleted_at' })
-  deletedAt: Date;
+  @Column({ nullable: true })
+  created_at: Date;
+
+  @Column({ nullable: true })
+  updated_at: Date;
+
+  @Column({ nullable: true })
+  deleted_at: Date;
+
+  @Column({ nullable: false })
+  is_active: number;
+
+  @Column({ nullable: true })
+  pangkalan_utama_id: number;
+
+  @Column({ nullable: true })
+  pangkalan_tambahan_id: number;
+
+  @Column({ nullable: false })
+  vessel_no: string;
+
+  @Column({ nullable: true })
+  zone: string;
+
+  @Column({ nullable: true })
+  start_date: Date;
+
+  @Column({ nullable: true })
+  end_date: Date;
+
 }

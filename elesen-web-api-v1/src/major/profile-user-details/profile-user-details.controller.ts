@@ -2,7 +2,7 @@ import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
 import { ProfileUserDetailsService } from './profile-user-details.service';
 import { ProfileUserDetailsDto } from './profile-user-details.dto';
 
-@Controller('profile-user-details')
+@Controller('/api/v1/applications/profile-user-details')
 export class ProfileUserDetailsController {
   constructor(private readonly profileUserDetailsService: ProfileUserDetailsService) {}
 
