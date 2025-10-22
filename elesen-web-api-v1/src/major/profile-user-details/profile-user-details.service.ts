@@ -244,7 +244,7 @@ export class ProfileUserDetailsService {
         district: catchingLogNds?.district_name || null,
         kawasan: catchingLogNds?.location_name || null, // Placeholder fallback
         noLesenPeralatan: sklInfo?.no_lesen_skl || "KIV",
-        tempohSahLesen: sklInfo?.tarikh_tamat_lesen?.toISOString().split('T')[0] || "KIV",
+        tempohSahLesen: sklInfo?.tarikh_tamat_lesen ? new Date(sklInfo.tarikh_tamat_lesen).toISOString().split('T')[0] : "KIV",
         peralatanUtama: vessel?.peralatan_utama || "KIV", // Placeholder fallback
         peralatanTambahan: "KIV" // Placeholder
       },
@@ -273,7 +273,7 @@ export class ProfileUserDetailsService {
         akta: kesalahan.akta,
         seksyen: kesalahan.seksyen,
         kesalahan: kesalahan.kesalahan,
-        tarikh: kesalahan.tarikh.toISOString().split('T')[0],
+        tarikh: new Date(kesalahan.tarikh).toISOString().split('T')[0],
         keputusan: kesalahan.keputusan
       } : {
         akta: null, // Placeholder fallback
@@ -415,7 +415,7 @@ export class ProfileUserDetailsService {
           district: vessel?.daerah || user.district,
           kawasan: vessel?.pangkalan || "Pengkalan Seberang Takir", // Placeholder fallback
           noLesenPeralatan: sklInfo?.no_lesen_skl || null,
-          tempohSahLesen: sklInfo?.tarikh_tamat_lesen?.toISOString().split('T')[0] || null,
+          tempohSahLesen: sklInfo?.tarikh_tamat_lesen ? new Date(sklInfo.tarikh_tamat_lesen).toISOString().split('T')[0] : null,
           peralatanUtama: vessel?.peralatan_utama || "Pukat", // Placeholder fallback
           peralatanTambahan: "Tiada" // Placeholder
         },
@@ -444,7 +444,7 @@ export class ProfileUserDetailsService {
           akta: kesalahan.akta,
           seksyen: kesalahan.seksyen,
           kesalahan: kesalahan.kesalahan,
-          tarikh: kesalahan.tarikh.toISOString().split('T')[0],
+          tarikh: new Date(kesalahan.tarikh).toISOString().split('T')[0],
           keputusan: kesalahan.keputusan
         } : {
           akta: "Akta Perikanan 1985", // Placeholder fallback

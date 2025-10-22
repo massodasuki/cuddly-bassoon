@@ -43,10 +43,12 @@ export class VesselEntity {
   @Column({ type: 'date', nullable: true })
   license_end: Date;
 
-  @Column({ type: 'char', length: 36, nullable: true })
   @ManyToOne(() => EntitieEntity, { nullable: true })
   @JoinColumn({ name: 'entity_id' })
   entity: EntitieEntity;
+
+  @Column({ type: 'char', length: 36, nullable: true })
+  entity_id: string;
 
   @Column({ type: 'char', length: 36, nullable: true })
   created_by: string;

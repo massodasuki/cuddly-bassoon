@@ -4,7 +4,7 @@ import { VesselDetailsService } from './vessel-details.service';
 import { VesselDetailsResponseDto } from './dto/vessel-details-response.dto';
 
 @ApiTags('Vessel Details')
-@Controller('api/v1/vessel-details')
+@Controller('/api/v1/applications/vessel-details')
 export class VesselDetailsController {
   constructor(private readonly vesselDetailsService: VesselDetailsService) {}
 
@@ -13,8 +13,8 @@ export class VesselDetailsController {
     return this.vesselDetailsService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<VesselDetailsResponseDto> {
-    return this.vesselDetailsService.findOne(id);
+  @Get(':noVesel')
+  async findOne(@Param('noVesel') noVesel: string): Promise<VesselDetailsResponseDto> {
+    return this.vesselDetailsService.findOne(noVesel);
   }
 }
