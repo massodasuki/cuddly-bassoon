@@ -27,7 +27,7 @@ export class VesselsService {
   }
 
 
-  async findAllMinimalVessels(paginationQuery: PaginationQueryDto): Promise<{
+  async findAllMinimalVessels(paginationQuery: PaginationQueryDto, jenis? : string): Promise<{
   data: { id: string; vessel_no: string; zone: string; start_date: Date; end_date: Date, jenis_kulit: string}[];
   total: number;
   page: number;
@@ -38,21 +38,16 @@ export class VesselsService {
   const pageSize = limit;
   const skip = (page - 1) * pageSize;
 
+  console.log(jenis);
   let query = this.vesselRepository
     .createQueryBuilder('vessel')
-    .leftJoin('vessel.appointment', 'appointment')
-    .leftJoin('vessel.pentadbirHartas', 'pentadbirHartas')
-    .innerJoin('vessel.pemeriksaanVesel', 'pemeriksaanVesel')
-    .innerJoin('pemeriksaanVesel.infoVessel', 'infoVessel')
     .select([
       'vessel.id  AS id',
       'vessel.vessel_no  AS vessel_no',
-      'vessel.zone  AS zone',
-      'vessel.start_date AS start_date',
-      'vessel.end_date AS end_date',
-      'infoVessel.jenisKulit AS jenis_kulit'
+      'vessel.zon  AS zone',
+      'vessel.license_start AS start_date',
+      'vessel.license_end AS end_date',
     ])
-    // .where('vessel.entity_id IS NULL');
 
     
   const data = await query
@@ -78,7 +73,7 @@ export class VesselsService {
      const { limit = 10, page = 1 } = paginationQuery;
  
      const [data, total] = await this.vesselRepository.findAndCount({
-       relations: ['appointment', 'pentadbirHartas', 'pemeriksaanVesel'],
+      //  relations: ['appointment', 'pentadbirHartas', 'pemeriksaanVesel'],
        take: limit,
        skip: (page - 1) * limit
      });

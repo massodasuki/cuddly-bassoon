@@ -45,18 +45,7 @@ export class UsersController {
     return this.usersService.findAllMinimalUsersWhereEntityIdNull(paginationQuery, lesen)
   }
 
-  // PROFIL BY NELAYAN API
-  // Get by level
-  // @ApiOperation({
-  //   summary: 'Get users by role level and id',
-  //   description:
-  //     'Returns all users who belong to a specific role level (e.g. admin = 1, supervisor = 2).',
-  // })
-  // @Get('nelayan/:level')
-  // async findNelayan (@Param('level') id: string, @Query('page') page = 1, @Query('limit') limit = 10) {
-  //   let nelayanLevel = 5;
-  //   return this.usersService.getUsersByRoleLevelAndId(nelayanLevel, id, page, limit) // 5 = nelayan KIV
-  // }
+
 
   @Get('nelayan/:id')
   async getNelayan (@Param('id') id: UUID) {

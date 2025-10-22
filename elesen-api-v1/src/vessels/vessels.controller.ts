@@ -18,8 +18,8 @@ export class VesselsController {
 
   @Get('vessels-minimal')
   findAllVesselMinimal(@Query() paginationQuery: PaginationQueryDto, 
-    @Query('lesen') lesen?: string) {
-    return this.vesselsService.findAllMinimalVessels(paginationQuery);
+    @Query('jenis') jenis?: string) {
+    return this.vesselsService.findAllMinimalVessels(paginationQuery, jenis);
   }
 
   @Get('vessels')
