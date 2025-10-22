@@ -60,7 +60,7 @@ export class PengkalanPendaratanDto {
 export class VeseIDto {
   noPendaftaran: string | null;
   jenisKulit: string | null;
-  panjangMeter: number | null;
+  panjangMeter: string | null;
   jenamaEnjin: string | null;
   kuasaKuda: number | null;
 }

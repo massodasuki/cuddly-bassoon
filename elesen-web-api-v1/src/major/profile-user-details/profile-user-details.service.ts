@@ -15,6 +15,7 @@ import { ProfileUserDetailsDto } from './profile-user-details.dto';
 import { FishingLogNdEntity } from '../fishing-log-nds/fishing-log-nds.entity';
 import { CatchingLocationNdEntity } from '../catching-location-nds/catching-location-nds.entity';
 import { KulitEntity } from '../kulit/kulit.entity';
+import { EnjinEntity } from '../enjin/enjin.entity';
 
 @Injectable()
 export class ProfileUserDetailsService {
@@ -27,8 +28,10 @@ export class ProfileUserDetailsService {
     private catchingLocationRepository: Repository<CatchingLocationNdEntity>,
     @InjectRepository(VesselEntity)
     private vesselsRepository: Repository<VesselEntity>,
-    @InjectRepository(VesselEntity)
+    @InjectRepository(KulitEntity)
     private kulitRepository: Repository<KulitEntity>,
+    @InjectRepository(EnjinEntity)
+    private enjinRepository: Repository<EnjinEntity>,
     @InjectRepository(ProfileUserVesselEntity)
     private profileUserVesselRepository: Repository<ProfileUserVesselEntity>,
     @InjectRepository(ProfilePengusahaSklEntity)
@@ -91,18 +94,42 @@ export class ProfileUserDetailsService {
 
     let vessel: VesselEntity | null = null;
     if (userVessels.length > 0) {
-      console.log('Fetching vessel');
+      
       vessel = await this.vesselsRepository.findOne({
         where: { id: userVessels[0].vessel_id }
       });
+      console.log('Fetching vessel ' + vessel?.no_pendaftaran);
     }
 
+    let kulit : KulitEntity | null = null;
     if (vessel) {
-      console.log('Fetching vessel details');
-      vessel = await this.vesselsRepository.findOne({
-        where: { id: userVessels[0].vessel_id }
+      kulit = await this.kulitRepository.findOne({
+        where: { no_pendaftaran : vessel.no_pendaftaran }
       });
+      console.log('Fetching kulit details:', JSON.stringify(kulit, null, 2));
     }
+
+    let enjin : EnjinEntity | null = null;
+    if (vessel) {
+      enjin = await this.enjinRepository.findOne({
+        where: { no_pendaftaran : vessel.no_pendaftaran }
+      });
+      console.log('Fetching enjin details:', JSON.stringify(enjin, null, 2));
+    }
+
+    let vesselDetails: {
+      noPendaftaran: string | null;
+      jenisKulit: string | null;
+      panjangMeter: string | null;
+      jenamaEnjin: string | null;
+      kuasaKuda: number | null;
+    } = {
+      noPendaftaran: vessel?.vessel_no || null,
+      jenisKulit: kulit?.jenis_kulit || null,
+      panjangMeter: kulit?.panjang || null,
+      jenamaEnjin: enjin?.jenama || null,
+      kuasaKuda: enjin?.kuasa_kuda || null,
+    };
 
     // Get SKL information
     console.log('Fetching SKL information');
@@ -164,6 +191,7 @@ export class ProfileUserDetailsService {
     
     console.log(user);
     console.log(vessel);
+    console.log(kulit)
     console.log(catchingLogNds)
 
     return {
@@ -221,11 +249,11 @@ export class ProfileUserDetailsService {
         peralatanTambahan: "KIV" // Placeholder
       },
       vesel: vessel ? {
-        noPendaftaran: vessel.vessel_no,
-        jenisKulit: "KIV", // Placeholder - would need vessel type table
-        panjangMeter: 0, // Placeholder - would need vessel dimensions table
-        jenamaEnjin: "KIV", // Placeholder
-        kuasaKuda: 0 // Placeholder
+        noPendaftaran: vesselDetails.noPendaftaran,
+        jenisKulit: vesselDetails.jenisKulit, // Placeholder - would need vessel type table
+        panjangMeter: vesselDetails.panjangMeter, // Placeholder - would need vessel dimensions table
+        jenamaEnjin: vesselDetails.jenamaEnjin, // Placeholder
+        kuasaKuda: vesselDetails.kuasaKuda // Placeholder
       } : {
         noPendaftaran: null, // Placeholder fallback
         jenisKulit: null,
@@ -394,13 +422,13 @@ export class ProfileUserDetailsService {
         vesel: vessel ? {
           noPendaftaran: vessel.vessel_no,
           jenisKulit: "Kayu", // Placeholder - would need vessel type table
-          panjangMeter: 9.5, // Placeholder - would need vessel dimensions table
+          panjangMeter: "9.5", // Placeholder - would need vessel dimensions table
           jenamaEnjin: "Yamaha", // Placeholder
           kuasaKuda: 80 // Placeholder
         } : {
           noPendaftaran: "TRF1234N", // Placeholder fallback
           jenisKulit: "Kayu",
-          panjangMeter: 9.5,
+          panjangMeter: "9.5",
           jenamaEnjin: "Yamaha",
           kuasaKuda: 80
         },

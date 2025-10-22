@@ -14,6 +14,8 @@ import { ParliamentSeatEntity } from '../../components/parliament-seats/parliame
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FishingLogNdEntity } from '../fishing-log-nds/fishing-log-nds.entity';
 import { CatchingLocationNdEntity } from '../catching-location-nds/catching-location-nds.entity';
+import { KulitEntity } from '../kulit/kulit.entity';
+import { EnjinEntity } from '../enjin/enjin.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -28,7 +30,9 @@ import { CatchingLocationNdEntity } from '../catching-location-nds/catching-loca
     ParliamentEntity,
     ParliamentSeatEntity,
     FishingLogNdEntity,
-    CatchingLocationNdEntity
+    CatchingLocationNdEntity,
+    KulitEntity,
+    EnjinEntity
   ])],
   providers: [ProfileUserDetailsService],
   controllers: [ProfileUserDetailsController],
