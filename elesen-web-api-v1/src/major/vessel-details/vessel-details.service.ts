@@ -48,17 +48,16 @@ export class VesselDetailsService {
         throw new Error('Vessel not found');
       }
 
-    const [kulit, enjin, kesalahan, pengkalan, pentadbirHarta, kru, pemilikan, pematuhan, pendaftaranAntarabangsa] = await Promise.all([
-      this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-      this.enjinRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-      this.kesalahanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-      this.jettieRepository.find({ where: { state_id: vessel.negeri } }),
-      this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } }),
-      this.kruRepository.find({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-      this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-      this.pematuhanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-      this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: vessel.id } }),
-    ]);
+    let kulit : KulitEntity | null = null;
+    kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const enjin = await this.enjinRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const kesalahan = await this.kesalahanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const pengkalan = await this.jettieRepository.find({ where: { state_id: vessel.negeri } });
+    const pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } });
+    const kru = await this.kruRepository.find({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const pematuhan = await this.pematuhanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const pendaftaranAntarabangsa = await this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: vessel.id } });
 
     const processed: ProfilVeselDto = {
       maklumatAmVesel: {
@@ -92,11 +91,11 @@ export class VesselDetailsService {
         kedalamanMeter: parseFloat(kulit?.dalam || '0'),
         muatanGRT: vessel.grt || 0,
         status: kulit?.status_kulit || 'Tidak Aktif',
-        tindakan: null,
+        tindakan: kulit?.catatan || null,
       },
       enjin: {
         maklumatAmEjin: {
-          jenisEnjin: enjin?.jenis_enjin === 1 ? 'Sangkut' : 'Unknown',
+          jenisEnjin: enjin?.jenis_enjin === 1 ? 'Sangkut' : 'Dalam',
           bahanApi: enjin?.bahan_api || 'Diesel',
           jenamaEnjin: enjin?.jenama || '',
           kuasaKuda: enjin?.kuasa_kuda || 0,
@@ -314,17 +313,15 @@ export class VesselDetailsService {
 
     const data: ProfilVeselDto[] = await Promise.all(
       vessels.map(async (vessel) => {
-        const [kulit, enjin, kesalahan, pengkalan, pentadbirHarta, kru, pemilikan, pematuhan, pendaftaranAntarabangsa] = await Promise.all([
-          this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-          this.enjinRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-          this.kesalahanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-          this.jettieRepository.find({ where: { state_id: vessel.negeri } }),
-          this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } }),
-          this.kruRepository.find({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-          this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-          this.pematuhanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } }),
-          this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: vessel.id } }),
-        ]);
+        const kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+        const enjin = await this.enjinRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+        const kesalahan = await this.kesalahanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+        const pengkalan = await this.jettieRepository.find({ where: { state_id: vessel.negeri } });
+        const pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } });
+        const kru = await this.kruRepository.find({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+        const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+        const pematuhan = await this.pematuhanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+        const pendaftaranAntarabangsa = await this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: vessel.id } });
 
         return {
           maklumatAmVesel: {
