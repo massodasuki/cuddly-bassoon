@@ -126,6 +126,7 @@ import { ProfilePentadbirHartaModule } from './profile-pentadbir-hartas/profile-
 import { ProfilePentadbirSklModule } from './profile-pentadbir-skls/profile-pentadbir-skls.module';
 import { ProfileUserVesselModule } from './profile-user-vessel/profile-user-vessel.module';
 import { ProfileUserModule } from './profile-users/profile-users.module';
+import { ProfileUserDetailsModule } from './experiment/profile/profile-user-details.module';
 import { ReceiptItemModule } from './receipt-items/receipt-items.module';
 import { ReceiptModule } from './receipts/receipts.module';
 import { ReferenceNumberModule } from './reference-numbers/reference-numbers.module';
@@ -306,6 +307,7 @@ import { VesselModule } from './vessels/vessels.module';
     ProfilePentadbirSklModule,
     ProfileUserVesselModule,
     ProfileUserModule,
+    ProfileUserDetailsModule,
     ReceiptItemModule,
     ReceiptModule,
     ReferenceNumberModule,
