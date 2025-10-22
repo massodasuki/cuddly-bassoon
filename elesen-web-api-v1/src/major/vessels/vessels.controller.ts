@@ -1,18 +1,45 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { VesselService } from './vessels.service';
-import { VesselEntity } from './vessels.entity';
+import { Controller, Post, Get, Patch, Delete, Param, Body, Query } from '@nestjs/common';
+import { VesselsService } from './vessels.service';
+import { CreateVesselDto } from './dto/create-vessel.dto';
+import { UpdateVesselDto } from './dto/update-vessel.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
-@Controller('vessels')
-export class VesselEntityController {
-  constructor(private readonly vesselsService: VesselService) {}
+@ApiTags('Vessels')
+@Controller('api/v1/applications')
+export class VesselsController {
+  constructor(private readonly vesselsService: VesselsService) {}
+
+  @Post()
+  create(@Body() dto: CreateVesselDto) {
+    return this.vesselsService.create(dto);
+  }
+
+
+  @Get('vessels-minimal')
+  findAllVesselMinimal(@Query() paginationQuery: PaginationQueryDto, 
+    @Query('jenis') jenis?: string) {
+    return this.vesselsService.findAllMinimalVessels(paginationQuery, jenis);
+  }
+
+  @Get('vessels')
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.vesselsService.findAll(paginationQuery);
+  }
 
   @Get()
-  findAll(): Promise<VesselEntity[]> {
-    return this.vesselsService.findAll();
+  findOneUser(@Query() paginationQuery: PaginationQueryDto) {
+    return this.vesselsService.findAll(paginationQuery);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<VesselEntity> {
+  @Get('vessels/:id')
+  findOne(@Param('id') id: string) {
     return this.vesselsService.findOne(id);
   }
+
+  @Patch('vessels/:id')
+  update(@Param('id') id: string, @Body() dto: UpdateVesselDto) {
+    return this.vesselsService.update(id, dto);
+  }
+
 }

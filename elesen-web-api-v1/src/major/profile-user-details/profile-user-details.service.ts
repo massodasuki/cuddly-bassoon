@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProfileUserEntity } from '../profile-users/profile-users.entity';
-import { VesselEntity } from '../vessels/vessels.entity';
+import { VesselEntity } from '../vessels/vessel.entity';
 import { ProfileUserVesselEntity } from '../profile-user-vessel/profile-user-vessel.entity';
 import { ProfilePengusahaSklEntity } from '../profile-pengusaha-skls/profile-pengusaha-skls.entity';
 import { ApplicationV2ProfileUser } from '../application-v2-profile-user/application-v2-profile-user.entity';

@@ -173,6 +173,7 @@ import { ProfileUserDetailsModule } from './major/profile-user-details/profile-u
 import { DeviceRegistrationModule } from './major/device-registration/device-registration.module';
 import { UsersModule } from './major/users/users.module';
 import { AuthModule } from './major/auth/auth.module';
+import { VesselsModule } from './major/vessels/vessels.module';
 
 @Module({
   imports: [
@@ -358,9 +359,10 @@ import { AuthModule } from './major/auth/auth.module';
 
     //MAJOR
     AuthModule,
+    DeviceRegistrationModule,
     UsersModule,
     ProfileUserDetailsModule,
-    DeviceRegistrationModule
+    VesselsModule
   ],
   controllers: [AppController],
   providers: [AppService],

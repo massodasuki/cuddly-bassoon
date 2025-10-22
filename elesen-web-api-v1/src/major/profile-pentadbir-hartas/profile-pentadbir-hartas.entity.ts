@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
-import { Vessel } from '../vessels/vessel.entity';
+import { VesselEntity } from '../vessels/vessel.entity';
 
 @Entity('profile_pentadbir_hartas')
 export class ProfilePentadbirHartaEntity {
@@ -81,8 +81,8 @@ export class ProfilePentadbirHartaEntity {
   @Column({ nullable: false })
   verification_modal_shown: number;
 
- @OneToOne(() => Vessel, v => v.pentadbirHartas)
+ @OneToOne(() => VesselEntity, v => v.pentadbirHartas)
  @JoinColumn({ name: 'vessel_id' })
- vessel: Vessel;
+ vessel: VesselEntity;
 
 }

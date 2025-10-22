@@ -1,10 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, CreateDateColumn, DeleteDateColumn, JoinColumn, ManyToOne, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToOne, ManyToOne, JoinColumn } from 'typeorm';
 import { ProfilePentadbirHartaEntity } from '../profile-pentadbir-hartas/profile-pentadbir-hartas.entity';
 import { EntitieEntity } from '../entities/entities.entity';
 
 @Entity('vessels')
-export class VesselEntity {
-  @PrimaryGeneratedColumn('uuid')
+export class Vessel {
+  @PrimaryColumn({ type: 'char', length: 36 })
   id: string;
 
   @Column({ type: 'char', length: 36, nullable: true })
@@ -67,7 +67,7 @@ export class VesselEntity {
   deleted_at: Date;
 
   @Column({ type: 'tinyint', default: 1 })
-  is_active: boolean;
+  is_active: number;
 
   @Column({ type: 'bigint', unsigned: true, nullable: true })
   pangkalan_utama_id: number;
@@ -89,5 +89,4 @@ export class VesselEntity {
 
   @OneToOne(() => ProfilePentadbirHartaEntity, pentadbirHartas => pentadbirHartas.vessel, { cascade: true })
   pentadbirHartas: ProfilePentadbirHartaEntity;
-
 }
