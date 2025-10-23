@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DaratVeselLpiFormEntity } from './darat-vesel-lpi-form.entity';
 import { CreateDaratVeselLpiFormDto } from './dto/create-darat-vesel-lpi-form.dto';
+import { ImageUploadService } from './image-upload.service';
 import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
 import { DaratVesselEntity } from '../darat-vessels/darat-vessels.entity';
 import { DaratApplicationApprovedEntity } from '../darat-application-approveds/darat-application-approveds.entity';
@@ -12,7 +13,7 @@ import { DaratInspectionEquipmentEntity } from '../darat-inspection-equipments/d
 import { DaratItemFoundEntity } from '../darat-item-founds/darat-item-founds.entity';
 import { DaratPaymentReceiptEntity } from '../darat-payment-receipts/darat-payment-receipts.entity';
 import { DaratTemporaryPinEntity } from '../darat-temporary-pins/darat-temporary-pins.entity';
-import { DaratUserEquipmentEntity } from '../darat-user-equipments/darat-user-equipments.entity'; 
+import { DaratUserEquipmentEntity } from '../darat-user-equipments/darat-user-equipments.entity';
 import { DaratVesselDisposalEntity } from '../darat-vessel-disposals/darat-vessel-disposals.entity';
 import { DaratVesselEngineEntity } from '../darat-vessel-engines/darat-vessel-engines.entity';
 import { DaratVesselHullEntity } from '../darat-vessel-hulls/darat-vessel-hulls.entity';
@@ -56,6 +57,7 @@ export class DaratVeselLpiFormService {
     private daratVesselHistorieRepository: Repository<DaratVesselHistorieEntity>,
     @InjectRepository(DaratVesselHullHistorieEntity)
     private daratVesselHullHistorieRepository: Repository<DaratVesselHullHistorieEntity>,
+    private readonly imageUploadService: ImageUploadService,
   ) {}
 
   findAll(): Promise<DaratVeselLpiFormEntity[]> {
@@ -76,12 +78,25 @@ export class DaratVeselLpiFormService {
     return Array.isArray(savedEntity) ? savedEntity[0] : savedEntity;
   }
 
-  async createWithFiles(createDto: CreateDaratVeselLpiFormDto, files: Express.Multer.File[]): Promise<CreateDaratVeselLpiFormDto> {
-    const uploadDir = path.join(__dirname, '..', '..', '..', 'uploads');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+  async createWithFiles(createDto: CreateDaratVeselLpiFormDto, files: { [key: string]: Express.Multer.File[] }): Promise<any> {
+    console.log('Received DTO:', createDto);
+    console.log('Received files:', files);
+
+    // Flatten the files object into an array for upload
+    const allFiles: Express.Multer.File[] = [];
+    Object.values(files).forEach(fileArray => {
+      if (fileArray) allFiles.push(...fileArray);
+    });
+
+    console.log('Flattened files:', allFiles.map(f => ({ fieldname: f.fieldname, originalname: f.originalname, size: f.size })));
+
+    if (!createDto.applicationId) {
+      throw new Error('Application ID is required for image upload');
     }
-    console.log(createDto)
+
+    // Upload images using the service
+    const uploadedFiles = await this.imageUploadService.uploadImages(allFiles, createDto.applicationId);
+    console.log('Uploaded files:', uploadedFiles);
 
     // Parse nested properties if they are JSON strings (for form-data)
     if (typeof createDto.noPendaftaranVesel === 'string') {
@@ -124,16 +139,6 @@ export class DaratVeselLpiFormService {
       createDto.perakuanEmpunyaVesel = JSON.parse(createDto.perakuanEmpunyaVesel);
     }
 
-    const filePaths: { [key: string]: string } = {};
-
-    for (const file of files) {
-      const fileName = `${Date.now()}-${file.originalname}`;
-      const filePath = path.join(uploadDir, fileName);
-      fs.writeFileSync(filePath, file.buffer);
-      filePaths[file.fieldname] = filePath;
-    }
-    console.log(createDto)
-
     // Map file paths to DTO fields
     const dtoWithPaths = {
       ...createDto,
@@ -141,45 +146,45 @@ export class DaratVeselLpiFormService {
         ...createDto.ukuranDimensiVesel,
         image: {
           ...createDto.ukuranDimensiVesel.image,
-          veselKiriImg: filePaths['veselKiriImg'] || createDto.ukuranDimensiVesel.image.veselKiriImg,
-          veselKananImg: filePaths['veselKananImg'] || createDto.ukuranDimensiVesel.image.veselKananImg,
-          veselHadapanImg: filePaths['veselHadapanImg'] || createDto.ukuranDimensiVesel.image.veselHadapanImg,
-          veselBelakangImg: filePaths['veselBelakangImg'] || createDto.ukuranDimensiVesel.image.veselBelakangImg,
-          veselKeseluruhanImg: filePaths['veselKeseluruhanImg'] || createDto.ukuranDimensiVesel.image.veselKeseluruhanImg,
+          veselKiriImg: uploadedFiles['veselKiriImg'] || createDto.ukuranDimensiVesel.image.veselKiriImg,
+          veselKananImg: uploadedFiles['veselKananImg'] || createDto.ukuranDimensiVesel.image.veselKananImg,
+          veselHadapanImg: uploadedFiles['veselHadapanImg'] || createDto.ukuranDimensiVesel.image.veselHadapanImg,
+          veselBelakangImg: uploadedFiles['veselBelakangImg'] || createDto.ukuranDimensiVesel.image.veselBelakangImg,
+          veselKeseluruhanImg: uploadedFiles['veselKeseluruhanImg'] || createDto.ukuranDimensiVesel.image.veselKeseluruhanImg,
         }
       },
       enjin: {
         ...createDto.enjin,
         image: {
           ...createDto.enjin.image,
-          enjinImg: filePaths['enjinImg'] || createDto.enjin.image.enjinImg,
-          noEnjinImg: filePaths['noEnjinImg'] || createDto.enjin.image.noEnjinImg,
-          penandaEnjinImg: filePaths['penandaEnjinImg'] || createDto.enjin.image.penandaEnjinImg,
-          turboImg: filePaths['turboImg'] || createDto.enjin.image.turboImg,
-          generatorImg: filePaths['generatorImg'] || createDto.enjin.image.generatorImg,
+          enjinImg: uploadedFiles['enjinImg'] || createDto.enjin.image.enjinImg,
+          noEnjinImg: uploadedFiles['noEnjinImg'] || createDto.enjin.image.noEnjinImg,
+          penandaEnjinImg: uploadedFiles['penandaEnjinImg'] || createDto.enjin.image.penandaEnjinImg,
+          turboImg: uploadedFiles['turboImg'] || createDto.enjin.image.turboImg,
+          generatorImg: uploadedFiles['generatorImg'] || createDto.enjin.image.generatorImg,
         }
       },
       peralatanKeselamatan: {
         ...createDto.peralatanKeselamatan,
         image: {
           ...createDto.peralatanKeselamatan.image,
-          MTUImg: filePaths['MTUImg'] || createDto.peralatanKeselamatan.image.MTUImg,
-          AISImg: filePaths['AISImg'] || createDto.peralatanKeselamatan.image.AISImg,
+          MTUImg: uploadedFiles['MTUImg'] || createDto.peralatanKeselamatan.image.MTUImg,
+          AISImg: uploadedFiles['AISImg'] || createDto.peralatanKeselamatan.image.AISImg,
         }
       },
       perakuanPegawai: {
         ...createDto.perakuanPegawai,
         image: {
           ...createDto.perakuanPegawai.image,
-          tandaTanganPembantuImg: filePaths['tandaTanganPembantuImg'] || createDto.perakuanPegawai.image.tandaTanganPembantuImg,
-          tandatanganPegawaiImg: filePaths['tandatanganPegawaiImg'] || createDto.perakuanPegawai.image.tandatanganPegawaiImg,
+          tandaTanganPembantuImg: uploadedFiles['tandaTanganPembantuImg'] || createDto.perakuanPegawai.image.tandaTanganPembantuImg,
+          tandatanganPegawaiImg: uploadedFiles['tandatanganPegawaiImg'] || createDto.perakuanPegawai.image.tandatanganPegawaiImg,
         }
       },
       perakuanEmpunyaVesel: {
         ...createDto.perakuanEmpunyaVesel,
         image: {
           ...createDto.perakuanEmpunyaVesel.image,
-          tandaTanganEmpunyaVeselImg: filePaths['tandaTanganEmpunyaVeselImg'] || createDto.perakuanEmpunyaVesel.image.tandaTanganEmpunyaVeselImg,
+          tandaTanganEmpunyaVeselImg: uploadedFiles['tandaTanganEmpunyaVeselImg'] || createDto.perakuanEmpunyaVesel.image.tandaTanganEmpunyaVeselImg,
         }
       },
     };

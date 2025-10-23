@@ -2,6 +2,22 @@ import { IsString, IsBoolean, IsNumber, IsArray, IsObject, IsOptional, ValidateN
 import { Type, Transform } from 'class-transformer';
 
 // Nested DTOs
+export class EngineImageDto {
+  @IsOptional()
+  enjinImg?: string;
+
+  @IsOptional()
+  noEnjinImg: any;
+
+  @IsOptional()
+  penandaEnjinImg?: string;
+
+  @IsOptional()
+  turboImg?: string;
+
+  @IsOptional()
+  generatorImg?: string;
+}
 export class NoPendaftaranVeselDto {
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
@@ -63,23 +79,18 @@ export class DimensionDto {
 
 export class VesselImageDto {
   @IsOptional()
-  @IsString()
   veselKiriImg?: string;
 
   @IsOptional()
-  @IsString()
   veselKananImg?: string;
 
   @IsOptional()
-  @IsString()
   veselHadapanImg?: string;
 
   @IsOptional()
-  @IsString()
   veselBelakangImg?: string;
 
   @IsOptional()
-  @IsString()
   veselKeseluruhanImg?: string;
 }
 
@@ -125,28 +136,6 @@ export class MaklumatEnjinDto {
   penandaVesel: string;
 }
 
-export class EngineImageDto {
-  @IsOptional()
-  @IsString()
-  enjinImg?: string;
-
-  @IsOptional()
-  @IsString()
-  noEnjinImg?: string;
-
-  @IsOptional()
-  @IsString()
-  penandaEnjinImg?: string;
-
-  @IsOptional()
-  @IsString()
-  turboImg?: string;
-
-  @IsOptional()
-  @IsString()
-  generatorImg?: string;
-}
-
 export class EnjinDto {
   @ValidateNested()
   @Type(() => MaklumatEnjinDto)
@@ -170,11 +159,9 @@ export class SafetyEquipmentDto {
 
 export class SafetyImageDto {
   @IsOptional()
-  @IsString()
   MTUImg?: string;
 
   @IsOptional()
-  @IsString()
   AISImg?: string;
 }
 
@@ -296,11 +283,9 @@ export class KeadaanVeselDto {
 
 export class OfficerSignatureImageDto {
   @IsOptional()
-  @IsString()
   tandaTanganPembantuImg?: string;
 
   @IsOptional()
-  @IsString()
   tandatanganPegawaiImg?: string;
 }
 
@@ -319,7 +304,6 @@ export class PerakuanPegawaiDto {
 
 export class OwnerSignatureImageDto {
   @IsOptional()
-  @IsString()
   tandaTanganEmpunyaVeselImg?: string;
 }
 

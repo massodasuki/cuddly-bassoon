@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { DaratVeselLpiFormService } from './darat-vesel-lpi-form.service';
 import { DaratVeselLpiFormController } from './darat-vesel-lpi-form.controller';
 import { DaratVeselLpiFormEntity } from './darat-vesel-lpi-form.entity';
+import { ImageUploadService } from './image-upload.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
 import { DaratVesselEntity } from '../darat-vessels/darat-vessels.entity';
@@ -38,7 +39,7 @@ import { DaratVesselHullHistorieEntity } from '../darat-vessel-hull-histories/da
     DaratVesselHistorieEntity,
     DaratVesselHullHistorieEntity,
   ])],
-  providers: [DaratVeselLpiFormService],
+  providers: [DaratVeselLpiFormService, ImageUploadService],
   controllers: [DaratVeselLpiFormController],
   exports: [DaratVeselLpiFormService],
 })
