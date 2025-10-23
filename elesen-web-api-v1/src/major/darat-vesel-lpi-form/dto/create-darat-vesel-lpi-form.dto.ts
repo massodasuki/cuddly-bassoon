@@ -341,6 +341,22 @@ export class CreateDaratVeselLpiFormDto {
 
    @IsOptional()
    @IsString()
+   vesselId?: string;
+
+   @IsOptional()
+   @IsString()
+   applicationId?: string;
+
+   @IsOptional()
+   @IsString()
+   userId?: string;
+
+   @IsOptional()
+   @IsString()
+   inspectedBy?: string;
+
+   @IsOptional()
+   @IsString()
    createdBy?: string;
 
    @IsOptional()

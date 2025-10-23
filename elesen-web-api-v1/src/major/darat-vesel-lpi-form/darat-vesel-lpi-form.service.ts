@@ -140,6 +140,10 @@ export class DaratVeselLpiFormService {
     };
 
     const entity = this.daratVeselLpiFormRepository.create({
+      vessel_id: dtoWithPaths.vesselId,
+      application_id: dtoWithPaths.applicationId,
+      user_id: dtoWithPaths.userId,
+      inspected_by: dtoWithPaths.inspectedBy,
       vessel_registration_number: dtoWithPaths.noVesel,
       inspection_date: new Date(dtoWithPaths.tarikhPemeriksaan),
       valid_date: new Date(dtoWithPaths.perakuanEmpunyaVesel.tarikhPemeriksaan),
