@@ -176,6 +176,7 @@ import { AuthModule } from './major/auth/auth.module';
 import { VesselsModule } from './major/vessels/vessels.module';
 import { VesselDetailsModule } from './major/vessel-details/vessel-details.module';
 import { DaratApplicationsModule } from './major/darat-applications/darat-applications.module';
+import { DaratVeselLpiFormModule } from './major/darat-vesel-lpi-form/darat-vesel-lpi-form.module';
 
 @Module({
   imports: [
@@ -367,7 +368,8 @@ import { DaratApplicationsModule } from './major/darat-applications/darat-applic
     ProfileUserDetailsModule,
     VesselsModule,
     VesselDetailsModule,
-    DaratApplicationsModule
+    DaratApplicationsModule,
+    DaratVeselLpiFormModule
     
   ],
   controllers: [AppController],
