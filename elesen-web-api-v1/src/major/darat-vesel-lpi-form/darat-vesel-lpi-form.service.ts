@@ -17,6 +17,7 @@ import { DaratVesselDisposalEntity } from '../darat-vessel-disposals/darat-vesse
 import { DaratVesselEngineEntity } from '../darat-vessel-engines/darat-vessel-engines.entity';
 import { DaratVesselHullEntity } from '../darat-vessel-hulls/darat-vessel-hulls.entity';
 import { DaratVesselHistorieEntity } from '../darat-vessel-histories/darat-vessel-histories.entity';
+import { DaratVesselHullHistorieEntity } from '../darat-vessel-hull-histories/darat-vessel-hull-histories.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -53,6 +54,8 @@ export class DaratVeselLpiFormService {
     private daratVesselHullRepository: Repository<DaratVesselHullEntity>,
     @InjectRepository(DaratVesselHistorieEntity)
     private daratVesselHistorieRepository: Repository<DaratVesselHistorieEntity>,
+    @InjectRepository(DaratVesselHullHistorieEntity)
+    private daratVesselHullHistorieRepository: Repository<DaratVesselHullHistorieEntity>,
   ) {}
 
   findAll(): Promise<DaratVeselLpiFormEntity[]> {
@@ -181,6 +184,64 @@ export class DaratVeselLpiFormService {
       },
     };
 
+    //TODO
+    // Map unmapped fields to existing fields creatively
+    const additionalRemarks = {
+      tandaPenukulBesi: {
+        tandaBahagianLaluan: dtoWithPaths.tandaPenukulBesi.tandaBahagianLaluan,
+        hurufKodTanda: dtoWithPaths.tandaPenukulBesi.hurufKodTanda,
+      },
+      tinPlate: dtoWithPaths.tinPlate.tinPlate,
+      pakuPenandaLebar: dtoWithPaths.pakuPenandaLebar,
+      rumahKemudi: {
+        diCat: dtoWithPaths.rumahKemudi.diCat,
+        diBumbung: dtoWithPaths.rumahKemudi.diBumbung,
+      },
+      pukatTundaBerlesen: {
+        jalurPutih: dtoWithPaths.pukatTundaBerlesen.jalurPutih,
+        diCat: dtoWithPaths.pukatTundaBerlesen.diCat,
+      },
+      ukuranDimensiVesel: {
+        // panjangMeterDalamLesen: dtoWithPaths.ukuranDimensiVesel.panjangMeter.dalamLesen,
+        // lebarMeterDalamLesen: dtoWithPaths.ukuranDimensiVesel.lebarMeter.dalamLesen,
+        // kedalamanMeterDalamLesen: dtoWithPaths.ukuranDimensiVesel.kedalamanMeter.dalamLesen,
+        muatanGRTDalamLesen: dtoWithPaths.ukuranDimensiVesel.muatanGRT.dalamLesen,
+        muatanGRTSemasaDiperiksa: dtoWithPaths.ukuranDimensiVesel.muatanGRT.semasaDiperiksa,
+        images: {
+          veselKiriImg: dtoWithPaths.ukuranDimensiVesel.image.veselKiriImg,
+          veselKananImg: dtoWithPaths.ukuranDimensiVesel.image.veselKananImg,
+          veselHadapanImg: dtoWithPaths.ukuranDimensiVesel.image.veselHadapanImg,
+          veselBelakangImg: dtoWithPaths.ukuranDimensiVesel.image.veselBelakangImg,
+        },
+      },
+      enjin: {
+        turbo: dtoWithPaths.enjin.maklumatEnjin.turbo,
+        penandaVesel: dtoWithPaths.enjin.maklumatEnjin.penandaVesel,
+        images: {
+          penandaEnjinImg: dtoWithPaths.enjin.image.penandaEnjinImg,
+          turboImg: dtoWithPaths.enjin.image.turboImg,
+          generatorImg: dtoWithPaths.enjin.image.generatorImg,
+        },
+      },
+      peralatanKeselamatan: {
+        // boyaKeselamatan: dtoWithPaths.peralatanKeselamatan.boyaKeselamatan,
+        // alatPemadamApi: dtoWithPaths.peralatanKeselamatan.alatPemadamApi,
+        // rakitKeselamatan: dtoWithPaths.peralatanKeselamatan.rakitKeselamatan,
+        // radioWireless: dtoWithPaths.peralatanKeselamatan.radioWireless,
+        AISImg: dtoWithPaths.peralatanKeselamatan.image.AISImg,
+      },
+      kelengkapanMenangkapIkan: dtoWithPaths.kelengkapanMenangkapIkan,
+      keadaanVesel: {
+        veselBaharu: dtoWithPaths.keadaanVesel.veselBaharu,
+      },
+      perakuanPegawai: {
+        tarikhPemeriksaan: dtoWithPaths.perakuanPegawai.tarikhPemeriksaan,
+      },
+      perakuanEmpunyaVesel: {
+        jenisPermohonan: dtoWithPaths.perakuanEmpunyaVesel.jenisPermohonan,
+      },
+    };
+
     // Save the main inspection entity first to get the ID
     const entity = this.daratVeselLpiFormRepository.create({
       vessel_id: dtoWithPaths.vesselId,
@@ -248,6 +309,34 @@ export class DaratVeselLpiFormService {
           type: equipment.jenisPeralatan,
           quantity: 1, // Default quantity
           condition: equipment.status,
+          is_approved: 1,
+          is_active: 1,
+          created_by: dtoWithPaths.createdBy,
+          updated_by: dtoWithPaths.updatedBy,
+          created_at: new Date(),
+        });
+        await this.daratInspectionEquipmentRepository.save(inspectionEquipment);
+      }
+    }
+
+    // Save safety equipment data to darat_inspection_equipments
+    const safetyEquipments = [
+      { name: 'Boya Keselamatan', type: 'Safety Equipment', data: dtoWithPaths.peralatanKeselamatan.boyaKeselamatan },
+      { name: 'Alat Pemadam Api', type: 'Safety Equipment', data: dtoWithPaths.peralatanKeselamatan.alatPemadamApi },
+      { name: 'Rakit Keselamatan', type: 'Safety Equipment', data: dtoWithPaths.peralatanKeselamatan.rakitKeselamatan },
+      { name: 'Radio Wireless', type: 'Safety Equipment', data: dtoWithPaths.peralatanKeselamatan.radioWireless },
+    ];
+
+    for (const safetyEq of safetyEquipments) {
+      if (safetyEq.data && safetyEq.data.status) {
+        const inspectionEquipment = this.daratInspectionEquipmentRepository.create({
+          application_id: dtoWithPaths.applicationId,
+          user_id: dtoWithPaths.userId,
+          inspection_id: savedEntity.id, // Link to the inspection
+          name: safetyEq.name,
+          type: safetyEq.type,
+          quantity: parseInt(safetyEq.data.kuantiti) || 1,
+          condition: safetyEq.data.keadaan,
           is_approved: 1,
           is_active: 1,
           created_by: dtoWithPaths.createdBy,
@@ -326,7 +415,27 @@ export class DaratVeselLpiFormService {
       updated_by: dtoWithPaths.updatedBy,
       created_at: new Date(),
     });
-    await this.daratVesselHullRepository.save(vesselHull);
+    const savedVesselHull = await this.daratVesselHullRepository.save(vesselHull);
+
+    // Save vessel hull history data
+    const vesselHullHistory = this.daratVesselHullHistorieRepository.create({
+      vessel_hull_id: savedVesselHull.id,
+      hull_type: dtoWithPaths.keadaanVesel.jenisKulit,
+      drilled: dtoWithPaths.noPendaftaranVesel.diTebuk ? 1 : 0,
+      brightly_painted: dtoWithPaths.noPendaftaranVesel.diCat ? 1 : 0,
+      vessel_registration_remarks: dtoWithPaths.tinPlate.noTinPlate,
+      length: dtoWithPaths.ukuranDimensiVesel.panjangMeter.dalamLesen,
+      width: dtoWithPaths.ukuranDimensiVesel.lebarMeter.dalamLesen,
+      depth: dtoWithPaths.ukuranDimensiVesel.kedalamanMeter.dalamLesen,
+      overall_image_path: dtoWithPaths.ukuranDimensiVesel.image.veselKeseluruhanImg,
+      right_side_image_path: dtoWithPaths.ukuranDimensiVesel.image.veselKananImg,
+      is_active: 1,
+      is_approved: 1,
+      created_by: dtoWithPaths.createdBy,
+      updated_by: dtoWithPaths.updatedBy,
+      created_at: new Date(),
+    });
+    await this.daratVesselHullHistorieRepository.save(vesselHullHistory);
 
     // Save vessel history data
     const vesselHistory = this.daratVesselHistorieRepository.create({
@@ -365,8 +474,9 @@ export class DaratVeselLpiFormService {
       applicationLog: applicationLog,
       temporaryPin: temporaryPin,
       vesselEngine: vesselEngine,
-      vesselHull: vesselHull,
+      vesselHull: savedVesselHull,
       vesselHistory: vesselHistory,
+      vesselHullHistory: vesselHullHistory,
     };
 
     console.log(savedEntity)

@@ -17,6 +17,7 @@ import { DaratVesselDisposalEntity } from '../darat-vessel-disposals/darat-vesse
 import { DaratVesselEngineEntity } from '../darat-vessel-engines/darat-vessel-engines.entity';
 import { DaratVesselHullEntity } from '../darat-vessel-hulls/darat-vessel-hulls.entity';
 import { DaratVesselHistorieEntity } from '../darat-vessel-histories/darat-vessel-histories.entity';
+import { DaratVesselHullHistorieEntity } from '../darat-vessel-hull-histories/darat-vessel-hull-histories.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -35,6 +36,7 @@ import { DaratVesselHistorieEntity } from '../darat-vessel-histories/darat-vesse
     DaratVesselEngineEntity,
     DaratVesselHullEntity,
     DaratVesselHistorieEntity,
+    DaratVesselHullHistorieEntity,
   ])],
   providers: [DaratVeselLpiFormService],
   controllers: [DaratVeselLpiFormController],
