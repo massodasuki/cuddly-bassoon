@@ -147,6 +147,225 @@ WHERE da.is_active = 1
 ORDER BY da.created_at DESC;
 ```
 
+## Related Tables Field Details
+
+### darat_application_approveds
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| application_id | char(36) | Yes | Foreign |
+| certificate_number | varchar(255) | Yes | Unique |
+| approved_by | char(36) | No | Foreign |
+| approved_at | timestamp | No | - |
+| valid_duration_months | int | Yes | - |
+| expired_at | timestamp | No | - |
+| is_active | tinyint(1) | Yes | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+| deleted_at | timestamp | No | - |
+
+### darat_application_logs
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| application_id | char(36) | Yes | Foreign |
+| application_status_id | char(36) | No | Foreign |
+| remarks | text | No | - |
+| review_flag | tinyint | No | - |
+| support_flag | tinyint | No | - |
+| decision_flag | tinyint | No | - |
+| confirmation_flag | tinyint | No | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| is_active | tinyint(1) | Yes | - |
+| deleted_at | timestamp | No | - |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+
+### darat_application_temps
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| application_id | char(36) | No | Foreign |
+| user_id | char(36) | No | Foreign |
+| form_data | json | No | - |
+| status | enum('draft','pending','approved','rejected') | Yes | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+| deleted_at | timestamp | No | - |
+
+### darat_inspection_equipments
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| user_id | char(36) | No | Foreign |
+| application_id | char(36) | No | Foreign |
+| inspection_id | char(36) | No | Foreign |
+| name | varchar(255) | No | - |
+| quantity | int | Yes | - |
+| type | varchar(20) | No | - |
+| condition | varchar(255) | No | - |
+| file_path | varchar(255) | No | - |
+| is_approved | tinyint(1) | Yes | - |
+| is_active | tinyint(1) | Yes | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+| deleted_at | timestamp | No | - |
+
+### darat_item_founds
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| inspection_id | char(36) | Yes | Foreign |
+| item | char(36) | Yes | - |
+| quantity | int | Yes | - |
+| remarks | text | No | - |
+| is_active | tinyint(1) | Yes | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+| deleted_at | timestamp | No | - |
+| application_id | char(36) | No | Foreign |
+
+### darat_payment_receipts
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| application_id | char(36) | No | Foreign |
+| user_id | char(36) | No | Foreign |
+| receipt_number | varchar(255) | No | - |
+| payment_date | date | No | - |
+| amount | decimal(10,2) | No | - |
+| uploaded_file_path | varchar(255) | No | - |
+| is_active | tinyint(1) | Yes | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+| deleted_at | timestamp | No | - |
+
+### darat_temporary_pins
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| application_id | char(36) | Yes | Foreign |
+| pin_number | varchar(255) | Yes | Unique |
+| is_active | tinyint(1) | Yes | - |
+| expires_at | timestamp | No | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+| deleted_at | timestamp | No | - |
+
+### darat_user_equipments
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| user_id | char(36) | No | Foreign |
+| application_id | char(36) | No | Foreign |
+| name | varchar(255) | No | - |
+| quantity | int | Yes | - |
+| condition | varchar(255) | No | - |
+| is_approved | tinyint(1) | Yes | - |
+| is_active | tinyint(1) | Yes | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+| deleted_at | timestamp | No | - |
+| type | varchar(50) | Yes | - |
+| file_path | varchar(255) | No | - |
+
+### darat_vessel_disposals
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| application_id | char(36) | No | Foreign |
+| user_id | char(36) | No | Foreign |
+| jenis_jualan | varchar(255) | No | - |
+| owner_name | varchar(255) | No | - |
+| owner_phone | varchar(255) | No | - |
+| owner_address | text | No | - |
+| owner_ic | varchar(255) | No | - |
+| resit_file_path | varchar(255) | No | - |
+| document_description | varchar(255) | No | - |
+| disposal_time | date | No | - |
+| disposal_location | varchar(255) | No | - |
+| disposal_method | varchar(255) | No | - |
+| before_disposal_image | varchar(255) | No | - |
+| after_disposal_image | varchar(255) | No | - |
+| attendance_form_image | varchar(255) | No | - |
+| is_approved | tinyint(1) | No | - |
+| is_active | tinyint(1) | No | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+| deleted_at | timestamp | No | - |
+
+### darat_vessel_inspections
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| vessel_id | char(36) | No | Foreign |
+| application_id | char(36) | No | Foreign |
+| user_id | char(36) | No | Foreign |
+| inspection_date | date | No | - |
+| valid_date | date | No | - |
+| inspection_location | varchar(255) | No | - |
+| inspected_by | varchar(255) | No | - |
+| is_support | tinyint(1) | Yes | - |
+| inspection_summary | text | No | - |
+| vessel_registration_number | varchar(255) | No | - |
+| vessel_condition | varchar(255) | No | - |
+| vessel_origin | varchar(255) | No | - |
+| hull_type | varchar(255) | No | - |
+| drilled | tinyint(1) | No | - |
+| brightly_painted | tinyint(1) | No | - |
+| vessel_registration_remarks | varchar(255) | No | - |
+| length | double(8,2) | No | - |
+| width | double(8,2) | No | - |
+| depth | double(8,2) | No | - |
+| engine_model | varchar(255) | No | - |
+| engine_brand | varchar(255) | No | - |
+| horsepower | int | No | - |
+| engine_number | varchar(255) | No | - |
+| safety_jacket_status | tinyint(1) | No | - |
+| safety_jacket_quantity | int | No | - |
+| safety_jacket_condition | varchar(255) | No | - |
+| attendance_form_path | varchar(255) | No | - |
+| vessel_image_path | varchar(255) | No | - |
+| inspector_owner_image_path | varchar(255) | No | - |
+| overall_image_path | varchar(255) | No | - |
+| safety_jacket_image_path | varchar(255) | No | - |
+| engine_image_path | varchar(255) | No | - |
+| engine_number_image_path | varchar(255) | No | - |
+| is_approved | tinyint(1) | Yes | - |
+| is_active | tinyint(1) | Yes | - |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| deleted_at | timestamp | No | - |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+
 ## Entity-Relationship Diagram (Mermaid)
 ```mermaid
 erDiagram
