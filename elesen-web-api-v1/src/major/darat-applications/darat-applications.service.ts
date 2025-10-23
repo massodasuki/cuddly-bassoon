@@ -27,6 +27,7 @@ export class DaratApplicationsService {
     };
 
     const transformedData = data.map(item => ({
+      id : item.id,
       noVesel: item.daratVesselInspection?.daratVessel?.registration_number || item.daratVesselInspection?.vessel_registration_number || '',
       tarikhPemeriksaan: item.inspection_date ? formatDate(item.inspection_date) : '',
       zonOperasi: item.daratVesselInspection?.inspection_location || '',
