@@ -1,7 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { VesselDetailsService } from './vessel-details.service';
-import { VesselDetailsResponseDto } from './dto/vessel-details-response.dto';
+import { ProfilVeselDto, VesselDetailsResponseDto } from './dto/vessel-details-response.dto';
 
 @ApiTags('Vessel Details')
 @Controller('/api/v1/applications/vessel-details')
@@ -14,7 +14,11 @@ export class VesselDetailsController {
   }
 
   @Get(':noVesel')
-  async findOne(@Param('noVesel') noVesel: string): Promise<VesselDetailsResponseDto> {
-    return this.vesselDetailsService.findOne(noVesel);
+  async findOne(@Param('noVesel') noVesel: string) {
+    const data = await this.vesselDetailsService.findOne(noVesel);
+    if (!data) {
+      throw new NotFoundException(`Vessel with no_pendaftaran ${noVesel} not found`);
+    }
+    return { data };
   }
 }

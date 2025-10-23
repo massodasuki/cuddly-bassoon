@@ -38,7 +38,7 @@ export class VesselDetailsService {
     private readonly pendaftaranAntarabangsaRepository: Repository<PendaftaranAntarabangsaEntity>,
   ) {}
 
-  async findOne(noVesel : string): Promise<VesselDetailsResponseDto> {
+  async findOne(noVesel : string): Promise<ProfilVeselDto> {
     const vessel = await this.vesselRepository.findOne({
         where: { no_pendaftaran : noVesel },
         relations: ['entity'],
@@ -58,7 +58,7 @@ export class VesselDetailsService {
     const pematuhan = await this.pematuhanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
     const pendaftaranAntarabangsa = await this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: vessel.id } });
 
-    const processed: ProfilVeselDto = {
+    return {
       maklumatAmVesel: {
         noPendaftaranVesel: vessel.no_pendaftaran || '',
         noGeran: null,
@@ -299,10 +299,6 @@ export class VesselDetailsService {
         spesisSasaran: pendaftaranAntarabangsa?.spesis_sasaran || '',
       },
     };
-
-    const data: ProfilVeselDto[] = [processed];
-
-    return { data };
   }
 
   async findAll(): Promise<VesselDetailsResponseDto> {
