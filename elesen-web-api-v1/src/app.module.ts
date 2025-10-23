@@ -175,6 +175,7 @@ import { UsersModule } from './major/users/users.module';
 import { AuthModule } from './major/auth/auth.module';
 import { VesselsModule } from './major/vessels/vessels.module';
 import { VesselDetailsModule } from './major/vessel-details/vessel-details.module';
+import { DaratApplicationsModule } from './major/darat-applications/darat-applications.module';
 
 @Module({
   imports: [
@@ -190,6 +191,7 @@ import { VesselDetailsModule } from './major/vessel-details/vessel-details.modul
         database: configService.get<string>('DB_DATABASE', 'elesen2024_dev'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: configService.get<boolean>('DB_SYNCHRONIZE', false),
+        logging: ['error', 'warn', 'query', 'schema']
       }),
       inject: [ConfigService],
     }),
@@ -364,10 +366,13 @@ import { VesselDetailsModule } from './major/vessel-details/vessel-details.modul
     UsersModule,
     ProfileUserDetailsModule,
     VesselsModule,
-    VesselDetailsModule
+    VesselDetailsModule,
+    DaratApplicationsModule
+    
   ],
   controllers: [AppController],
   providers: [AppService],
+  
 })
 
 export class AppModule {}

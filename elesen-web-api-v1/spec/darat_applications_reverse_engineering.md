@@ -147,7 +147,27 @@ WHERE da.is_active = 1
 ORDER BY da.created_at DESC;
 ```
 
-## Related Tables Field Details
+## Table Field Details
+
+### darat_applications
+| Field Name | Data Type | Mandatory | Key |
+|------------|-----------|-----------|-----|
+| id | char(36) | Yes | Primary |
+| user_id | char(36) | No | Foreign |
+| application_type_id | char(36) | No | Foreign |
+| application_status_id | char(36) | No | Foreign |
+| created_by | char(36) | No | Foreign |
+| updated_by | char(36) | No | Foreign |
+| deleted_by | char(36) | No | Foreign |
+| inspection_date | date | No | - |
+| no_rujukan | varchar(20) | No | Unique |
+| is_appeal | tinyint(1) | Yes | - |
+| is_approved | tinyint(1) | Yes | - |
+| is_active | tinyint(1) | Yes | - |
+| deleted_at | timestamp | No | - |
+| created_at | timestamp | No | - |
+| updated_at | timestamp | No | - |
+| new_entity_id | char(36) | No | - |
 
 ### darat_application_approveds
 | Field Name | Data Type | Mandatory | Key |
