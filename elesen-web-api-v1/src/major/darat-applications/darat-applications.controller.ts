@@ -5,18 +5,11 @@ import { DaratApplicationResponseDto } from './dto/darat-application-response.dt
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @ApiTags('Darat Applications')
-@Controller('/api/v1/applications/darat-inspections')
+@Controller('/api/v1/applications')
 export class DaratApplicationsController {
   constructor(private readonly daratApplicationsService: DaratApplicationsService) {}
 
-  // @Get('/list')
-  // @ApiQuery({ name: 'page', required: false, type: Number })
-  // @ApiQuery({ name: 'limit', required: false, type: Number })
-  // async findAll(@Query() query: PaginationQueryDto): Promise<DaratApplicationResponseDto> {
-  //   return this.daratApplicationsService.findAll(query);
-  // }
-
-  @Get('/list')
+  @Get('darat-applications-minimal')
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   async findAll(@Query() query: PaginationQueryDto) {
