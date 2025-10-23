@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
+import { DaratVesselEntity } from '../darat-vessels/darat-vessels.entity';
 
 @Entity('darat_vessel_inspections')
 export class DaratVesselInspectionEntity {
@@ -11,10 +12,6 @@ export class DaratVesselInspectionEntity {
 
   @Column({ nullable: true })
   application_id: string;
-
-  // @OneToOne(() => DaratApplicationEntity, application => application.inspection, { nullable: true })
-  // // @JoinColumn({ name: 'application_id' })
-  // application_id: DaratApplicationEntity;
 
   @Column({ nullable: true })
   user_id: string;
@@ -137,5 +134,9 @@ export class DaratVesselInspectionEntity {
   @OneToOne(() => DaratApplicationEntity, da => da.daratVesselInspection)
   @JoinColumn({ name: 'application_id' })
   daratApplication: DaratApplicationEntity;
+  
+  @ManyToOne(() => DaratVesselEntity, { nullable: true })
+  @JoinColumn({ name: 'vessel_id' })
+  daratVessel: DaratVesselEntity;
 
 }
