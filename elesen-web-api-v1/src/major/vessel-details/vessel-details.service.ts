@@ -48,8 +48,7 @@ export class VesselDetailsService {
         throw new Error('Vessel not found');
       }
 
-    let kulit : KulitEntity | null = null;
-    kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
     const enjin = await this.enjinRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
     const kesalahan = await this.kesalahanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
     const pengkalan = await this.jettieRepository.find({ where: { state_id: vessel.negeri } });
@@ -91,11 +90,11 @@ export class VesselDetailsService {
         kedalamanMeter: parseFloat(kulit?.dalam || '0'),
         muatanGRT: vessel.grt || 0,
         status: kulit?.status_kulit || 'Tidak Aktif',
-        tindakan: kulit?.catatan || null,
+        tindakan: null,
       },
       enjin: {
         maklumatAmEjin: {
-          jenisEnjin: enjin?.jenis_enjin === 1 ? 'Sangkut' : 'Dalam',
+          jenisEnjin: enjin?.jenis_enjin === 1 ? 'Sangkut' : 'Unknown',
           bahanApi: enjin?.bahan_api || 'Diesel',
           jenamaEnjin: enjin?.jenama || '',
           kuasaKuda: enjin?.kuasa_kuda || 0,
