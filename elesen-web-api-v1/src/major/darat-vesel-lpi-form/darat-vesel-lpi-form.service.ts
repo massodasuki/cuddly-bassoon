@@ -3,6 +3,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DaratVeselLpiFormEntity } from './darat-vesel-lpi-form.entity';
 import { CreateDaratVeselLpiFormDto } from './dto/create-darat-vesel-lpi-form.dto';
+import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
+import { DaratVesselEntity } from '../darat-vessels/darat-vessels.entity';
+import { DaratApplicationApprovedEntity } from '../../components/darat-application-approveds/darat-application-approveds.entity';
+import { DaratApplicationLogEntity } from '../../components/darat-application-logs/darat-application-logs.entity';
+import { DaratApplicationTempEntity } from '../../components/darat-application-temps/darat-application-temps.entity';
+import { DaratInspectionEquipmentEntity } from '../../components/darat-inspection-equipments/darat-inspection-equipments.entity';
+import { DaratItemFoundEntity } from '../../components/darat-item-founds/darat-item-founds.entity';
+import { DaratPaymentReceiptEntity } from '../../components/darat-payment-receipts/darat-payment-receipts.entity';
+import { DaratTemporaryPinEntity } from '../../components/darat-temporary-pins/darat-temporary-pins.entity';
+import { DaratUserEquipmentEntity } from '../../components/darat-user-equipments/darat-user-equipments.entity';
+import { DaratVesselDisposalEntity } from '../../components/darat-vessel-disposals/darat-vessel-disposals.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -11,6 +22,28 @@ export class DaratVeselLpiFormService {
   constructor(
     @InjectRepository(DaratVeselLpiFormEntity)
     private daratVeselLpiFormRepository: Repository<DaratVeselLpiFormEntity>,
+    @InjectRepository(DaratApplicationEntity)
+    private daratApplicationRepository: Repository<DaratApplicationEntity>,
+    @InjectRepository(DaratVesselEntity)
+    private daratVesselRepository: Repository<DaratVesselEntity>,
+    @InjectRepository(DaratApplicationApprovedEntity)
+    private daratApplicationApprovedRepository: Repository<DaratApplicationApprovedEntity>,
+    @InjectRepository(DaratApplicationLogEntity)
+    private daratApplicationLogRepository: Repository<DaratApplicationLogEntity>,
+    @InjectRepository(DaratApplicationTempEntity)
+    private daratApplicationTempRepository: Repository<DaratApplicationTempEntity>,
+    @InjectRepository(DaratInspectionEquipmentEntity)
+    private daratInspectionEquipmentRepository: Repository<DaratInspectionEquipmentEntity>,
+    @InjectRepository(DaratItemFoundEntity)
+    private daratItemFoundRepository: Repository<DaratItemFoundEntity>,
+    @InjectRepository(DaratPaymentReceiptEntity)
+    private daratPaymentReceiptRepository: Repository<DaratPaymentReceiptEntity>,
+    @InjectRepository(DaratTemporaryPinEntity)
+    private daratTemporaryPinRepository: Repository<DaratTemporaryPinEntity>,
+    @InjectRepository(DaratUserEquipmentEntity)
+    private daratUserEquipmentRepository: Repository<DaratUserEquipmentEntity>,
+    @InjectRepository(DaratVesselDisposalEntity)
+    private daratVesselDisposalRepository: Repository<DaratVesselDisposalEntity>,
   ) {}
 
   findAll(): Promise<DaratVeselLpiFormEntity[]> {
@@ -31,7 +64,7 @@ export class DaratVeselLpiFormService {
     return Array.isArray(savedEntity) ? savedEntity[0] : savedEntity;
   }
 
-  async  createWithFiles(createDto: CreateDaratVeselLpiFormDto, files: Express.Multer.File[]): Promise<CreateDaratVeselLpiFormDto> {
+  async createWithFiles(createDto: CreateDaratVeselLpiFormDto, files: Express.Multer.File[]): Promise<CreateDaratVeselLpiFormDto> {
     const uploadDir = path.join(__dirname, '..', '..', '..', 'uploads');
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
@@ -139,6 +172,7 @@ export class DaratVeselLpiFormService {
       },
     };
 
+    // Save the main inspection entity first to get the ID
     const entity = this.daratVeselLpiFormRepository.create({
       vessel_id: dtoWithPaths.vesselId,
       application_id: dtoWithPaths.applicationId,
@@ -179,9 +213,95 @@ export class DaratVeselLpiFormService {
       updated_by: dtoWithPaths.updatedBy,
       created_at: new Date(),
     });
-    
+
     const savedEntity = await this.daratVeselLpiFormRepository.save(entity);
+
+    // Now save related data to other repositories that join with darat_applications
+    // Save application log
+    const applicationLog = this.daratApplicationLogRepository.create({
+      application_id: dtoWithPaths.applicationId,
+      remarks: `LPI Form inspection completed for vessel ${dtoWithPaths.noVesel}`,
+      created_by: dtoWithPaths.createdBy,
+      updated_by: dtoWithPaths.updatedBy,
+      is_active: 1,
+      created_at: new Date(),
+    });
+    await this.daratApplicationLogRepository.save(applicationLog);
+
+    // Save inspection equipment data
+    if (dtoWithPaths.peralatan && dtoWithPaths.peralatan.length > 0) {
+      for (const equipment of dtoWithPaths.peralatan) {
+        const inspectionEquipment = this.daratInspectionEquipmentRepository.create({
+          application_id: dtoWithPaths.applicationId,
+          user_id: dtoWithPaths.userId,
+          inspection_id: savedEntity.id, // Link to the inspection
+          name: equipment.nama,
+          type: equipment.jenisPeralatan,
+          quantity: 1, // Default quantity
+          condition: equipment.status,
+          is_approved: 1,
+          is_active: 1,
+          created_by: dtoWithPaths.createdBy,
+          updated_by: dtoWithPaths.updatedBy,
+          created_at: new Date(),
+        });
+        await this.daratInspectionEquipmentRepository.save(inspectionEquipment);
+      }
+    }
+
+    // Save user equipment data
+    if (dtoWithPaths.peralatan && dtoWithPaths.peralatan.length > 0) {
+      for (const equipment of dtoWithPaths.peralatan) {
+        const userEquipment = this.daratUserEquipmentRepository.create({
+          application_id: dtoWithPaths.applicationId,
+          user_id: dtoWithPaths.userId,
+          name: equipment.nama,
+          type: equipment.jenisPeralatan,
+          quantity: 1, // Default quantity
+          condition: equipment.status,
+          is_approved: 1,
+          is_active: 1,
+          created_by: dtoWithPaths.createdBy,
+          updated_by: dtoWithPaths.updatedBy,
+          created_at: new Date(),
+        });
+        await this.daratUserEquipmentRepository.save(userEquipment);
+      }
+    }
+
+    // Save temporary pin if needed
+    const temporaryPin = this.daratTemporaryPinRepository.create({
+      application_id: dtoWithPaths.applicationId,
+      pin_number: `LPI-${Date.now()}`, // Generate a temporary pin
+      expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+      is_active: 1,
+      created_by: dtoWithPaths.createdBy,
+      updated_by: dtoWithPaths.updatedBy,
+      created_at: new Date(),
+    });
+    await this.daratTemporaryPinRepository.save(temporaryPin);
+
+    // Fetch related data for response
+    const application = await this.daratApplicationRepository.findOne({
+      where: { id: dtoWithPaths.applicationId },
+      relations: ['status']
+    });
+
+    const vessel = await this.daratVesselRepository.findOne({
+      where: { id: dtoWithPaths.vesselId }
+    });
+
+    // Include related data in the response
+    const enrichedDto = {
+      ...dtoWithPaths,
+      inspectionId: savedEntity.id,
+      application: application,
+      vessel: vessel,
+      applicationLog: applicationLog,
+      temporaryPin: temporaryPin,
+    };
+
     console.log(savedEntity)
-    return dtoWithPaths;
+    return enrichedDto;
   }
 }
