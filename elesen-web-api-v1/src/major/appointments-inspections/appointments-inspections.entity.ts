@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
 
 export enum KehadiranEnum {
   HADIR = 'Hadir',
@@ -22,6 +23,13 @@ export enum StatusEnum {
 export class AppointmentsInspections {
   @PrimaryColumn({ type: 'char', length: 36 })
   id: string;
+
+  @Column({ type: 'varchar', length: 36, nullable: true })
+  applications_id: string;
+
+  @ManyToOne(() => DaratApplicationEntity, { nullable: true })
+  @JoinColumn({ name: 'applications_id' })
+  daratApplication: DaratApplicationEntity;
 
   @Column({ type: 'varchar', length: 255 })
   no_vessel: string;

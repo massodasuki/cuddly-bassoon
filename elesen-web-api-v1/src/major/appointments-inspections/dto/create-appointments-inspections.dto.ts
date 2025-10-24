@@ -31,6 +31,11 @@ export class WakilDto {
 }
 
 export class CreateAppointmentsInspectionsDto {
+  @ApiPropertyOptional({ example: 'uuid-string' })
+  @IsOptional()
+  @IsString()
+  applications_id?: string;
+
   @ApiProperty({ example: 'TRF1234' })
   @IsNotEmpty()
   @IsString()

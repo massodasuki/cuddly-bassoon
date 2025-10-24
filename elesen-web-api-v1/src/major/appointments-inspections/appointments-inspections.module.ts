@@ -3,9 +3,10 @@ import { AppointmentsInspectionsService } from './appointments-inspections.servi
 import { AppointmentsInspectionsController } from './appointments-inspections.controller';
 import { AppointmentsInspections } from './appointments-inspections.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DaratApplicationsModule } from '../darat-applications/darat-applications.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AppointmentsInspections])],
+  imports: [TypeOrmModule.forFeature([AppointmentsInspections]), DaratApplicationsModule],
   providers: [AppointmentsInspectionsService],
   controllers: [AppointmentsInspectionsController],
   exports: [AppointmentsInspectionsService],
