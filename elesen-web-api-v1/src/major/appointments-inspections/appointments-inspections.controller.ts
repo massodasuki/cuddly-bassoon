@@ -4,7 +4,7 @@ import { AppointmentsInspections } from './appointments-inspections.entity';
 import { CreateAppointmentsInspectionsDto } from './dto/create-appointments-inspections.dto';
 import { UpdateAppointmentsInspectionsDto } from './dto/update-appointments-inspections.dto';
 
-@Controller('appointments-inspections')
+@Controller('/api/v1/applications/appointments-inspections')
 export class AppointmentsInspectionsController {
   constructor(private readonly appointmentsInspectionsService: AppointmentsInspectionsService) {}
 
