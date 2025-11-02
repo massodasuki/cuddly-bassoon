@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { AppointmentsInspectionsService } from './appointments-inspections.service';
 import { AppointmentsInspections } from './appointments-inspections.entity';
 import { CreateAppointmentsInspectionsDto } from './dto/create-appointments-inspections.dto';
@@ -11,6 +12,17 @@ export class AppointmentsInspectionsController {
   @Post()
   create(@Body() createAppointmentsInspectionsDto: CreateAppointmentsInspectionsDto): Promise<AppointmentsInspections> {
     return this.appointmentsInspectionsService.create(createAppointmentsInspectionsDto);
+  }
+
+  @Post('inspection')
+  @UseInterceptors(FileFieldsInterceptor([
+    { name: 'surat_wakil', maxCount: 1 }
+  ]))
+  createWithFiles(
+    @Body() createDto: CreateAppointmentsInspectionsDto,
+    @UploadedFiles() files: { [key: string]: Express.Multer.File[] },
+  ): Promise<AppointmentsInspections> {
+    return this.appointmentsInspectionsService.createWithFiles(createDto, files);
   }
 
   @Get()

@@ -19,38 +19,30 @@ export class WakilDto {
   @ApiPropertyOptional({ example: '901212-10-1234' })
   @IsOptional()
   @IsString()
-  no_ic?: string;
-
-  @ApiPropertyOptional({
-    description: 'Base64 string or file reference (max 5MB)',
-    example: 'base64encodedimage==',
-  })
-  @IsOptional()
-  @IsString()
-  surat_wakil?: string;
+  noIc?: string;
 }
 
 export class CreateAppointmentsInspectionsDto {
-  @ApiPropertyOptional({ example: 'uuid-string' })
+  @ApiPropertyOptional({ example: 'uuid-string-here' })
   @IsOptional()
   @IsString()
-  applications_id?: string;
+  applicationsId?: string;
 
   @ApiProperty({ example: 'TRF1234' })
   @IsNotEmpty()
   @IsString()
-  no_vessel: string;
+  noVessel: string;
 
-  @ApiProperty({ enum: KehadiranEnum })
+  @ApiProperty({ enum: KehadiranEnum, example: 'HADIR' })
   @IsEnum(KehadiranEnum)
   kehadiran: KehadiranEnum;
 
-  @ApiPropertyOptional({ enum: DihadiriOlehEnum })
+  @ApiPropertyOptional({ enum: DihadiriOlehEnum, example: 'PEMOHON' })
   @IsOptional()
   @IsEnum(DihadiriOlehEnum)
-  dihadiri_oleh?: DihadiriOlehEnum;
+  dihadiriOleh?: DihadiriOlehEnum;
 
-  @ApiPropertyOptional({ type: WakilDto })
+  @ApiPropertyOptional({ type: WakilDto, example: {"nama":"Ahmad bin Ali","noIc":"901212-10-1234"} })
   @IsOptional()
   @IsObject()
   @ValidateNested()
@@ -62,7 +54,7 @@ export class CreateAppointmentsInspectionsDto {
   @IsString()
   ulasan?: string;
 
-  @ApiPropertyOptional({ enum: StatusEnum })
+  @ApiPropertyOptional({ enum: StatusEnum, example: 'SELESAI' })
   @IsOptional()
   @IsEnum(StatusEnum)
   status?: StatusEnum;
@@ -72,8 +64,13 @@ export class CreateAppointmentsInspectionsDto {
   @IsString()
   timestamp?: string;
 
-  @ApiPropertyOptional({ example: 'uuid-string' })
+  @ApiPropertyOptional({ example: 'uuid-string-here' })
   @IsOptional()
   @IsString()
-  created_by?: string;
+  createdBy?: string;
+
+  @ApiPropertyOptional({ example: '/path/to/your/file.jpg' })
+  @IsOptional()
+  @IsString()
+  suratWakil?: string;
 }
