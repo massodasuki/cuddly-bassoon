@@ -56,7 +56,7 @@ export class ProfileUserDetailsService {
     // Get specific profile user
     console.log(`Fetching profile user with id: ${id}`);
     const user = await this.profileUsersRepository.findOne({
-      where: { id, is_active: 1 }
+      where: { user_id : id, is_active: 1 }
     });
 
     if (!user) {
