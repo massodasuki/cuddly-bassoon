@@ -63,7 +63,7 @@ export class EnjinDto {
 export class PeralatanDto {
   nama: string;
   jenisPeralatan: string;
-  panjangMeter: number;
+  kuantiti: number | null;
   tarikDilesen: string;
   status: string;
 }

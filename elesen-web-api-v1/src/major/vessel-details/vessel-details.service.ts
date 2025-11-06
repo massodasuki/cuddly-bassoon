@@ -11,6 +11,7 @@ import { KruEntity } from '../kru/kru.entity';
 import { PemilikanEntity } from '../pemilikan/pemilikan.entity';
 import { PematuhanEntity } from '../pematuhan/pematuhan.entity';
 import { PendaftaranAntarabangsaEntity } from '../pendaftaran-antarabangsa/pendaftaran-antarabangsa.entity';
+import { CmEquipment } from '../../components/cm-equipment/cm-equipment.entity';
 import { VesselDetailsResponseDto, ProfilVeselDto } from './dto/vessel-details-response.dto';
 
 @Injectable()
@@ -36,6 +37,8 @@ export class VesselDetailsService {
     private readonly pematuhanRepository: Repository<PematuhanEntity>,
     @InjectRepository(PendaftaranAntarabangsaEntity)
     private readonly pendaftaranAntarabangsaRepository: Repository<PendaftaranAntarabangsaEntity>,
+    @InjectRepository(CmEquipment)
+    private readonly cmEquipmentRepository: Repository<CmEquipment>,
   ) {}
 
   async findOne(noVesel : string): Promise<ProfilVeselDto> {
@@ -57,6 +60,8 @@ export class VesselDetailsService {
     const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
     const pematuhan = await this.pematuhanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
     const pendaftaranAntarabangsa = await this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: vessel.id } });
+    const peralatan = await this.cmEquipmentRepository.find({ where: { vessel_id: vessel.no_pendaftaran, is_active: true } });
+    console.log(peralatan)
 
     return {
       maklumatAmVesel: {
@@ -113,7 +118,13 @@ export class VesselDetailsService {
           generatorUrl: enjin?.gambar_generator || 'https//dof.gov/abcg.png',
         },
       },
-      peralatan: [], // Placeholder - need to implement equipment entity
+      peralatan: peralatan.map(p => ({
+        nama: p.equipment_name,
+        jenisPeralatan: this.mapEquipmentType(p.equipment_type),
+        kuantiti: p.amount, // Default value, can be updated based on requirements
+        tarikDilesen: p.date_licensed && p.date_licensed instanceof Date ? p.date_licensed.toISOString().split('T')[0] : '',
+        status: p.is_active ? 'Aktif' : 'Tidak Aktif',
+      })),
       kru: kru.map(k => ({
         noKadPendaftaran: k.no_kad || '',
         nama: k.nama_kru || '',
@@ -317,6 +328,7 @@ export class VesselDetailsService {
         const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
         const pematuhan = await this.pematuhanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
         const pendaftaranAntarabangsa = await this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: vessel.id } });
+        const peralatanList = await this.cmEquipmentRepository.find({ where: { vessel_id: vessel.no_pendaftaran, is_active: true } });
 
         return {
           maklumatAmVesel: {
@@ -373,7 +385,13 @@ export class VesselDetailsService {
               generatorUrl: enjin?.gambar_generator || 'https//dof.gov/abcg.png',
             },
           },
-          peralatan: [], // Placeholder - need to implement equipment entity
+          peralatan: peralatanList.map(p => ({
+            nama: p.equipment_name,
+            jenisPeralatan: this.mapEquipmentType(p.equipment_type),
+            kuantiti: p.amount || null, // Default value, can be updated based on requirements
+            tarikDilesen: p.date_licensed && p.date_licensed instanceof Date ? p.date_licensed.toISOString().split('T')[0] : '',
+            status: p.is_active ? 'Aktif' : 'Tidak Aktif',
+          })),
           kru: kru.map(k => ({
             noKadPendaftaran: k.no_kad || '',
             nama: k.nama_kru || '',
@@ -580,4 +598,15 @@ export class VesselDetailsService {
 
   //   return { data: vesselDetail ? [vesselDetail] : [] };
   // }
+
+  private mapEquipmentType(equipmentType: number): string {
+    switch (equipmentType) {
+      case 1:
+        return 'Utama';
+      case 2:
+        return 'Tambahan';
+      default:
+        return 'Tidak Diketahui';
+    }
+  }
 }

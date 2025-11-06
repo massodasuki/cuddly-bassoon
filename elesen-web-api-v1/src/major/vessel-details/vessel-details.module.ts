@@ -13,6 +13,7 @@ import { KruEntity } from '../../components/kru/kru.entity';
 import { PemilikanEntity } from '../../components/pemilikan/pemilikan.entity';
 import { PematuhanEntity } from '../../components/pematuhan/pematuhan.entity';
 import { PendaftaranAntarabangsaEntity } from '../../components/pendaftaran-antarabangsa/pendaftaran-antarabangsa.entity';
+import { CmEquipment } from '../../components/cm-equipment/cm-equipment.entity';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PendaftaranAntarabangsaEntity } from '../../components/pendaftaran-anta
       PemilikanEntity,
       PematuhanEntity,
       PendaftaranAntarabangsaEntity,
+      CmEquipment,
     ]),
   ],
   controllers: [VesselDetailsController],
