@@ -122,7 +122,7 @@ export class VesselDetailsService {
         nama: p.equipment_name,
         jenisPeralatan: this.mapEquipmentType(p.equipment_type),
         kuantiti: p.amount, // Default value, can be updated based on requirements
-        tarikDilesen: p.date_licensed && p.date_licensed instanceof Date ? p.date_licensed.toISOString().split('T')[0] : '',
+        tarikDilesen: p.date_licensed ? new Date(p.date_licensed).toISOString().split('T')[0] : '',
         status: p.is_active ? 'Aktif' : 'Tidak Aktif',
       })),
       kru: kru.map(k => ({
@@ -389,7 +389,7 @@ export class VesselDetailsService {
             nama: p.equipment_name,
             jenisPeralatan: this.mapEquipmentType(p.equipment_type),
             kuantiti: p.amount || null, // Default value, can be updated based on requirements
-            tarikDilesen: p.date_licensed && p.date_licensed instanceof Date ? p.date_licensed.toISOString().split('T')[0] : '',
+            tarikDilesen: p.date_licensed ? new Date(p.date_licensed).toISOString().split('T')[0] : '',
             status: p.is_active ? 'Aktif' : 'Tidak Aktif',
           })),
           kru: kru.map(k => ({
