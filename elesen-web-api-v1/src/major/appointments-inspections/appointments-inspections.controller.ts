@@ -4,13 +4,14 @@ import { AppointmentsInspectionsService } from './appointments-inspections.servi
 import { AppointmentsInspections } from './appointments-inspections.entity';
 import { CreateAppointmentsInspectionsDto } from './dto/create-appointments-inspections.dto';
 import { UpdateAppointmentsInspectionsDto } from './dto/update-appointments-inspections.dto';
+import { AppointmentsInspectionsResponseDto } from './dto/appointments-inspections-response.dto';
 
 @Controller('/api/v1/applications/appointments-inspections')
 export class AppointmentsInspectionsController {
   constructor(private readonly appointmentsInspectionsService: AppointmentsInspectionsService) {}
 
   @Post()
-  create(@Body() createAppointmentsInspectionsDto: CreateAppointmentsInspectionsDto): Promise<AppointmentsInspections> {
+  create(@Body() createAppointmentsInspectionsDto: CreateAppointmentsInspectionsDto): Promise<AppointmentsInspectionsResponseDto> {
     return this.appointmentsInspectionsService.create(createAppointmentsInspectionsDto);
   }
 
@@ -21,22 +22,22 @@ export class AppointmentsInspectionsController {
   createWithFiles(
     @Body() createDto: CreateAppointmentsInspectionsDto,
     @UploadedFiles() files: { [key: string]: Express.Multer.File[] },
-  ): Promise<AppointmentsInspections> {
+  ): Promise<AppointmentsInspectionsResponseDto> {
     return this.appointmentsInspectionsService.createWithFiles(createDto, files);
   }
 
   @Get()
-  findAll(): Promise<AppointmentsInspections[]> {
+  findAll(): Promise<AppointmentsInspectionsResponseDto[]> {
     return this.appointmentsInspectionsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<AppointmentsInspections> {
+  findOne(@Param('id') id: string): Promise<AppointmentsInspectionsResponseDto> {
     return this.appointmentsInspectionsService.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateAppointmentsInspectionsDto: UpdateAppointmentsInspectionsDto): Promise<AppointmentsInspections> {
+  update(@Param('id') id: string, @Body() updateAppointmentsInspectionsDto: UpdateAppointmentsInspectionsDto): Promise<AppointmentsInspectionsResponseDto> {
     return this.appointmentsInspectionsService.update(id, updateAppointmentsInspectionsDto);
   }
 

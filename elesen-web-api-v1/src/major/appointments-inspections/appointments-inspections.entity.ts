@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
 import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
 
 export enum KehadiranEnum {
@@ -67,12 +67,17 @@ export class AppointmentsInspections {
   @Column({ type: 'char', length: 36, nullable: true })
   deleted_by: string;
 
-  @CreateDateColumn({ nullable: true })
+  @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn({ nullable: true })
+  @UpdateDateColumn()
   updated_at: Date;
 
   @DeleteDateColumn({ nullable: true })
   deleted_at: Date;
+
+  @BeforeInsert()
+  setCreatedAt() {
+    this.created_at = new Date();
+  }
 }

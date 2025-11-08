@@ -1,9 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { plainToClass } from 'class-transformer';
 import { AppointmentsInspections } from './appointments-inspections.entity';
 import { CreateAppointmentsInspectionsDto } from './dto/create-appointments-inspections.dto';
 import { UpdateAppointmentsInspectionsDto } from './dto/update-appointments-inspections.dto';
+import { AppointmentsInspectionsResponseDto } from './dto/appointments-inspections-response.dto';
 import { ImageUploadService } from './image-upload.service';
 
 @Injectable()
@@ -14,35 +16,42 @@ export class AppointmentsInspectionsService {
     private readonly imageUploadService: ImageUploadService,
   ) {}
 
-  create(createAppointmentsInspectionsDto: CreateAppointmentsInspectionsDto): Promise<AppointmentsInspections> {
+  create(createAppointmentsInspectionsDto: CreateAppointmentsInspectionsDto): Promise<AppointmentsInspectionsResponseDto> {
     const appointment = this.appointmentsInspectionsRepository.create(createAppointmentsInspectionsDto);
-    return this.appointmentsInspectionsRepository.save(appointment);
+    return this.appointmentsInspectionsRepository.save(appointment).then(saved => plainToClass(AppointmentsInspectionsResponseDto, saved, { excludeExtraneousValues: true }));
   }
 
-  findAll(): Promise<AppointmentsInspections[]> {
-    return this.appointmentsInspectionsRepository.find();
+  findAll(): Promise<AppointmentsInspectionsResponseDto[]> {
+    return this.appointmentsInspectionsRepository.find().then(appointments => appointments.map(appointment => plainToClass(AppointmentsInspectionsResponseDto, appointment, { excludeExtraneousValues: true })));
   }
 
-  async findOne(id: string): Promise<AppointmentsInspections> {
+  async findOne(id: string): Promise<AppointmentsInspectionsResponseDto> {
     const appointment = await this.appointmentsInspectionsRepository.findOneBy({ id });
     if (!appointment) {
       throw new NotFoundException(`AppointmentsInspections with id ${id} not found`);
     }
-    return appointment;
+    return plainToClass(AppointmentsInspectionsResponseDto, appointment, { excludeExtraneousValues: true });
   }
 
-  async update(id: string, updateAppointmentsInspectionsDto: UpdateAppointmentsInspectionsDto): Promise<AppointmentsInspections> {
-    const appointment = await this.findOne(id);
+  async update(id: string, updateAppointmentsInspectionsDto: UpdateAppointmentsInspectionsDto): Promise<AppointmentsInspectionsResponseDto> {
+    const appointment = await this.appointmentsInspectionsRepository.findOneBy({ id });
+    if (!appointment) {
+      throw new NotFoundException(`AppointmentsInspections with id ${id} not found`);
+    }
     Object.assign(appointment, updateAppointmentsInspectionsDto);
-    return this.appointmentsInspectionsRepository.save(appointment);
+    const saved = await this.appointmentsInspectionsRepository.save(appointment);
+    return plainToClass(AppointmentsInspectionsResponseDto, saved, { excludeExtraneousValues: true });
   }
 
   async remove(id: string): Promise<void> {
-    const appointment = await this.findOne(id);
+    const appointment = await this.appointmentsInspectionsRepository.findOneBy({ id });
+    if (!appointment) {
+      throw new NotFoundException(`AppointmentsInspections with id ${id} not found`);
+    }
     await this.appointmentsInspectionsRepository.remove(appointment);
   }
 
-  async createWithFiles(createDto: CreateAppointmentsInspectionsDto, files: { [key: string]: Express.Multer.File[] }): Promise<AppointmentsInspections> {
+  async createWithFiles(createDto: CreateAppointmentsInspectionsDto, files: { [key: string]: Express.Multer.File[] }): Promise<AppointmentsInspectionsResponseDto> {
     let uploadedFiles: Record<string, string> = {};
 
     if (files && Object.keys(files).length > 0) {
@@ -73,6 +82,7 @@ export class AppointmentsInspectionsService {
     };
 
     const appointment = this.appointmentsInspectionsRepository.create(entityData);
-    return this.appointmentsInspectionsRepository.save(appointment);
+    const saved = await this.appointmentsInspectionsRepository.save(appointment);
+    return plainToClass(AppointmentsInspectionsResponseDto, saved, { excludeExtraneousValues: true });
   }
 }
