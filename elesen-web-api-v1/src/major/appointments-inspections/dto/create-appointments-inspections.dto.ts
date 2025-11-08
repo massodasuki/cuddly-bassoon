@@ -7,7 +7,7 @@ import {
   ValidateNested,
   IsObject,
 } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Type, Transform } from 'class-transformer';
 import { KehadiranEnum, DihadiriOlehEnum, StatusEnum } from '../appointments-inspections.entity';
 
 export class WakilDto {
@@ -47,6 +47,16 @@ export class CreateAppointmentsInspectionsDto {
   @IsObject()
   @ValidateNested()
   @Type(() => WakilDto)
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return value;
+      }
+    }
+    return value;
+  })
   wakil?: WakilDto;
 
   @ApiPropertyOptional({ example: 'Cuaca tidak mengizinkan.' })

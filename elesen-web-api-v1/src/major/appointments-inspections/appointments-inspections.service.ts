@@ -51,12 +51,28 @@ export class AppointmentsInspectionsService {
     }
 
     // Update the DTO with uploaded file paths
+    console.log(createDto);
     if (uploadedFiles['surat_wakil']) {
       createDto.wakil = createDto.wakil || {};
       createDto.suratWakil = uploadedFiles['surat_wakil'];
     }
 
-    const appointment = this.appointmentsInspectionsRepository.create(createDto);
+    // Map DTO fields to entity fields
+    const entityData = {
+      applications_id: createDto.applicationsId,
+      no_vessel: createDto.noVessel,
+      kehadiran: createDto.kehadiran,
+      dihadiri_oleh: createDto.dihadiriOleh,
+      wakil_nama: createDto.wakil?.nama,
+      wakil_no_ic: createDto.wakil?.noIc,
+      wakil_surat_wakil: createDto.suratWakil,
+      ulasan: createDto.ulasan,
+      status: createDto.status,
+      timestamp: createDto.timestamp ? new Date(createDto.timestamp) : undefined,
+      created_by: createDto.createdBy,
+    };
+
+    const appointment = this.appointmentsInspectionsRepository.create(entityData);
     return this.appointmentsInspectionsRepository.save(appointment);
   }
 }
