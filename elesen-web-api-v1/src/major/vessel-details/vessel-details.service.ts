@@ -12,7 +12,7 @@ import { PemilikanEntity } from '../pemilikan/pemilikan.entity';
 import { PematuhanEntity } from '../pematuhan/pematuhan.entity';
 import { PendaftaranAntarabangsaEntity } from '../pendaftaran-antarabangsa/pendaftaran-antarabangsa.entity';
 import { CmEquipment } from '../../components/cm-equipment/cm-equipment.entity';
-import { VesselDetailsResponseDto, ProfilVeselDto } from './dto/vessel-details-response.dto';
+import { VesselDetailsResponseDto, ProfilVeselDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 
 @Injectable()
 export class VesselDetailsService {
@@ -597,6 +597,38 @@ export class VesselDetailsService {
   //   const vesselDetail = data.data.find(v => v.maklumatAmVesel.noPendaftaranVesel === vessel.no_pendaftaran);
 
   //   return { data: vesselDetail ? [vesselDetail] : [] };
+  
+  async getOwnershipAndCaptain(noVesel: string): Promise<VesselOwnershipCaptainResponseDto> {
+    const vessel = await this.vesselRepository.findOne({
+      where: { no_pendaftaran: noVesel },
+      relations: ['entity'],
+    });
+
+    if (!vessel) {
+      throw new Error('Vessel not found');
+    }
+
+    // Get ownership information from pemilikan and pentadbirHarta
+    const pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } });
+    const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+
+    // Get captain (nakhoda) information from kru table
+    const kru = await this.kruRepository.find({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const nakhoda = kru.find(k => k.jawatan?.toLowerCase().includes('nakhoda') || k.jawatan?.toLowerCase().includes('kapten')) || kru[0];
+
+    return {
+      pemilikan: {
+        namaPemilik: pemilikan?.nama_pemilik || pentadbirHarta?.pemilik_vesel || '',
+        noKadPengenalan: pemilikan?.no_ic_atau_syarikat || '',
+      },
+      nakhoda: {
+        namaNakhoda: nakhoda?.nama_kru || '',
+        noKadPengenalan: nakhoda?.no_kp_baru || nakhoda?.no_kp_lama || '',
+      },
+    };
+  }
+
+  
   // }
 
   private mapEquipmentType(equipmentType: number): string {

@@ -1,24 +1,33 @@
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { VesselDetailsService } from './vessel-details.service';
-import { ProfilVeselDto, VesselDetailsResponseDto } from './dto/vessel-details-response.dto';
+import { ProfilVeselDto, VesselDetailsResponseDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 
 @ApiTags('Vessel Details')
-@Controller('/api/v1/applications/vessel-details')
+@Controller('/api/v1/applications')
 export class VesselDetailsController {
   constructor(private readonly vesselDetailsService: VesselDetailsService) {}
 
-  @Get()
+  @Get('vessel-details')
   async findAll(): Promise<VesselDetailsResponseDto> {
     return this.vesselDetailsService.findAll();
   }
 
-  @Get(':noVesel')
+  @Get('/vessel-details/:noVesel')
   async findOne(@Param('noVesel') noVesel: string) {
     const data = await this.vesselDetailsService.findOne(noVesel);
     if (!data) {
       throw new NotFoundException(`Vessel with no_pendaftaran ${noVesel} not found`);
     }
     return { data };
+  }
+
+  @Get('/vessel-details-owner/:noVesel')
+  async getOwnershipAndCaptain(@Param('noVesel') noVesel: string): Promise<VesselOwnershipCaptainResponseDto> {
+    const data = await this.vesselDetailsService.getOwnershipAndCaptain(noVesel);
+    if (!data) {
+      throw new NotFoundException(`Vessel with no_pendaftaran ${noVesel} not found`);
+    }
+    return data;
   }
 }

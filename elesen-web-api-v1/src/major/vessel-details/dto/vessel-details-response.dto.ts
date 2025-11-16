@@ -329,3 +329,18 @@ export class ProfilVeselDto {
 export class VesselDetailsResponseDto {
   data: ProfilVeselDto[];
 }
+
+export class PemilikanSimplifiedDto {
+  namaPemilik: string;
+  noKadPengenalan: string;
+}
+
+export class NakhodaDto {
+  namaNakhoda: string;
+  noKadPengenalan: string;
+}
+
+export class VesselOwnershipCaptainResponseDto {
+  pemilikan: PemilikanSimplifiedDto;
+  nakhoda: NakhodaDto;
+}
