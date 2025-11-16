@@ -1,0 +1,171 @@
+{
+  "info": {
+    "name": "Appointments Inspections API",
+    "description": "Postman collection for Appointments Inspections endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "id",
+      "value": "sample-uuid-here",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Create Appointment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"applicationsId\": \"uuid-string-here\",\n  \"noVessel\": \"TRF1234\",\n  \"kehadiran\": \"HADIR\",\n  \"dihadiriOleh\": \"PEMOHON\",\n  \"wakil\": {\n    \"nama\": \"Ahmad bin Ali\",\n    \"noIc\": \"901212-10-1234\"\n  },\n  \"ulasan\": \"Cuaca tidak mengizinkan.\",\n  \"status\": \"SELESAI\",\n  \"timestamp\": \"2025-10-25T00:00:00Z\",\n  \"createdBy\": \"uuid-string-here\",\n  \"suratWakil\": \"/path/to/your/file.jpg\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "applications", "appointments-inspections"]
+        }
+      }
+    },
+    {
+      "name": "Create with Files",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "applicationsId",
+              "value": "0484a3af-7d0d-43fc-97e9-4719ca0fe840",
+              "type": "text"
+            },
+            {
+              "key": "noVessel",
+              "value": "TRF1234",
+              "type": "text"
+            },
+            {
+              "key": "kehadiran",
+              "value": "Hadir",
+              "type": "text"
+            },
+            {
+              "key": "dihadiriOleh",
+              "value": "Pemilik",
+              "type": "text"
+            },
+            {
+              "key": "wakil",
+              "value": "{\"nama\":\"Ahmad bin Ali\",\"noIc\":\"901212-10-1234\"}",
+              "type": "text"
+            },
+            {
+              "key": "ulasan",
+              "value": "Cuaca tidak mengizinkan.",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "value": "submitted",
+              "type": "text"
+            },
+            {
+              "key": "timestamp",
+              "value": "2025-10-25T00:00:00Z",
+              "type": "text"
+            },
+            {
+              "key": "createdBy",
+              "value": "000051fe-bf67-4859-ad16-ee99f716aee6",
+              "type": "text"
+            },
+            {
+              "key": "suratWakil",
+              "value": "/path/to/your/file.jpg",
+              "type": "text"
+            },
+            {
+              "key": "surat_wakil",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/inspection",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "applications", "appointments-inspections", "inspection"]
+        }
+      }
+    },
+    {
+      "name": "Get All Appointments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "applications", "appointments-inspections"]
+        }
+      }
+    },
+    {
+      "name": "Get Appointment by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/{{id}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "applications", "appointments-inspections", "{{id}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Appointment",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"applicationsId\": \"uuid-string-here\",\n  \"noVessel\": \"TRF1234\",\n  \"kehadiran\": \"TIDAK_HADIR\",\n  \"dihadiriOleh\": \"WAKIL\",\n  \"wakil\": {\n    \"nama\": \"Ahmad bin Ali\",\n    \"noIc\": \"901212-10-1234\"\n  },\n  \"ulasan\": \"Updated ulasan.\",\n  \"status\": \"UPDATED\",\n  \"timestamp\": \"2025-10-26T00:00:00Z\",\n  \"createdBy\": \"uuid-string-here\",\n  \"suratWakil\": \"/path/to/updated/file.jpg\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/{{id}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "applications", "appointments-inspections", "{{id}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Appointment",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/{{id}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "applications", "appointments-inspections", "{{id}}"]
+        }
+      }
+    }
+  ]
+}

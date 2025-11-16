@@ -15,4 +15,11 @@ export class DaratApplicationsController {
   async findAll(@Query() query: PaginationQueryDto) {
     return this.daratApplicationsService.findAll(query);
   }
+
+  @Get('darat-applications/:id')
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  async findOne(id: string, @Query() query: PaginationQueryDto) {
+    return this.daratApplicationsService.findOne(id, query);
+  }
 }

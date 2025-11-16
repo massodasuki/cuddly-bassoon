@@ -7,12 +7,15 @@ import { CreateAppointmentsInspectionsDto } from './dto/create-appointments-insp
 import { UpdateAppointmentsInspectionsDto } from './dto/update-appointments-inspections.dto';
 import { AppointmentsInspectionsResponseDto } from './dto/appointments-inspections-response.dto';
 import { ImageUploadService } from './image-upload.service';
+import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
 
 @Injectable()
 export class AppointmentsInspectionsService {
   constructor(
     @InjectRepository(AppointmentsInspections)
     private appointmentsInspectionsRepository: Repository<AppointmentsInspections>,
+    @InjectRepository(DaratApplicationEntity)
+    private daratApplicationRepository: Repository<DaratApplicationEntity>,
     private readonly imageUploadService: ImageUploadService,
   ) {}
 
@@ -29,6 +32,14 @@ export class AppointmentsInspectionsService {
     const appointment = await this.appointmentsInspectionsRepository.findOneBy({ id });
     if (!appointment) {
       throw new NotFoundException(`AppointmentsInspections with id ${id} not found`);
+    }
+    return plainToClass(AppointmentsInspectionsResponseDto, appointment, { excludeExtraneousValues: true });
+  }
+
+  async findByApplicationId(applicationId: string): Promise<AppointmentsInspectionsResponseDto> {
+    const appointment = await this.appointmentsInspectionsRepository.findOneBy({ applications_id : applicationId });
+    if (!appointment) {
+      throw new NotFoundException(`AppointmentsInspections with application_id ${applicationId} not found`);
     }
     return plainToClass(AppointmentsInspectionsResponseDto, appointment, { excludeExtraneousValues: true });
   }
@@ -52,6 +63,12 @@ export class AppointmentsInspectionsService {
   }
 
   async createWithFiles(createDto: CreateAppointmentsInspectionsDto, files: { [key: string]: Express.Multer.File[] }): Promise<AppointmentsInspectionsResponseDto> {
+    // Check if applicationsId exists in darat_applications
+    const application = await this.daratApplicationRepository.findOneBy({ id: createDto.applicationsId });
+    if (!application) {
+      throw new NotFoundException(`Application with id ${createDto.applicationsId} not found`);
+    }
+
     let uploadedFiles: Record<string, string> = {};
 
     if (files && Object.keys(files).length > 0) {

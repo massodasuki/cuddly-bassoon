@@ -36,6 +36,11 @@ export class AppointmentsInspectionsController {
     return this.appointmentsInspectionsService.findOne(id);
   }
 
+  @Get('application-id/:applicationId')
+  findByApplicationId(@Param('applicationId') applicationId: string): Promise<AppointmentsInspectionsResponseDto> {
+    return this.appointmentsInspectionsService.findByApplicationId(applicationId);
+  }
+
   @Put(':id')
   update(@Param('id') id: string, @Body() updateAppointmentsInspectionsDto: UpdateAppointmentsInspectionsDto): Promise<AppointmentsInspectionsResponseDto> {
     return this.appointmentsInspectionsService.update(id, updateAppointmentsInspectionsDto);
