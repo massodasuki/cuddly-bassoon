@@ -90,7 +90,7 @@ export class AppointmentsInspectionsService {
       kehadiran: createDto.kehadiran,
       dihadiri_oleh: createDto.dihadiriOleh,
       wakil_nama: createDto.wakil?.nama,
-      wakil_no_ic: createDto.wakil?.noIc,
+      wakil_no_ic: createDto.wakil?.noKadPengenalan,
       wakil_surat_wakil: createDto.suratWakil,
       ulasan: createDto.ulasan,
       status: createDto.status,

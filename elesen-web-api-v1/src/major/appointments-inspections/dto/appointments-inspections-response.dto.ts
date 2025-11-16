@@ -9,7 +9,7 @@ export class WakilResponseDto {
 
   @ApiPropertyOptional({ example: '901212-10-1234' })
   @Expose()
-  noIc?: string;
+  noKadPengenalan?: string;
 }
 
 export class AppointmentsInspectionsResponseDto {
@@ -37,7 +37,7 @@ export class AppointmentsInspectionsResponseDto {
   @Expose()
   @Transform(({ obj }) => ({
     nama: obj.wakil_nama,
-    noIc: obj.wakil_no_ic,
+    noKadPengenalan: obj.wakil_no_ic,
   }), { toClassOnly: true })
   wakil?: WakilResponseDto;
 

@@ -29,7 +29,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"applicationsId\": \"uuid-string-here\",\n  \"noVessel\": \"TRF1234\",\n  \"kehadiran\": \"HADIR\",\n  \"dihadiriOleh\": \"PEMOHON\",\n  \"wakil\": {\n    \"nama\": \"Ahmad bin Ali\",\n    \"noIc\": \"901212-10-1234\"\n  },\n  \"ulasan\": \"Cuaca tidak mengizinkan.\",\n  \"status\": \"SELESAI\",\n  \"timestamp\": \"2025-10-25T00:00:00Z\",\n  \"createdBy\": \"uuid-string-here\",\n  \"suratWakil\": \"/path/to/your/file.jpg\"\n}"
+          "raw": "{\n  \"applicationsId\": \"uuid-string-here\",\n  \"noVessel\": \"TRF1234\",\n  \"kehadiran\": \"HADIR\",\n  \"dihadiriOleh\": \"PEMOHON\",\n  \"wakil\": {\n    \"nama\": \"Ahmad bin Ali\",\n    \"noKadPengenalan\": \"901212-10-1234\"\n  },\n  \"ulasan\": \"Cuaca tidak mengizinkan.\",\n  \"status\": \"SELESAI\",\n  \"timestamp\": \"2025-10-25T00:00:00Z\",\n  \"createdBy\": \"uuid-string-here\",\n  \"suratWakil\": \"/path/to/your/file.jpg\"\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections",
@@ -68,7 +68,7 @@
             },
             {
               "key": "wakil",
-              "value": "{\"nama\":\"Ahmad bin Ali\",\"noIc\":\"901212-10-1234\"}",
+              "value": "{\"nama\":\"Ahmad bin Ali\",\"noKadPengenalan\":\"901212-10-1234\"}",
               "type": "text"
             },
             {
@@ -146,7 +146,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"applicationsId\": \"uuid-string-here\",\n  \"noVessel\": \"TRF1234\",\n  \"kehadiran\": \"TIDAK_HADIR\",\n  \"dihadiriOleh\": \"WAKIL\",\n  \"wakil\": {\n    \"nama\": \"Ahmad bin Ali\",\n    \"noIc\": \"901212-10-1234\"\n  },\n  \"ulasan\": \"Updated ulasan.\",\n  \"status\": \"UPDATED\",\n  \"timestamp\": \"2025-10-26T00:00:00Z\",\n  \"createdBy\": \"uuid-string-here\",\n  \"suratWakil\": \"/path/to/updated/file.jpg\"\n}"
+          "raw": "{\n  \"applicationsId\": \"uuid-string-here\",\n  \"noVessel\": \"TRF1234\",\n  \"kehadiran\": \"TIDAK_HADIR\",\n  \"dihadiriOleh\": \"WAKIL\",\n  \"wakil\": {\n    \"nama\": \"Ahmad bin Ali\",\n    \"noKadPengenalan\": \"901212-10-1234\"\n  },\n  \"ulasan\": \"Updated ulasan.\",\n  \"status\": \"UPDATED\",\n  \"timestamp\": \"2025-10-26T00:00:00Z\",\n  \"createdBy\": \"uuid-string-here\",\n  \"suratWakil\": \"/path/to/updated/file.jpg\"\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/{{id}}",

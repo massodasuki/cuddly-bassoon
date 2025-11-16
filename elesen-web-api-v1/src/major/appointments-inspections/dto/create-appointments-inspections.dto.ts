@@ -19,7 +19,7 @@ export class WakilDto {
   @ApiPropertyOptional({ example: '901212-10-1234' })
   @IsOptional()
   @IsString()
-  noIc?: string;
+  noKadPengenalan?: string;
 }
 
 export class CreateAppointmentsInspectionsDto {
@@ -42,7 +42,7 @@ export class CreateAppointmentsInspectionsDto {
   @IsEnum(DihadiriOlehEnum)
   dihadiriOleh?: DihadiriOlehEnum;
 
-  @ApiPropertyOptional({ type: WakilDto, example: {"nama":"Ahmad bin Ali","noIc":"901212-10-1234"} })
+  @ApiPropertyOptional({ type: WakilDto, example: {"nama":"Ahmad bin Ali","noKadPengenalan":"901212-10-1234"} })
   @IsOptional()
   @IsObject()
   @ValidateNested()
