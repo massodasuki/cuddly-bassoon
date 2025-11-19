@@ -41,6 +41,7 @@ export class AppointmentsInspectionsService {
     if (!appointment) {
       throw new NotFoundException(`AppointmentsInspections with application_id ${applicationId} not found`);
     }
+    console.log(appointment);
     return plainToClass(AppointmentsInspectionsResponseDto, appointment, { excludeExtraneousValues: true });
   }
 
