@@ -3,14 +3,20 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 // import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 // import { SnakeCaseInterceptor } from './common/interceptors/snake-case.interceptor';
 
 async function bootstrap() {
-   const app = await NestFactory.create(AppModule);
+   const app = await NestFactory.create<NestExpressApplication>(AppModule);
    app.useGlobalPipes(new ValidationPipe({ whitelist: false, transform: true }));
+   
   //  app.useGlobalInterceptors(new SnakeCaseInterceptor());
    // app.useGlobalFilters(new AllExceptionsFilter());
-  
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    prefix: '/uploads/', // URL path
+  });
+
   // Swagger config
   const config = new DocumentBuilder()
     .setTitle('eLesen API')
