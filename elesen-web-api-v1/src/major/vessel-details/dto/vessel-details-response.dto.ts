@@ -341,6 +341,7 @@ export class NakhodaDto {
 }
 
 export class VesselOwnershipCaptainResponseDto {
+  noVessel : string;
   pemilikan: PemilikanSimplifiedDto;
   nakhoda: NakhodaDto;
 }

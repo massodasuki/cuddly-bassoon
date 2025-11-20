@@ -598,9 +598,9 @@ export class VesselDetailsService {
 
   //   return { data: vesselDetail ? [vesselDetail] : [] };
   
-  async getOwnershipAndCaptain(noVesel: string): Promise<VesselOwnershipCaptainResponseDto> {
+  async getOwnershipAndCaptain(noVessel: string): Promise<VesselOwnershipCaptainResponseDto> {
     const vessel = await this.vesselRepository.findOne({
-      where: { no_pendaftaran: noVesel },
+      where: { no_pendaftaran: noVessel },
       relations: ['entity'],
     });
 
@@ -617,6 +617,7 @@ export class VesselDetailsService {
     const nakhoda = kru.find(k => k.jawatan?.toLowerCase().includes('nakhoda') || k.jawatan?.toLowerCase().includes('kapten')) || kru[0];
 
     return {
+      noVessel: noVessel,
       pemilikan: {
         namaPemilik: pemilikan?.nama_pemilik || pentadbirHarta?.pemilik_vesel || '',
         noKadPengenalan: pemilikan?.no_ic_atau_syarikat || '',
