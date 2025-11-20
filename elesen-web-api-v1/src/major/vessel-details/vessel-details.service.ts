@@ -11,7 +11,7 @@ import { KruEntity } from '../kru/kru.entity';
 import { PemilikanEntity } from '../pemilikan/pemilikan.entity';
 import { PematuhanEntity } from '../pematuhan/pematuhan.entity';
 import { PendaftaranAntarabangsaEntity } from '../pendaftaran-antarabangsa/pendaftaran-antarabangsa.entity';
-import { CmEquipment } from '../../components/cm-equipment/cm-equipment.entity';
+import { CmEquipment } from '../cm-equipment/cm-equipment.entity';
 import { VesselDetailsResponseDto, ProfilVeselDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 
 @Injectable()

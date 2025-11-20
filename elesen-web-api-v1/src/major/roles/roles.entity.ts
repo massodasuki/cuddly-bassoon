@@ -1,4 +1,3 @@
-import { User } from 'src/components/users/user.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn, Index, ManyToMany, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 import { UserEntity } from '../users/entities/user.entity';
 

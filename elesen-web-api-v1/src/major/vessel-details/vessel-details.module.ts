@@ -9,11 +9,11 @@ import { EnjinEntity } from '../enjin/enjin.entity';
 import { KesalahanEntity } from '../kesalahan/kesalahan.entity';
 import { JettieEntity } from '../jetties/jetties.entity';
 import { ProfilePentadbirHartaEntity } from '../profile-pentadbir-hartas/profile-pentadbir-hartas.entity';
-import { KruEntity } from '../../components/kru/kru.entity';
-import { PemilikanEntity } from '../../components/pemilikan/pemilikan.entity';
-import { PematuhanEntity } from '../../components/pematuhan/pematuhan.entity';
-import { PendaftaranAntarabangsaEntity } from '../../components/pendaftaran-antarabangsa/pendaftaran-antarabangsa.entity';
-import { CmEquipment } from '../../components/cm-equipment/cm-equipment.entity';
+import { KruEntity } from '../kru/kru.entity';
+import { PemilikanEntity } from '../pemilikan/pemilikan.entity';
+import { PematuhanEntity } from '../pematuhan/pematuhan.entity';
+import { PendaftaranAntarabangsaEntity } from '../pendaftaran-antarabangsa/pendaftaran-antarabangsa.entity';
+import { CmEquipment } from '../cm-equipment/cm-equipment.entity';
 
 @Module({
   imports: [
