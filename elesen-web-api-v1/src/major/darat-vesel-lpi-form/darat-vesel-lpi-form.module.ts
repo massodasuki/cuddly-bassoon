@@ -15,6 +15,7 @@ import { DaratPaymentReceiptEntity } from '../darat-payment-receipts/darat-payme
 import { DaratTemporaryPinEntity } from '../darat-temporary-pins/darat-temporary-pins.entity';
 import { DaratUserEquipmentEntity } from '../darat-user-equipments/darat-user-equipments.entity';
 import { DaratVesselDisposalEntity } from '../darat-vessel-disposals/darat-vessel-disposals.entity';
+import { DaratVesselEngineHistorieEntity } from '../darat-vessel-engine-histories/darat-vessel-engine-histories.entity';
 import { DaratVesselEngineEntity } from '../darat-vessel-engines/darat-vessel-engines.entity';
 import { DaratVesselHullEntity } from '../darat-vessel-hulls/darat-vessel-hulls.entity';
 import { DaratVesselHistorieEntity } from '../darat-vessel-histories/darat-vessel-histories.entity';
@@ -34,6 +35,7 @@ import { DaratVesselHullHistorieEntity } from '../darat-vessel-hull-histories/da
     DaratTemporaryPinEntity,
     DaratUserEquipmentEntity,
     DaratVesselDisposalEntity,
+    DaratVesselEngineHistorieEntity,
     DaratVesselEngineEntity,
     DaratVesselHullEntity,
     DaratVesselHistorieEntity,
