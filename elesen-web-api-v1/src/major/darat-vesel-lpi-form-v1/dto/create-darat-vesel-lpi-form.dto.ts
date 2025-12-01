@@ -1,26 +1,21 @@
-import { IsString, IsBoolean, IsNumber, IsOptional, IsDateString } from 'class-validator';
+import { IsString, IsBoolean, IsNumber, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class CreateDaratVeselLpiFormV1Dto {
-  @IsOptional()
+export class CreateDaratVeselLpiFormDto {
   @IsString()
-  userId?: string;
+  userId: string;
 
-  @IsOptional()
   @IsString()
-  vesselId?: string;
+  vesselId: string;
 
-  @IsOptional()
   @IsString()
-  applicationId?: string;
+  applicationId: string;
 
-  @IsOptional()
   @IsString()
-  createdBy?: string;
+  createdBy: string;
 
-  @IsOptional()
   @IsString()
-  updatedBy?: string;
+  updatedBy: string;
 
   @IsString()
   noVesel: string;
@@ -139,29 +134,23 @@ export class CreateDaratVeselLpiFormV1Dto {
   @IsString()
   noEnjin_semasaDiperiksa: string;
 
-  @IsOptional()
   @IsString()
-  veselKeseluruhanImg?: string;
+  veselKeseluruhanImg: string;
 
-  @IsOptional()
   @IsString()
-  enjinImg?: string;
+  enjinImg: string;
 
-  @IsOptional()
   @IsString()
-  noEnjinImg?: string;
+  noEnjinImg: string;
 
-  @IsOptional()
   @IsString()
-  penandaEnjinImg?: string;
+  penandaEnjinImg: string;
 
-  @IsOptional()
   @IsString()
-  turboImg?: string;
+  turboImg: string;
 
-  @IsOptional()
   @IsString()
-  generatorImg?: string;
+  generatorImg: string;
 
   @IsString()
   pelampungKeselamatan_status: string;
@@ -315,13 +304,11 @@ export class CreateDaratVeselLpiFormV1Dto {
   @IsString()
   permohonan_tarikhPemeriksaan: string;
 
-  @IsOptional()
   @IsString()
-  tandaTanganPembantuImg?: string;
+  tandaTanganPembantuImg: string;
 
-  @IsOptional()
   @IsString()
-  tandatanganPegawaiImg?: string;
+  tandatanganPegawaiImg: string;
 
   @IsString()
   jenisPermohonan: string;
@@ -329,7 +316,6 @@ export class CreateDaratVeselLpiFormV1Dto {
   @IsString()
   perakuanPemilik_tarikhPemeriksaan: string;
 
-  @IsOptional()
   @IsString()
-  tandaTanganEmpunyaVeselImg?: string;
+  tandaTanganEmpunyaVeselImg: string;
 }
