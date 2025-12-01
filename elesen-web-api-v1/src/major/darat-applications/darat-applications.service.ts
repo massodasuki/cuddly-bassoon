@@ -63,14 +63,14 @@ export class DaratApplicationsService {
       };
     }));
 
-    // Sort the data: empty noVesel first, then by oldest tarikhPemeriksaan
+    // Sort the data: non-empty noVesel first, then by oldest tarikhPemeriksaan
     transformedData.sort((a, b) => {
-      // First priority: items with empty noVesel should come first
+      // First priority: items with non-empty noVesel should come first
       const aNoVeselEmpty = !a.noVesel || a.noVesel.trim() === '';
       const bNoVeselEmpty = !b.noVesel || b.noVesel.trim() === '';
       
-      if (aNoVeselEmpty && !bNoVeselEmpty) return -1;
-      if (!aNoVeselEmpty && bNoVeselEmpty) return 1;
+      if (!aNoVeselEmpty && bNoVeselEmpty) return -1;
+      if (aNoVeselEmpty && !bNoVeselEmpty) return 1;
       
       // Second priority: sort by oldest tarikhPemeriksaan (ascending)
       const aDate = a._originalDate ? new Date(a._originalDate) : new Date(0);
@@ -130,14 +130,14 @@ export class DaratApplicationsService {
       };
     }));
 
-    // Sort the data: empty noVesel first, then by oldest tarikhPemeriksaan
+    // Sort the data: non-empty noVesel first, then by oldest tarikhPemeriksaan
     transformedData.sort((a, b) => {
-      // First priority: items with empty noVesel should come first
+      // First priority: items with non-empty noVesel should come first
       const aNoVeselEmpty = !a.noVesel || a.noVesel.trim() === '';
       const bNoVeselEmpty = !b.noVesel || b.noVesel.trim() === '';
       
-      if (aNoVeselEmpty && !bNoVeselEmpty) return -1;
-      if (!aNoVeselEmpty && bNoVeselEmpty) return 1;
+      if (!aNoVeselEmpty && bNoVeselEmpty) return -1;
+      if (aNoVeselEmpty && !bNoVeselEmpty) return 1;
       
       // Second priority: sort by oldest tarikhPemeriksaan (ascending)
       const aDate = a._originalDate ? new Date(a._originalDate) : new Date(0);
