@@ -59,11 +59,31 @@ export class DaratApplicationsService {
         tarikhPemeriksaan: item.inspection_date ? formatDate(item.inspection_date) : '',
         zonOperasi: item.daratVesselInspection?.inspection_location || '',
         penyediaanLaporan: item.status?.name || 'Dalam Semakan',
+        _originalDate: item.inspection_date // Keep original date for sorting
       };
     }));
 
+    // Sort the data: empty noVesel first, then by oldest tarikhPemeriksaan
+    transformedData.sort((a, b) => {
+      // First priority: items with empty noVesel should come first
+      const aNoVeselEmpty = !a.noVesel || a.noVesel.trim() === '';
+      const bNoVeselEmpty = !b.noVesel || b.noVesel.trim() === '';
+      
+      if (aNoVeselEmpty && !bNoVeselEmpty) return -1;
+      if (!aNoVeselEmpty && bNoVeselEmpty) return 1;
+      
+      // Second priority: sort by oldest tarikhPemeriksaan (ascending)
+      const aDate = a._originalDate ? new Date(a._originalDate) : new Date(0);
+      const bDate = b._originalDate ? new Date(b._originalDate) : new Date(0);
+      
+      return aDate.getTime() - bDate.getTime();
+    });
+
+    // Remove the temporary _originalDate property before returning
+    const sortedData = transformedData.map(({ _originalDate, ...item }) => item);
+
     return {
-      data: transformedData,
+      data: sortedData,
       total,
       page,
       pageSize: limit,
@@ -106,11 +126,31 @@ export class DaratApplicationsService {
         tarikhPemeriksaan: item.inspection_date ? formatDate(item.inspection_date) : '',
         zonOperasi: item.daratVesselInspection?.inspection_location || '',
         penyediaanLaporan: item.status?.name || 'Dalam Semakan',
+        _originalDate: item.inspection_date // Keep original date for sorting
       };
     }));
 
+    // Sort the data: empty noVesel first, then by oldest tarikhPemeriksaan
+    transformedData.sort((a, b) => {
+      // First priority: items with empty noVesel should come first
+      const aNoVeselEmpty = !a.noVesel || a.noVesel.trim() === '';
+      const bNoVeselEmpty = !b.noVesel || b.noVesel.trim() === '';
+      
+      if (aNoVeselEmpty && !bNoVeselEmpty) return -1;
+      if (!aNoVeselEmpty && bNoVeselEmpty) return 1;
+      
+      // Second priority: sort by oldest tarikhPemeriksaan (ascending)
+      const aDate = a._originalDate ? new Date(a._originalDate) : new Date(0);
+      const bDate = b._originalDate ? new Date(b._originalDate) : new Date(0);
+      
+      return aDate.getTime() - bDate.getTime();
+    });
+
+    // Remove the temporary _originalDate property before returning
+    const sortedData = transformedData.map(({ _originalDate, ...item }) => item);
+
     return {
-      data: transformedData,
+      data: sortedData,
       total,
       page,
       pageSize: limit,
