@@ -19,8 +19,10 @@ import { DaratVesselEngineEntity } from '../darat-vessel-engines/darat-vessel-en
 import { DaratVesselHullEntity } from '../darat-vessel-hulls/darat-vessel-hulls.entity';
 import { DaratVesselHistorieEntity } from '../darat-vessel-histories/darat-vessel-histories.entity';
 import { DaratVesselHullHistorieEntity } from '../darat-vessel-hull-histories/darat-vessel-hull-histories.entity';
+import { DaratVesselEngineHistorieEntity } from '../../components/darat-vessel-engine-histories/darat-vessel-engine-histories.entity';
 import * as fs from 'fs';
 import * as path from 'path';
+import { Vessel } from '../../components/vessels/vessel.entity';
 
 @Injectable()
 export class DaratVeselLpiFormService {
@@ -57,6 +59,8 @@ export class DaratVeselLpiFormService {
     private daratVesselHistorieRepository: Repository<DaratVesselHistorieEntity>,
     @InjectRepository(DaratVesselHullHistorieEntity)
     private daratVesselHullHistorieRepository: Repository<DaratVesselHullHistorieEntity>,
+    @InjectRepository(DaratVesselEngineHistorieEntity)
+    private daratVesselEngineHistorieRepository: Repository<DaratVesselEngineHistorieEntity>,
     private readonly imageUploadService: ImageUploadService,
   ) {}
 
@@ -496,6 +500,59 @@ export class DaratVeselLpiFormService {
       }
     }
 
+    // Save fishing equipment data to darat_inspection_equipments
+    const vesselEquipments = [
+      { name: 'GPS', value: dtoWithPaths.kelengkapanMenangkapIkan.GPS },
+      { name: 'Echo Sounder', value: dtoWithPaths.kelengkapanMenangkapIkan.echoSounder },
+      { name: 'Radar', value: dtoWithPaths.kelengkapanMenangkapIkan.radar },
+      { name: 'Satellite Navigation', value: dtoWithPaths.kelengkapanMenangkapIkan.satNavigation },
+      { name: 'Sonar', value: dtoWithPaths.kelengkapanMenangkapIkan.sonar },
+      { name: 'Fish Finder', value: dtoWithPaths.kelengkapanMenangkapIkan.fishFinder },
+      { name: 'Radio Wireless', value: dtoWithPaths.kelengkapanMenangkapIkan.radioWireless },
+      { name: 'ATUR', value: dtoWithPaths.kelengkapanMenangkapIkan.ATUR },
+      { name: 'Net Houler', value: dtoWithPaths.kelengkapanMenangkapIkan.netHouler },
+      { name: 'Power Block', value: dtoWithPaths.kelengkapanMenangkapIkan.powerBlock },
+      { name: 'Net Drum', value: dtoWithPaths.kelengkapanMenangkapIkan.netDrum },
+      { name: 'RSW', value: dtoWithPaths.kelengkapanMenangkapIkan.RSW },
+      { name: 'CCTV', value: dtoWithPaths.kelengkapanMenangkapIkan.CCTV },
+    ];
+
+    for (const vesselEq of vesselEquipments) {
+      if (vesselEq.value) {
+        const inspectionEquipment = this.daratInspectionEquipmentRepository.create({
+          application_id: dtoWithPaths.applicationId,
+          user_id: dtoWithPaths.userId,
+          inspection_id: savedEntity.id,
+          name: vesselEq.name,
+          type: 'Equipment',
+          quantity: 1,
+          condition: 'Ada',
+          is_approved: 1,
+          is_active: 1,
+          created_by: dtoWithPaths.createdBy,
+          updated_by: dtoWithPaths.updatedBy,
+          created_at: new Date(),
+        });
+        await this.daratInspectionEquipmentRepository.save(inspectionEquipment);
+      } else {
+        const inspectionEquipment = this.daratInspectionEquipmentRepository.create({
+          application_id: dtoWithPaths.applicationId,
+          user_id: dtoWithPaths.userId,
+          inspection_id: savedEntity.id,
+          name: vesselEq.name,
+          type: 'Equipment',
+          quantity: 1,
+          condition: 'Tiada',
+          is_approved: 1,
+          is_active: 1,
+          created_by: dtoWithPaths.createdBy,
+          updated_by: dtoWithPaths.updatedBy,
+          created_at: new Date(),
+        });
+        await this.daratInspectionEquipmentRepository.save(inspectionEquipment);
+      }
+    }
+
     // Save user equipment data
     if (dtoWithPaths.peralatan && dtoWithPaths.peralatan.length > 0) {
       for (const equipment of dtoWithPaths.peralatan) {
@@ -556,6 +613,21 @@ export class DaratVeselLpiFormService {
       }
       throw error;
     }
+
+    // Save vessel engine history data
+    const vesselEngineHistory = this.daratVesselEngineHistorieRepository.create({
+      vessel_engine_id: vesselEngine.id,
+      engine_brand: dtoWithPaths.jenama_dalamLesen,
+      engine_model: dtoWithPaths.model_dalamLesen,
+      horsepower: dtoWithPaths.kuasaKuda_dalamLesen,
+      engine_number: dtoWithPaths.noEnjin_dalamLesen,
+      is_active: 1,
+      is_approved: 1,
+      created_by: dtoWithPaths.createdBy,
+      updated_by: dtoWithPaths.updatedBy,
+      created_at: new Date(),
+    });
+    await this.daratVesselEngineHistorieRepository.save(vesselEngineHistory);
 
     // Save vessel hull data
     const vesselHull = this.daratVesselHullRepository.create({
