@@ -1,197 +1,220 @@
-import { IsString, IsBoolean, IsNumber, IsArray, IsObject, IsOptional, ValidateNested } from 'class-validator';
-import { Type, Transform } from 'class-transformer';
+import { IsString, IsBoolean, IsNumber, IsOptional } from 'class-validator';
+import { Transform } from 'class-transformer';
 
-// Nested DTOs
-export class EngineImageDto {
-  @IsOptional()
-  enjinImg?: string;
+export class CreateDaratVeselLpiFormDto {
+  @IsString()
+  userId: string;
 
-  @IsOptional()
-  noEnjinImg: any;
+  @IsString()
+  vesselId: string;
 
-  @IsOptional()
-  penandaEnjinImg?: string;
+  @IsString()
+  applicationId: string;
 
-  @IsOptional()
-  turboImg?: string;
+  @IsString()
+  createdBy: string;
 
-  @IsOptional()
-  generatorImg?: string;
-}
-export class NoPendaftaranVeselDto {
-  @Transform(({ value }) => value === 'true' || value === true)
-  @IsBoolean()
-  diTebuk: boolean;
+  @IsString()
+  updatedBy: string;
+
+  @IsString()
+  noVesel: string;
 
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
-  diCat: boolean;
-}
+  noVesel_ditebuk: boolean;
 
-export class TandaPenukulBesiDto {
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  noVesel_dicat: boolean;
+
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  noVesel_diBumbung: boolean;
+
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   tandaBahagianLaluan: boolean;
 
   @IsString()
   hurufKodTanda: string;
-}
 
-export class TinPlateDto {
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   tinPlate: boolean;
 
   @IsString()
   noTinPlate: string;
-}
 
-export class RumahKemudiDto {
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
-  diCat: boolean;
+  pakuPenandaLebar: boolean;
+
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  rumahKemudi_ditebuk: boolean;
 
   @IsString()
   kodZon: string;
 
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
-  diBumbung: boolean;
-}
+  rumahKemudi_diBumbung: boolean;
 
-export class PukatTundaBerlesenDto {
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   jalurPutih: boolean;
 
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
-  diCat: boolean;
-}
+  pukatTundaBerlesen_dicat: boolean;
 
-export class DimensionDto {
+  @Transform(({ value }) => parseFloat(value))
   @IsNumber()
-  dalamLesen: number;
+  panjangMeter_dalamLesen: number;
 
+  @Transform(({ value }) => parseFloat(value))
   @IsNumber()
-  semasaDiperiksa: number;
-}
+  panjangMeter_semasaDiperiksa: number;
 
-export class VesselImageDto {
-  @IsOptional()
-  veselKiriImg?: string;
-
-  @IsOptional()
-  veselKananImg?: string;
-
-  @IsOptional()
-  veselHadapanImg?: string;
-
-  @IsOptional()
-  veselBelakangImg?: string;
-
-  @IsOptional()
-  veselKeseluruhanImg?: string;
-}
-
-export class UkuranDimensiVeselDto {
-  @ValidateNested()
-  @Type(() => DimensionDto)
-  panjangMeter: DimensionDto;
-
-  @ValidateNested()
-  @Type(() => DimensionDto)
-  lebarMeter: DimensionDto;
-
-  @ValidateNested()
-  @Type(() => DimensionDto)
-  kedalamanMeter: DimensionDto;
-
-  @ValidateNested()
-  @Type(() => DimensionDto)
-  muatanGRT: DimensionDto;
-
-  @ValidateNested()
-  @Type(() => VesselImageDto)
-  image: VesselImageDto;
-}
-
-export class MaklumatEnjinDto {
-  @IsString()
-  jenama: string;
-
-  @IsString()
-  model: string;
-
-  @IsString()
-  turbo: string;
-
+  @Transform(({ value }) => parseFloat(value))
   @IsNumber()
-  kuasaKuda: number;
+  lebarMeter_dalamLesen: number;
+
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  lebarMeter_semasaDiperiksa: number;
+
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  kedalamanMeter_dalamLesen: number;
+
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  kedalamanMeter_semasaDiperiksa: number;
+
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  muatanGRT_dalamLesen: number;
+
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  muatanGRT_semasaDiperiksa: number;
+
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  isNoPEV: boolean;
 
   @IsString()
-  noEnjin: string;
+  noPEV: string;
 
   @IsString()
-  penandaVesel: string;
-}
-
-export class EnjinDto {
-  @ValidateNested()
-  @Type(() => MaklumatEnjinDto)
-  maklumatEnjin: MaklumatEnjinDto;
-
-  @ValidateNested()
-  @Type(() => EngineImageDto)
-  image: EngineImageDto;
-}
-
-export class SafetyEquipmentDto {
-  @IsString()
-  status: string;
+  jenama_dalamLesen: string;
 
   @IsString()
-  kuantiti: string;
+  jenama_semasaDiperiksa: string;
 
   @IsString()
-  keadaan: string;
-}
+  model_dalamLesen: string;
 
-export class SafetyImageDto {
-  @IsOptional()
-  MTUImg?: string;
+  @IsString()
+  model_semasaDiperiksa: string;
 
-  @IsOptional()
-  AISImg?: string;
-}
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  kuasaKuda_dalamLesen: number;
 
-export class PeralatanKeselamatanDto {
-  @ValidateNested()
-  @Type(() => SafetyEquipmentDto)
-  jaketKeselamatan: SafetyEquipmentDto;
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  kuasaKuda_semasaDiperiksa: number;
 
-  @ValidateNested()
-  @Type(() => SafetyEquipmentDto)
-  boyaKeselamatan: SafetyEquipmentDto;
+  @IsString()
+  noEnjin_dalamLesen: string;
 
-  @ValidateNested()
-  @Type(() => SafetyEquipmentDto)
-  alatPemadamApi: SafetyEquipmentDto;
+  @IsString()
+  noEnjin_semasaDiperiksa: string;
 
-  @ValidateNested()
-  @Type(() => SafetyEquipmentDto)
-  rakitKeselamatan: SafetyEquipmentDto;
+  @IsString()
+  veselKeseluruhanImg: string;
 
-  @ValidateNested()
-  @Type(() => SafetyEquipmentDto)
-  radioWireless: SafetyEquipmentDto;
+  @IsString()
+  enjinImg: string;
 
-  @ValidateNested()
-  @Type(() => SafetyImageDto)
-  image: SafetyImageDto;
-}
+  @IsString()
+  noEnjinImg: string;
 
-export class KelengkapanMenangkapIkanDto {
+  @IsString()
+  penandaEnjinImg: string;
+
+  @IsString()
+  turboImg: string;
+
+  @IsString()
+  generatorImg: string;
+
+  @IsString()
+  pelampungKeselamatan_status: string;
+
+  @IsString()
+  pelampungKeselamatan_keadaan: string;
+
+  @IsString()
+  pelampungKeselamatan_kuantiti: string;
+
+  @IsString()
+  boyaKeselamatan_status: string;
+
+  @IsString()
+  boyaKeselamatan_keadaan: string;
+
+  @IsString()
+  boyaKeselamatan_kuantiti: string;
+
+  @IsString()
+  alatPemadamApi_status: string;
+
+  @IsString()
+  alatPemadamApi_keadaan: string;
+
+  @IsString()
+  alatPemadamApi_kuantiti: string;
+
+  @IsString()
+  lampuPelayaran_status: string;
+
+  @IsString()
+  lampuPelayaran_keadaan: string;
+
+  @IsString()
+  lampuPelayaran_kuantiti: string;
+
+  @IsString()
+  rakitKeselamatan_status: string;
+
+  @IsString()
+  rakitKeselamatan_keadaan: string;
+
+  @IsString()
+  rakitKeselamatan_kuantiti: string;
+
+  @IsString()
+  mtu_status: string;
+
+  @IsString()
+  mtu_keadaan: string;
+
+  @IsString()
+  mtu_kuantiti: string;
+
+  @IsString()
+  ais_status: string;
+
+  @IsString()
+  ais_keadaan: string;
+
+  @IsString()
+  ais_kuantiti: string;
+
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   GPS: boolean;
@@ -238,194 +261,61 @@ export class KelengkapanMenangkapIkanDto {
 
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
-  petakIkan: boolean;
-
-  @Transform(({ value }) => value === 'true' || value === true)
-  @IsBoolean()
   RSW: boolean;
 
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   CCTV: boolean;
-}
-
-export class PeralatanDto {
-  @IsString()
-  nama: string;
 
   @IsString()
-  jenisPeralatan: string;
+  peralatan_utama: string;
 
   @IsString()
-  panjangMeter: string;
+  peralatan_tambahan: string;
+
+  @Transform(({ value }) => parseFloat(value))
+  @IsNumber()
+  sizeMataPukat: number;
 
   @IsString()
-  tarikDilesen: string;
+  peralatan_dijumpai: string;
 
   @IsString()
-  status: string;
-}
-
-export class KeadaanVeselDto {
-  @IsString()
-  keadaanSemasa: string;
-
-  @IsString()
-  vesel: string;
-
-  @IsString()
-  jenisKulit: string;
+  keadaanVeselSemasa: string;
 
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
-  veselBaharu: boolean;
-}
+  veselAsal: boolean;
 
-export class OfficerSignatureImageDto {
-  @IsOptional()
-  tandaTanganPembantuImg?: string;
+  @IsString()
+  jenisKulitVesel: string;
 
-  @IsOptional()
-  tandatanganPegawaiImg?: string;
-}
-
-export class PerakuanPegawaiDto {
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
-  diSokong: boolean;
+  veselBaru: boolean;
 
   @IsString()
   tarikhPemeriksaan: string;
 
-  @ValidateNested()
-  @Type(() => OfficerSignatureImageDto)
-  image: OfficerSignatureImageDto;
-}
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  permohonan_diSokong: boolean;
 
-export class OwnerSignatureImageDto {
-  @IsOptional()
-  tandaTanganEmpunyaVeselImg?: string;
-}
+  @IsString()
+  permohonan_tarikhPemeriksaan: string;
 
-export class PerakuanEmpunyaVeselDto {
+  @IsString()
+  tandaTanganPembantuImg: string;
+
+  @IsString()
+  tandatanganPegawaiImg: string;
+
   @IsString()
   jenisPermohonan: string;
 
   @IsString()
-  tarikhPemeriksaan: string;
-
-  @ValidateNested()
-  @Type(() => OwnerSignatureImageDto)
-  image: OwnerSignatureImageDto;
-}
-
-export class CreateDaratVeselLpiFormDto {
-   @IsString()
-   noVesel: string;
-
-   @IsOptional()
-   @IsString()
-   vesselId?: string;
-
-   @IsOptional()
-   @IsString()
-   applicationId?: string;
-
-   @IsOptional()
-   @IsString()
-   userId?: string;
-
-   @IsOptional()
-   @IsString()
-   inspectedBy?: string;
-
-   @IsOptional()
-   @IsString()
-   createdBy?: string;
-
-   @IsOptional()
-   @IsString()
-   updatedBy?: string;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => NoPendaftaranVeselDto)
-  noPendaftaranVesel: NoPendaftaranVeselDto;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => TandaPenukulBesiDto)
-  tandaPenukulBesi: TandaPenukulBesiDto;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => TinPlateDto)
-  tinPlate: TinPlateDto;
-
-  @Transform(({ value }) => value === 'true' || value === true)
-  @IsBoolean()
-  pakuPenandaLebar: boolean;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => RumahKemudiDto)
-  rumahKemudi: RumahKemudiDto;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => PukatTundaBerlesenDto)
-  pukatTundaBerlesen: PukatTundaBerlesenDto;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => UkuranDimensiVeselDto)
-  ukuranDimensiVesel: UkuranDimensiVeselDto;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => EnjinDto)
-  enjin: EnjinDto;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => PeralatanKeselamatanDto)
-  peralatanKeselamatan: PeralatanKeselamatanDto;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => KelengkapanMenangkapIkanDto)
-  kelengkapanMenangkapIkan: KelengkapanMenangkapIkanDto;
-
-  @Transform(({ value }) => {
-    if (typeof value === 'string') {
-      const parsed = JSON.parse(value);
-      return Array.isArray(parsed) ? parsed : [];
-    }
-    return value;
-  })
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => PeralatanDto)
-  peralatan: PeralatanDto[];
+  perakuanPemilik_tarikhPemeriksaan: string;
 
   @IsString()
-  jenisPeralatanSemasa: string;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => KeadaanVeselDto)
-  keadaanVesel: KeadaanVeselDto;
-
-  @IsString()
-  tarikhPemeriksaan: string;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => PerakuanPegawaiDto)
-  perakuanPegawai: PerakuanPegawaiDto;
-
-  @Transform(({ value }) => typeof value === 'string' ? JSON.parse(value) : value)
-  @ValidateNested()
-  @Type(() => PerakuanEmpunyaVeselDto)
-  perakuanEmpunyaVesel: PerakuanEmpunyaVeselDto;
+  tandaTanganEmpunyaVeselImg: string;
 }

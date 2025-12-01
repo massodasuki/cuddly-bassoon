@@ -98,227 +98,95 @@ export class DaratVeselLpiFormService {
     const uploadedFiles = await this.imageUploadService.uploadImages(allFiles, createDto.applicationId);
     console.log('Uploaded files:', uploadedFiles);
 
-    // Construct nested objects from flat DTO fields
-    const noPendaftaranVesel = {
-      diTebuk: createDto.noVesel_ditebuk,
-      diCat: createDto.noVesel_dicat,
-    };
-
-    const tandaPenukulBesi = {
-      tandaBahagianLaluan: createDto.tandaBahagianLaluan,
-      hurufKodTanda: createDto.hurufKodTanda,
-    };
-
-    const tinPlate = {
-      tinPlate: createDto.tinPlate,
-      noTinPlate: createDto.noTinPlate,
-    };
-
-    const rumahKemudi = {
-      diCat: createDto.rumahKemudi_ditebuk, // Assuming d i t e b u k maps to diCat
-      kodZon: createDto.kodZon,
-      diBumbung: createDto.rumahKemudi_diBumbung,
-    };
-
-    const pukatTundaBerlesen = {
-      jalurPutih: createDto.jalurPutih,
-      diCat: createDto.pukatTundaBerlesen_dicat,
-    };
-
-    const ukuranDimensiVesel = {
-      panjangMeter: {
-        dalamLesen: createDto.panjangMeter_dalamLesen,
-        semasaDiperiksa: createDto.panjangMeter_semasaDiperiksa,
-      },
-      lebarMeter: {
-        dalamLesen: createDto.lebarMeter_dalamLesen,
-        semasaDiperiksa: createDto.lebarMeter_semasaDiperiksa,
-      },
-      kedalamanMeter: {
-        dalamLesen: createDto.kedalamanMeter_dalamLesen,
-        semasaDiperiksa: createDto.kedalamanMeter_semasaDiperiksa,
-      },
-      muatanGRT: {
-        dalamLesen: createDto.muatanGRT_dalamLesen,
-        semasaDiperiksa: createDto.muatanGRT_semasaDiperiksa,
-      },
-      image: {
-        veselKeseluruhanImg: createDto.veselKeseluruhanImg,
-      },
-    };
-
-    const enjin = {
-      maklumatEnjin: {
-        jenama: createDto.jenama_semasaDiperiksa,
-        model: createDto.model_semasaDiperiksa,
-        turbo: '', // Not in flat, set empty
-        kuasaKuda: createDto.kuasaKuda_semasaDiperiksa,
-        noEnjin: createDto.noEnjin_semasaDiperiksa,
-        penandaVesel: '', // Not in flat, set empty
-      },
-      image: {
-        enjinImg: createDto.enjinImg,
-        noEnjinImg: createDto.noEnjinImg,
-        penandaEnjinImg: createDto.penandaEnjinImg,
-        turboImg: createDto.turboImg,
-        generatorImg: createDto.generatorImg,
-      },
-    };
-
-    const peralatanKeselamatan = {
-      jaketKeselamatan: {
-        status: createDto.pelampungKeselamatan_status,
-        kuantiti: createDto.pelampungKeselamatan_kuantiti,
-        keadaan: createDto.pelampungKeselamatan_keadaan,
-      },
-      boyaKeselamatan: {
-        status: createDto.boyaKeselamatan_status,
-        kuantiti: createDto.boyaKeselamatan_kuantiti,
-        keadaan: createDto.boyaKeselamatan_keadaan,
-      },
-      alatPemadamApi: {
-        status: createDto.alatPemadamApi_status,
-        kuantiti: createDto.alatPemadamApi_kuantiti,
-        keadaan: createDto.alatPemadamApi_keadaan,
-      },
-      rakitKeselamatan: {
-        status: createDto.rakitKeselamatan_status,
-        kuantiti: createDto.rakitKeselamatan_kuantiti,
-        keadaan: createDto.rakitKeselamatan_keadaan,
-      },
-      radioWireless: {
-        status: createDto.lampuPelayaran_status, // Assuming lampuPelayaran maps to radioWireless or adjust
-        kuantiti: createDto.lampuPelayaran_kuantiti,
-        keadaan: createDto.lampuPelayaran_keadaan,
-      },
-      image: {
-        MTUImg: '', // Not in flat, set empty
-        AISImg: '', // Not in flat, set empty
-      },
-    };
-
-    const kelengkapanMenangkapIkan = {
-      GPS: createDto.GPS,
-      echoSounder: createDto.echoSounder,
-      radar: createDto.radar,
-      satNavigation: createDto.satNavigation,
-      sonar: createDto.sonar,
-      fishFinder: createDto.fishFinder,
-      radioWireless: createDto.radioWireless,
-      ATUR: createDto.ATUR,
-      netHouler: createDto.netHouler,
-      powerBlock: createDto.powerBlock,
-      netDrum: createDto.netDrum,
-      petakIkan: false, // Not in flat, set false
-      RSW: createDto.RSW,
-      CCTV: createDto.CCTV,
-    };
-
-    const peralatan = [
-      {
-        nama: createDto.peralatan_utama,
-        jenisPeralatan: 'Utama',
-        panjangMeter: createDto.sizeMataPukat.toString(),
-        tarikDilesen: '',
-        status: 'Ada',
-      },
-      {
-        nama: createDto.peralatan_tambahan,
-        jenisPeralatan: 'Tambahan',
-        panjangMeter: '',
-        tarikDilesen: '',
-        status: 'Ada',
-      },
-      {
-        nama: createDto.peralatan_dijumpai,
-        jenisPeralatan: 'Dijumpai',
-        panjangMeter: '',
-        tarikDilesen: '',
-        status: 'Ada',
-      },
-    ];
-
-    const keadaanVesel = {
-      keadaanSemasa: createDto.keadaanVeselSemasa,
-      vesel: createDto.veselAsal ? 'Asal' : 'Bukan Asal',
-      jenisKulit: createDto.jenisKulitVesel,
-      veselBaharu: createDto.veselBaru,
-    };
-
-    const perakuanPegawai = {
-      diSokong: createDto.permohonan_diSokong,
-      tarikhPemeriksaan: createDto.permohonan_tarikhPemeriksaan,
-      image: {
-        tandaTanganPembantuImg: createDto.tandaTanganPembantuImg,
-        tandatanganPegawaiImg: createDto.tandatanganPegawaiImg,
-      },
-    };
-
-    const perakuanEmpunyaVesel = {
-      jenisPermohonan: createDto.jenisPermohonan,
-      tarikhPemeriksaan: createDto.perakuanPemilik_tarikhPemeriksaan,
-      image: {
-        tandaTanganEmpunyaVeselImg: createDto.tandaTanganEmpunyaVeselImg,
-      },
-    };
+    // Parse nested properties if they are JSON strings (for form-data)
+    if (typeof createDto.noPendaftaranVesel === 'string') {
+      createDto.noPendaftaranVesel = JSON.parse(createDto.noPendaftaranVesel);
+    }
+    if (typeof createDto.tandaPenukulBesi === 'string') {
+      createDto.tandaPenukulBesi = JSON.parse(createDto.tandaPenukulBesi);
+    }
+    if (typeof createDto.tinPlate === 'string') {
+      createDto.tinPlate = JSON.parse(createDto.tinPlate);
+    }
+    if (typeof createDto.rumahKemudi === 'string') {
+      createDto.rumahKemudi = JSON.parse(createDto.rumahKemudi);
+    }
+    if (typeof createDto.pukatTundaBerlesen === 'string') {
+      createDto.pukatTundaBerlesen = JSON.parse(createDto.pukatTundaBerlesen);
+    }
+    if (typeof createDto.ukuranDimensiVesel === 'string') {
+      createDto.ukuranDimensiVesel = JSON.parse(createDto.ukuranDimensiVesel);
+    }
+    if (typeof createDto.enjin === 'string') {
+      createDto.enjin = JSON.parse(createDto.enjin);
+    }
+    if (typeof createDto.peralatanKeselamatan === 'string') {
+      createDto.peralatanKeselamatan = JSON.parse(createDto.peralatanKeselamatan);
+    }
+    if (typeof createDto.kelengkapanMenangkapIkan === 'string') {
+      createDto.kelengkapanMenangkapIkan = JSON.parse(createDto.kelengkapanMenangkapIkan);
+    }
+    if (typeof createDto.peralatan === 'string') {
+      createDto.peralatan = JSON.parse(createDto.peralatan);
+    }
+    if (typeof createDto.keadaanVesel === 'string') {
+      createDto.keadaanVesel = JSON.parse(createDto.keadaanVesel);
+    }
+    if (typeof createDto.perakuanPegawai === 'string') {
+      createDto.perakuanPegawai = JSON.parse(createDto.perakuanPegawai);
+    }
+    if (typeof createDto.perakuanEmpunyaVesel === 'string') {
+      createDto.perakuanEmpunyaVesel = JSON.parse(createDto.perakuanEmpunyaVesel);
+    }
 
     // Map file paths to DTO fields
     const dtoWithPaths = {
       ...createDto,
-      noPendaftaranVesel,
-      tandaPenukulBesi,
-      tinPlate,
-      rumahKemudi,
-      pukatTundaBerlesen,
       ukuranDimensiVesel: {
-        ...ukuranDimensiVesel,
+        ...createDto.ukuranDimensiVesel,
         image: {
-          ...ukuranDimensiVesel.image,
-          veselKiriImg: uploadedFiles['veselKiriImg'] || '',
-          veselKananImg: uploadedFiles['veselKananImg'] || '',
-          veselHadapanImg: uploadedFiles['veselHadapanImg'] || '',
-          veselBelakangImg: uploadedFiles['veselBelakangImg'] || '',
-          veselKeseluruhanImg: uploadedFiles['veselKeseluruhanImg'] || ukuranDimensiVesel.image.veselKeseluruhanImg,
+          ...createDto.ukuranDimensiVesel.image,
+          veselKiriImg: uploadedFiles['veselKiriImg'] || createDto.ukuranDimensiVesel.image.veselKiriImg,
+          veselKananImg: uploadedFiles['veselKananImg'] || createDto.ukuranDimensiVesel.image.veselKananImg,
+          veselHadapanImg: uploadedFiles['veselHadapanImg'] || createDto.ukuranDimensiVesel.image.veselHadapanImg,
+          veselBelakangImg: uploadedFiles['veselBelakangImg'] || createDto.ukuranDimensiVesel.image.veselBelakangImg,
+          veselKeseluruhanImg: uploadedFiles['veselKeseluruhanImg'] || createDto.ukuranDimensiVesel.image.veselKeseluruhanImg,
         }
       },
       enjin: {
-        ...enjin,
+        ...createDto.enjin,
         image: {
-          ...enjin.image,
-          enjinImg: uploadedFiles['enjinImg'] || enjin.image.enjinImg,
-          noEnjinImg: uploadedFiles['noEnjinImg'] || enjin.image.noEnjinImg,
-          penandaEnjinImg: uploadedFiles['penandaEnjinImg'] || enjin.image.penandaEnjinImg,
-          turboImg: uploadedFiles['turboImg'] || enjin.image.turboImg,
-          generatorImg: uploadedFiles['generatorImg'] || enjin.image.generatorImg,
+          ...createDto.enjin.image,
+          enjinImg: uploadedFiles['enjinImg'] || createDto.enjin.image.enjinImg,
+          noEnjinImg: uploadedFiles['noEnjinImg'] || createDto.enjin.image.noEnjinImg,
+          penandaEnjinImg: uploadedFiles['penandaEnjinImg'] || createDto.enjin.image.penandaEnjinImg,
+          turboImg: uploadedFiles['turboImg'] || createDto.enjin.image.turboImg,
+          generatorImg: uploadedFiles['generatorImg'] || createDto.enjin.image.generatorImg,
         }
       },
       peralatanKeselamatan: {
-        ...peralatanKeselamatan,
+        ...createDto.peralatanKeselamatan,
         image: {
-          MTUImg: uploadedFiles['MTUImg'] || '',
-          AISImg: uploadedFiles['AISImg'] || '',
+          ...createDto.peralatanKeselamatan.image,
+          MTUImg: uploadedFiles['MTUImg'] || createDto.peralatanKeselamatan.image.MTUImg,
+          AISImg: uploadedFiles['AISImg'] || createDto.peralatanKeselamatan.image.AISImg,
         }
       },
-      kelengkapanMenangkapIkan,
-      peralatan,
-      keadaanVesel,
       perakuanPegawai: {
-        ...perakuanPegawai,
+        ...createDto.perakuanPegawai,
         image: {
-          ...perakuanPegawai.image,
-          tandaTanganPembantuImg: uploadedFiles['tandaTanganPembantuImg'] || perakuanPegawai.image.tandaTanganPembantuImg,
-          tandatanganPegawaiImg: uploadedFiles['tandatanganPegawaiImg'] || perakuanPegawai.image.tandatanganPegawaiImg,
+          ...createDto.perakuanPegawai.image,
+          tandaTanganPembantuImg: uploadedFiles['tandaTanganPembantuImg'] || createDto.perakuanPegawai.image.tandaTanganPembantuImg,
+          tandatanganPegawaiImg: uploadedFiles['tandatanganPegawaiImg'] || createDto.perakuanPegawai.image.tandatanganPegawaiImg,
         }
       },
       perakuanEmpunyaVesel: {
-        ...perakuanEmpunyaVesel,
+        ...createDto.perakuanEmpunyaVesel,
         image: {
-          ...perakuanEmpunyaVesel.image,
-          tandaTanganEmpunyaVeselImg: uploadedFiles['tandaTanganEmpunyaVeselImg'] || perakuanEmpunyaVesel.image.tandaTanganEmpunyaVeselImg,
+          ...createDto.perakuanEmpunyaVesel.image,
+          tandaTanganEmpunyaVeselImg: uploadedFiles['tandaTanganEmpunyaVeselImg'] || createDto.perakuanEmpunyaVesel.image.tandaTanganEmpunyaVeselImg,
         }
       },
-      inspectedBy: createDto.createdBy,
-      jenisPeralatanSemasa: peralatan.length > 0 ? peralatan[0].jenisPeralatan : '',
     };
 
     //TODO

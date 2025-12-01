@@ -176,7 +176,7 @@ import { AuthModule } from './major/auth/auth.module';
 import { VesselsModule } from './major/vessels/vessels.module';
 import { VesselDetailsModule } from './major/vessel-details/vessel-details.module';
 import { DaratApplicationsModule } from './major/darat-applications/darat-applications.module';
-import { DaratVeselLpiFormModule } from './major/darat-vesel-lpi-form-v1/darat-vesel-lpi-form.module';
+import { DaratVeselLpiFormModule } from './major/darat-vesel-lpi-form/darat-vesel-lpi-form.module';
 // import { DaratVeselLpiFormV1Module } from './major/darat-vesel-lpi-form-v1/darat-vesel-lpi-form.module';
 import { AppointmentsLPIModule } from './major/appointments/appointments.module';
 import { AppointmentsInspectionsModule } from './major/appointments-inspections/appointments-inspections.module';
