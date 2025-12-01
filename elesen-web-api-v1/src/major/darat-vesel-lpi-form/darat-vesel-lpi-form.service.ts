@@ -478,6 +478,7 @@ export class DaratVeselLpiFormService {
       { name: 'Alat Pemadam Api', type: 'Safety Equipment', data: dtoWithPaths.peralatanKeselamatan.alatPemadamApi },
       { name: 'Rakit Keselamatan', type: 'Safety Equipment', data: dtoWithPaths.peralatanKeselamatan.rakitKeselamatan },
       { name: 'Radio Wireless', type: 'Safety Equipment', data: dtoWithPaths.peralatanKeselamatan.radioWireless },
+      { name: 'MTU', type: 'Safety Equipment', data: { status: dtoWithPaths.mtu_status, keadaan: dtoWithPaths.mtu_keadaan, kuantiti: dtoWithPaths.mtu_kuantiti } },
     ];
 
     for (const safetyEq of safetyEquipments) {
