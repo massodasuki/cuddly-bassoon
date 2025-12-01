@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { DaratVesselInspectionEntity } from '../darat-vessel-inspections/darat-vessel-inspections.entity';
-// import { DaratVeselLpiFormV1Entity } from '../darat-vesel-lpi-form-v1/darat-vesel-lpi-form-v1.entity';
 import { CodeMaster } from '../code-masters/code-masters.entity';
+import { DaratVesselEntity } from '../darat-vessels/darat-vessels.entity';
 
 @Entity('darat_applications')
 export class DaratApplicationEntity {
@@ -10,6 +10,8 @@ export class DaratApplicationEntity {
 
   @Column({ nullable: true })
   user_id: string;
+
+
 
   @Column({ nullable: true })
   application_type_id: string;
@@ -60,7 +62,7 @@ export class DaratApplicationEntity {
   @OneToOne(() => DaratVesselInspectionEntity, daratVesselInspection => daratVesselInspection.daratApplication, { cascade: true })
   daratVesselInspection: DaratVesselInspectionEntity;
 
-  // @OneToOne(() => DaratVeselLpiFormV1Entity, daratVesselInspectionV1 => daratVesselInspectionV1.daratApplication, { cascade: true })
-  // daratVesselInspectionV1: DaratVeselLpiFormV1Entity;
-
+  @ManyToOne(() => DaratVesselEntity)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'user_id' })
+  daratVessel: DaratVesselEntity;
 }

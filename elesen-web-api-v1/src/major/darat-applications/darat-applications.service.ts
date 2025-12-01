@@ -29,7 +29,7 @@ export class DaratApplicationsService {
     const { limit = 10, page = 1 } = paginationQuery;
 
     const [data, total] = await this.daratApplicationRepository.findAndCount({
-      relations: ['daratVesselInspection', 'daratVesselInspection.daratVessel', 'status'],
+      relations: ['daratVesselInspection', 'daratVessel', 'status'],
       take: limit,
       skip: (page - 1) * limit
     });
@@ -46,13 +46,14 @@ export class DaratApplicationsService {
       // Try multiple sources in order, pick the first non-empty value
       const noVesel =
         item.daratVesselInspection?.daratVessel?.registration_number ||
+        item.daratVessel?.registration_number ||
         item.daratVesselInspection?.vessel_registration_number ||
         userVesselRegNums[0] || // First vessel from user's vessels
         '';
       
       return {
         applicationId : item.id,
-        vesselId : item.daratVesselInspection?.daratVessel?.id || "",
+        vesselId : item.daratVesselInspection?.daratVessel?.id || item.daratVessel?.id || "",
         userId : item.user_id,
         noVesel,
         tarikhPemeriksaan: item.inspection_date ? formatDate(item.inspection_date) : '',
@@ -75,7 +76,7 @@ export class DaratApplicationsService {
 
     const [data, total] = await this.daratApplicationRepository.findAndCount({
       where : { id },
-      relations: ['daratVesselInspection', 'daratVesselInspection.daratVessel', 'status'],
+      relations: ['daratVesselInspection', 'daratVessel', 'status'],
       take: limit,
       skip: (page - 1) * limit
     });
@@ -92,13 +93,14 @@ export class DaratApplicationsService {
       // Try multiple sources in order, pick the first non-empty value
       const noVesel =
         item.daratVesselInspection?.daratVessel?.registration_number ||
+        item.daratVessel?.registration_number ||
         item.daratVesselInspection?.vessel_registration_number ||
         userVesselRegNums[0] || // First vessel from user's vessels
         '';
       
       return {
         applicationId : item.id,
-        vesselId : item.daratVesselInspection?.daratVessel?.id || "",
+        vesselId : item.daratVesselInspection?.daratVessel?.id || item.daratVessel?.id || "",
         userId : item.user_id,
         noVesel,
         tarikhPemeriksaan: item.inspection_date ? formatDate(item.inspection_date) : '',

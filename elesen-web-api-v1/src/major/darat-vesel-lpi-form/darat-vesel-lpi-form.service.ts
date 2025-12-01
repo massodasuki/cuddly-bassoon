@@ -398,11 +398,11 @@ export class DaratVeselLpiFormService {
     // Create temporary pin
     await this.createTemporaryPin(transformedData);
 
-    // Create vessel engine records
-    const vesselEngineHistories = await this.createVesselEngineHistories(transformedData);
-
-    // Create vessel engine records
+    // Create vessel engine records first
     const vesselEngine = await this.createVesselEngine(transformedData);
+
+    // Create vessel engine histories after vessel engine
+    await this.createVesselEngineHistories(transformedData, vesselEngine.id);
 
     // Create vessel hull records
     const vesselHull = await this.createVesselHull(transformedData);
@@ -580,10 +580,10 @@ export class DaratVeselLpiFormService {
   /**
    * Create vessel engine record
    */
-  private async createVesselEngineHistories(transformedData: any): Promise<DaratVesselEngineHistorieEntity> {
-    // Create engine history (commented out due to missing repository)
+  private async createVesselEngineHistories(transformedData: any, vesselEngineId: string): Promise<DaratVesselEngineHistorieEntity> {
+    // Create engine history
     const vesselEngineHistory = this.vesselEngineHistoryRepo.create({
-      vessel_engine_id: transformedData.savedVesselEngine.id,
+      vessel_engine_id: vesselEngineId,
       engine_brand: transformedData.engine.dalamLesen.jenama,
       engine_model: transformedData.engine.dalamLesen.model,
       horsepower: transformedData.engine.dalamLesen.kuasaKuda,
