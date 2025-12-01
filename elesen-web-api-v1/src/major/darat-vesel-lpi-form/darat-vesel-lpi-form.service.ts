@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, QueryFailedError } from 'typeorm';
 import { DaratVeselLpiFormEntity } from './darat-vesel-lpi-form.entity';
 import { CreateDaratVeselLpiFormDto } from './dto/create-darat-vesel-lpi-form.dto';
 import { ImageUploadService } from './image-upload.service';
@@ -421,7 +421,19 @@ export class DaratVeselLpiFormService {
       created_at: new Date(),
     });
 
-    const savedEntity = await this.daratVeselLpiFormRepository.save(entity);
+    let savedEntity;
+    try {
+      savedEntity = await this.daratVeselLpiFormRepository.save(entity);
+    } catch (error) {
+      if (error instanceof QueryFailedError) {
+        if (error.driverError?.code === 'ER_DUP_ENTRY') {
+          throw new ConflictException('Duplicate inspection record');
+        } else if (error.driverError?.code === 'ER_NO_REFERENCED_ROW_2') {
+          throw new BadRequestException('Foreign key constraint violation');
+        }
+      }
+      throw error;
+    }
 
     // Now save related data to other repositories that join with darat_applications
     // Save application log
@@ -532,7 +544,18 @@ export class DaratVeselLpiFormService {
       updated_by: dtoWithPaths.updatedBy,
       created_at: new Date(),
     });
-    await this.daratVesselEngineRepository.save(vesselEngine);
+    try {
+      await this.daratVesselEngineRepository.save(vesselEngine);
+    } catch (error) {
+      if (error instanceof QueryFailedError) {
+        if (error.driverError?.code === 'ER_DUP_ENTRY') {
+          throw new ConflictException('Duplicate vessel engine record for this vessel');
+        } else if (error.driverError?.code === 'ER_NO_REFERENCED_ROW_2') {
+          throw new BadRequestException('Foreign key constraint violation for vessel engine');
+        }
+      }
+      throw error;
+    }
 
     // Save vessel hull data
     const vesselHull = this.daratVesselHullRepository.create({
