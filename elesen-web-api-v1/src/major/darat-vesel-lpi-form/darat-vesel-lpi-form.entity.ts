@@ -106,6 +106,18 @@ export class DaratVeselLpiFormEntity {
   @Column({ nullable: true })
   engine_number_image_path: string;
 
+  @Column({ nullable: true })
+  vessel_roof: number;
+
+  @Column({ nullable: true })
+  width_marker_nail: number;
+
+  @Column({ nullable: true })
+  is_no_pev: number;
+
+  @Column({ nullable: true })
+  no_pev: string;
+
   @Column({ nullable: false })
   is_approved: number;
 
