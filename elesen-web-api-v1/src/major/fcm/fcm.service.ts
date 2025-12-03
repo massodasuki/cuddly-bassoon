@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { GoogleAuth } from 'google-auth-library';
 import axios from 'axios';
 import { SendMessageDto } from './dto/send-message.dto';
+import { SendToAllMessageDto } from './dto/send-to-all-message.dto';
 import { DeviceRegistration } from '../device-registration/entities/device-registration.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -33,7 +34,7 @@ export class FcmService {
         const deviceEntity = await this.findOne(sendMessageDto.username);
         fcm_token = deviceEntity.fcm_token
     }
-    
+
     const accessToken = await this.auth.getAccessToken();
 
     const message = {
@@ -58,6 +59,44 @@ export class FcmService {
       },
     );
     return response.data;
+  }
+
+  async sendToAll(sendToAllMessageDto: SendToAllMessageDto): Promise<any[]> {
+    const devices = await this.deviceRepository.find();
+    const accessToken = await this.auth.getAccessToken();
+
+    const results: any[] = [];
+
+    for (const device of devices) {
+      const message = {
+        message: {
+          token: device.fcm_token,
+          notification: {
+            title: sendToAllMessageDto.title,
+            body: sendToAllMessageDto.body,
+          },
+          data: sendToAllMessageDto.data || {},
+        },
+      };
+
+      try {
+        const response = await this.axiosInstance.post(
+          '/v1/projects/elesen-mobile/messages:send',
+          message,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        results.push({ username: device.username, success: true, data: response.data });
+      } catch (error) {
+        results.push({ username: device.username, success: false, error: error.message });
+      }
+    }
+
+    return results;
   }
 
 
