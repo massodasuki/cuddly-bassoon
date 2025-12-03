@@ -7,6 +7,9 @@ export class DeviceRegistration {
   id: string;
 
   @Column()
+  username: string;
+
+  @Column()
   fcm_token: string;
 
   @Column({ nullable: true })
