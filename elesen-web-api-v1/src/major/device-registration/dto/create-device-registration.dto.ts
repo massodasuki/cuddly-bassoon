@@ -21,4 +21,8 @@ export class CreateDeviceRegistrationDto {
   @IsOptional()
   @IsString()
   app_version?: string;
+
+  @IsOptional()
+  @IsString()
+  username?: string;
 }
