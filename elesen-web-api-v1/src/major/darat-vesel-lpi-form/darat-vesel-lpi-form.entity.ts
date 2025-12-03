@@ -118,6 +118,12 @@ export class DaratVeselLpiFormEntity {
   @Column({ nullable: true })
   no_pev: string;
 
+  @Column({ type: 'decimal', precision: 10, scale: 6, nullable: true })
+  latitude: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 6, nullable: true })
+  longitude: number;
+
   @Column({ nullable: false })
   is_approved: number;
 

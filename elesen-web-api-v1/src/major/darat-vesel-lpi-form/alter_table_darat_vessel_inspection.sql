@@ -13,6 +13,8 @@ ADD COLUMN vessel_roof TINYINT(1) DEFAULT 0 COMMENT 'Whether vessel has roof (re
 ADD COLUMN width_marker_nail TINYINT(1) DEFAULT 0 COMMENT 'Width marker nail status (replaces pakuPenandaLebar)',
 ADD COLUMN is_no_pev TINYINT(1) DEFAULT 0 COMMENT 'Is No PEV status (replaces isNoPEV)',
 ADD COLUMN no_pev VARCHAR(255) DEFAULT NULL COMMENT 'No PEV value (replaces noPEV)';
+ADD COLUMN latitude DECIMAL(10,6) DEFAULT NULL COMMENT 'latitude',
+ADD COLUMN longitude DECIMAL(10,6) DEFAULT NULL COMMENT 'longitude';
 
 -- Update existing data if needed (optional migration)
 -- You can add any data migration logic here if there are existing Malay field names that need to be migrated

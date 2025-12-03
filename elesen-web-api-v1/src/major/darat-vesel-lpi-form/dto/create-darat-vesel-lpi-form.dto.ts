@@ -294,6 +294,14 @@ export class CreateDaratVeselLpiFormDto {
   @IsBoolean()
   veselBaru: boolean;
 
+  @IsOptional()
+  @IsNumber()
+  latitude?: number;
+
+  @IsOptional()
+  @IsNumber()
+  longitude?: number;
+
   @IsString()
   tarikhPemeriksaan: string;
 
