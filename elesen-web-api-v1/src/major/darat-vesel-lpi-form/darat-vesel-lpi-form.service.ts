@@ -339,6 +339,8 @@ export class DaratVeselLpiFormService {
       inspection_date: new Date(transformedData.tarikhPemeriksaan),
       valid_date: new Date(transformedData.ownerCertification.tarikhPemeriksaan),
       inspection_location: transformedData.rumahKemudi.kodZon,
+      latitude: transformedData.latitude,
+      longitude: transformedData.longitude,
       is_support: transformedData.certification.diSokong ? 1 : 0,
       inspection_summary: transformedData.equipment.length > 0 ? transformedData.equipment[0].jenisPeralatan : '',
       vessel_condition: transformedData.vesselCondition.keadaanSemasa,
