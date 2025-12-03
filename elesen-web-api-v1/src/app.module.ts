@@ -180,6 +180,7 @@ import { DaratVeselLpiFormModule } from './major/darat-vesel-lpi-form/darat-vese
 // import { DaratVeselLpiFormV1Module } from './major/darat-vesel-lpi-form-v1/darat-vesel-lpi-form.module';
 import { AppointmentsLPIModule } from './major/appointments/appointments.module';
 import { AppointmentsInspectionsModule } from './major/appointments-inspections/appointments-inspections.module';
+import { FcmModule } from './major/fcm/fcm.module';
 
 @Module({
   imports: [
@@ -376,6 +377,7 @@ import { AppointmentsInspectionsModule } from './major/appointments-inspections/
     // DaratVeselLpiFormV1Module,
     AppointmentsLPIModule,
     AppointmentsInspectionsModule,
+    FcmModule,
 
   ],
   controllers: [AppController],
