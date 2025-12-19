@@ -1,7 +1,6 @@
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/common';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
 
 @ApiTags('Vessel Details')
 @Controller('/api/v1/applications')

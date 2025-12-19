@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/common';
 import { Repository } from '@nestjs/common';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Injectable()

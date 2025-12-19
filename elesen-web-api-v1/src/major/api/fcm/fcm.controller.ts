@@ -1,6 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Controller('/api/v1/applications/fcm')

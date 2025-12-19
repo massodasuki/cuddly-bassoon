@@ -1,10 +1,15 @@
 import { Controller, Post, Body, Res, Req, UseGuards } from '@nestjs/common';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { ApiQuery, ApiTags, ApiOkResponse } from '@nestjs/common';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { ApiQuery, ApiTags, ApiOkResponse } from '@nestjs/swagger';
+import { Response, Request } from 'express';
+
+import { AuthService } from './auth.service';
+import { LoginDto } from './dto/login.dto';
+import { JwtRefreshGuard } from './jwt/jwt-refresh.guard';
+
+class LoginResponseDto {
+  accessToken: string;
+  profile: any;
+}
 
 @ApiTags('Login')
 @Controller('/api/v1/applications/auth')

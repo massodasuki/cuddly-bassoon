@@ -1,6 +1,5 @@
 import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
 
 @Controller('/api/v1/applications/profile-user-details')
 export class ProfileUserDetailsController {
