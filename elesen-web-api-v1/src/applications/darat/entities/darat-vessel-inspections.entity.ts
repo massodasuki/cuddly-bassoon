@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
-import { DaratApplicationEntity } from '../entities/darat-applications.entity';
+import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
 import { DaratVesselEntity } from '../darat-vessels/darat-vessels.entity';
 
 @Entity('darat_vessel_inspections')
-export class DaratVeselLpiFormEntity {
+export class DaratVesselInspectionEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -106,24 +106,6 @@ export class DaratVeselLpiFormEntity {
   @Column({ nullable: true })
   engine_number_image_path: string;
 
-  @Column({ nullable: true })
-  vessel_roof: number;
-
-  @Column({ nullable: true })
-  width_marker_nail: number;
-
-  @Column({ nullable: true })
-  is_no_pev: number;
-
-  @Column({ nullable: true })
-  no_pev: string;
-
-  @Column({ type: 'decimal', precision: 10, scale: 6, nullable: true })
-  latitude: number;
-
-  @Column({ type: 'decimal', precision: 10, scale: 6, nullable: true })
-  longitude: number;
-
   @Column({ nullable: false })
   is_approved: number;
 
@@ -152,7 +134,7 @@ export class DaratVeselLpiFormEntity {
   @OneToOne(() => DaratApplicationEntity, da => da.daratVesselInspection)
   @JoinColumn({ name: 'application_id' })
   daratApplication: DaratApplicationEntity;
-
+  
   @ManyToOne(() => DaratVesselEntity, { nullable: true })
   @JoinColumn({ name: 'vessel_id' })
   daratVessel: DaratVesselEntity;
