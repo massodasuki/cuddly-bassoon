@@ -1,5 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { VesselListingService } from './vessel-listing.service';
+import { CombinedVesselResponseDto, VesselListingQueryDto } from './dto/combined-vessel.dto';
 
 
 @ApiTags('Vessel Listing')

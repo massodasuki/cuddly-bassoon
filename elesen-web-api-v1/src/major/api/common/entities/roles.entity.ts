@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
+import { UserEntity } from './users.entity';
 
 @Entity('roles')
 export class RoleEntity {
@@ -38,7 +39,7 @@ export class RoleEntity {
   @Column({ nullable: true })
   entity_id: string;
 
-  @ManyToMany(() => UserEntity, user => user.roles)
+  @ManyToMany(() => UserEntity, 'roles')
   users: UserEntity[];
 
 }

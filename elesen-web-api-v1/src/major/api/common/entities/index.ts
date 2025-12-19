@@ -1,5 +1,4 @@
 // Export all entities from this directory for easier importing
-export * from './user.entity';
 export * from './users.entity';
 export * from './vessel.entity';
 export * from './vessels.entity';

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { CodeMaster } from '../common/entities/code-masters.entity';
 
 export class AlamatDto {
   address1: string;

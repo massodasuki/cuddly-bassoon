@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { forwardRef } from '@nestjs/common';
+import { ProfileUserEntity } from './profile-users.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -101,4 +103,6 @@ export class UserEntity {
   @Column({ nullable: true })
   is_first_login: number;
 
+  @OneToOne(() => ProfileUserEntity, profile => profile.user)
+  profile: ProfileUserEntity;
 }

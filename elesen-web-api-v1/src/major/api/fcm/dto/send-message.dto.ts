@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { IsString, IsOptional, IsObject } from 'class-validator';
 
 export class SendMessageDto {
   @IsString()
   username: string;
-  
+
   @IsString()
   @IsOptional()
   token: string;

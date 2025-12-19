@@ -1,9 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToMany, JoinTable, OneToOne } from 'typeorm';
+import { RoleEntity } from './roles.entity';
+import { ProfileUserEntity } from './profile-users.entity';
 
 @Entity('users')
-export class User {
-  @PrimaryColumn({ type: 'char', length: 36 })
-  id: string;
+export class UserEntity {
+   @PrimaryColumn({ type: 'char', length: 36 })
+   id: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   name: string;
@@ -100,4 +102,11 @@ export class User {
 
   @Column({ type: 'tinyint', default: 1 })
   is_first_login: number;
+
+  @ManyToMany(() => RoleEntity, role => role.users)
+  @JoinTable()
+  roles?: RoleEntity[];
+
+  @OneToOne(() => ProfileUserEntity, profile => profile.user)
+  profile?: ProfileUserEntity;
 }

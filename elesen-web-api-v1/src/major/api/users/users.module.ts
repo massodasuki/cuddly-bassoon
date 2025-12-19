@@ -1,10 +1,9 @@
 // src/users/users.module.ts
 import { Module } from '@nestjs/common';
-
-// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity } from './entities/user.entity';
+import { UsersService } from './users.service';
+import { UsersController } from './users.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],

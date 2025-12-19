@@ -1,11 +1,12 @@
 // Vessels module group for vessel-related functionality
 import { Module } from '@nestjs/common';
-
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { VesselsModule } from '../vessels/vessels.module';
+import { VesselDetailsModule } from '../vessel-details/vessel-details.module';
+import { VesselListingModule } from '../vessel-listing/vessel-listing.module';
 
 @Module({
   imports: [
-    CommonModule,
     TypeOrmModule.forFeature([]),
     VesselsModule,
     VesselDetailsModule,

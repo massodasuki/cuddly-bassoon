@@ -1,7 +1,9 @@
 // Profiles module group for profile-related functionality
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { CommonModule } from '../common/common.module';
+import { ProfileUserDetailsModule } from '../profile-user-details/profile-user-details.module';
 
 @Module({
   imports: [

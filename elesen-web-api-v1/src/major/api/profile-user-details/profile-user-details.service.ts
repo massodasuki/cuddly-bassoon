@@ -1,6 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/common';
-import { Repository } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+import { ProfileUserEntity } from '../common/entities/profile-user.entity';
+import { Vessel as VesselEntity } from '../common/entities/vessel.entity';
+import { ProfileUserVesselEntity } from '../common/entities/profile-user-vessel.entity';
+import { ProfilePengusahaSklEntity } from '../common/entities/profile-pengusaha-skl.entity';
+import { ApplicationV2ProfileUser } from '../common/entities/application-v2-profile-user.entity';
+import { RiverEntity } from '../common/entities/river.entity';
+import { CodeMaster } from '../common/entities/code-masters.entity';
+import { ParliamentSeatsEntity } from '../common/entities/parliament-seats.entity';
+import { ParliamentsEntity } from '../common/entities/parliaments.entity';
+import { KulitEntity } from '../common/entities/kulit.entity';
+import { EnjinEntity } from '../common/entities/enjin.entity';
+import { JettiesEntity } from '../common/entities/jetties.entity';
+import { FishingLogNdsEntity } from '../common/entities/fishing-log-nds.entity';
+import { CatchingLocationNd } from '../common/entities/catching-location-nds.entity';
+import { KesalahanEntity } from '../common/entities/kesalahan.entity';
+import { ProfileUserDetailsDto } from './profile-user-details.dto';
 
 
 @Injectable()
@@ -20,6 +37,22 @@ export class ProfileUserDetailsService {
     private riversRepository: Repository<RiverEntity>,
     @InjectRepository(CodeMaster)
     private codeMastersRepository: Repository<CodeMaster>,
+    @InjectRepository(ParliamentSeatsEntity)
+    private parliamentSeatsRepository: Repository<ParliamentSeatsEntity>,
+    @InjectRepository(ParliamentsEntity)
+    private parliamentsRepository: Repository<ParliamentsEntity>,
+    @InjectRepository(KulitEntity)
+    private kulitRepository: Repository<KulitEntity>,
+    @InjectRepository(EnjinEntity)
+    private enjinRepository: Repository<EnjinEntity>,
+    @InjectRepository(JettiesEntity)
+    private jettiesRepository: Repository<JettiesEntity>,
+    @InjectRepository(FishingLogNdsEntity)
+    private fishingLogRepository: Repository<FishingLogNdsEntity>,
+    @InjectRepository(CatchingLocationNd)
+    private catchingLocationRepository: Repository<CatchingLocationNd>,
+    @InjectRepository(KesalahanEntity)
+    private kesalahanRepository: Repository<KesalahanEntity>,
   ) {}
 
 
@@ -33,7 +66,11 @@ export class ProfileUserDetailsService {
 
     if (!user) {
       return null;
-    }      
+    }
+
+    // Declare variables
+    let kulit: KulitEntity | null = null;
+    let enjin: EnjinEntity | null = null;
 
     // Get parliament and parliament seat information
     let dun: string | null = null;

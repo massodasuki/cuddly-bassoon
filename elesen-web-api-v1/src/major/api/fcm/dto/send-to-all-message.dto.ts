@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { IsString, IsOptional, IsObject } from 'class-validator';
 
 export class SendToAllMessageDto {
   @IsString()

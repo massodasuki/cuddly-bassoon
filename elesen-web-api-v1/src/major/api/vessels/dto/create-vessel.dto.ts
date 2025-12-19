@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { IsString, IsOptional, IsDateString, IsBoolean } from 'class-validator';
 
 export class CreateVesselDto {
   @IsString()

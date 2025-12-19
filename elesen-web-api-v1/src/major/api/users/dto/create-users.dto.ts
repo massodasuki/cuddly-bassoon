@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { IsOptional, IsString, IsNotEmpty, IsEmail, IsDateString, IsNumber } from 'class-validator';
 
 export class CreateUsersDto {
   @IsOptional()

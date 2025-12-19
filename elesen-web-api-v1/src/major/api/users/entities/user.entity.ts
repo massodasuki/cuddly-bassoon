@@ -1,5 +1,7 @@
 
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToMany, JoinTable } from 'typeorm';
+import { ProfileUserEntity } from '../../common/entities/profile-user.entity';
+import { RoleEntity } from '../../common/entities/roles.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -102,7 +104,7 @@ export class UserEntity {
   @Column({ nullable: true })
   is_first_login: number;
 
-  @OneToOne(() => ProfileUserEntity, profile => profile.user)
+  @OneToOne(() => ProfileUserEntity, profile => profile.user_id)
   profile: ProfileUserEntity;
 
   @ManyToMany(() => RoleEntity, role => role.users)
