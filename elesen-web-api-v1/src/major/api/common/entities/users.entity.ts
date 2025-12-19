@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
-import { forwardRef } from '@nestjs/common';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToMany, JoinTable } from 'typeorm';
 import { ProfileUserEntity } from './profile-users.entity';
+import { RoleEntity } from './roles.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -105,4 +105,12 @@ export class UserEntity {
 
   @OneToOne(() => ProfileUserEntity, profile => profile.user)
   profile: ProfileUserEntity;
+
+  @ManyToMany(() => RoleEntity, role => role.users)
+  @JoinTable({
+    name: 'user_role',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+  })
+  roles: RoleEntity[];
 }
