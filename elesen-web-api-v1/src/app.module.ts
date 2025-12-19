@@ -147,6 +147,96 @@ import { ShellsQuotaModule } from './components/shells-quota/shells-quota.module
 import { ShellsQuotaHistorieModule } from './components/shells-quota-histories/shells-quota-histories.module';
 import { ShellsQuotaPaymentDetailModule } from './components/shells-quota-payment-details/shells-quota-payment-details.module';
 import { ShellsQuotaPaymentModule } from './components/shells-quota-payments/shells-quota-payments.module';
+import { ApplicationAppointmentModule } from './components/application-appointments/application-appointments.module';
+import { ApplicationPinModule } from './components/application-pins/application-pins.module';
+import { Modules2Module } from './components/modules2/modules2.module';
+import { MeetingsModule } from './components/meetings/meetings.module';
+import { MeetingContentsModule } from './components/meeting-contents/meeting_contents.module';
+import { MeetingAttendeesModule } from './components/meeting-attendees/meeting_attendees.module';
+import { MesyuaratKickoff04aModule } from './components/mesyuarat-kickoff-04a/mesyuarat_kickoff_04a.module';
+import { Mesyuarat5004aModule } from './components/mesyuarat-50-04a/mesyuarat_50_04a.module';
+import { Mesyuarat10004aModule } from './components/mesyuarat-100-04a/mesyuarat_100_04a.module';
+import { PantasBatchesModule } from './components/pantas-batches/pantas_batches.module';
+import { PantasCertificatesModule } from './components/pantas-certificates/pantas_certificates.module';
+import { MppiVesselMinuteMeetingModule } from './components/mppi-vessel-minute-meeting/mppi_vessel_minute_meeting.module';
+import { MppiVesselMeetingInvitationModule } from './components/mppi-vessel-meeting-invitation/mppi_vessel_meeting_invitation.module';
+import { MppiVesselMeetingAttendanceModule } from './components/mppi-vessel-meeting-attendance/mppi_vessel_meeting_attendance.module';
+import { Ppv04aVesselMinuteMeetingModule } from './components/ppv04a-vessel-minute-meeting/ppv04a_vessel_minute_meeting.module';
+import { Ppv04aVesselMeetingAttendanceModule } from './components/ppv04a-vessel-meeting-attendance/ppv04a_vessel_meeting_attendance.module';
+import { Kpv03VesselLicenseApplicationBenificialOwnersModule } from './components/kpv03-vessel-license-application-benificial-owners/kpv03_vessel_license_application_benificial_owners.module';
+import { Kpv03VesselLicenseApplicationDirectorsModule } from './components/kpv03-vessel-license-application-directors/kpv03_vessel_license_application_directors.module';
+import { Kpv03VesselLicenseApplicationFinancesModule } from './components/kpv03-vessel-license-application-finances/kpv03_vessel_license_application_finances.module';
+import { Kpv03VesselLicenseApplicationHistoriesModule } from './components/kpv03-vessel-license-application-histories/kpv03_vessel_license_application_histories.module';
+import { Kpv03VesselLicenseApplicationInformationModule } from './components/kpv03-vessel-license-application-information/kpv03_vessel_license_application_information.module';
+import { Kpv03VesselLicenseApplicationInspectionCatchesModule } from './components/kpv03-vessel-license-application-inspection-catches/kpv03_vessel_license_application_inspection_catches.module';
+import { Kpv03VesselLicenseApplicationInspectionDetailsModule } from './components/kpv03-vessel-license-application-inspection-details/kpv03_vessel_license_application_inspection_details.module';
+import { Kpv03VesselLicenseApplicationInspectionItemsModule } from './components/kpv03-vessel-license-application-inspection-items/kpv03_vessel_license_application_inspection_items.module';
+import { Kpv03VesselLicenseApplicationInspectionSecuritiesModule } from './components/kpv03-vessel-license-application-inspection-securities/kpv03_vessel_license_application_inspection_securities.module';
+import { Kpv03VesselLicenseApplicationInspectionVesselsModule } from './components/kpv03-vessel-license-application-inspection-vessels/kpv03_vessel_license_application_inspection_vessels.module';
+import { Kpv03VesselLicenseApplicationInspectionVoyagesModule } from './components/kpv03-vessel-license-application-inspection-voyages/kpv03_vessel_license_application_inspection_voyages.module';
+import { Kpv03VesselLicenseApplicationInspectionEnginesModule } from './components/kpv03-vessel-license-application-inspection-engines/kpv03_vessel_license_application_inspection_engines.module';
+import { Kpv03VesselLicenseApplicationShareholdersModule } from './components/kpv03-vessel-license-application-shareholders/kpv03_vessel_license_application_shareholders.module';
+import { VesselRegisteredModule } from './components/vessel-registered/vessel_registered.module';
+import { VesselViolationsModule } from './components/vessel-violations/vessel_violations.module';
+import { VesselLicenseVesselsModule } from './components/vessel-license-vessels/vessel_license_vessels.module';
+import { VesselLicenseShareholdersModule } from './components/vessel-license-shareholders/vessel_license_shareholders.module';
+import { VesselLicenseInterviewModule } from './components/vessel-license-interview/vessel_license_interview.module';
+import { VesselLicenseDocumentsModule } from './components/vessel-license-documents/vessel_license_documents.module';
+import { VesselLicenseDirectorsModule } from './components/vessel-license-directors/vessel_license_directors.module';
+import { VesselLicenseDocumentFilesModule } from './components/vessel-license-document-files/vessel_license_document_files.module';
+import { VesselLicenseBeneficialOwnersModule } from './components/vessel-license-beneficial-owners/vessel_license_beneficial_owners.module';
+import { VesselLicenseBanksModule } from './components/vessel-license-banks/vessel_license_banks.module';
+import { VesselLicenseApplicationsModule } from './components/vessel-license-applications/vessel_license_applications.module';
+import { VesselLicenseApplicationTrailsModule } from './components/vessel-license-application-trails/vessel_license_application_trails.module';
+import { VesselLicenseAppIvResultModule } from './components/vessel-license-app-iv-result/vessel_license_app_iv_result.module';
+import { VesselEquipmentsModule } from './components/vessel-equipments/vessel_equipments.module';
+import { VesselCompanyAssetsModule } from './components/vessel-company-assets/vessel_company_assets.module';
+import { VesselBankStatementsModule } from './components/vessel-bank-statements/vessel_bank_statements.module';
+import { VesselAuditedFinancialStatementsModule } from './components/vessel-audited-financial-statements/vessel_audited_financial_statements.module';
+import { VesselAtfsModule } from './components/vessel-atfs/vessel_atfs.module';
+import { VesselApplicationReviewModule } from './components/vessel-application-review/vessel_application_review.module';
+import { ApplicationTpuSsdModule } from './components/application-tpu-ssd/application_tpu_ssd.module';
+import { ApplicationChangeVesselToolModule } from './components/application-change-vessel-tool/application_change_vessel_tool.module';
+import { ApplicationChangeVesselToolApprovalLogModule } from './components/application-change-vessel-tool-approval-log/application_change_vessel_tool_approval_log.module';
+import { ApplicationChangeVesselToolPaymentModule } from './components/application-change-vessel-tool-payment/application_change_vessel_tool_payment.module';
+import { LpiVesselsModule } from './components/lpi-vessels/lpi_vessels.module';
+import { MppiVesselApplicationModule } from './components/mppi-vessel-application/mppi_vessel_application.module';
+import { MppiVesselArchiveModule } from './components/mppi-vessel-archive/mppi_vessel_archive.module';
+import { MppiVesselExtraFileModule } from './components/mppi-vessel-extra-file/mppi_vessel_extra_file.module';
+import { MppiVesselKickoffModule } from './components/mppi-vessel-kickoff/mppi_vessel_kickoff.module';
+import { MppiVesselLaporanModule } from './components/mppi-vessel-laporan/mppi_vessel_laporan.module';
+import { MppiVesselLogModule } from './components/mppi-vessel-log/mppi_vessel_log.module';
+import { MppiVesselLpiModule } from './components/mppi-vessel-lpi/mppi_vessel_lpi.module';
+import { MppiVesselLpiPeralatanModule } from './components/mppi-vessel-lpi-peralatan/mppi_vessel_lpi_peralatan.module';
+import { MppiVesselMinuteDiscussionModule } from './components/mppi-vessel-minute-discussion/mppi_vessel_minute_discussion.module';
+import { MppiVesselMinuteMessageModule } from './components/mppi-vessel-minute-message/mppi_vessel_minute_message.module';
+import { MppiVesselMinutePostponementModule } from './components/mppi-vessel-minute-postponement/mppi_vessel_minute_postponement.module';
+import { MppiVesselPaymentModule } from './components/mppi-vessel-payment/mppi_vessel_payment.module';
+import { MppiVesselPaymentInfoModule } from './components/mppi-vessel-payment-info/mppi_vessel_payment_info.module';
+import { MppiVesselPemantauanModule } from './components/mppi-vessel-pemantauan/mppi_vessel_pemantauan.module';
+import { MppiVesselSlpModule } from './components/mppi-vessel-slp/mppi_vessel_slp.module';
+import { Ppv04aVesselApplicationModule } from './components/ppv04a-vessel-application/ppv04a_vessel_application.module';
+import { Ppv04aVesselArchiveModule } from './components/ppv04a-vessel-archive/ppv04a_vessel_archive.module';
+import { Ppv04aVesselExtraFileModule } from './components/ppv04a-vessel-extra-file/ppv04a_vessel_extra_file.module';
+import { Ppv04aVesselKickoffModule } from './components/ppv04a-vessel-kickoff/ppv04a_vessel_kickoff.module';
+import { Ppv04aVesselLaporanModule } from './components/ppv04a-vessel-laporan/ppv04a_vessel_laporan.module';
+import { Ppv04aVesselLogModule } from './components/ppv04a-vessel-log/ppv04a_vessel_log.module';
+import { Ppv04aVesselLpiModule } from './components/ppv04a-vessel-lpi/ppv04a_vessel_lpi.module';
+import { Ppv04aVesselLpiPeralatanModule } from './components/ppv04a-vessel-lpi-peralatan/ppv04a_vessel_lpi_peralatan.module';
+import { Ppv04aVesselMinuteDiscussionModule } from './components/ppv04a-vessel-minute-discussion/ppv04a_vessel_minute_discussion.module';
+import { Ppv04aVesselMinuteMessageModule } from './components/ppv04a-vessel-minute-message/ppv04a_vessel_minute_message.module';
+import { Ppv04aVesselMinuteOtherMattersModule } from './components/ppv04a-vessel-minute-other-matters/ppv04a_vessel_minute_other_matters.module';
+import { Ppv04aVesselMinutePostponementModule } from './components/ppv04a-vessel-minute-postponement/ppv04a_vessel_minute_postponement.module';
+import { Ppv04aVesselPaymentModule } from './components/ppv04a-vessel-payment/ppv04a_vessel_payment.module';
+import { Ppv04aVesselPaymentInfoModule } from './components/ppv04a-vessel-payment-info/ppv04a_vessel_payment_info.module';
+import { Ppv04aVesselPemantauanModule } from './components/ppv04a-vessel-pemantauan/ppv04a_vessel_pemantauan.module';
+import { Ppv04aVesselSlpModule } from './components/ppv04a-vessel-slp/ppv04a_vessel_slp.module';
+import { Ppv04bAgreeVesselNumbersModule } from './components/ppv04b-agree-vessel-numbers/ppv04b_agree_vessel_numbers.module';
+import { Ppv35VesselPaymentItemsModule } from './components/ppv35-vessel-payment-items/ppv35_vessel_payment_items.module';
+import { Ppv35VesselPaymentsModule } from './components/ppv35-vessel-payments/ppv35_vessel_payments.module';
+import { SyaratSsdModule } from './components/syarat-ssd/syarat_ssd.module';
+import { TzPermohonansModule } from './components/tz-permohonans/tz_permohonans.module';
+import { TzVesselsModule } from './components/tz-vessels/tz_vessels.module';
 import { SpecieModule } from './components/species/species.module';
 import { SsdModule } from './components/ssds/ssds.module';
 import { StateOfficeMappingModule } from './components/state-office-mappings/state-office-mappings.module';
@@ -345,6 +435,96 @@ import { FcmModule } from './major/fcm/fcm.module';
     ShellsQuotaHistorieModule,
     ShellsQuotaPaymentDetailModule,
     ShellsQuotaPaymentModule,
+    ApplicationAppointmentModule,
+    ApplicationPinModule,
+    Modules2Module,
+    MeetingsModule,
+    MeetingContentsModule,
+    MeetingAttendeesModule,
+    MesyuaratKickoff04aModule,
+    Mesyuarat5004aModule,
+    Mesyuarat10004aModule,
+    PantasBatchesModule,
+    PantasCertificatesModule,
+    MppiVesselMinuteMeetingModule,
+    MppiVesselMeetingInvitationModule,
+    MppiVesselMeetingAttendanceModule,
+    Ppv04aVesselMinuteMeetingModule,
+    Ppv04aVesselMeetingAttendanceModule,
+    Kpv03VesselLicenseApplicationBenificialOwnersModule,
+    Kpv03VesselLicenseApplicationDirectorsModule,
+    Kpv03VesselLicenseApplicationFinancesModule,
+    Kpv03VesselLicenseApplicationHistoriesModule,
+    Kpv03VesselLicenseApplicationInformationModule,
+    Kpv03VesselLicenseApplicationInspectionCatchesModule,
+    Kpv03VesselLicenseApplicationInspectionDetailsModule,
+    Kpv03VesselLicenseApplicationInspectionItemsModule,
+    Kpv03VesselLicenseApplicationInspectionSecuritiesModule,
+    Kpv03VesselLicenseApplicationInspectionVesselsModule,
+    Kpv03VesselLicenseApplicationInspectionVoyagesModule,
+    Kpv03VesselLicenseApplicationInspectionEnginesModule,
+    Kpv03VesselLicenseApplicationShareholdersModule,
+    VesselRegisteredModule,
+    VesselViolationsModule,
+    VesselLicenseVesselsModule,
+    VesselLicenseShareholdersModule,
+    VesselLicenseInterviewModule,
+    VesselLicenseDocumentsModule,
+    VesselLicenseDirectorsModule,
+    VesselLicenseDocumentFilesModule,
+    VesselLicenseBeneficialOwnersModule,
+    VesselLicenseBanksModule,
+    VesselLicenseApplicationsModule,
+    VesselLicenseApplicationTrailsModule,
+    VesselLicenseAppIvResultModule,
+    VesselEquipmentsModule,
+    VesselCompanyAssetsModule,
+    VesselBankStatementsModule,
+    VesselAuditedFinancialStatementsModule,
+    VesselAtfsModule,
+    VesselApplicationReviewModule,
+    ApplicationTpuSsdModule,
+    ApplicationChangeVesselToolModule,
+    ApplicationChangeVesselToolApprovalLogModule,
+    ApplicationChangeVesselToolPaymentModule,
+    LpiVesselsModule,
+    MppiVesselApplicationModule,
+    MppiVesselArchiveModule,
+    MppiVesselExtraFileModule,
+    MppiVesselKickoffModule,
+    MppiVesselLaporanModule,
+    MppiVesselLogModule,
+    MppiVesselLpiModule,
+    MppiVesselLpiPeralatanModule,
+    MppiVesselMinuteDiscussionModule,
+    MppiVesselMinuteMessageModule,
+    MppiVesselMinutePostponementModule,
+    MppiVesselPaymentModule,
+    MppiVesselPaymentInfoModule,
+    MppiVesselPemantauanModule,
+    MppiVesselSlpModule,
+    Ppv04aVesselApplicationModule,
+    Ppv04aVesselArchiveModule,
+    Ppv04aVesselExtraFileModule,
+    Ppv04aVesselKickoffModule,
+    Ppv04aVesselLaporanModule,
+    Ppv04aVesselLogModule,
+    Ppv04aVesselLpiModule,
+    Ppv04aVesselLpiPeralatanModule,
+    Ppv04aVesselMinuteDiscussionModule,
+    Ppv04aVesselMinuteMessageModule,
+    Ppv04aVesselMinuteOtherMattersModule,
+    Ppv04aVesselMinutePostponementModule,
+    Ppv04aVesselPaymentModule,
+    Ppv04aVesselPaymentInfoModule,
+    Ppv04aVesselPemantauanModule,
+    Ppv04aVesselSlpModule,
+    Ppv04bAgreeVesselNumbersModule,
+    Ppv35VesselPaymentItemsModule,
+    Ppv35VesselPaymentsModule,
+    SyaratSsdModule,
+    TzPermohonansModule,
+    TzVesselsModule,
     SpecieModule,
     SsdModule,
     StateOfficeMappingModule,
