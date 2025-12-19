@@ -106,22 +106,7 @@ export class ProfileUserEntity {
 
   @Column({ nullable: true })
   ulasan: string;
-
-  @Column({ nullable: true })
-  type_id: string;
-
-  @Column({ nullable: true })
-  gender_id: string;
-
-  @Column({ nullable: true })
-  religion_id: string;
-
-  @Column({ nullable: true })
-  race_id: string;
-
-  @Column({ nullable: true })
-  marital_status_id: string;
-
+  
   @Column({ nullable: true })
   ref: string;
 

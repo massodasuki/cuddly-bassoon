@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { ProfileUserEntity } from '../common/entities/profile-user.entity';
+import { ProfileUserEntity } from '../common/entities/profile-users.entity';
 import { Vessel } from '../common/entities/vessel.entity';
 import { ProfileUserVesselEntity } from '../common/entities/profile-user-vessel.entity';
 import { ProfilePengusahaSklEntity } from '../common/entities/profile-pengusaha-skl.entity';

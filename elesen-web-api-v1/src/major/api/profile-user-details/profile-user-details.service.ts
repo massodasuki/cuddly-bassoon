@@ -197,14 +197,6 @@ export class ProfileUserDetailsService {
       order: { tarikh: 'DESC' }
     });
 
-    // Get religion information
-    let religion: CodeMaster | null = null;
-    if (user.religion_id) {
-      religion = await this.codeMastersRepository.findOne({
-        where: { id: user.religion_id }
-      });
-    }
-
     
     console.log(user);
     console.log(vessel);
@@ -220,7 +212,7 @@ export class ProfileUserDetailsService {
         maklumatAm: {
           email: user.email,
           contact_number: user.no_phone,
-          religion: religion,
+          religion: user.religion,
           bumiputera: user.bumiputera_status === 1 ? "Bumiputera" : null,
           OKU: user.oku_status === 1,
           dun: dun,
@@ -382,13 +374,6 @@ export class ProfileUserDetailsService {
         order: { tarikh: 'DESC' }
       });
 
-      // Get religion information
-      let religion: CodeMaster | null = null;
-      if (user.religion_id) {
-        religion = await this.codeMastersRepository.findOne({
-          where: { id: user.religion_id }
-        });
-      }
 
       results.push({
         maklumatIndividu: {
@@ -399,7 +384,7 @@ export class ProfileUserDetailsService {
           maklumatAm: {
             email: user.email,
             contact_number: user.no_phone,
-            religion: religion,
+            religion: user.religion,
             bumiputera: user.bumiputera_status === 1 ? "Bumiputera" : null,
             OKU: user.oku_status === 1,
             dun: dun,

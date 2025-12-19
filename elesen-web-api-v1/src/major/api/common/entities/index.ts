@@ -9,7 +9,7 @@ export * from './entities.entity';
 export * from './profile-pentadbir-hartas.entity';
 export * from './device-registration.entity';
 export * from './roles.entity';
-export * from './profile-user.entity';
+export * from './profile-users.entity';
 export * from './river.entity';
 export * from './profile-pengusaha-skl.entity';
 export * from './application-v2-profile-user.entity';
