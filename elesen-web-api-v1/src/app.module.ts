@@ -169,18 +169,18 @@ import { VesselModule } from './components/vessels/vessels.module';
 
 
 //MAJOR
-import { ProfileUserDetailsModule } from './major/profile-user-details/profile-user-details.module';
-import { DeviceRegistrationModule } from './major/device-registration/device-registration.module';
-import { UsersModule } from './major/users/users.module';
+import { ProfileUserDetailsModule } from './major/user-management/profile-user-details/profile-user-details.module';
+import { DeviceRegistrationModule } from './major/notification/device-registration/device-registration.module';
+import { UsersModule } from './major/user-management/users/users.module';
 import { AuthModule } from './major/auth/auth.module';
-import { VesselsModule } from './major/vessels/vessels.module';
-import { VesselDetailsModule } from './major/vessel-details/vessel-details.module';
-import { DaratApplicationsModule } from './major/darat-applications/darat-applications.module';
-import { DaratVeselLpiFormModule } from './major/darat-vesel-lpi-form/darat-vesel-lpi-form.module';
+import { VesselsModule } from './major/vessel-management/vessels/vessels.module';
+import { VesselDetailsModule } from './major/vessel-management/vessel-details/vessel-details.module';
+import { DaratApplicationsModule } from './major/application-management/darat-applications/darat-applications.module';
+import { DaratVeselLpiFormModule } from './major/application-management/darat-vesel-lpi-form/darat-vesel-lpi-form.module';
 // import { DaratVeselLpiFormV1Module } from './major/darat-vesel-lpi-form-v1/darat-vesel-lpi-form.module';
-import { AppointmentsLPIModule } from './major/appointments/appointments.module';
-import { AppointmentsInspectionsModule } from './major/appointments-inspections/appointments-inspections.module';
-import { FcmModule } from './major/fcm/fcm.module';
+import { AppointmentsLPIModule } from './major/appointment-management/appointments/appointments.module';
+import { AppointmentsInspectionsModule } from './major/appointment-management/appointments-inspections/appointments-inspections.module';
+import { FcmModule } from './major/notification/fcm/fcm.module';
 
 @Module({
   imports: [
