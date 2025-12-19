@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
-import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
+import { DaratApplicationEntity } from '../../darat/entities/darat-applications.entity';
 
 export enum KehadiranEnum {
   HADIR = 'Hadir',

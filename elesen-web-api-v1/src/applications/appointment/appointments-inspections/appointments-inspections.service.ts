@@ -7,7 +7,7 @@ import { CreateAppointmentsInspectionsDto } from './dto/create-appointments-insp
 import { UpdateAppointmentsInspectionsDto } from './dto/update-appointments-inspections.dto';
 import { AppointmentsInspectionsResponseDto } from './dto/appointments-inspections-response.dto';
 import { ImageUploadService } from './image-upload.service';
-import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
+import { DaratApplicationEntity } from '../../darat/entities/darat-applications.entity';
 
 @Injectable()
 export class AppointmentsInspectionsService {
