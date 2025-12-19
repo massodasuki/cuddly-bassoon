@@ -271,6 +271,7 @@ import { DaratVeselLpiFormModule } from './major/darat-vesel-lpi-form/darat-vese
 import { AppointmentsLPIModule } from './major/appointments/appointments.module';
 import { AppointmentsInspectionsModule } from './major/appointments-inspections/appointments-inspections.module';
 import { FcmModule } from './major/fcm/fcm.module';
+import { VesselListingModule } from './major/api/vessel-listing/vessel-listing.module';
 
 @Module({
   imports: [
@@ -558,6 +559,7 @@ import { FcmModule } from './major/fcm/fcm.module';
     AppointmentsLPIModule,
     AppointmentsInspectionsModule,
     FcmModule,
+    VesselListingModule,
 
   ],
   controllers: [AppController],
