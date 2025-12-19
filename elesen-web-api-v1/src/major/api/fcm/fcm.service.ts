@@ -3,7 +3,7 @@ import { GoogleAuth } from 'google-auth-library';
 import axios from 'axios';
 import { SendMessageDto } from './dto/send-message.dto';
 import { SendToAllMessageDto } from './dto/send-to-all-message.dto';
-import { DeviceRegistration } from '../device-registration/entities/device-registration.entity';
+import { DeviceRegistrationEntity } from '../common/entities/device_registration.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -14,8 +14,8 @@ export class FcmService {
 
 
   constructor(
-    @InjectRepository(DeviceRegistration)
-    private readonly deviceRepository : Repository<DeviceRegistration>
+    @InjectRepository(DeviceRegistrationEntity)
+    private readonly deviceRepository : Repository<DeviceRegistrationEntity>
    ) {
     this.auth = new GoogleAuth({
       keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS,
@@ -100,7 +100,7 @@ export class FcmService {
   }
 
 
-  async findOne(username: string): Promise<DeviceRegistration> {
+  async findOne(username: string): Promise<DeviceRegistrationEntity> {
       const deviceRegistration = await this.deviceRepository.findOne({ where: { username } });
       if (!deviceRegistration) {
         throw new NotFoundException(`DeviceRegistration with username ${username} not found`);

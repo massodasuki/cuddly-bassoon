@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('jetties')
 export class JettieEntity {
@@ -6,16 +6,16 @@ export class JettieEntity {
   id: string;
 
   @Column({ nullable: true })
+  state_id: string;
+
+  @Column({ nullable: true })
+  district_id: string;
+
+  @Column({ nullable: true })
   name: string;
 
-  @Column({ nullable: true })
-  location: string;
-
-  @Column({ nullable: true })
-  state: string;
-
-  @Column({ nullable: true })
-  district: string;
+  @Column({ nullable: false })
+  is_active: number;
 
   @Column({ nullable: true })
   created_by: string;
@@ -26,15 +26,19 @@ export class JettieEntity {
   @Column({ nullable: true })
   deleted_by: string;
 
-  @CreateDateColumn()
+  @Column({ nullable: true })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @Column({ nullable: true })
   updated_at: Date;
 
-  @DeleteDateColumn()
+  @Column({ nullable: true })
   deleted_at: Date;
 
   @Column({ nullable: true })
-  is_active: number;
+  parliament_id: string;
+
+  @Column({ nullable: true })
+  parliament_seat_id: string;
+
 }

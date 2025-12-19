@@ -1,5 +1,5 @@
-import { ProfileUserEntity } from 'src/major/profile-users/profile-users.entity';
-import { RoleEntity } from 'src/major/roles/roles.entity';
+import { ProfileUserEntity } from '../../common/entities/profile-users.entity';
+import { RoleEntity } from '../../common/entities/roles.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinTable, ManyToMany } from 'typeorm';
 
 @Entity('users')

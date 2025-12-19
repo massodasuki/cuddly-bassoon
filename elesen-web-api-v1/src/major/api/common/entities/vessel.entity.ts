@@ -1,7 +1,9 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToOne, ManyToOne, JoinColumn } from 'typeorm';
+import { ProfilePentadbirHartaEntity } from './profile-pentadbir-hartas.entity';
+import { EntitieEntity } from './entities.entity';
 
 @Entity('vessels')
-export class VesselEntity {
+export class Vessel {
   @PrimaryColumn({ type: 'char', length: 36 })
   id: string;
 
@@ -42,7 +44,9 @@ export class VesselEntity {
   license_end: Date;
 
   @Column({ type: 'char', length: 36, nullable: true })
-  entity_id: string;
+  @ManyToOne(() => EntitieEntity, { nullable: true })
+  @JoinColumn({ name: 'entity_id' })
+  entity: EntitieEntity;
 
   @Column({ type: 'char', length: 36, nullable: true })
   created_by: string;
@@ -82,4 +86,8 @@ export class VesselEntity {
 
   @Column({ type: 'datetime', nullable: true })
   end_date: Date;
+
+  @OneToOne(() => ProfilePentadbirHartaEntity, pentadbirHartas => pentadbirHartas.vessel, { cascade: true })
+  pentadbirHartas: ProfilePentadbirHartaEntity
+  ;
 }

@@ -1,4 +1,4 @@
-import { CodeMaster } from "../code-masters/code-masters.entity";
+import { CodeMaster } from "../common/entities/code-masters.entity";
 
 export class AlamatDto {
   address1: string;

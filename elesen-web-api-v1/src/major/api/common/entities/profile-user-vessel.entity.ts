@@ -1,11 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('profile_user_vessel')
 export class ProfileUserVesselEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column({ nullable: false })
   profile_user_id: string;
 
   @Column({ nullable: false })
@@ -17,9 +14,10 @@ export class ProfileUserVesselEntity {
   @Column({ nullable: false })
   status: string;
 
-  @CreateDateColumn()
+  @Column({ nullable: true })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @Column({ nullable: true })
   updated_at: Date;
+
 }

@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { VesselEntity, KulitEntity, EnjinEntity, KesalahanEntity, JettieEntity } from '../common/entities';
+import { KruEntity } from '../common/entities/kru.entity';
+import { PemilikanEntity } from '../common/entities/pemilikan.entity';
+import { CmEquipment } from '../common/entities/cm-equipment.entity';
+import { ProfilePentadbirHartaEntity } from '../common/entities/profile-pentadbir-hartas.entity';
+import { PendaftaranAntarabangsaEntity } from '../common/entities/pendaftaran-antarabangsa.entity';
 // Placeholder entities for now
-class ProfilePentadbirHartaEntity {}
-class KruEntity {}
-class PemilikanEntity {}
 class PematuhanEntity {}
-class PendaftaranAntarabangsaEntity {}
-class CmEquipment {}
 import { VesselDetailsResponseDto, ProfilVeselDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 
 @Injectable()

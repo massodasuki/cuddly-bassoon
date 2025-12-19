@@ -1,15 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('kulit')
 export class KulitEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: false })
-  no_pendaftaran: string;
-
   @Column({ nullable: true })
-  jenis_kulit: string;
+  no_pendaftaran: string;
 
   @Column({ nullable: true })
   panjang: string;
@@ -18,26 +15,30 @@ export class KulitEntity {
   lebar: string;
 
   @Column({ nullable: true })
-  tinggi: string;
+  dalam: string;
 
   @Column({ nullable: true })
-  created_by: string;
+  jenis_kulit: string;
 
   @Column({ nullable: true })
-  updated_by: string;
+  tarikh_kulit_dilesenkan: string;
 
   @Column({ nullable: true })
-  deleted_by: string;
+  status_kulit: string;
 
-  @CreateDateColumn()
+  @Column({ nullable: true })
+  catatan: string;
+
+  @Column({ nullable: false })
+  baru: number;
+
+  @Column({ nullable: false })
+  asal: number;
+
+  @Column({ nullable: true })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @Column({ nullable: true })
   updated_at: Date;
 
-  @DeleteDateColumn()
-  deleted_at: Date;
-
-  @Column({ nullable: true })
-  is_active: number;
 }

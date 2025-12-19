@@ -4,13 +4,13 @@ import { VesselDetailsController } from './vessel-details.controller';
 import { VesselDetailsService } from './vessel-details.service';
 import { VesselDetailsEntity } from './vessel-details.entity';
 import { VesselEntity, KulitEntity, EnjinEntity, KesalahanEntity, JettieEntity } from '../common/entities';
+import { KruEntity } from '../common/entities/kru.entity';
+import { PemilikanEntity } from '../common/entities/pemilikan.entity';
+import { CmEquipment } from '../common/entities/cm-equipment.entity';
+import { ProfilePentadbirHartaEntity } from '../common/entities/profile-pentadbir-hartas.entity';
+import { PendaftaranAntarabangsaEntity } from '../common/entities/pendaftaran-antarabangsa.entity';
 // Placeholder entities for now
-class ProfilePentadbirHartaEntity {}
-class KruEntity {}
-class PemilikanEntity {}
 class PematuhanEntity {}
-class PendaftaranAntarabangsaEntity {}
-class CmEquipment {}
 
 @Module({
   imports: [

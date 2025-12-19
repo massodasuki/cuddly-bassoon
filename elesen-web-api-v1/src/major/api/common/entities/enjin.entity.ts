@@ -1,43 +1,62 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('enjin')
 export class EnjinEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   no_pendaftaran: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
+  jenis_enjin: number;
+
+  @Column({ nullable: false })
   jenama: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   kuasa_kuda: number;
 
-  @Column({ nullable: true })
-  tahun: number;
+  @Column({ nullable: false })
+  no_enjin: string;
+
+  @Column({ nullable: false })
+  model: string;
+
+  @Column({ nullable: false })
+  tarikh_enjin_dilesenkan: Date;
+
+  @Column({ nullable: false })
+  kategori_enjin: string;
+
+  @Column({ nullable: false })
+  status_enjin: string;
+
+  @Column({ nullable: false })
+  has_turbo: number;
+
+  @Column({ nullable: false })
+  bahan_api: string;
 
   @Column({ nullable: true })
-  no_siri: string;
+  gambar_enjin: string;
 
   @Column({ nullable: true })
-  created_by: string;
+  gambar_no_enjin: string;
 
   @Column({ nullable: true })
-  updated_by: string;
+  gambar_pev: string;
 
   @Column({ nullable: true })
-  deleted_by: string;
+  gambar_turbo: string;
 
-  @CreateDateColumn()
+  @Column({ nullable: true })
+  gambar_generator: string;
+
+  @Column({ nullable: true })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @Column({ nullable: true })
   updated_at: Date;
 
-  @DeleteDateColumn()
-  deleted_at: Date;
-
-  @Column({ nullable: true })
-  is_active: number;
 }
