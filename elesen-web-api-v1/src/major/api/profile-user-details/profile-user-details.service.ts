@@ -1,21 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProfileUserEntity } from '../profile-users/profile-users.entity';
-import { VesselEntity } from '../vessels/vessel.entity';
-import { ProfileUserVesselEntity } from '../profile-user-vessel/profile-user-vessel.entity';
-import { ProfilePengusahaSklEntity } from '../profile-pengusaha-skls/profile-pengusaha-skls.entity';
-import { ApplicationV2ProfileUser } from '../application-v2-profile-user/application-v2-profile-user.entity';
-import { JettieEntity } from '../jetties/jetties.entity';
-import { RiverEntity } from '../rivers/rivers.entity';
-import { KesalahanEntity } from '../kesalahan/kesalahan.entity';
-import { ParliamentEntity } from '../parliaments/parliaments.entity';
-import { ParliamentSeatEntity } from '../parliament-seats/parliament-seats.entity';
+import { ProfileUserEntity, VesselEntity, ProfileUserVesselEntity, ProfilePengusahaSklEntity, ApplicationV2ProfileUser, JettieEntity, RiverEntity, KesalahanEntity, ParliamentEntity, ParliamentSeatEntity, FishingLogNdEntity, CatchingLocationNdEntity, KulitEntity, EnjinEntity } from '../common/entities';
 import { ProfileUserDetailsDto } from './profile-user-details.dto';
-import { FishingLogNdEntity } from '../fishing-log-nds/fishing-log-nds.entity';
-import { CatchingLocationNdEntity } from '../catching-location-nds/catching-location-nds.entity';
-import { KulitEntity } from '../kulit/kulit.entity';
-import { EnjinEntity } from '../enjin/enjin.entity';
 
 @Injectable()
 export class ProfileUserDetailsService {

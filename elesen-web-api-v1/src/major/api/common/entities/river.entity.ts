@@ -1,0 +1,37 @@
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+
+@Entity('rivers')
+export class RiverEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ nullable: true })
+  name: string;
+
+  @Column({ nullable: true })
+  district_id: string;
+
+  @Column({ nullable: true })
+  state_id: string;
+
+  @Column({ nullable: true })
+  created_by: string;
+
+  @Column({ nullable: true })
+  updated_by: string;
+
+  @Column({ nullable: true })
+  deleted_by: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn()
+  deleted_at: Date;
+
+  @Column({ nullable: true })
+  is_active: number;
+}

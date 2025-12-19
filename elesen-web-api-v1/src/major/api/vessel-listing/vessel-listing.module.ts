@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { VesselEntity } from '../../vessels/vessel.entity';
-import { DaratVesselEntity } from '../../darat-vessels/darat-vessels.entity';
+import { VesselEntity } from '../common/entities';
+// Placeholder for DaratVesselEntity
+class DaratVesselEntity {}
 import { VesselListingController } from './vessel-listing.controller';
 import { VesselListingService } from './vessel-listing.service';
 

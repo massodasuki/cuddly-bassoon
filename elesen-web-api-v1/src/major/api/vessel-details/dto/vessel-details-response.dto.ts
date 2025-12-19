@@ -77,7 +77,7 @@ export class KruDto {
 }
 
 export class PengkalanDto {
-  noRujukanPengkalan: string;
+  noRujukanPengkalan: string | number;
   namaPengkalan: string;
   jenisPengkalan: string;
   district: string;
