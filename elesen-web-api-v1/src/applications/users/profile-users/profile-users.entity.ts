@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
-import { CodeMaster } from '../code-masters/code-masters.entity';
-import { UserEntity } from '../users/entities/user.entity';
-import { ProfilePentadbirHartaEntity } from '../profile-pentadbir-hartas/profile-pentadbir-hartas.entity';
+import { CodeMaster } from '../../common/code-masters/code-masters.entity';
+import { UserEntity } from '../entities/user.entity';
+import { ProfilePentadbirHartaEntity } from '../../marin/entities/profile-pentadbir-hartas.entity';
 
 @Entity('profile_users')
 export class ProfileUserEntity {

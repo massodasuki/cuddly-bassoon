@@ -4,16 +4,16 @@ import { VesselDetailsController } from './vessel-details.controller';
 import { VesselDetailsService } from './vessel-details.service';
 import { VesselDetailsEntity } from './vessel-details.entity';
 import { VesselEntity } from '../vessels/vessel.entity';
-import { KulitEntity } from '../kulit/kulit.entity';
-import { EnjinEntity } from '../enjin/enjin.entity';
-import { KesalahanEntity } from '../kesalahan/kesalahan.entity';
-import { JettieEntity } from '../jetties/jetties.entity';
-import { ProfilePentadbirHartaEntity } from '../profile-pentadbir-hartas/profile-pentadbir-hartas.entity';
-import { KruEntity } from '../kru/kru.entity';
-import { PemilikanEntity } from '../pemilikan/pemilikan.entity';
-import { PematuhanEntity } from '../pematuhan/pematuhan.entity';
-import { PendaftaranAntarabangsaEntity } from '../pendaftaran-antarabangsa/pendaftaran-antarabangsa.entity';
-import { CmEquipment } from '../cm-equipment/cm-equipment.entity';
+import { KulitEntity } from '../entities/kulit.entity';
+import { EnjinEntity } from '../entities/enjin.entity';
+import { KesalahanEntity } from '../entities/kesalahan.entity';
+import { JettieEntity } from '../entities/jetties.entity';
+import { ProfilePentadbirHartaEntity } from '../entities/profile-pentadbir-hartas.entity';
+import { KruEntity } from '../entities/kru.entity';
+import { PemilikanEntity } from '../entities/pemilikan.entity';
+import { PematuhanEntity } from '../entities/pematuhan.entity';
+import { PendaftaranAntarabangsaEntity } from '../entities/pendaftaran-antarabangsa.entity';
+import { CmEquipment } from '../entities/cm-equipment.entity';
 
 @Module({
   imports: [

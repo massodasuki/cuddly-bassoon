@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
-import { DaratVesselInspectionEntity } from '../darat-vessel-inspections/darat-vessel-inspections.entity';
-import { CodeMaster } from '../code-masters/code-masters.entity';
-import { DaratVesselEntity } from '../darat-vessels/darat-vessels.entity';
+import { DaratVesselInspectionEntity } from './darat-vessel-inspections.entity';
+import { CodeMaster } from '../../common/code-masters/code-masters.entity';
+import { DaratVesselEntity } from './darat-vessels.entity';
 
 @Entity('darat_applications')
 export class DaratApplicationEntity {

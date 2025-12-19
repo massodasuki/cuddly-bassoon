@@ -4,7 +4,7 @@ import { Repository, Like } from 'typeorm';
 import { VesselEntity } from '../entities/vessel.entity';
 import { CreateVesselDto } from './dto/create-vessel.dto';
 import { UpdateVesselDto } from './dto/update-vessel.dto';
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
 @Injectable()
 export class VesselsService {

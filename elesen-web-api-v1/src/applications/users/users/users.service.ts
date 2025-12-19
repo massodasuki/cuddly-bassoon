@@ -6,7 +6,7 @@ import { UserEntity } from './entities/user.entity'
 import { UpdateUsersDto } from './dto/update-users.dto'
 import * as bcrypt from 'bcryptjs'
 import { UUID } from 'crypto'
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto'
+import { PaginationQueryDto } from '../../common/dto/pagination-query.dto'
 // import { Entities } from './entities/entities.entity'
 
 @Injectable()

@@ -4,17 +4,17 @@ import { Repository, QueryFailedError } from 'typeorm';
 import { DaratVeselLpiFormEntity } from './darat-vesel-lpi-form.entity';
 import { CreateDaratVeselLpiFormDto } from './dto/create-darat-vesel-lpi-form.dto';
 import { ImageUploadService } from './image-upload.service';
-import { DaratApplicationEntity } from '../darat-applications/darat-applications.entity';
+import { DaratApplicationEntity } from '../entities/darat-applications.entity';
 import { DaratVesselEntity } from '../darat-vessels/darat-vessels.entity';
-import { DaratApplicationLogEntity } from '../darat-application-logs/darat-application-logs.entity';
-import { DaratInspectionEquipmentEntity } from '../darat-inspection-equipments/darat-inspection-equipments.entity';
-import { DaratUserEquipmentEntity } from '../darat-user-equipments/darat-user-equipments.entity';
-import { DaratVesselEngineEntity } from '../darat-vessel-engines/darat-vessel-engines.entity';
-import { DaratVesselHullEntity } from '../darat-vessel-hulls/darat-vessel-hulls.entity';
-import { DaratVesselHullHistorieEntity } from '../darat-vessel-hull-histories/darat-vessel-hull-histories.entity';
-import { DaratVesselHistorieEntity } from '../darat-vessel-histories/darat-vessel-histories.entity';
-import { DaratTemporaryPinEntity } from '../darat-temporary-pins/darat-temporary-pins.entity';
-import { DaratVesselEngineHistorieEntity } from '../darat-vessel-engine-histories/darat-vessel-engine-histories.entity';
+import { DaratApplicationLogEntity } from '../entities/darat-application-logs.entity';
+import { DaratInspectionEquipmentEntity } from '../entities/darat-inspection-equipments.entity';
+import { DaratUserEquipmentEntity } from '../entities/darat-user-equipments.entity';
+import { DaratVesselEngineEntity } from '../../../components/darat-vessel-engines/darat-vessel-engines.entity';
+import { DaratVesselHullEntity } from '../../../components/darat-vessel-hulls/darat-vessel-hulls.entity';
+import { DaratVesselHullHistorieEntity } from '../entities/darat-vessel-hull-histories.entity';
+import { DaratVesselHistorieEntity } from '../entities/darat-vessel-histories.entity';
+import { DaratTemporaryPinEntity } from '../entities/darat-temporary-pins.entity';
+import { DaratVesselEngineHistorieEntity } from '../entities/darat-vessel-engine-histories.entity';
  
 @Injectable()
 export class DaratVeselLpiFormService {

@@ -6,7 +6,7 @@ import { KulitEntity } from '../entities/kulit.entity';
 import { EnjinEntity } from '../entities/enjin.entity';
 import { KesalahanEntity } from '../entities/kesalahan.entity';
 import { JettieEntity } from '../entities/jetties.entity';
-import { ProfilePentadbirHartaEntity } from '../profile-pentadbir-hartas/profile-pentadbir-hartas.entity';
+import { ProfilePentadbirHartaEntity } from '../entities/profile-pentadbir-hartas.entity';
 import { KruEntity } from '../entities/kru.entity';
 import { PemilikanEntity } from '../entities/pemilikan.entity';
 import { PematuhanEntity } from '../entities/pematuhan.entity';

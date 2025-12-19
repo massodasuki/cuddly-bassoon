@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateDeviceRegistrationDto } from './dto/create-device-registration.dto';
 import { UpdateDeviceRegistrationDto } from './dto/update-device-registration.dto';
 import { DeviceRegistration } from './entities/device-registration.entity';
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { PaginationQueryDto } from '../dto/pagination-query.dto';
 
 @Injectable()
 export class DeviceRegistrationService {

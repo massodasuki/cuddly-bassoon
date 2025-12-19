@@ -3,7 +3,7 @@ import { GoogleAuth } from 'google-auth-library';
 import axios from 'axios';
 import { SendMessageDto } from './dto/send-message.dto';
 import { SendToAllMessageDto } from './dto/send-to-all-message.dto';
-import { DeviceRegistration } from '../device-registration/entities/device-registration.entity';
+import { DeviceRegistration } from '../../common/device-registration/entities/device-registration.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
