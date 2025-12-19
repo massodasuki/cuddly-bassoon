@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ProfileUserDetailsService } from './profile-user-details.service';
 import { ProfileUserDetailsController } from './profile-user-details.controller';
-import { ProfileUserEntity, VesselEntity, ProfileUserVesselEntity, ProfilePengusahaSklEntity, ApplicationV2ProfileUser, JettieEntity, RiverEntity, KesalahanEntity, ParliamentEntity, ParliamentSeatEntity, FishingLogNdEntity, CatchingLocationNdEntity, KulitEntity, EnjinEntity } from '../common/entities';
+import { ProfileUserEntity, VesselEntity, ProfileUserVesselEntity, ProfilePengusahaSklEntity, ApplicationV2ProfileUser, JettieEntity, RiverEntity, KesalahanEntity, ParliamentEntity, ParliamentSeatEntity, FishingLogNdEntity, CatchingLocationNdEntity, KulitEntity, EnjinEntity, CodeMaster } from '../common/entities';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -19,7 +19,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     FishingLogNdEntity,
     CatchingLocationNdEntity,
     KulitEntity,
-    EnjinEntity
+    EnjinEntity,
+    CodeMaster
   ])],
   providers: [ProfileUserDetailsService],
   controllers: [ProfileUserDetailsController],
