@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { UserEntity } from '../../users/entities/user.entity';
 
 @Entity('profile_users')
 export class ProfileUserEntity {
@@ -172,5 +173,9 @@ export class ProfileUserEntity {
 
   @Column({ nullable: true })
   secondary_state: string;
+
+  @OneToOne(() => UserEntity, user => user.profile)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  user: UserEntity;
 
 }

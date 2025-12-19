@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProfileUserEntity, VesselEntity, ProfileUserVesselEntity, ProfilePengusahaSklEntity, ApplicationV2ProfileUser, JettieEntity, RiverEntity, KesalahanEntity, ParliamentEntity, ParliamentSeatEntity, FishingLogNdEntity, CatchingLocationNdEntity, KulitEntity, EnjinEntity } from '../common/entities';
+import { ProfileUserEntity, VesselEntity, ProfileUserVesselEntity, ProfilePengusahaSklEntity, ApplicationV2ProfileUser, JettieEntity, RiverEntity, KesalahanEntity, ParliamentEntity, ParliamentSeatEntity, FishingLogNdEntity, CatchingLocationNdEntity, KulitEntity, EnjinEntity, CodeMaster } from '../common/entities';
 import { ProfileUserDetailsDto } from './profile-user-details.dto';
 
 @Injectable()
@@ -35,6 +35,8 @@ export class ProfileUserDetailsService {
     private parliamentsRepository: Repository<ParliamentEntity>,
     @InjectRepository(ParliamentSeatEntity)
     private parliamentSeatsRepository: Repository<ParliamentSeatEntity>,
+    @InjectRepository(CodeMaster)
+    private codeMastersRepository: Repository<CodeMaster>,
   ) {}
 
 
@@ -175,6 +177,14 @@ export class ProfileUserDetailsService {
       order: { tarikh: 'DESC' }
     });
 
+    // Get religion information
+    let religion: CodeMaster | null = null;
+    if (user.religion_id) {
+      religion = await this.codeMastersRepository.findOne({
+        where: { id: user.religion_id }
+      });
+    }
+
     
     console.log(user);
     console.log(vessel);
@@ -190,7 +200,7 @@ export class ProfileUserDetailsService {
         maklumatAm: {
           email: user.email,
           contact_number: user.no_phone,
-          religion: user.religion,
+          religion: religion,
           bumiputera: user.bumiputera_status === 1 ? "Bumiputera" : null,
           OKU: user.oku_status === 1,
           dun: dun,
@@ -352,6 +362,14 @@ export class ProfileUserDetailsService {
         order: { tarikh: 'DESC' }
       });
 
+      // Get religion information
+      let religion: CodeMaster | null = null;
+      if (user.religion_id) {
+        religion = await this.codeMastersRepository.findOne({
+          where: { id: user.religion_id }
+        });
+      }
+
       results.push({
         maklumatIndividu: {
           id: user.id,
@@ -361,7 +379,7 @@ export class ProfileUserDetailsService {
           maklumatAm: {
             email: user.email,
             contact_number: user.no_phone,
-            religion: user.religion,
+            religion: religion,
             bumiputera: user.bumiputera_status === 1 ? "Bumiputera" : null,
             OKU: user.oku_status === 1,
             dun: dun,
