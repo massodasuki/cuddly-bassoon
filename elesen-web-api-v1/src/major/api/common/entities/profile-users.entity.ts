@@ -1,5 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { UserEntity } from './user.entity';
+import { CodeMaster } from './code-masters.entity';
+import { ProfilePentadbirHartaEntity } from './profile-pentadbir-hartas.entity';
 
 @Entity('profile_users')
 export class ProfileUserEntity {
@@ -42,9 +44,6 @@ export class ProfileUserEntity {
   @Column({ nullable: true })
   age: number;
 
-  @Column({ nullable: true })
-  gender: string;
-
   @Column({ nullable: false })
   user_type: string;
 
@@ -53,12 +52,6 @@ export class ProfileUserEntity {
 
   @Column({ nullable: true })
   no_phone_office: string;
-
-  @Column({ nullable: true })
-  religion: string;
-
-  @Column({ nullable: true })
-  race: string;
 
   @Column({ nullable: true })
   wedding_status: string;
@@ -118,6 +111,18 @@ export class ProfileUserEntity {
   type_id: string;
 
   @Column({ nullable: true })
+  gender_id: string;
+
+  @Column({ nullable: true })
+  religion_id: string;
+
+  @Column({ nullable: true })
+  race_id: string;
+
+  @Column({ nullable: true })
+  marital_status_id: string;
+
+  @Column({ nullable: true })
   ref: string;
 
   @Column({ nullable: true })
@@ -132,17 +137,6 @@ export class ProfileUserEntity {
   @Column({ nullable: true })
   phone_office: string;
 
-  @Column({ nullable: true })
-  gender_id: string;
-
-  @Column({ nullable: true })
-  religion_id: string;
-
-  @Column({ nullable: true })
-  race_id: string;
-
-  @Column({ nullable: true })
-  marital_status_id: string;
 
   @Column({ nullable: true })
   status: string;
@@ -174,8 +168,35 @@ export class ProfileUserEntity {
   @Column({ nullable: true })
   secondary_state: string;
 
-  @OneToOne(() => UserEntity, user => user.profile)
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  @OneToOne(() => UserEntity, user => user.id)
+  @JoinColumn({ name: 'user_id' })
   user: UserEntity;
+
+  @ManyToOne(() => CodeMaster)
+  @JoinColumn({ name: 'gender_id' })
+  gender: CodeMaster;
+
+  @ManyToOne(() => CodeMaster)
+  @JoinColumn({ name: 'religion_id' })
+  religion: CodeMaster;
+
+  @ManyToOne(() => CodeMaster)
+  @JoinColumn({ name: 'race_id' })
+  race: CodeMaster;
+
+  @ManyToOne(() => CodeMaster)
+  @JoinColumn({ name: 'marital_status_id' })
+  marital_status: CodeMaster;
+
+  @ManyToOne(() => CodeMaster)
+  @JoinColumn({ name: 'type_id' })
+  type: CodeMaster;
+
+  @OneToOne(() => ProfilePentadbirHartaEntity, pentadbirHartas => pentadbirHartas.id, { cascade: true })
+  pentadbirHartas: ProfilePentadbirHartaEntity;
+
+// @OneToOne(() => UserEntity, user => user.profile)
+// @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+// user: UserEntity;
 
 }
