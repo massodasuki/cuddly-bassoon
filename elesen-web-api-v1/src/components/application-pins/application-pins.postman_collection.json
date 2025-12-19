@@ -1,0 +1,157 @@
+{
+	"info": {
+		"name": "Application Pins API",
+		"description": "Postman collection for testing the application-pins REST API endpoints"
+	},
+	"item": [
+		{
+			"name": "Create Application Pin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"application_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"pin_code\": \"123456\",\n  \"pin_type\": \"verification\",\n  \"description\": \"Email verification pin\",\n  \"created_by\": \"user-123\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/application-pins",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"application-pins"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get All Application Pins",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/application-pins",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"application-pins"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Application Pin by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/application-pins/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"application-pins",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "123e4567-e89b-12d3-a456-426614174000"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Pins by Application ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/application-pins/application/:applicationId",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"application-pins",
+						"application",
+						":applicationId"
+					],
+					"variable": [
+						{
+							"key": "applicationId",
+							"value": "550e8400-e29b-41d4-a716-446655440000"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Update Application Pin",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"pin_type\": \"reset\",\n  \"description\": \"Password reset pin\",\n  \"updated_by\": \"user-456\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/application-pins/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"application-pins",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "123e4567-e89b-12d3-a456-426614174000"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Delete Application Pin",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/application-pins/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"application-pins",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "123e4567-e89b-12d3-a456-426614174000"
+						}
+					]
+				}
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000"
+		}
+	]
+}
