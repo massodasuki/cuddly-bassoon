@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, CreateDateColumn, DeleteDateColumn, JoinColumn, ManyToOne, UpdateDateColumn } from 'typeorm';
-import { ProfilePentadbirHartaEntity } from './profile-pentadbir-hartas.entity';
+import { ProfilePentadbirHartaEntity } from '../../users/entities/profile-pentadbir-hartas.entity';
 import { EntitieEntity } from '../../common/entities/entities.entity';
 
 @Entity('vessels')
