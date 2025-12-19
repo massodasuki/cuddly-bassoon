@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 
 @Entity('darat_base_jetties')
-export class DaratBaseJettieEntity {
+export class JettiesEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

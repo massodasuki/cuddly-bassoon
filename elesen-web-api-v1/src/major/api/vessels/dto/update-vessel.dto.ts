@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateVesselDto } from './create-vessel.dto';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 export class UpdateVesselDto extends PartialType(CreateVesselDto) {}

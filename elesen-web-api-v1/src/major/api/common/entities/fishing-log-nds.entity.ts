@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 
 @Entity('fishing_log_nds')
-export class FishingLogNdEntity {
+export class FishingLogNdsEntity {
   @PrimaryColumn()
   fishing_log_id: string;
 

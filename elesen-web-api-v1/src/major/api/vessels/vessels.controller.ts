@@ -1,9 +1,9 @@
 import { Controller, Post, Get, Patch, Delete, Param, Body, Query } from '@nestjs/common';
-import { VesselsService } from './vessels.service';
-import { CreateVesselDto } from './dto/create-vessel.dto';
-import { UpdateVesselDto } from './dto/update-vessel.dto';
-import { ApiTags } from '@nestjs/swagger';
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { ApiTags } from '@nestjs/common';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @ApiTags('Vessels')
 @Controller('api/v1/applications')

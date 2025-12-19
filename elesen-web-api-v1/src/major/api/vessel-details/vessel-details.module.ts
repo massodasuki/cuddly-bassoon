@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { VesselDetailsController } from './vessel-details.controller';
-import { VesselDetailsService } from './vessel-details.service';
-import { VesselDetailsEntity } from './vessel-details.entity';
-import { VesselEntity, KulitEntity, EnjinEntity, KesalahanEntity, JettieEntity } from '../common/entities';
-import { KruEntity } from '../common/entities/kru.entity';
-import { PemilikanEntity } from '../common/entities/pemilikan.entity';
-import { CmEquipment } from '../common/entities/cm-equipment.entity';
-import { ProfilePentadbirHartaEntity } from '../common/entities/profile-pentadbir-hartas.entity';
-import { PendaftaranAntarabangsaEntity } from '../common/entities/pendaftaran-antarabangsa.entity';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 // Placeholder entities for now
 class PematuhanEntity {}
 
@@ -17,10 +17,10 @@ class PematuhanEntity {}
     TypeOrmModule.forFeature([
       VesselDetailsEntity,
       VesselEntity,
-      KulitEntity,
-      EnjinEntity,
-      KesalahanEntity,
-      JettieEntity,
+//       KulitEntity,
+//       EnjinEntity,
+//       KesalahanEntity,
+//       JettieEntity,
       ProfilePentadbirHartaEntity,
       KruEntity,
       PemilikanEntity,

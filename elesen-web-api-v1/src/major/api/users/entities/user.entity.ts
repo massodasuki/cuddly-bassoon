@@ -1,6 +1,6 @@
-import { ProfileUserEntity } from '../../common/entities/profile-users.entity';
-import { RoleEntity } from '../../common/entities/roles.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinTable, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class UserEntity {

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { VesselsService } from './vessels.service';
-import { VesselsController } from './vessels.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { VesselEntity } from '../common/entities';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Module({
   imports: [

@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToOne, ManyToOne, JoinColumn } from 'typeorm';
-import { ProfilePentadbirHartaEntity } from './profile-pentadbir-hartas.entity';
-import { EntitieEntity } from './entities.entity';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('vessels')
 export class Vessel {

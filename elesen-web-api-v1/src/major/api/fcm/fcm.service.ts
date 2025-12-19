@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { GoogleAuth } from 'google-auth-library';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import axios from 'axios';
-import { SendMessageDto } from './dto/send-message.dto';
-import { SendToAllMessageDto } from './dto/send-to-all-message.dto';
-import { DeviceRegistrationEntity } from '../common/entities/device_registration.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { InjectRepository } from '@nestjs/common';
+import { Repository } from '@nestjs/common';
 
 @Injectable()
 export class FcmService {

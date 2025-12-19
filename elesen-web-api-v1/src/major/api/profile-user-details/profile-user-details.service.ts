@@ -1,40 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { ProfileUserEntity, VesselEntity, ProfileUserVesselEntity, ProfilePengusahaSklEntity, ApplicationV2ProfileUser, JettieEntity, RiverEntity, KesalahanEntity, ParliamentEntity, ParliamentSeatEntity, FishingLogNdEntity, CatchingLocationNdEntity, KulitEntity, EnjinEntity, CodeMaster } from '../common/entities';
-import { ProfileUserDetailsDto } from './profile-user-details.dto';
+import { InjectRepository } from '@nestjs/common';
+import { Repository } from '@nestjs/common';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Injectable()
 export class ProfileUserDetailsService {
   constructor(
     @InjectRepository(ProfileUserEntity)
     private profileUsersRepository: Repository<ProfileUserEntity>,
-    @InjectRepository(FishingLogNdEntity)
-    private fishingLogRepository: Repository<FishingLogNdEntity>,
-    @InjectRepository(CatchingLocationNdEntity)
-    private catchingLocationRepository: Repository<CatchingLocationNdEntity>,
     @InjectRepository(VesselEntity)
     private vesselsRepository: Repository<VesselEntity>,
-    @InjectRepository(KulitEntity)
-    private kulitRepository: Repository<KulitEntity>,
-    @InjectRepository(EnjinEntity)
-    private enjinRepository: Repository<EnjinEntity>,
     @InjectRepository(ProfileUserVesselEntity)
     private profileUserVesselRepository: Repository<ProfileUserVesselEntity>,
     @InjectRepository(ProfilePengusahaSklEntity)
     private profilePengusahaSklRepository: Repository<ProfilePengusahaSklEntity>,
     @InjectRepository(ApplicationV2ProfileUser)
     private applicationV2ProfileUserRepository: Repository<ApplicationV2ProfileUser>,
-    @InjectRepository(JettieEntity)
-    private jettiesRepository: Repository<JettieEntity>,
     @InjectRepository(RiverEntity)
     private riversRepository: Repository<RiverEntity>,
-    @InjectRepository(KesalahanEntity)
-    private kesalahanRepository: Repository<KesalahanEntity>,
-    @InjectRepository(ParliamentEntity)
-    private parliamentsRepository: Repository<ParliamentEntity>,
-    @InjectRepository(ParliamentSeatEntity)
-    private parliamentSeatsRepository: Repository<ParliamentSeatEntity>,
     @InjectRepository(CodeMaster)
     private codeMastersRepository: Repository<CodeMaster>,
   ) {}
@@ -90,7 +74,7 @@ export class ProfileUserDetailsService {
       console.log('Fetching vessel ' + vessel?.no_pendaftaran);
     }
 
-    let kulit : KulitEntity | null = null;
+//     let kulit : KulitEntity | null = null;
     if (vessel) {
       kulit = await this.kulitRepository.findOne({
         where: { no_pendaftaran : vessel.no_pendaftaran }
@@ -98,7 +82,7 @@ export class ProfileUserDetailsService {
       console.log('Fetching kulit details:', JSON.stringify(kulit, null, 2));
     }
 
-    let enjin : EnjinEntity | null = null;
+//     let enjin : EnjinEntity | null = null;
     if (vessel) {
       enjin = await this.enjinRepository.findOne({
         where: { no_pendaftaran : vessel.no_pendaftaran }

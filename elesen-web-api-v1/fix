@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+"""
+Fix remaining import statements after file renaming
+"""
+import os
+import re
+import glob
+
+def get_all_files_with_underscores():
+    """Get all files in src/components that have underscores in their names"""
+    files_with_underscores = []
+    
+    for root, dirs, files in os.walk('src/components'):
+        for file in files:
+            if '_' in file:
+                files_with_underscores.append(file)
+    
+    return files_with_underscores
+
+def fix_imports_in_file(file_path):
+    """Fix import statements in a single file"""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        original_content = content
+        updates_made = False
+        
+        # Get list of all files with underscores to create mapping
+        files_with_underscores = get_all_files_with_underscores()
+        
+        # Create mapping from old snake_case to new kebab-case
+        import_mapping = {}
+        for file in files_with_underscores:
+            # Convert to kebab-case
+            name_without_ext, ext = os.path.splitext(file)
+            kebab_case_name = name_without_ext.replace('_', '-') + ext
+            import_mapping[file] = kebab_case_name
+            # Also map without extension for relative imports
+            import_mapping[name_without_ext] = kebab_case_name.replace(ext, '')
+        
+        # Pattern to match import statements
+        import_pattern = r"import\s+.*?from\s+['\"]([^'\"]+)['\"]"
+        
+        def replace_import(match):
+            nonlocal updates_made
+            import_path = match.group(1)
+            
+            # Get just the filename
+            filename = os.path.basename(import_path)
+            filename_without_ext = os.path.splitext(filename)[0]
+            
+            # Check if this filename is in our mapping
+            if filename in import_mapping:
+                new_filename = import_mapping[filename]
+                new_import_path = import_path.replace(filename, new_filename)
+                updates_made = True
+                print(f"  {file_path}: {filename} -> {new_filename}")
+                return match.group(0).replace(import_path, new_import_path)
+            elif filename_without_ext in import_mapping:
+                new_filename_without_ext = import_mapping[filename_without_ext]
+                ext = os.path.splitext(filename)[1]
+                new_filename = new_filename_without_ext + ext
+                new_import_path = import_path.replace(filename, new_filename)
+                updates_made = True
+                print(f"  {file_path}: {filename} -> {new_filename}")
+                return match.group(0).replace(import_path, new_import_path)
+            
+            return match.group(0)
+        
+        content = re.sub(import_pattern, replace_import, content)
+        
+        if updates_made:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            return True
+        return False
+        
+    except Exception as e:
+        print(f"Error processing {file_path}: {e}")
+        return False
+
+def main():
+    print("="*50)
+    print("FIXING REMAINING IMPORT STATEMENTS")
+    print("="*50)
+    
+    # Find all TypeScript and JavaScript files to update
+    files_to_update = []
+    for ext in ['*.ts', '*.js']:
+        files_to_update.extend(glob.glob(f'src/**/{ext}', recursive=True))
+    
+    print(f"Scanning {len(files_to_update)} files for import statements...")
+    
+    updated_count = 0
+    for file_path in files_to_update:
+        if fix_imports_in_file(file_path):
+            updated_count += 1
+    
+    print(f"\nCompleted! Updated {updated_count} files.")
+
+if __name__ == "__main__":
+    main()

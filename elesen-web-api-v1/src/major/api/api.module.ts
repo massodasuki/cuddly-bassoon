@@ -1,9 +1,9 @@
 // Main API module that groups all major/api functionality
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CoreModule } from './core/core.module';
-import { VesselsGroupModule } from './groups/vessels-group.module';
-import { ProfilesGroupModule } from './groups/profiles-group.module';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Module({
   imports: [

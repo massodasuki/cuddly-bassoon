@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like } from 'typeorm';
-import { VesselEntity } from '../common/entities';
-import { DaratVesselEntity } from '../common/entities/darat-vessels.entity';
-import { CombinedVesselDto, CombinedVesselResponseDto, VesselListingQueryDto } from './dto/combined-vessel.dto';
+import { InjectRepository } from '@nestjs/common';
+import { Repository } from '@nestjs/common';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Injectable()
 export class VesselListingService {

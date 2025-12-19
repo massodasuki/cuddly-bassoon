@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 
 @Entity('parliament_seats')
-export class ParliamentSeatEntity {
+export class ParliamentSeatsEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

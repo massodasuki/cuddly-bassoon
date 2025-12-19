@@ -1,5 +1,5 @@
 // src/auth/guards/jwt-refresh.guard.ts
-import { AuthGuard } from '@nestjs/passport';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

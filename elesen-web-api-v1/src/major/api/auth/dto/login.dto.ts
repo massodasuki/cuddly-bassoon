@@ -1,5 +1,5 @@
 // src/auth/dto/login.dto.ts
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/common';
 
 export class LoginDto {
    @ApiPropertyOptional({ default: "asyraf", description: 'Username' })

@@ -1,13 +1,13 @@
 // src/users/users.module.ts
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersService } from './users.service';
-import { UsersController } from './users.controller';
-import { UserEntity } from './entities/user.entity';
-// import { Role } from './entities/role.entity';
-// import { Entities } from './entities/entities.entity';
-// import { ProfileUser } from './entities/profile-user.entity';
-// import { CodeMaster } from './entities/code-master.entity';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],

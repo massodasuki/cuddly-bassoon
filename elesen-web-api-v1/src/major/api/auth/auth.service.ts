@@ -1,9 +1,9 @@
 // src/auth/auth.service.ts
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { JwtPayload } from './types/jwtPayload';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Injectable()
 export class AuthService {

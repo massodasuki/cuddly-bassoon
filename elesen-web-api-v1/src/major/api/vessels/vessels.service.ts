@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like } from 'typeorm';
-import { VesselEntity } from '../common/entities';
-import { CreateVesselDto } from './dto/create-vessel.dto';
-import { UpdateVesselDto } from './dto/update-vessel.dto';
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { InjectRepository } from '@nestjs/common';
+import { Repository } from '@nestjs/common';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Injectable()
 export class VesselsService {

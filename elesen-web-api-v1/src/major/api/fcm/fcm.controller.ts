@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { FcmService } from './fcm.service';
-import { SendMessageDto } from './dto/send-message.dto';
-import { SendToAllMessageDto } from './dto/send-to-all-message.dto';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Controller('/api/v1/applications/fcm')
 export class FcmController {

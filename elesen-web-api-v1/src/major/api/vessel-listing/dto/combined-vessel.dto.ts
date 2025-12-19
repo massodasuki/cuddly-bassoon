@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/common';
 
 export class CombinedVesselDto {
   @ApiProperty({ description: 'Unique identifier for the vessel' })

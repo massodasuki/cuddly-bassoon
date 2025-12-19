@@ -1,5 +1,5 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { VesselsService } from './vessels.service';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 describe('VesselsService', () => {
   let service: VesselsService;

@@ -1,6 +1,6 @@
 import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
-import { ProfileUserDetailsService } from './profile-user-details.service';
-import { ProfileUserDetailsDto } from './profile-user-details.dto';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Controller('/api/v1/applications/profile-user-details')
 export class ProfileUserDetailsController {
