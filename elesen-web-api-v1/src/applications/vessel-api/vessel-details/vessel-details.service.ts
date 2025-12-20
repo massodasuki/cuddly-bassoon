@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { VesselEntity } from '../entities/vessel.entity';
-import { KulitEntity } from '../entities/kulit.entity';
-import { EnjinEntity } from '../entities/enjin.entity';
-import { KesalahanEntity } from '../entities/kesalahan.entity';
-import { JettieEntity } from '../entities/jetties.entity';
+import { VesselEntity } from '../../marin/entities/vessel.entity';
+import { KulitEntity } from '../../marin/entities/kulit.entity';
+import { EnjinEntity } from '../../marin/entities/enjin.entity';
+import { KesalahanEntity } from '../../marin/entities/kesalahan.entity';
+import { JettieEntity } from '../../marin/entities/jetties.entity';
 import { ProfilePentadbirHartaEntity } from '../../users/entities/profile-pentadbir-hartas.entity';
-import { KruEntity } from '../entities/kru.entity';
-import { PemilikanEntity } from '../entities/pemilikan.entity';
-import { PematuhanEntity } from '../entities/pematuhan.entity';
-import { PendaftaranAntarabangsaEntity } from '../entities/pendaftaran-antarabangsa.entity';
-import { CmEquipment } from '../entities/cm-equipment.entity';
+import { KruEntity } from '../../marin/entities/kru.entity';
+import { PemilikanEntity } from '../../marin/entities/pemilikan.entity';
+import { PematuhanEntity } from '../../marin/entities/pematuhan.entity';
+import { PendaftaranAntarabangsaEntity } from '../../marin/entities/pendaftaran-antarabangsa.entity';
+import { CmEquipment } from '../../marin/entities/cm-equipment.entity';
 import { VesselDetailsResponseDto, ProfilVeselDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 
 @Injectable()
