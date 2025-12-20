@@ -25,49 +25,78 @@ export class VesselsApiService {
   }
 
 
-  async findAllMinimalVessels(paginationQuery: PaginationQueryDto, jenis? : string): Promise<{
-  data: { id: string; vessel_no: string; zone: string; start_date: Date; end_date: Date, jenis_kulit: string}[];
-  total: number;
-  page: number;
-  pageSize: number;
-  totalPages: number;
-}> {
-  const { page = 1, limit = 10 } = paginationQuery;
-  const pageSize = limit;
-  const skip = (page - 1) * pageSize;
+  private async getPaginatedData(
+    page: number,
+    pageSize: number,
+    dataQuery: string,
+    dataRepo: Repository<any>,
+    totalQuery?: string,
+    totalRepo?: Repository<any>
+  ): Promise<{
+    data: { id: string; vessel_no: string; zone: string; start_date: Date; end_date: Date; nelayan: string }[];
+    total: number;
+    page: number;
+    pageSize: number;
+    totalPages: number;
+  }> {
+    const data = await dataRepo.query(dataQuery);
+    let total: number;
+    if (totalQuery) {
+      const totalResult = await (totalRepo || dataRepo).query(totalQuery);
+      total = parseInt(totalResult[0].total);
+    } else {
+      total = await dataRepo.count();
+    }
+    const totalPages = Math.ceil(total / pageSize);
+    return { data, total, page, pageSize, totalPages };
+  }
 
-  console.log(jenis);
+  async findAllMinimalVessels(paginationQuery: PaginationQueryDto, jenis?: string): Promise<{
+    data: { id: string; vessel_no: string; zone: string; start_date: Date; end_date: Date; nelayan: string }[];
+    total: number;
+    page: number;
+    pageSize: number;
+    totalPages: number;
+  }> {
+    const { page = 1, limit = 10 } = paginationQuery;
+    const pageSize = limit;
+    const skip = (page - 1) * pageSize;
 
-  const unionQuery = `
-    SELECT id, vessel_no, zon AS zone, license_start AS start_date, license_end AS end_date, 'marin' AS nelayan FROM vessels
-    UNION
-    SELECT dv.id, dv.registration_number AS vessel_no, dv.transportation AS zone, dv.created_at AS start_date, dv.updated_at AS end_date, 'darat' AS nelayan FROM darat_vessels dv
-    LIMIT ${pageSize} OFFSET ${skip}
-  `;
+    console.log(jenis);
 
-  const data = await this.vesselRepository.query(unionQuery);
+    if (jenis && jenis.toLowerCase() === 'marin') {
+      const marinQuery = `
+        SELECT id, vessel_no, zon AS zone, license_start AS start_date, license_end AS end_date, 'marin' AS nelayan FROM vessels
+        LIMIT ${pageSize} OFFSET ${skip}
+      `;
+      return this.getPaginatedData(page, pageSize, marinQuery, this.vesselRepository);
+    }
 
-  const totalQuery = `
-    SELECT COUNT(*) as total FROM (
-      SELECT id FROM vessels
+    if (jenis && jenis.toLowerCase() === 'darat') {
+      const daratQuery = `
+        SELECT dv.id, dv.registration_number AS registration_number, dv.transportation AS zone, dv.created_at AS start_date, dv.updated_at AS end_date, 'darat' AS nelayan FROM darat_vessels dv
+        LIMIT ${pageSize} OFFSET ${skip}
+      `;
+      return this.getPaginatedData(page, pageSize, daratQuery, this.daratVesselRepository);
+    }
+
+    const unionQuery = `
+      SELECT id, vessel_no, zon AS zone, license_start AS start_date, license_end AS end_date, 'marin' AS nelayan FROM vessels
       UNION
-      SELECT id FROM darat_vessels
-    ) AS combined
-  `;
+      SELECT dv.id, dv.registration_number AS registration_number, dv.transportation AS zone, dv.created_at AS start_date, dv.updated_at AS end_date, 'darat' AS nelayan FROM darat_vessels dv
+      LIMIT ${pageSize} OFFSET ${skip}
+    `;
 
-  const totalResult = await this.vesselRepository.query(totalQuery);
-  const total = parseInt(totalResult[0].total);
+    const totalQuery = `
+      SELECT COUNT(*) as total FROM (
+        SELECT id FROM vessels
+        UNION
+        SELECT id FROM darat_vessels
+      ) AS combined
+    `;
 
-  const totalPages = Math.ceil(total / pageSize);
-
-  return {
-    data,
-    total,
-    page,
-    pageSize,
-    totalPages,
-  };
-}
+    return this.getPaginatedData(page, pageSize, unionQuery, this.vesselRepository, totalQuery, this.vesselRepository);
+  }
 
 
    async findAll(paginationQuery: PaginationQueryDto) {
