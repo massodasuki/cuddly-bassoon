@@ -11,19 +11,11 @@ export class DaratVesselDetailsService {
     private readonly daratRepository: Repository<DaratVesselEntity>,
   ) {}
 
-  async findOne(noVesel : string): Promise<ProfilVeselDto> {
+  async findOne(registrationNo : string): Promise<ProfilVeselDto> {
     const vessel = await this.daratRepository.createQueryBuilder('v')
       .leftJoinAndSelect('v.entity', 'entity')
-      .leftJoinAndSelect('kulit', 'kulit', 'kulit.no_pendaftaran = v.no_pendaftaran')
-      .leftJoinAndSelect('enjin', 'enjin', 'enjin.no_pendaftaran = v.no_pendaftaran')
-      .leftJoinAndSelect('kesalahan', 'kesalahan', 'kesalahan.no_pendaftaran = v.no_pendaftaran')
-      .leftJoinAndSelect('kru', 'kru', 'kru.no_pendaftaran = v.no_pendaftaran')
-      .leftJoinAndSelect('pemilikan', 'pemilikan', 'pemilikan.no_pendaftaran = v.no_pendaftaran')
-      .leftJoinAndSelect('pematuhan', 'pematuhan', 'pematuhan.no_pendaftaran = v.no_pendaftaran')
-      .leftJoinAndSelect('cm_equipment', 'peralatan', 'peralatan.vessel_id = v.no_pendaftaran AND peralatan.is_active = 1')
-      .leftJoinAndSelect('profile_pentadbir_hartas', 'pentadbirHarta', 'pentadbirHarta.vessel_id = v.id')
-      .leftJoinAndSelect('pendaftaran_antarabangsa', 'pendaftaranAntarabangsa', 'pendaftaranAntarabangsa.vessel_id = v.id')
-      .where('v.no_pendaftaran = :noVesel', { noVesel })
+      
+      .where('v.registration_no = :noVesel', { registrationNo })
       .getOne();
 
     if (!vessel) {
