@@ -16,3 +16,4 @@ export class VesselEntityController {
     return this.vesselsService.findOne(id);
   }
 }
+

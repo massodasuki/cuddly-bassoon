@@ -39,3 +39,4 @@ export class SubsistenceListQuotaEntity {
   subsistence_list_quota_hq_id: string;
 
 }
+

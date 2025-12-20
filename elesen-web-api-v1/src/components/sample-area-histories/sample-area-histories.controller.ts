@@ -16,3 +16,4 @@ export class SampleAreaHistorieEntityController {
     return this.sampleAreaHistoriesService.findOne(id);
   }
 }
+

@@ -22,3 +22,4 @@ export class ListingPendaratanEntityervice {
     return entity;
   }
 }
+

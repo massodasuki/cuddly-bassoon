@@ -22,3 +22,4 @@ export class LandingDeclarationLogService {
     return entity;
   }
 }
+

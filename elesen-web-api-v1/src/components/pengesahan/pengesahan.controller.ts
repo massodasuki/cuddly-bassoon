@@ -16,3 +16,4 @@ export class PengesahanEntityController {
     return this.pengesahanService.findOne(id);
   }
 }
+

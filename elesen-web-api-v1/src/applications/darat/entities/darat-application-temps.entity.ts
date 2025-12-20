@@ -36,3 +36,4 @@ export class DaratApplicationTempEntity {
   deleted_at: Date;
 
 }
+

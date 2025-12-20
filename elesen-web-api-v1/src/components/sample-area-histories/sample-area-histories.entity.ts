@@ -33,3 +33,4 @@ export class SampleAreaHistorieEntity {
   deleted_at: Date;
 
 }
+

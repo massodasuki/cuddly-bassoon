@@ -16,3 +16,4 @@ export class Modules_20250312EntityController {
     return this.modules_20250312Service.findOne(id);
   }
 }
+

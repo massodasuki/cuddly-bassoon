@@ -39,3 +39,4 @@ export class LesenEntity {
   updated_at: Date;
 
 }
+

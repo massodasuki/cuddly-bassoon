@@ -16,3 +16,4 @@ export class ShellsQuotaEntityController {
     return this.shellsQuotaService.findOne(id);
   }
 }
+

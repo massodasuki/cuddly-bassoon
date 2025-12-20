@@ -11,3 +11,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   exports: [Modules_20250312Entityervice],
 })
 export class Modules_20250312Module {}
+

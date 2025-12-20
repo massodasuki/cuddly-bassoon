@@ -16,3 +16,4 @@ export class SampleAreaApplicationDetailEntityController {
     return this.sampleAreaApplicationDetailsService.findOne(id);
   }
 }
+

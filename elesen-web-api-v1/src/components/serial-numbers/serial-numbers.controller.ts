@@ -16,3 +16,4 @@ export class SerialNumberEntityController {
     return this.serialNumbersService.findOne(id);
   }
 }
+

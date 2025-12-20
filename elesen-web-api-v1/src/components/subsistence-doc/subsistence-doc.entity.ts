@@ -42,3 +42,4 @@ export class SubsistenceDocEntity {
   deleted_at: Date;
 
 }
+

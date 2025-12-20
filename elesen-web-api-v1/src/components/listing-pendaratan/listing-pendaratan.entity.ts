@@ -42,3 +42,4 @@ export class ListingPendaratanEntity {
   updated_at: Date;
 
 }
+

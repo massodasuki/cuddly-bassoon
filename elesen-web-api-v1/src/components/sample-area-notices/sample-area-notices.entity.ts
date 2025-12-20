@@ -36,3 +36,4 @@ export class SampleAreaNoticeEntity {
   deleted_at: Date;
 
 }
+

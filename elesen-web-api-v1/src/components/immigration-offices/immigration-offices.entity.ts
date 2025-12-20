@@ -54,3 +54,4 @@ export class ImmigrationOfficeEntity {
   deleted_at: Date;
 
 }
+

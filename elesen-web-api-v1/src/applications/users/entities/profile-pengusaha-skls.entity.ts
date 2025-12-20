@@ -45,3 +45,4 @@ export class ProfilePengusahaSklEntity {
   deleted_at: Date;
 
 }
+

@@ -22,3 +22,4 @@ export class ShellsQuotaPaymentDetailService {
     return entity;
   }
 }
+

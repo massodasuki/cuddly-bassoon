@@ -36,3 +36,4 @@ export class DaratTemporaryPinEntity {
   deleted_at: Date;
 
 }
+

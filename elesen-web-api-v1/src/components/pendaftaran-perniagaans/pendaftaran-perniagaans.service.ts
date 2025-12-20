@@ -22,3 +22,4 @@ export class PendaftaranPerniagaanService {
     return entity;
   }
 }
+

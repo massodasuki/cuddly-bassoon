@@ -16,3 +16,4 @@ export class MigrationEntityController {
     return this.migrationsService.findOne(+id);
   }
 }
+

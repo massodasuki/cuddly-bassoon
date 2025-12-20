@@ -16,3 +16,4 @@ export class NelayanMarinEntityController {
     return this.nelayanMarinsService.findOne(id);
   }
 }
+

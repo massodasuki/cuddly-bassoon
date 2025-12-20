@@ -45,3 +45,4 @@ export class LandingDeclarationLogEntity {
   deleted_at: Date;
 
 }
+

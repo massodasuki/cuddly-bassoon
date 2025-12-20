@@ -48,3 +48,4 @@ export class ProfileCompanyAlpEntity {
   deleted_at: Date;
 
 }
+

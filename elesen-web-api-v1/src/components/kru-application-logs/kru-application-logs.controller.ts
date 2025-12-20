@@ -16,3 +16,4 @@ export class KruApplicationLogEntityController {
     return this.kruApplicationLogsService.findOne(id);
   }
 }
+

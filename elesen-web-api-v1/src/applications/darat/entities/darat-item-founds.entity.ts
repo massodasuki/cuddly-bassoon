@@ -42,3 +42,4 @@ export class DaratItemFoundEntity {
   application_id: string;
 
 }
+

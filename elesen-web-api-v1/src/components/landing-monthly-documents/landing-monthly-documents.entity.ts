@@ -36,3 +36,4 @@ export class LandingMonthlyDocumentEntity {
   deleted_at: Date;
 
 }
+

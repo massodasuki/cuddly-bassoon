@@ -51,3 +51,4 @@ export class DaratFaultRecordEntity {
   updated_at: Date;
 
 }
+

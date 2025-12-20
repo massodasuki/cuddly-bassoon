@@ -30,3 +30,4 @@ export class DaratHelpAgencyFishermanEntity {
   deleted_at: Date;
 
 }
+

@@ -51,3 +51,4 @@ export class KruEntity {
   updated_at: Date;
 
 }
+

@@ -36,3 +36,4 @@ export class DaratEquipmentListEntity {
   deleted_at: Date;
 
 }
+

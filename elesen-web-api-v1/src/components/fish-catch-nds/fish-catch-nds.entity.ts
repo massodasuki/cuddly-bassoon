@@ -42,3 +42,4 @@ export class FishCatchNdEntity {
   deleted_at: Date;
 
 }
+

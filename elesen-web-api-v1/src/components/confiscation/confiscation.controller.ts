@@ -16,3 +16,4 @@ export class ConfiscationEntityController {
     return this.confiscationService.findOne(id);
   }
 }
+

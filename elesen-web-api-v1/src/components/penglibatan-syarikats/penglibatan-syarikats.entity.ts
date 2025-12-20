@@ -36,3 +36,4 @@ export class PenglibatanSyarikatEntity {
   deleted_at: Date;
 
 }
+

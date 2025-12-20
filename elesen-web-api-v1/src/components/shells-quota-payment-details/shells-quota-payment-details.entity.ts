@@ -33,3 +33,4 @@ export class ShellsQuotaPaymentDetailEntity {
   deleted_at: Date;
 
 }
+

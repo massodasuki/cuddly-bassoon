@@ -22,3 +22,4 @@ export class SampleAreaService {
     return entity;
   }
 }
+

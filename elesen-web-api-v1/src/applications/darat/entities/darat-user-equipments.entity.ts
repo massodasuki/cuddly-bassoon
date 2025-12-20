@@ -51,3 +51,4 @@ export class DaratUserEquipmentEntity {
   file_path: string;
 
 }
+

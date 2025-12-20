@@ -30,3 +30,4 @@ export class ReceiptItemEntity {
   updated_at: Date;
 
 }
+

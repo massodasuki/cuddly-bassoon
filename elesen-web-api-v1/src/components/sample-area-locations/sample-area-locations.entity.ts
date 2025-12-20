@@ -30,3 +30,4 @@ export class SampleAreaLocationEntity {
   deleted_at: Date;
 
 }
+

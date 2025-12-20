@@ -22,3 +22,4 @@ export class ProfileCompanyAssetService {
     return entity;
   }
 }
+

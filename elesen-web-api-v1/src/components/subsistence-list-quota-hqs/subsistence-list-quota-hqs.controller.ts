@@ -16,3 +16,4 @@ export class SubsistenceListQuotaHqEntityController {
     return this.subsistenceListQuotaHqsService.findOne(id);
   }
 }
+

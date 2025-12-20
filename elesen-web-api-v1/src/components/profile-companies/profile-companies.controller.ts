@@ -16,3 +16,4 @@ export class ProfileCompanieEntityController {
     return this.profileCompaniesService.findOne(id);
   }
 }
+

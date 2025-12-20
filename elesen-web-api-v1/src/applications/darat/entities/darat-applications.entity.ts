@@ -66,3 +66,4 @@ export class DaratApplicationEntity {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'user_id' })
   daratVessel: DaratVesselEntity;
 }
+

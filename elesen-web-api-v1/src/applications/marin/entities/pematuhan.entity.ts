@@ -24,3 +24,4 @@ export class PematuhanEntity {
   updated_at: Date;
 
 }
+

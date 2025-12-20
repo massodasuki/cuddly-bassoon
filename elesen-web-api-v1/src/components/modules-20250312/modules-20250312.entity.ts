@@ -42,3 +42,4 @@ export class Modules_20250312Entity {
   created_at: Date;
 
 }
+

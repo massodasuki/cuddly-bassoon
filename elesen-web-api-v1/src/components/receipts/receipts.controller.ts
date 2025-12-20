@@ -16,3 +16,4 @@ export class ReceiptEntityController {
     return this.receiptsService.findOne(id);
   }
 }
+

@@ -22,3 +22,4 @@ export class ProfilePentadbirHartaVesselService {
     return entity;
   }
 }
+

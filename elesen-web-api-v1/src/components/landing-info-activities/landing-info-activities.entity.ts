@@ -48,3 +48,4 @@ export class LandingInfoActivitieEntity {
   deleted_at: Date;
 
 }
+

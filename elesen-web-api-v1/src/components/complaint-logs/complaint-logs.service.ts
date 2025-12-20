@@ -18,3 +18,4 @@ export class ComplaintLogService {
     return this.complaintLogsRepository.findOneBy({ id });
   }
 }
+

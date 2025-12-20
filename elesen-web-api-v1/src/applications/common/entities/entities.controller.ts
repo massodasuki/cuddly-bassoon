@@ -16,3 +16,4 @@ export class EntitieEntityController {
     return this.entitiesService.findOne(id);
   }
 }
+

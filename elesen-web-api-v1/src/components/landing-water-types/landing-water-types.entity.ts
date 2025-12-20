@@ -30,3 +30,4 @@ export class LandingWaterTypeEntity {
   deleted_at: Date;
 
 }
+

@@ -69,3 +69,4 @@ export class MaklumatSyarikatEntity {
   deleted_at: Date;
 
 }
+

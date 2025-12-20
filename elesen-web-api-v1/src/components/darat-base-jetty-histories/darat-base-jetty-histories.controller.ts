@@ -16,3 +16,4 @@ export class DaratBaseJettyHistorieEntityController {
     return this.daratBaseJettyHistoriesService.findOne(id);
   }
 }
+

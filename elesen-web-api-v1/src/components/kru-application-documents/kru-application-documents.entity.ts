@@ -36,3 +36,4 @@ export class KruApplicationDocumentEntity {
   deleted_at: Date;
 
 }
+

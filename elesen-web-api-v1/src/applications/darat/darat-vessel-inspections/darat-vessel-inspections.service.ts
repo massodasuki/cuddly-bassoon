@@ -22,3 +22,4 @@ export class DaratVesselInspectionService {
     return entity;
   }
 }
+

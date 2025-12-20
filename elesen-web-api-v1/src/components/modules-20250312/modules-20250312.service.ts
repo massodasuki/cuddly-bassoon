@@ -22,3 +22,4 @@ export class Modules_20250312Entityervice {
     return entity;
   }
 }
+

@@ -16,3 +16,4 @@ export class DaratPaymentReceiptItemEntityController {
     return this.daratPaymentReceiptItemsService.findOne(id);
   }
 }
+

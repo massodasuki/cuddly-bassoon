@@ -33,3 +33,4 @@ export class ShellsQuotaHistorieEntity {
   deleted_at: Date;
 
 }
+

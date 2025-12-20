@@ -16,3 +16,4 @@ export class ShellsQuotaPaymentDetailEntityController {
     return this.shellsQuotaPaymentDetailsService.findOne(id);
   }
 }
+

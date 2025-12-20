@@ -30,3 +30,4 @@ export class Kru04ApplicationEntity {
   deleted_at: Date;
 
 }
+

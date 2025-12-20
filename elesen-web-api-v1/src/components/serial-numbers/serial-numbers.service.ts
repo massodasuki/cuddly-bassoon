@@ -22,3 +22,4 @@ export class SerialNumberService {
     return entity;
   }
 }
+

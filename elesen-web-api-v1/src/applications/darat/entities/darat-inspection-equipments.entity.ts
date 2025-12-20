@@ -54,3 +54,4 @@ export class DaratInspectionEquipmentEntity {
   deleted_at: Date;
 
 }
+

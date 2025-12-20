@@ -30,3 +30,4 @@ export class LandingInfoEntity {
   deleted_at: Date;
 
 }
+

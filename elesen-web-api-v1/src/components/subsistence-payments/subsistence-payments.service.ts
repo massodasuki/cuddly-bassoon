@@ -22,3 +22,4 @@ export class SubsistencePaymentService {
     return entity;
   }
 }
+

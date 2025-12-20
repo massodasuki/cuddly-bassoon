@@ -22,3 +22,4 @@ export class LandingMonthlyDocumentService {
     return entity;
   }
 }
+

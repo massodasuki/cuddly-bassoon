@@ -48,3 +48,4 @@ export class SubsistencePaymentPayeeEntity {
   pay_status: string;
 
 }
+

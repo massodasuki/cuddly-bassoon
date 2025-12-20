@@ -16,3 +16,4 @@ export class LandingDeclarationMonthlieEntityController {
     return this.landingDeclarationMonthliesService.findOne(id);
   }
 }
+

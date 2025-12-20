@@ -36,3 +36,4 @@ export class FishSpeciesNdEntity {
   deleted_at: Date;
 
 }
+

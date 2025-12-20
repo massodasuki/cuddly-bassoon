@@ -39,3 +39,4 @@ export class SerialNumberEntity {
   application_id: string;
 
 }
+

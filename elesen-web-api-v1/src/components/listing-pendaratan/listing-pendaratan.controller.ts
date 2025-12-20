@@ -16,3 +16,4 @@ export class ListingPendaratanEntityController {
     return this.listingPendaratanService.findOne(id);
   }
 }
+

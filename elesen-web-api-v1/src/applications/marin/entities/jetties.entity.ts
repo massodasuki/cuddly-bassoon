@@ -42,3 +42,4 @@ export class JettieEntity {
   parliament_seat_id: string;
 
 }
+

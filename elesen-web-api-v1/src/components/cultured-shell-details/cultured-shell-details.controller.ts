@@ -16,3 +16,4 @@ export class CulturedShellDetailEntityController {
     return this.culturedShellDetailsService.findOne(id);
   }
 }
+

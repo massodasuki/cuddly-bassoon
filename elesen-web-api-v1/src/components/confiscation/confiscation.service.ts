@@ -22,3 +22,4 @@ export class ConfiscationEntityervice {
     return confiscation;
   }
 }
+

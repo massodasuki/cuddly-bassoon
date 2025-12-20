@@ -16,3 +16,4 @@ export class PaymentEntityController {
     return this.paymentsService.findOne(id);
   }
 }
+

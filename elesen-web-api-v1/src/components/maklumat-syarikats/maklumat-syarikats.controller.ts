@@ -16,3 +16,4 @@ export class MaklumatSyarikatEntityController {
     return this.maklumatSyarikatsService.findOne(id);
   }
 }
+

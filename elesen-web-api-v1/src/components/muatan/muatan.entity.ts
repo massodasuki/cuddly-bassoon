@@ -33,3 +33,4 @@ export class MuatanEntity {
   tot_grt: string;
 
 }
+

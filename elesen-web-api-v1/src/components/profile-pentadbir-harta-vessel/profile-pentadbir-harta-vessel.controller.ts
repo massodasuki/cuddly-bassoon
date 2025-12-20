@@ -16,3 +16,4 @@ export class ProfilePentadbirHartaVesselEntityController {
     return this.profilePentadbirHartaVesselService.findOne(id);
   }
 }
+

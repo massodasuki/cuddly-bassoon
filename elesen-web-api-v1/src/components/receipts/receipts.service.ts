@@ -22,3 +22,4 @@ export class ReceiptService {
     return entity;
   }
 }
+

@@ -36,3 +36,4 @@ export class SubsistenceListQuotaHqEntity {
   deleted_at: Date;
 
 }
+

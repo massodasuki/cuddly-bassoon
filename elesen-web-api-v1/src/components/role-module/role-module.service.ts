@@ -22,3 +22,4 @@ export class RoleModuleEntityervice {
     return entity;
   }
 }
+

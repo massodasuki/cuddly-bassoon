@@ -51,3 +51,4 @@ export class DaratApplicationEntity {
   new_entity_id: string;
 
 }
+

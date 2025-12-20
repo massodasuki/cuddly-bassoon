@@ -33,3 +33,4 @@ export class ImmigrationGateEntity {
   deleted_at: Date;
 
 }
+

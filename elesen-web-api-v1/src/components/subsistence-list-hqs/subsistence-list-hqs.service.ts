@@ -22,3 +22,4 @@ export class SubsistenceListHqService {
     return entity;
   }
 }
+

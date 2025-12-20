@@ -16,3 +16,4 @@ export class PersonalAccessTokenEntityController {
     return this.personalAccessTokensService.findOne(id);
   }
 }
+

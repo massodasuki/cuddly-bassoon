@@ -167,3 +167,4 @@ export class UsersController {
     return this.usersService.update(username, updateUserDto)
   }
 }
+

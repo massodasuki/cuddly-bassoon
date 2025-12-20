@@ -42,3 +42,4 @@ export class ProfileCompanyAccountEntity {
   deleted_at: Date;
 
 }
+

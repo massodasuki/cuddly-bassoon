@@ -35,3 +35,4 @@ export class DeviceRegistrationController {
     return this.deviceRegistrationService.remove(id);
   }
 }
+

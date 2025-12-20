@@ -22,3 +22,4 @@ export class ProfilePentadbirSklService {
     return entity;
   }
 }
+

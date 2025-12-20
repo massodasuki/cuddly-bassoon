@@ -16,3 +16,4 @@ export class DaratUserEquipmentHistorieEntityController {
     return this.daratUserEquipmentHistoriesService.findOne(id);
   }
 }
+

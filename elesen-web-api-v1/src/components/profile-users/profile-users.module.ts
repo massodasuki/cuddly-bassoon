@@ -11,3 +11,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   exports: [ProfileUserService],
 })
 export class ProfileUserModule {}
+

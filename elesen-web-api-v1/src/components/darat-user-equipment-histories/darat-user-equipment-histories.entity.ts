@@ -39,3 +39,4 @@ export class DaratUserEquipmentHistorieEntity {
   deleted_at: Date;
 
 }
+

@@ -45,3 +45,4 @@ export class PengesahanEntity {
   no_pendaftaran_kenderaan: string;
 
 }
+

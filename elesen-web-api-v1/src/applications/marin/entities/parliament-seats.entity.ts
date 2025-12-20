@@ -36,3 +36,4 @@ export class ParliamentSeatEntity {
   deleted_at: Date;
 
 }
+

@@ -22,3 +22,4 @@ export class DaratUserEquipmentHistorieService {
     return entity;
   }
 }
+

@@ -48,3 +48,4 @@ export class DaratApplicationLogEntity {
   updated_at: Date;
 
 }
+

@@ -24,3 +24,4 @@ export class FailedJobEntity {
   failed_at: Date;
 
 }
+

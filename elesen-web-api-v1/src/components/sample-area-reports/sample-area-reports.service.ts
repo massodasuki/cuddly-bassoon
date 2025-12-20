@@ -22,3 +22,4 @@ export class SampleAreaReportService {
     return entity;
   }
 }
+

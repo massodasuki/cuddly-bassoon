@@ -39,3 +39,4 @@ export class RoleEntity {
   entity_id: string;
 
 }
+

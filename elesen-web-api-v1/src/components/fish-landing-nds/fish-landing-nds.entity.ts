@@ -39,3 +39,4 @@ export class FishLandingNdEntity {
   deleted_at: Date;
 
 }
+

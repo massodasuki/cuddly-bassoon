@@ -33,3 +33,4 @@ export class PendaftaranAntarabangsaEntity {
   updated_at: Date;
 
 }
+

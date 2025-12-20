@@ -16,3 +16,4 @@ export class ForeignCrewEntityController {
     return this.foreignCrewsService.findOne(id);
   }
 }
+

@@ -45,3 +45,4 @@ export class SalesRecordNdEntity {
   deleted_at: Date;
 
 }
+

@@ -72,3 +72,4 @@ export class KruApplicationForeignKruEntity {
   revocation_reason: string;
 
 }
+

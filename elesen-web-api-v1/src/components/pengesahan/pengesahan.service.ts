@@ -22,3 +22,4 @@ export class PengesahanEntityervice {
     return entity;
   }
 }
+

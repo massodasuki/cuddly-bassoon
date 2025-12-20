@@ -16,3 +16,4 @@ export class SubsistencePaymentHqEntityController {
     return this.subsistencePaymentHqsService.findOne(id);
   }
 }
+

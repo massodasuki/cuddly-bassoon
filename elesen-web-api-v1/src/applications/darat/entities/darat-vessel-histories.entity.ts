@@ -54,3 +54,4 @@ export class DaratVesselHistorieEntity {
   updated_at: Date;
 
 }
+

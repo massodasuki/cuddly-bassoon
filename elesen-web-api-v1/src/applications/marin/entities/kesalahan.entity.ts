@@ -36,3 +36,4 @@ export class KesalahanEntity {
   updated_at: Date;
 
 }
+

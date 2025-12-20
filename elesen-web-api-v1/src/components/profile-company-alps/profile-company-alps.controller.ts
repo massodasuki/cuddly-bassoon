@@ -16,3 +16,4 @@ export class ProfileCompanyAlpEntityController {
     return this.profileCompanyAlpsService.findOne(id);
   }
 }
+

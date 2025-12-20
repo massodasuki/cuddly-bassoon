@@ -33,3 +33,4 @@ export class LandingActivityTypeEntity {
   deleted_at: Date;
 
 }
+

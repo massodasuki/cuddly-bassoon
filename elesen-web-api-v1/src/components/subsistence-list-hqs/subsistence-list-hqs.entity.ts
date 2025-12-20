@@ -33,3 +33,4 @@ export class SubsistenceListHqEntity {
   deleted_at: Date;
 
 }
+

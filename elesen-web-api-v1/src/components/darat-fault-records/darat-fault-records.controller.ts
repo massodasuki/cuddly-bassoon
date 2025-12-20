@@ -16,3 +16,4 @@ export class DaratFaultRecordEntityController {
     return this.daratFaultRecordsService.findOne(id);
   }
 }
+

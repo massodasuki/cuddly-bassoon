@@ -39,3 +39,4 @@ export class ApplicationsV2Entity {
   deleted_at: Date;
 
 }
+

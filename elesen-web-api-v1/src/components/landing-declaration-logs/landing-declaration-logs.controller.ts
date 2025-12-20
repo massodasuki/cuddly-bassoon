@@ -16,3 +16,4 @@ export class LandingDeclarationLogEntityController {
     return this.landingDeclarationLogsService.findOne(id);
   }
 }
+

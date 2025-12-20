@@ -51,3 +51,4 @@ export class AnnouncementEntity {
   deleted_at: Date;
 
 }
+

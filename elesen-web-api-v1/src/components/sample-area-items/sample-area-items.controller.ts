@@ -16,3 +16,4 @@ export class SampleAreaItemEntityController {
     return this.sampleAreaItemsService.findOne(id);
   }
 }
+

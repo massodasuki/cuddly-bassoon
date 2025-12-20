@@ -16,3 +16,4 @@ export class FishSpeciesNdEntityController {
     return this.fishSpeciesNdsService.findOne(id);
   }
 }
+

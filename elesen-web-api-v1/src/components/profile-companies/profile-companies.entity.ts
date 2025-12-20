@@ -111,3 +111,4 @@ export class ProfileCompanieEntity {
   deleted_at: Date;
 
 }
+

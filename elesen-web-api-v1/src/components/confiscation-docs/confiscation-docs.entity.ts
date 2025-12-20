@@ -33,3 +33,4 @@ export class ConfiscationDocEntity {
   deleted_at: Date;
 
 }
+

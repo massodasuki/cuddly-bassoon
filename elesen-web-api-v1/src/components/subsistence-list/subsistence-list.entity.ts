@@ -33,3 +33,4 @@ export class SubsistenceListEntity {
   subsistence_list_hq_id: string;
 
 }
+

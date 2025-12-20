@@ -60,3 +60,4 @@ export class DaratVesselHullHistorieEntity {
   updated_at: Date;
 
 }
+

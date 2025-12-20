@@ -81,3 +81,4 @@ export class CulturedShellEntity {
   deleted_at: Date;
 
 }
+

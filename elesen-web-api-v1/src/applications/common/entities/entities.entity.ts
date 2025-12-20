@@ -66,3 +66,4 @@ export class EntitieEntity {
   entity_phone_no: string;
 
 }
+

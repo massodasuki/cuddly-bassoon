@@ -16,3 +16,4 @@ export class SpecieEntityController {
     return this.speciesService.findOne(id);
   }
 }
+

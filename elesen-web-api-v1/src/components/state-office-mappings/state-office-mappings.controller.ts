@@ -16,3 +16,4 @@ export class StateOfficeMappingEntityController {
     return this.stateOfficeMappingsService.findOne(id);
   }
 }
+

@@ -174,3 +174,4 @@ export class ProfileUserEntity {
   secondary_state: string;
 
 }
+

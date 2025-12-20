@@ -22,3 +22,4 @@ export class LandingInfoService {
     return entity;
   }
 }
+

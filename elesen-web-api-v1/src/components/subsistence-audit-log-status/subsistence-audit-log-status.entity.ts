@@ -27,3 +27,4 @@ export class SubsistenceAuditLogStatuEntity {
   deleted_at: Date;
 
 }
+

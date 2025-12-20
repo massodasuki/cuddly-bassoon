@@ -22,3 +22,4 @@ export class Kru04ApplicationService {
     return entity;
   }
 }
+

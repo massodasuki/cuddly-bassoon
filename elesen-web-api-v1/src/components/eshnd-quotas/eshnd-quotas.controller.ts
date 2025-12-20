@@ -16,3 +16,4 @@ export class EshndQuotaEntityController {
     return this.eshndQuotasService.findOne(id);
   }
 }
+

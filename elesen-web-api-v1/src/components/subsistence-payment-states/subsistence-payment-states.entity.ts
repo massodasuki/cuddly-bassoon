@@ -42,3 +42,4 @@ export class SubsistencePaymentStateEntity {
   deleted_at: Date;
 
 }
+

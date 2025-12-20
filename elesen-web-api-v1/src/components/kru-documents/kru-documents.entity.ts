@@ -36,3 +36,4 @@ export class KruDocumentEntity {
   deleted_at: Date;
 
 }
+

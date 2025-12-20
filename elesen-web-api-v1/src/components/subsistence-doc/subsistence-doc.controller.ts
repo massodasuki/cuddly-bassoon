@@ -31,3 +31,4 @@ export class SubsistenceDocEntityController {
     return this.subsistenceDocService.findOne(id);
   }
 }
+

@@ -140,3 +140,4 @@ export class DaratVesselInspectionEntity {
   daratVessel: DaratVesselEntity;
 
 }
+

@@ -42,3 +42,4 @@ export class KulitEntity {
   updated_at: Date;
 
 }
+

@@ -33,3 +33,4 @@ export class PersonalAccessTokenEntity {
   updated_at: Date;
 
 }
+

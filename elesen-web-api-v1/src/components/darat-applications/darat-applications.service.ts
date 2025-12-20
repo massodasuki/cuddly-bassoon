@@ -22,3 +22,4 @@ export class DaratApplicationService {
     return daratApplication;
   }
 }
+

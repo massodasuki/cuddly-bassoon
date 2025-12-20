@@ -33,3 +33,4 @@ export class CulturedShellHistorieEntity {
   deleted_at: Date;
 
 }
+

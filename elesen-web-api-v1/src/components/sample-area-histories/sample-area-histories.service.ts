@@ -22,3 +22,4 @@ export class SampleAreaHistorieService {
     return entity;
   }
 }
+

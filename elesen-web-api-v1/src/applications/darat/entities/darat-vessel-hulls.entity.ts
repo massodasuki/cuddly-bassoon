@@ -63,3 +63,4 @@ export class DaratVesselHullEntity {
   deleted_at: Date;
 
 }
+

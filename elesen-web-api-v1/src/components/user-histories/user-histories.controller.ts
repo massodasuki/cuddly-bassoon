@@ -16,3 +16,4 @@ export class UserHistorieEntityController {
     return this.userHistoriesService.findOne(id);
   }
 }
+

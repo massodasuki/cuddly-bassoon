@@ -54,3 +54,4 @@ export class DaratUserDetailEntity {
   deleted_at: Date;
 
 }
+

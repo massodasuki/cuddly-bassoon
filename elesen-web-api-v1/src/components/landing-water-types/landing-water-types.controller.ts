@@ -16,3 +16,4 @@ export class LandingWaterTypeEntityController {
     return this.landingWaterTypesService.findOne(id);
   }
 }
+

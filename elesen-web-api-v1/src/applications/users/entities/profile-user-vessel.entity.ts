@@ -21,3 +21,4 @@ export class ProfileUserVesselEntity {
   updated_at: Date;
 
 }
+

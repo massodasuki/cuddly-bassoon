@@ -108,3 +108,4 @@ export class ApplicationEntity {
   updated_at: Date;
 
 }
+

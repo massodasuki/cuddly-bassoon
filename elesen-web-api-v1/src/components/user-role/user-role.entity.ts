@@ -12,3 +12,4 @@ export class UserRoleEntity {
   role_id: string;
 
 }
+

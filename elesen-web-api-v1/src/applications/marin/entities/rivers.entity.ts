@@ -36,3 +36,4 @@ export class RiverEntity {
   deleted_at: Date;
 
 }
+

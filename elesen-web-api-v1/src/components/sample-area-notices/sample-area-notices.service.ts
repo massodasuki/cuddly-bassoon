@@ -22,3 +22,4 @@ export class SampleAreaNoticeService {
     return entity;
   }
 }
+

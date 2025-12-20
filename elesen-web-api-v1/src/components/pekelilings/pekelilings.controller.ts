@@ -16,3 +16,4 @@ export class PekelilingEntityController {
     return this.pekelilingsService.findOne(id);
   }
 }
+

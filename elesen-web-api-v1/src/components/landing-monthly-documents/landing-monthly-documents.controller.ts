@@ -16,3 +16,4 @@ export class LandingMonthlyDocumentEntityController {
     return this.landingMonthlyDocumentsService.findOne(id);
   }
 }
+

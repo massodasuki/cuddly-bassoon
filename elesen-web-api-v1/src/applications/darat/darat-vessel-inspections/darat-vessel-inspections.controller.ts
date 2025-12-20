@@ -16,3 +16,4 @@ export class DaratVesselInspectionEntityController {
     return this.daratVesselInspectionsService.findOne(id);
   }
 }
+

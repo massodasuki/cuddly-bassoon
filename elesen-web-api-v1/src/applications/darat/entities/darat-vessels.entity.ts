@@ -51,3 +51,4 @@ export class DaratVesselEntity {
   is_approved: number;
 
 }
+

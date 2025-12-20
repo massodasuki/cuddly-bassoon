@@ -45,3 +45,4 @@ export class DaratApplicationApprovedEntity {
   deleted_at: Date;
 
 }
+

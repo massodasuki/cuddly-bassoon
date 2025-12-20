@@ -48,3 +48,4 @@ export class KruApplicationLogEntity {
   deleted_at: Date;
 
 }
+

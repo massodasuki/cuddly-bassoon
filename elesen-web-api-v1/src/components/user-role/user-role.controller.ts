@@ -16,3 +16,4 @@ export class UserRoleEntityController {
     return this.userRoleService.findOne(id);
   }
 }
+

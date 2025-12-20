@@ -16,3 +16,4 @@ export class ModuleEntitysController {
     return this.modulesService.findOne(id);
   }
 }
+

@@ -22,3 +22,4 @@ export class DaratEquipmentListService {
     return entity;
   }
 }
+

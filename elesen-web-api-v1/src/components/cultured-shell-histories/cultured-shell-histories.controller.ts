@@ -16,3 +16,4 @@ export class CulturedShellHistorieEntityController {
     return this.culturedShellHistoriesService.findOne(id);
   }
 }
+

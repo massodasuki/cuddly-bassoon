@@ -16,3 +16,4 @@ export class DaratHelpAgencyFishermanEntityController {
     return this.daratHelpAgencyFishermansService.findOne(id);
   }
 }
+

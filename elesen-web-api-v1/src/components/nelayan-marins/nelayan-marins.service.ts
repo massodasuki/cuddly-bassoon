@@ -22,3 +22,4 @@ export class NelayanMarinService {
     return entity;
   }
 }
+

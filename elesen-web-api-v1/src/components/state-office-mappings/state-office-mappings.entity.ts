@@ -39,3 +39,4 @@ export class StateOfficeMappingEntity {
   deleted_at: Date;
 
 }
+

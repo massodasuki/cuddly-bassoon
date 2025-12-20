@@ -75,3 +75,4 @@ export class LandingDeclarationMonthlieEntity {
   sub_pay_payee_id: string;
 
 }
+

@@ -36,3 +36,4 @@ export class SubsistencePaymentHqEntity {
   deleted_at: Date;
 
 }
+

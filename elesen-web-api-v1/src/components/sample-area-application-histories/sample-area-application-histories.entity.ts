@@ -33,3 +33,4 @@ export class SampleAreaApplicationHistorieEntity {
   deleted_at: Date;
 
 }
+

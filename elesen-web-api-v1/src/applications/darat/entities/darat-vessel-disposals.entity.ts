@@ -75,3 +75,4 @@ export class DaratVesselDisposalEntity {
   deleted_at: Date;
 
 }
+

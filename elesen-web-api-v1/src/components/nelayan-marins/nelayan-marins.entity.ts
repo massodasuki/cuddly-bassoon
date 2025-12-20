@@ -90,3 +90,4 @@ export class NelayanMarinEntity {
   parliament_seat_id: string;
 
 }
+

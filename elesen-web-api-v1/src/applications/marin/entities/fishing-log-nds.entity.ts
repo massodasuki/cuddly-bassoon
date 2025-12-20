@@ -33,3 +33,4 @@ export class FishingLogNdEntity {
   deleted_at: Date;
 
 }
+

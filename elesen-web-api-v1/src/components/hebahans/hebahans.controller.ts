@@ -16,3 +16,4 @@ export class HebahanEntityController {
     return this.hebahansService.findOne(id);
   }
 }
+

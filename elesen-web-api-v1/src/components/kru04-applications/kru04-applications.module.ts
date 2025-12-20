@@ -11,3 +11,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   exports: [Kru04ApplicationService],
 })
 export class Kru04ApplicationModule {}
+

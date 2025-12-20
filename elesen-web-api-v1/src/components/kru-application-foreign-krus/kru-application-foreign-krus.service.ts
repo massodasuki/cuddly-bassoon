@@ -22,3 +22,4 @@ export class KruApplicationForeignKruService {
     return entity;
   }
 }
+

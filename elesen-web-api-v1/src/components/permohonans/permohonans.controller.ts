@@ -16,3 +16,4 @@ export class PermohonanEntityController {
     return this.permohonansService.findOne(id);
   }
 }
+

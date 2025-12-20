@@ -22,3 +22,4 @@ export class SubsistenceAuditLogStatuService {
     return entity;
   }
 }
+

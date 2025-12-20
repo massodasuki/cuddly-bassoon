@@ -54,3 +54,4 @@ export class PekelilingEntity {
   deleted_at: Date;
 
 }
+

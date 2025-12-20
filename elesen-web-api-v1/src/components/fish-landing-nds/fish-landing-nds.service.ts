@@ -22,3 +22,4 @@ export class FishLandingNdService {
     return entity;
   }
 }
+

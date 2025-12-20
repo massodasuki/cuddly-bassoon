@@ -16,3 +16,4 @@ export class RoleModuleEntityController {
     return this.roleModuleService.findOne(id);
   }
 }
+

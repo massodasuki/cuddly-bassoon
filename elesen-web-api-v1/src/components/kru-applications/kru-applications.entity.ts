@@ -72,3 +72,4 @@ export class KruApplicationEntity {
   submitted_by: string;
 
 }
+

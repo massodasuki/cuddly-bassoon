@@ -66,3 +66,4 @@ export class LandingDeclarationEntity {
   landing_declare_monthly_id: string;
 
 }
+

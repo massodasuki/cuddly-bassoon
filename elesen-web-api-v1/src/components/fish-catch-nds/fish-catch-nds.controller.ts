@@ -16,3 +16,4 @@ export class FishCatchNdEntityController {
     return this.fishCatchNdsService.findOne(id);
   }
 }
+

@@ -22,3 +22,4 @@ export class ComplaintService {
     return complaint;
   }
 }
+

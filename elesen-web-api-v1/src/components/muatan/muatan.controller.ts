@@ -31,3 +31,4 @@ export class MuatanEntityController {
     return this.muatanService.findOne(id);
   }
 }
+

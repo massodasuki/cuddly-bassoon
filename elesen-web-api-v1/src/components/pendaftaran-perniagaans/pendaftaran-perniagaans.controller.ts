@@ -16,3 +16,4 @@ export class PendaftaranPerniagaanEntityController {
     return this.pendaftaranPerniagaansService.findOne(id);
   }
 }
+

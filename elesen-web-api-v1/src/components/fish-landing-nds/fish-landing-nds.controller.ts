@@ -16,3 +16,4 @@ export class FishLandingNdEntityController {
     return this.fishLandingNdsService.findOne(id);
   }
 }
+

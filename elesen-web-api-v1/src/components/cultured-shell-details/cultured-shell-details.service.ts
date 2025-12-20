@@ -22,3 +22,4 @@ export class CulturedShellDetailService {
     return culturedShellDetail;
   }
 }
+

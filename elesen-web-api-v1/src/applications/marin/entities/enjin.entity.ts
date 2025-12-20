@@ -60,3 +60,4 @@ export class EnjinEntity {
   updated_at: Date;
 
 }
+

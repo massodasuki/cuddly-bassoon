@@ -33,3 +33,4 @@ export class ReceiptEntity {
   deleted_at: Date;
 
 }
+

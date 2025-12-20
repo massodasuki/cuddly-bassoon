@@ -99,3 +99,4 @@ export class KruApplicationKruEntity {
   parliament_seat_id: string;
 
 }
+

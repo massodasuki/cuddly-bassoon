@@ -60,3 +60,4 @@ export class PermohonanEntity {
   jumlah_baki_kerang: number;
 
 }
+

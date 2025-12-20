@@ -22,3 +22,4 @@ export class LandingDeclarationService {
     return entity;
   }
 }
+

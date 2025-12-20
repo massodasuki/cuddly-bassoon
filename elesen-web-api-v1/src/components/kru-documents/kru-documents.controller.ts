@@ -16,3 +16,4 @@ export class KruDocumentEntityController {
     return this.kruDocumentsService.findOne(id);
   }
 }
+

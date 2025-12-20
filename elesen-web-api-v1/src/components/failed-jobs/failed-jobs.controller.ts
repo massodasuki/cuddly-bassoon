@@ -16,3 +16,4 @@ export class FailedJobEntityController {
     return this.failedJobsService.findOne(id);
   }
 }
+

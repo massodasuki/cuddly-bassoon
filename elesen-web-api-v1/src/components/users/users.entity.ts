@@ -102,3 +102,4 @@ export class UserEntity {
   is_first_login: number;
 
 }
+

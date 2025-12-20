@@ -12,3 +12,4 @@ export class ProfilePentadbirHartaVesselEntity {
   vessel_id: string;
 
 }
+

@@ -16,3 +16,4 @@ export class LesenEntityController {
     return this.lesenService.findOne(id);
   }
 }
+

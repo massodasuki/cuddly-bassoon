@@ -45,3 +45,4 @@ export class DaratDocumentEntity {
   updated_at: Date;
 
 }
+

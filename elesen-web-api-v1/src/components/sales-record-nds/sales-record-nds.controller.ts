@@ -16,3 +16,4 @@ export class SalesRecordNdEntityController {
     return this.salesRecordNdsService.findOne(id);
   }
 }
+

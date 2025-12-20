@@ -16,3 +16,4 @@ export class ProfileUserEntityController {
     return this.profileUsersService.findOne(id);
   }
 }
+

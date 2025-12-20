@@ -11,3 +11,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   exports: [LandingDeclarationLogService],
 })
 export class LandingDeclarationLogModule {}
+

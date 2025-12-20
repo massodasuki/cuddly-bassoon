@@ -16,3 +16,4 @@ export class DaratEquipmentListEntityController {
     return this.daratEquipmentListsService.findOne(id);
   }
 }
+

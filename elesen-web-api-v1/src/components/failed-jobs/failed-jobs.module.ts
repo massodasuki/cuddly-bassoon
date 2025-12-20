@@ -11,3 +11,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   exports: [FailedJobService],
 })
 export class FailedJobModule {}
+

@@ -45,3 +45,4 @@ export class DaratBaseJettieEntity {
   deleted_at: Date;
 
 }
+

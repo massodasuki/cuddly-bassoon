@@ -344,3 +344,4 @@ INSERT INTO pukat_tunda (id, jalur_putih, dicat_terang, pemeriksaan_vessels_id) 
 -- ProfilePentadbirHartas
 INSERT INTO profile_pentadbir_hartas (id, user_id, name, icno, address, phone, email, vessel_owner_id, pemilik_vesel, status_pengguna, hubungan, no_vesel, surat_pelantikan_pentadbir, dokumen_sokongan_1, dokumen_sokongan_2, dokumen_sokongan_3, dokumen_sokongan_4, status, created_by, updated_by, deleted_by, created_at, updated_at, deleted_at, vessel_id) VALUES
 ('550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440004', 'Admin Name', '123456789014', 'Address', '0123456789', 'admin@example.com', NULL, 'Owner', 'Active', 'Self', 'V001', 'doc1.pdf', 'doc2.pdf', 'doc3.pdf', 'doc4.pdf', 'doc5.pdf', 'Approved', '550e8400-e29b-41d4-a716-446655440004', NULL, NULL, NOW(), NOW(), NULL, '550e8400-e29b-41d4-a716-446655440007');
+

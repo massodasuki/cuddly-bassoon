@@ -16,3 +16,4 @@ export class SsdEntityController {
     return this.ssdsService.findOne(id);
   }
 }
+

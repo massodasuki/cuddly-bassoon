@@ -22,3 +22,4 @@ export class ProfileUserService {
     return entity;
   }
 }
+

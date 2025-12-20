@@ -48,3 +48,4 @@ export class ProfilePentadbirSklEntity {
   deleted_at: Date;
 
 }
+

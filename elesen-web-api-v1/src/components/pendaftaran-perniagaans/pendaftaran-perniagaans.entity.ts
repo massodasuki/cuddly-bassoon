@@ -39,3 +39,4 @@ export class PendaftaranPerniagaanEntity {
   deleted_at: Date;
 
 }
+

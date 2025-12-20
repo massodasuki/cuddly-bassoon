@@ -16,3 +16,4 @@ export class LandingActivityTypeEntityController {
     return this.landingActivityTypesService.findOne(id);
   }
 }
+

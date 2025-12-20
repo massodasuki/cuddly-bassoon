@@ -11,3 +11,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   exports: [DaratVesselInspectionService],
 })
 export class DaratVesselInspectionModule {}
+

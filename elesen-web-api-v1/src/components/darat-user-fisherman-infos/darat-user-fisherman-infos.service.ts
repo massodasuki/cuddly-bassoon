@@ -22,3 +22,4 @@ export class DaratUserFishermanInfoService {
     return entity;
   }
 }
+

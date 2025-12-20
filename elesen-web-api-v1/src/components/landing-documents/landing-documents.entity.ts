@@ -36,3 +36,4 @@ export class LandingDocumentEntity {
   deleted_at: Date;
 
 }
+

@@ -22,3 +22,4 @@ export class VesselService {
     return entity;
   }
 }
+

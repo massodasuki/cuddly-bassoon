@@ -16,3 +16,4 @@ export class ProfileCompanyAssetEntityController {
     return this.profileCompanyAssetsService.findOne(id);
   }
 }
+

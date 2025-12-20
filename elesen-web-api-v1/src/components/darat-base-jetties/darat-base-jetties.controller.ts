@@ -16,3 +16,4 @@ export class DaratBaseJettieEntityController {
     return this.daratBaseJettiesService.findOne(id);
   }
 }
+

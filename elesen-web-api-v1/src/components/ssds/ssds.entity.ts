@@ -39,3 +39,4 @@ export class SsdEntity {
   deleted_at: Date;
 
 }
+

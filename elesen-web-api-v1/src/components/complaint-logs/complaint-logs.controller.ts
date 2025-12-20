@@ -16,3 +16,4 @@ export class ComplaintLogEntityController {
     return this.complaintLogsService.findOne(id);
   }
 }
+

@@ -33,3 +33,4 @@ export class ProfileCompanyAssetEntity {
   deleted_at: Date;
 
 }
+

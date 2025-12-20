@@ -16,3 +16,4 @@ export class DaratUserDetailEntityController {
     return this.daratUserDetailsService.findOne(id);
   }
 }
+

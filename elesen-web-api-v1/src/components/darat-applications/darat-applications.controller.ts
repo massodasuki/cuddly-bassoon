@@ -16,3 +16,4 @@ export class DaratApplicationEntityController {
     return this.daratApplicationsService.findOne(id);
   }
 }
+

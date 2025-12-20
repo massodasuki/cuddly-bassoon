@@ -16,3 +16,4 @@ export class UserModuleEntityController {
     return this.userModuleService.findOne(id);
   }
 }
+

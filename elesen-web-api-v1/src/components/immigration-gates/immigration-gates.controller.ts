@@ -16,3 +16,4 @@ export class ImmigrationGateEntityController {
     return this.immigrationGatesService.findOne(id);
   }
 }
+

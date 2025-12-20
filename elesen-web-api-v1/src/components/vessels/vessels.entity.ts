@@ -84,3 +84,4 @@ export class VesselEntity {
   end_date: Date;
 
 }
+

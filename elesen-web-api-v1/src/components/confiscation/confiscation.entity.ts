@@ -66,3 +66,4 @@ export class ConfiscationEntity {
   deleted_at: Date;
 
 }
+

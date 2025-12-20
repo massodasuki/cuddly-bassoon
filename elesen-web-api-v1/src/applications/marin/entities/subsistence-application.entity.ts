@@ -162,3 +162,4 @@ export class SubsistenceApplicationEntity {
   becoming_fisherman_duration: number;
 
 }
+

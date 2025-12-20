@@ -16,3 +16,4 @@ export class LandingDocumentEntityController {
     return this.landingDocumentsService.findOne(id);
   }
 }
+

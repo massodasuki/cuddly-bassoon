@@ -16,3 +16,4 @@ export class DaratDocumentEntityController {
     return this.daratDocumentsService.findOne(id);
   }
 }
+

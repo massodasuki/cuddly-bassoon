@@ -33,3 +33,4 @@ export class SampleAreaReportEntity {
   deleted_at: Date;
 
 }
+

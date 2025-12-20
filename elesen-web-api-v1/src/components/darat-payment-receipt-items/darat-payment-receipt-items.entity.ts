@@ -36,3 +36,4 @@ export class DaratPaymentReceiptItemEntity {
   deleted_at: Date;
 
 }
+

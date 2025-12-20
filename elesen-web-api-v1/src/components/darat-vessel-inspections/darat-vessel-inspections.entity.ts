@@ -129,3 +129,4 @@ export class DaratVesselInspectionEntity {
   updated_at: Date;
 
 }
+

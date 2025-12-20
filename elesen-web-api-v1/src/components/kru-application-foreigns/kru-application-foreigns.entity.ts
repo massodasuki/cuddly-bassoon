@@ -54,3 +54,4 @@ export class KruApplicationForeignEntity {
   immigration_gate_id: string;
 
 }
+

@@ -9,3 +9,4 @@ export class RoleModuleEntity {
   module_id: string;
 
 }
+

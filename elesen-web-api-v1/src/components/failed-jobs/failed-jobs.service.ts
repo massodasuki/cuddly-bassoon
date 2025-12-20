@@ -22,3 +22,4 @@ export class FailedJobService {
     return entity;
   }
 }
+

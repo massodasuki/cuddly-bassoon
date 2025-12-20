@@ -16,3 +16,4 @@ export class ProfilePentadbirSklEntityController {
     return this.profilePentadbirSklsService.findOne(id);
   }
 }
+

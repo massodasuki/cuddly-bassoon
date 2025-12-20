@@ -16,3 +16,4 @@ export class SubsistenceAuditLogStatuEntityController {
     return this.subsistenceAuditLogStatusService.findOne(id);
   }
 }
+

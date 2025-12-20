@@ -22,3 +22,4 @@ export class LandingDocumentService {
     return entity;
   }
 }
+

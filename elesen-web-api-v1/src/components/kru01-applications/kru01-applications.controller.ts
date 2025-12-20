@@ -16,3 +16,4 @@ export class Kru01ApplicationEntityController {
     return this.kru01ApplicationsService.findOne(id);
   }
 }
+

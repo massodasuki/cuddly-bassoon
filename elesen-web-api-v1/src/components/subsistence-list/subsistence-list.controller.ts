@@ -16,3 +16,4 @@ export class SubsistenceListEntityController {
     return this.subsistenceListService.findOne(id);
   }
 }
+

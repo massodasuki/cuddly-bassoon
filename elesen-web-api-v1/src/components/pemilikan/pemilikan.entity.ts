@@ -36,3 +36,4 @@ export class PemilikanEntity {
   updated_at: Date;
 
 }
+

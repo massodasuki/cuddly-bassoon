@@ -22,3 +22,4 @@ export class KruApplicationDocumentService {
     return entity;
   }
 }
+

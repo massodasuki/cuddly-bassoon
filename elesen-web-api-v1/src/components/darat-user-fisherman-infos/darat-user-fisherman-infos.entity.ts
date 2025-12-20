@@ -69,3 +69,4 @@ export class DaratUserFishermanInfoEntity {
   transportation: string;
 
 }
+
