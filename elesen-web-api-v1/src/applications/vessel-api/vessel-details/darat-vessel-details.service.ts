@@ -3,96 +3,130 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { VesselDetailsResponseDto, ProfilVeselDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 import { DaratVesselEntity } from 'src/components/darat-vessels/darat-vessels.entity';
+import { JettieEntity } from 'src/components/jetties/jetties.entity';
 
 @Injectable()
 export class DaratVesselDetailsService {
   constructor(
     @InjectRepository(DaratVesselEntity)
     private readonly daratRepository: Repository<DaratVesselEntity>,
+    @InjectRepository(JettieEntity)
+    private readonly jettieRepository: Repository<JettieEntity>,
   ) {}
 
   async findOne(registrationNo : string): Promise<ProfilVeselDto> {
-    const vessel = await this.daratRepository.createQueryBuilder('v')
-      .leftJoinAndSelect('v.entity', 'entity')
-      
-      .where('v.registration_no = :noVesel', { registrationNo })
-      .getOne();
+    const query = `SELECT
+        dv.id,
+        dv.registration_number,
+        dv.length,
+        dv.width,
+        dv.depth,
+        dv.transportation,
+        dv.is_approved,
+        dv.is_active,
+        dv.negeri,
+        u.name AS user_name,
+        u.email AS user_email,
+        dvi.inspection_date,
+        dvi.vessel_condition,
+        dvi.hull_type,
+        dvi.engine_brand,
+        dvi.engine_model,
+        dvi.horsepower,
+        dvi.safety_jacket_status,
+        dvi.safety_jacket_quantity,
+        dvi.safety_jacket_condition,
+        dve.model AS engine_model,
+        dve.brand AS engine_brand,
+        dve.horsepower AS engine_hp,
+        dve.engine_number,
+        dvh.hull_type AS hull_type,
+        dvh.length AS hull_length,
+        dvh.width AS hull_width,
+        dvh.depth AS hull_depth,
+        da.no_rujukan,
+        da.is_approved AS application_approved,
+        cm_type.name AS application_type,
+        cm_status.name AS application_status
+    FROM
+        darat_vessels dv
+    LEFT JOIN users u ON dv.user_id = u.id
+    LEFT JOIN darat_vessel_inspections dvi ON dv.id = dvi.vessel_id
+    LEFT JOIN darat_vessel_engines dve ON dv.id = dve.vessel_id
+    LEFT JOIN darat_vessel_hulls dvh ON dv.id = dvh.vessel_id
+    LEFT JOIN darat_applications da ON dvi.application_id = da.id
+    LEFT JOIN code_masters cm_type ON da.application_type_id = cm_type.id
+    LEFT JOIN code_masters cm_status ON da.application_status_id = cm_status.id
+    WHERE
+        dv.registration_number = ? AND dv.is_active = 1`;
 
-    if (!vessel) {
+    const result = await this.daratRepository.query(query, [registrationNo]);
+
+    if (!result || result.length === 0) {
       throw new Error('Vessel not found');
     }
 
-    const pengkalan = await this.jettieRepository.find({ where: { state_id: vessel.negeri } });
+    const data = result[0];
+
+    const pengkalan = await this.jettieRepository.find({ where: { state_id: data.negeri } });
 
     return {
       maklumatAmVesel: {
-        noPendaftaranVesel: vessel.no_pendaftaran || '',
+        noPendaftaranVesel: data.registration_number || '',
         noGeran: null,
-        noPatilKekal: vessel.vessel_no || '',
-        tarikhDaftar: vessel.created_at?.toISOString().split('T')[0] || '',
-        lokasiPembinaanVesel: vessel.pangkalan || '',
+        noPatilKekal: data.registration_number || '',
+        tarikhDaftar: '',
+        lokasiPembinaanVesel: '',
         negaraAsal: 'KIV',
         pemasanganMTU: false,
         noPendaftaranMTU: null,
         hakMilik: 'KIV',
         kodRFIDQR: 'KIV',
         pengkalanUtama: true,
-        pelabuhanUtama: vessel.pangkalan || '',
-        pelabuhanTambahan: vessel.pangkalan || '',
+        pelabuhanUtama: '',
+        pelabuhanTambahan: '',
       },
       lesen: {
-        noLesen: vessel.vessel_no || '',
-        tarikhMula: vessel.license_start ? new Date(vessel.license_start).toISOString().split('T')[0] : '',
-        tarikhTamat: vessel.license_end ? new Date(vessel.license_end).toISOString().split('T')[0] : '',
-        zon: vessel.zon || '',
-        noPatil: vessel.vessel_no || '',
-        status: 'KIV',
+        noLesen: data.registration_number || '',
+        tarikhMula: '',
+        tarikhTamat: '',
+        zon: '',
+        noPatil: data.registration_number || '',
+        status: data.application_status || 'KIV',
         statusIUUU: 'KIV',
       },
       kulit: {
-        tarikhDilesen: kulit?.tarikh_kulit_dilesenkan || '',
-        panjangMeter: parseFloat(kulit?.panjang || '0'),
-        lebarMeter: parseFloat(kulit?.lebar || '0'),
-        kedalamanMeter: parseFloat(kulit?.dalam || '0'),
-        muatanGRT: vessel.grt || 0,
-        status: kulit?.status_kulit || 'KIV',
+        tarikhDilesen: '',
+        panjangMeter: parseFloat(data.hull_length || data.length || '0'),
+        lebarMeter: parseFloat(data.hull_width || data.width || '0'),
+        kedalamanMeter: parseFloat(data.hull_depth || data.depth || '0'),
+        muatanGRT: 0,
+        status: data.hull_type || 'KIV',
         tindakan: null,
       },
       enjin: {
         maklumatAmEjin: {
-          jenisEnjin: enjin ? (enjin.jenis_enjin === 1 ? 'Sangkut' : 'KIV') : 'KIV',
-          bahanApi: enjin?.bahan_api || 'KIV',
-          jenamaEnjin: enjin?.jenama || '',
-          kuasaKuda: enjin?.kuasa_kuda || 0,
-          noEnjin: enjin?.no_enjin || '',
-          model: enjin?.model || '',
-          turbo: enjin ? (enjin.has_turbo === 1 ? 'Ada' : 'KIV') : 'KIV',
-          tarikhPEV: enjin?.tarikh_enjin_dilesenkan?.toISOString().split('T')[0] || '',
-          kategoriEnjin: enjin?.kategori_enjin || '',
-          status: enjin?.status_enjin || 'KIV',
+          jenisEnjin: 'KIV',
+          bahanApi: 'KIV',
+          jenamaEnjin: data.engine_brand || '',
+          kuasaKuda: data.horsepower || 0,
+          noEnjin: data.engine_number || '',
+          model: data.engine_model || '',
+          turbo: 'KIV',
+          tarikhPEV: '',
+          kategoriEnjin: '',
+          status: 'KIV',
         },
         gambar: {
-          enjinUrl: enjin?.gambar_enjin || 'KIV',
-          noEnjinUrl: enjin?.gambar_no_enjin || 'KIV',
-          penandaPEVUrl: enjin?.gambar_pev || 'KIV',
-          turboUrl: enjin?.gambar_turbo || 'KIV',
-          generatorUrl: enjin?.gambar_generator || 'KIV',
+          enjinUrl: 'KIV',
+          noEnjinUrl: 'KIV',
+          penandaPEVUrl: 'KIV',
+          turboUrl: 'KIV',
+          generatorUrl: 'KIV',
         },
       },
-      peralatan: peralatan.map(p => ({
-        nama: p.equipment_name,
-        jenisPeralatan: this.mapEquipmentType(p.equipment_type),
-        kuantiti: p.amount, // Default value, can be updated based on requirements
-        tarikDilesen: p.date_licensed ? new Date(p.date_licensed).toISOString().split('T')[0] : '',
-        status: p.is_active ? 'Aktif' : 'KIV',
-      })),
-      kru: kru.map(k => ({
-        noKadPendaftaran: k.no_kad || '',
-        nama: k.nama_kru || '',
-        negara: k.negara || 'KIV',
-        noKadPengenalan: k.no_kp_baru || k.no_kp_lama || '',
-        jawatan: k.jawatan || 'KIV',
-      })),
+      peralatan: [],
+      kru: [],
       pengkalan: pengkalan.map(p => ({
         noRujukanPengkalan: p.id,
         namaPengkalan: p.name || '',
@@ -103,13 +137,13 @@ export class DaratVesselDetailsService {
         status: p.is_active === 1 ? 'Aktif' : 'KIV',
       })),
       pemilikan: {
-        namaPemilik: pemilikan?.nama_pemilik || pentadbirHarta?.pemilik_vesel || '',
-        noKadPengenalan: pemilikan?.no_ic_atau_syarikat || '',
-        jenisPemilikan: pemilikan?.jenis_pemilikan || 'KIV',
-        district: pemilikan?.daerah || '',
-        state: pemilikan?.negeri || '',
-        tarikhPemilikan: pemilikan?.tarikh_aktif_pemilikan?.toISOString().split('T')[0] || '',
-        status: pemilikan?.status_pemilikan || 'KIV',
+        namaPemilik: '',
+        noKadPengenalan: '',
+        jenisPemilikan: 'KIV',
+        district: '',
+        state: '',
+        tarikhPemilikan: '',
+        status: 'KIV',
       },
       pematuhan: {
         maklumatVesel: {
@@ -133,10 +167,10 @@ export class DaratVesselDetailsService {
             gambar: 'KIV',
           },
           ukuranDimensiVesel: {
-            panjangMeter: parseFloat(kulit?.panjang || '0'),
-            lebarMeter: parseFloat(kulit?.lebar || '0'),
-            kedalamanMeter: parseFloat(kulit?.dalam || '0'),
-            muatanGRT: vessel.grt || 0,
+            panjangMeter: parseFloat(data.hull_length || data.length || '0'),
+            lebarMeter: parseFloat(data.hull_width || data.width || '0'),
+            kedalamanMeter: parseFloat(data.hull_depth || data.depth || '0'),
+            muatanGRT: 0,
           },
           ukuranGeometriVesel: {
             a: null,
@@ -156,19 +190,19 @@ export class DaratVesselDetailsService {
         },
         enjin: {
           maklumatEnjin: {
-            jenama: enjin?.jenama || '',
-            model: enjin?.model || '',
-            turbo: enjin?.has_turbo === 1 ? 'Ada' : null,
-            kuasaKuda: enjin?.kuasa_kuda || 0,
-            noEnjin: enjin?.no_enjin || '',
+            jenama: data.engine_brand || '',
+            model: data.engine_model || '',
+            turbo: null,
+            kuasaKuda: data.horsepower || 0,
+            noEnjin: data.engine_number || '',
             penandaVesel: 'KIV',
           },
           gambar: {
-            enjinUrl: enjin?.gambar_enjin || 'KIV',
-            noEnjinUrl: enjin?.gambar_no_enjin || 'KIV',
-            penandaEnjinUrl: enjin?.gambar_pev || 'KIV',
-            turboUrl: enjin?.gambar_turbo || 'KIV',
-            generatorUrl: enjin?.gambar_generator || 'KIV',
+            enjinUrl: 'KIV',
+            noEnjinUrl: 'KIV',
+            penandaEnjinUrl: 'KIV',
+            turboUrl: 'KIV',
+            generatorUrl: 'KIV',
           },
         },
         peralatanPelayaran: {
@@ -202,9 +236,9 @@ export class DaratVesselDetailsService {
         },
         peralatanKeselamatan: {
           jaketKeselamatan: {
-            status: 'KIV',
-            kuantiti: 'KIV',
-            keadaan: 'KIV',
+            status: data.safety_jacket_status || 'KIV',
+            kuantiti: data.safety_jacket_quantity || 'KIV',
+            keadaan: data.safety_jacket_condition || 'KIV',
           },
           boyaKeselamatan: {
             status: 'KIV',
@@ -254,21 +288,21 @@ export class DaratVesselDetailsService {
         },
       },
       kesalahan: {
-        nama: kesalahan?.pesalah || '',
-        noKadPengenalan: kesalahan?.no_ic_pesalah || '',
-        akta: kesalahan?.akta || 'KIV',
-        seksyen: kesalahan?.seksyen || 'KIV',
-        kesalahan: kesalahan?.kesalahan || 'KIV',
-        tarikh: kesalahan?.tarikh?.toISOString().split('T')[0] || '',
-        keputusan: kesalahan?.keputusan || 'KIV',
+        nama: '',
+        noKadPengenalan: '',
+        akta: 'KIV',
+        seksyen: 'KIV',
+        kesalahan: 'KIV',
+        tarikh: '',
+        keputusan: 'KIV',
       },
       pendaftaranAntarabangsa: {
         namaVesel: null,
-        noPendaftaran: pendaftaranAntarabangsa?.no_pendaftaran || '',
-        noIRCS: pendaftaranAntarabangsa?.no_ircs || '',
-        noIMO: pendaftaranAntarabangsa?.no_rfmo || '',
-        zonPenangkapan: pendaftaranAntarabangsa?.kawasan_penangkapan || '',
-        spesisSasaran: pendaftaranAntarabangsa?.spesis_sasaran || '',
+        noPendaftaran: '',
+        noIRCS: '',
+        noIMO: '',
+        zonPenangkapan: '',
+        spesisSasaran: '',
       },
     };
   }
