@@ -13,7 +13,8 @@ import { DaratVeselLpiFormModule } from './applications/darat/darat-vesel-lpi-fo
 import { DaratVesselInspectionModule } from './applications/darat/darat-vessel-inspections/darat-vessel-inspections.module';
 import { DaratVesselModule } from './applications/darat/darat-vessels/darat-vessels.module';
 import { VesselDetailsModule } from './applications/marin/vessel-details/vessel-details.module';
-import { VesselsModule } from './applications/marin/vessels/vessels.module';
+import { VesselsModule as MarinVesselsModule } from './applications/marin/vessels/vessels.module';
+import { VesselsApiModule } from './applications/vessel-api/vessels/vessels-api.module';
 import { FcmModule } from './applications/notification/fcm/fcm.module';
 import { AuthModule } from './applications/users/auth/auth.module';
 import { ProfileUserDetailsModule } from './applications/users/profile-user-details/profile-user-details.module';
@@ -49,7 +50,8 @@ import { UsersModule } from './applications/users/users/users.module';
     DaratVesselInspectionModule,
     DaratVesselModule,
     VesselDetailsModule,
-    VesselsModule,
+    MarinVesselsModule,
+    VesselsApiModule,
     FcmModule,
     AuthModule,
     ProfileUserDetailsModule,

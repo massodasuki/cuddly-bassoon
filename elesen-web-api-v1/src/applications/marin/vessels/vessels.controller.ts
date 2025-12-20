@@ -16,13 +16,13 @@ export class VesselsController {
   }
 
 
-  @Get('vessels-minimal')
+  @Get('marin-minimal')
   findAllVesselMinimal(@Query() paginationQuery: PaginationQueryDto, 
     @Query('jenis') jenis?: string) {
     return this.vesselsService.findAllMinimalVessels(paginationQuery, jenis);
   }
 
-  @Get('vessels')
+  @Get('marin')
   findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.vesselsService.findAll(paginationQuery);
   }
@@ -32,12 +32,12 @@ export class VesselsController {
     return this.vesselsService.findAll(paginationQuery);
   }
 
-  @Get('vessels/:id')
+  @Get('marin/:id')
   findOne(@Param('id') id: string) {
     return this.vesselsService.findOne(id);
   }
 
-  @Patch('vessels/:id')
+  @Patch('marin/:id')
   update(@Param('id') id: string, @Body() dto: UpdateVesselDto) {
     return this.vesselsService.update(id, dto);
   }
