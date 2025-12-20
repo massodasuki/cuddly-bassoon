@@ -41,7 +41,7 @@ export class VesselsApiService {
   const unionQuery = `
     SELECT id, vessel_no, zon AS zone, license_start AS start_date, license_end AS end_date, 'vessel' AS jenis_kulit FROM vessels
     UNION
-    SELECT id, registration_number AS vessel_no, '' AS zone, NULL AS start_date, NULL AS end_date, 'darat' AS jenis_kulit FROM darat_vessels
+    SELECT dv.id, dv.registration_number AS vessel_no, dv.transportation AS zone, dv.created_at AS start_date, dv.updated_at AS end_date, 'darat' AS jenis_kulit FROM darat_vessels dv
     LIMIT ${pageSize} OFFSET ${skip}
   `;
 
