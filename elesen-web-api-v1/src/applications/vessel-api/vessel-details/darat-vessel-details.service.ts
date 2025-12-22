@@ -10,6 +10,15 @@ import { DaratVesselEngineEntity } from 'src/components/darat-vessel-engines/dar
 import { DaratVesselHullEntity } from 'src/components/darat-vessel-hulls/darat-vessel-hulls.entity';
 import { DaratApplicationEntity } from 'src/components/darat-applications/darat-applications.entity';
 import { CodeMaster } from 'src/components/code-masters/code-masters.entity';
+import { KulitEntity } from 'src/components/kulit/kulit.entity';
+import { EnjinEntity } from 'src/components/enjin/enjin.entity';
+import { KesalahanEntity } from 'src/components/kesalahan/kesalahan.entity';
+import { ProfilePentadbirHartaEntity } from 'src/components/profile-pentadbir-hartas/profile-pentadbir-hartas.entity';
+import { KruEntity } from 'src/components/kru/kru.entity';
+import { PemilikanEntity } from 'src/components/pemilikan/pemilikan.entity';
+import { PematuhanEntity } from 'src/components/pematuhan/pematuhan.entity';
+import { PendaftaranAntarabangsaEntity } from 'src/components/pendaftaran-antarabangsa/pendaftaran-antarabangsa.entity';
+import { CmEquipment } from 'src/components/cm-equipment/cm-equipment.entity';
 
 @Injectable()
 export class DaratVesselDetailsService {
@@ -23,13 +32,37 @@ export class DaratVesselDetailsService {
     @InjectRepository(DaratVesselInspectionEntity)
     private readonly inspectionRepository: Repository<DaratVesselInspectionEntity>,
     @InjectRepository(DaratVesselEngineEntity)
-    private readonly engineRepository: Repository<DaratVesselEngineEntity>,
+    private readonly enjinRepository: Repository<DaratVesselEngineEntity>,
     @InjectRepository(DaratVesselHullEntity)
     private readonly hullRepository: Repository<DaratVesselHullEntity>,
     @InjectRepository(DaratApplicationEntity)
     private readonly applicationRepository: Repository<DaratApplicationEntity>,
+    @InjectRepository(DaratVesselInspectionEntity)
+    private readonly daratVesselInspectionRepository: Repository<DaratVesselInspectionEntity>,
+    @InjectRepository(DaratVesselEngineEntity)
+    private readonly daratVesselEngineRepository: Repository<DaratVesselEngineEntity>,
+    @InjectRepository(DaratVesselHullEntity)
+    private readonly daratVesselHullRepository: Repository<DaratVesselHullEntity>,
+    @InjectRepository(DaratApplicationEntity)
+    private readonly daratApplicationRepository: Repository<DaratApplicationEntity>,
     @InjectRepository(CodeMaster)
     private readonly codeMasterRepository: Repository<CodeMaster>,
+    @InjectRepository(KulitEntity)
+    private readonly kulitRepository: Repository<KulitEntity>,
+    @InjectRepository(KesalahanEntity)
+    private readonly kesalahanRepository: Repository<KesalahanEntity>,
+    @InjectRepository(ProfilePentadbirHartaEntity)
+    private readonly pentadbirHartaRepository: Repository<ProfilePentadbirHartaEntity>,
+    @InjectRepository(KruEntity)
+    private readonly kruRepository: Repository<KruEntity>,
+    @InjectRepository(PemilikanEntity)
+    private readonly pemilikanRepository: Repository<PemilikanEntity>,
+    @InjectRepository(PematuhanEntity)
+    private readonly pematuhanRepository: Repository<PematuhanEntity>,
+    @InjectRepository(PendaftaranAntarabangsaEntity)
+    private readonly pendaftaranAntarabangsaRepository: Repository<PendaftaranAntarabangsaEntity>,
+    @InjectRepository(CmEquipment)
+    private readonly cmEquipmentRepository: Repository<CmEquipment>,
   ) {}
 
   async findOne(registrationNo : string): Promise<ProfilVeselDto> {
@@ -86,6 +119,16 @@ export class DaratVesselDetailsService {
 
     const data = result;
 
+    // Fetch additional data
+    const kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: registrationNo } });
+    const enjin = await this.enjinRepository.findOne({ where: { no_pendaftaran: registrationNo } });
+    const kesalahan = await this.kesalahanRepository.findOne({ where: { no_pendaftaran: registrationNo } });
+    const pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: data.id } });
+    const kru = await this.kruRepository.find({ where: { no_pendaftaran: registrationNo } });
+    const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: registrationNo } });
+    const pematuhan = await this.pematuhanRepository.findOne({ where: { no_pendaftaran: registrationNo } });
+    const pendaftaranAntarabangsa = await this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: data.id } });
+    const peralatanList = await this.cmEquipmentRepository.find({ where: { vessel_id: registrationNo, is_active: true } });
     const pengkalan = await this.jettieRepository.find({ where: { state_id: data.negeri } });
 
     return {
@@ -114,37 +157,49 @@ export class DaratVesselDetailsService {
         statusIUUU: 'KIV',
       },
       kulit: {
-        tarikhDilesen: '',
-        panjangMeter: parseFloat(data.hull_length || data.length || '0'),
-        lebarMeter: parseFloat(data.hull_width || data.width || '0'),
-        kedalamanMeter: parseFloat(data.hull_depth || data.depth || '0'),
+        tarikhDilesen: kulit?.tarikh_kulit_dilesenkan || '',
+        panjangMeter: parseFloat(kulit?.panjang || data.hull_length || data.length || '0'),
+        lebarMeter: parseFloat(kulit?.lebar || data.hull_width || data.width || '0'),
+        kedalamanMeter: parseFloat(kulit?.dalam || data.hull_depth || data.depth || '0'),
         muatanGRT: 0,
-        status: data.hull_type || 'KIV',
+        status: kulit?.status_kulit || data.hull_type || 'KIV',
         tindakan: null,
       },
       enjin: {
         maklumatAmEjin: {
-          jenisEnjin: 'KIV',
-          bahanApi: 'KIV',
-          jenamaEnjin: data.engine_brand || '',
-          kuasaKuda: data.horsepower || 0,
-          noEnjin: data.engine_number || '',
-          model: data.engine_model || '',
-          turbo: 'KIV',
-          tarikhPEV: '',
-          kategoriEnjin: '',
-          status: 'KIV',
+          jenisEnjin: enjin ? (enjin.jenis_enjin === 1 ? 'Sangkut' : 'KIV') : 'KIV',
+          bahanApi: enjin?.bahan_api || 'KIV',
+          jenamaEnjin: enjin?.jenama || data.engine_brand || '',
+          kuasaKuda: enjin?.kuasa_kuda || data.horsepower || 0,
+          noEnjin: enjin?.no_enjin || data.engine_number || '',
+          model: enjin?.model || data.engine_model || '',
+          turbo: enjin ? (enjin.has_turbo === 1 ? 'Ada' : 'KIV') : 'KIV',
+          tarikhPEV: enjin?.tarikh_enjin_dilesenkan?.toISOString().split('T')[0] || '',
+          kategoriEnjin: enjin?.kategori_enjin || '',
+          status: enjin?.status_enjin || 'KIV',
         },
         gambar: {
-          enjinUrl: 'KIV',
-          noEnjinUrl: 'KIV',
-          penandaPEVUrl: 'KIV',
-          turboUrl: 'KIV',
-          generatorUrl: 'KIV',
+          enjinUrl: enjin?.gambar_enjin || 'KIV',
+          noEnjinUrl: enjin?.gambar_no_enjin || 'KIV',
+          penandaPEVUrl: enjin?.gambar_pev || 'KIV',
+          turboUrl: enjin?.gambar_turbo || 'KIV',
+          generatorUrl: enjin?.gambar_generator || 'KIV',
         },
       },
-      peralatan: [],
-      kru: [],
+      peralatan: peralatanList.map(p => ({
+        nama: p.equipment_name,
+        jenisPeralatan: this.mapEquipmentType(p.equipment_type),
+        kuantiti: p.amount || null,
+        tarikDilesen: p.date_licensed ? new Date(p.date_licensed).toISOString().split('T')[0] : '',
+        status: p.is_active ? 'Aktif' : 'KIV',
+      })),
+      kru: kru.map(k => ({
+        noKadPendaftaran: k.no_kad || '',
+        nama: k.nama_kru || '',
+        negara: k.negara || 'KIV',
+        noKadPengenalan: k.no_kp_baru || k.no_kp_lama || '',
+        jawatan: k.jawatan || 'KIV',
+      })),
       pengkalan: pengkalan.map(p => ({
         noRujukanPengkalan: p.id,
         namaPengkalan: p.name || '',
@@ -155,13 +210,13 @@ export class DaratVesselDetailsService {
         status: p.is_active === 1 ? 'Aktif' : 'KIV',
       })),
       pemilikan: {
-        namaPemilik: '',
-        noKadPengenalan: '',
-        jenisPemilikan: 'KIV',
-        district: '',
-        state: '',
-        tarikhPemilikan: '',
-        status: 'KIV',
+        namaPemilik: pemilikan?.nama_pemilik || pentadbirHarta?.pemilik_vesel || data.user_name || '',
+        noKadPengenalan: pemilikan?.no_ic_atau_syarikat || '',
+        jenisPemilikan: pemilikan?.jenis_pemilikan || 'KIV',
+        district: pemilikan?.daerah || '',
+        state: pemilikan?.negeri || '',
+        tarikhPemilikan: pemilikan?.tarikh_aktif_pemilikan?.toISOString().split('T')[0] || '',
+        status: pemilikan?.status_pemilikan || 'KIV',
       },
       pematuhan: {
         maklumatVesel: {
@@ -185,9 +240,9 @@ export class DaratVesselDetailsService {
             gambar: 'KIV',
           },
           ukuranDimensiVesel: {
-            panjangMeter: parseFloat(data.hull_length || data.length || '0'),
-            lebarMeter: parseFloat(data.hull_width || data.width || '0'),
-            kedalamanMeter: parseFloat(data.hull_depth || data.depth || '0'),
+            panjangMeter: parseFloat(kulit?.panjang || data.hull_length || data.length || '0'),
+            lebarMeter: parseFloat(kulit?.lebar || data.hull_width || data.width || '0'),
+            kedalamanMeter: parseFloat(kulit?.dalam || data.hull_depth || data.depth || '0'),
             muatanGRT: 0,
           },
           ukuranGeometriVesel: {
@@ -208,19 +263,19 @@ export class DaratVesselDetailsService {
         },
         enjin: {
           maklumatEnjin: {
-            jenama: data.engine_brand || '',
-            model: data.engine_model || '',
-            turbo: null,
-            kuasaKuda: data.horsepower || 0,
-            noEnjin: data.engine_number || '',
+            jenama: enjin?.jenama || data.engine_brand || '',
+            model: enjin?.model || data.engine_model || '',
+            turbo: enjin?.has_turbo === 1 ? 'Ada' : null,
+            kuasaKuda: enjin?.kuasa_kuda || data.horsepower || 0,
+            noEnjin: enjin?.no_enjin || data.engine_number || '',
             penandaVesel: 'KIV',
           },
           gambar: {
-            enjinUrl: 'KIV',
-            noEnjinUrl: 'KIV',
-            penandaEnjinUrl: 'KIV',
-            turboUrl: 'KIV',
-            generatorUrl: 'KIV',
+            enjinUrl: enjin?.gambar_enjin || 'KIV',
+            noEnjinUrl: enjin?.gambar_no_enjin || 'KIV',
+            penandaEnjinUrl: enjin?.gambar_pev || 'KIV',
+            turboUrl: enjin?.gambar_turbo || 'KIV',
+            generatorUrl: enjin?.gambar_generator || 'KIV',
           },
         },
         peralatanPelayaran: {
@@ -306,27 +361,27 @@ export class DaratVesselDetailsService {
         },
       },
       kesalahan: {
-        nama: '',
-        noKadPengenalan: '',
-        akta: 'KIV',
-        seksyen: 'KIV',
-        kesalahan: 'KIV',
-        tarikh: '',
-        keputusan: 'KIV',
+        nama: kesalahan?.pesalah || '',
+        noKadPengenalan: kesalahan?.no_ic_pesalah || '',
+        akta: kesalahan?.akta || 'KIV',
+        seksyen: kesalahan?.seksyen || 'KIV',
+        kesalahan: kesalahan?.kesalahan || 'KIV',
+        tarikh: kesalahan?.tarikh?.toISOString().split('T')[0] || '',
+        keputusan: kesalahan?.keputusan || 'KIV',
       },
       pendaftaranAntarabangsa: {
         namaVesel: null,
-        noPendaftaran: '',
-        noIRCS: '',
-        noIMO: '',
-        zonPenangkapan: '',
-        spesisSasaran: '',
+        noPendaftaran: pendaftaranAntarabangsa?.no_pendaftaran || '',
+        noIRCS: pendaftaranAntarabangsa?.no_ircs || '',
+        noIMO: pendaftaranAntarabangsa?.no_rfmo || '',
+        zonPenangkapan: pendaftaranAntarabangsa?.kawasan_penangkapan || '',
+        spesisSasaran: pendaftaranAntarabangsa?.spesis_sasaran || '',
       },
     };
   }
 
   async findAll(): Promise<VesselDetailsResponseDto> {
-    const vessels = await this.vesselRepository.find({
+    const vessels = await this.daratRepository.find({
       relations: ['entity'],
     });
 
@@ -597,9 +652,8 @@ export class DaratVesselDetailsService {
   }
   
   async getOwnershipAndCaptain(noVessel: string): Promise<VesselOwnershipCaptainResponseDto> {
-    const vessel = await this.vesselRepository.findOne({
-      where: { no_pendaftaran: noVessel },
-      relations: ['entity'],
+    const vessel = await this.daratRepository.findOne({
+      where: { registration_number: noVessel },
     });
 
     if (!vessel) {
@@ -608,10 +662,10 @@ export class DaratVesselDetailsService {
 
     // Get ownership information from pemilikan and pentadbirHarta
     const pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } });
-    const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.registration_number } });
 
     // Get captain (nakhoda) information from kru table
-    const kru = await this.kruRepository.find({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const kru = await this.kruRepository.find({ where: { no_pendaftaran: vessel.registration_number } });
     const nakhoda = kru.find(k => k.jawatan?.toLowerCase().includes('nakhoda') || k.jawatan?.toLowerCase().includes('kapten')) || kru[0];
 
     return {
