@@ -23,7 +23,7 @@ import { VesselEntity } from 'src/legacy/vessels/vessel.entity';
 @Injectable()
 export class VesselDetailsService {
 
-  
+
   constructor(
     @InjectRepository(DaratVesselEntity)
         private readonly daratVesselRepository: Repository<DaratVesselEntity>,
@@ -66,71 +66,69 @@ export class VesselDetailsService {
   async findOne(registrationNo : string): Promise<ProfilVeselDto> {
     const daratVessel = await this.daratVesselRepository.findOne({
         where: { registration_number : registrationNo },
-        relations: ['entity'],
       });
 
       if (!daratVessel) {
         throw new Error('Vessel not found');
       }
-    const application = await this.applicationRepository.findOne({ where: { user_id : daratVessel.user_id } });
-    const inspection = await this.inspectionRepository.findOne({ where: { vessel_id: daratVessel.id } });
-    const user = await this.userRepository.findOne({ where: { id: daratVessel.user_id } });
-    const hull = await this.hullRepository.findOne({ where: { user_id : daratVessel.user_id } });
-    const codeMaster = await this.codeMasterRepository.findOne({ where: { code: daratVessel.negeri } });
-    const enjin = await this.enjinRepository.findOne({ where: { no_pendaftaran: daratVessel.no_pendaftaran } });
-    
-    
+    const application = await this.applicationRepository.findOne({ where: { user_id : (daratVessel as any).user_id } });
+    const inspection = await this.inspectionRepository.findOne({ where: { vessel_id: (daratVessel as any).id } });
+    const user = await this.userRepository.findOne({ where: { id: (daratVessel as any).user_id } });
+    const hull = await this.hullRepository.findOne({ where: { user_id : (daratVessel as any).user_id } });
+    const codeMaster = await this.codeMasterRepository.findOne({ where: { code: (daratVessel as any).negeri } });
+    const enjin = await this.enjinRepository.findOne({ where: { no_pendaftaran: (daratVessel as any).no_pendaftaran } });
+
+
     // below cannot related to darat_vessel but add here just incase
 
-    let kulit;    let kesalahan;
-    let pengkalan; 
-    let pentadbirHarta;
-    let kru;
-    let pemilikan;
-    let pematuhan;
-    let pendaftaranAntarabangsa;
-    let peralatan;
-    
-    const vessel = await this.vesselRepository.findOne({ where: { user_id : daratVessel.user_id } });
+    let kulit: any = null;
+    let kesalahan: any = null;
+    let pengkalan: any[] = [];
+    let pentadbirHarta: any = null;
+    let kru: any[] = [];
+    let pemilikan: any = null;
+    let pematuhan: any = null;
+    let pendaftaranAntarabangsa: any = null;
+    let peralatan: any[] = [];
+
+    const vessel = await this.vesselRepository.findOne({ where: { user_id : (daratVessel as any).user_id } });
     if (vessel) {
-         kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-         kesalahan = await this.kesalahanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-         pengkalan = await this.jettieRepository.find({ where: { state_id: vessel.negeri } });
-         pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } });
-         kru = await this.kruRepository.find({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-         pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-         pematuhan = await this.pematuhanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-         pendaftaranAntarabangsa = await this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: vessel.id } });
-         peralatan = await this.cmEquipmentRepository.find({ where: { vessel_id: vessel.no_pendaftaran, is_active: true } });
+         kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: (vessel as any).no_pendaftaran } });
+         kesalahan = await this.kesalahanRepository.findOne({ where: { no_pendaftaran: (vessel as any).no_pendaftaran } });
+         pengkalan = await this.jettieRepository.find({ where: { state_id: (vessel as any).negeri } });
+         pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: (vessel as any).id } });
+         kru = await this.kruRepository.find({ where: { no_pendaftaran: (vessel as any).no_pendaftaran } });
+         pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: (vessel as any).no_pendaftaran } });
+         pematuhan = await this.pematuhanRepository.findOne({ where: { no_pendaftaran: (vessel as any).no_pendaftaran } });
+         pendaftaranAntarabangsa = await this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: (vessel as any).id } });
+         peralatan = await this.cmEquipmentRepository.find({ where: { vessel_id: (vessel as any).no_pendaftaran, is_active: true } });
 
       }
-    
-    
-   
-    console.log(peralatan)
+
+
 
     return {
       maklumatAmVesel: {
-        noPendaftaranVesel: daratVessel.registration_number || '',
+        noPendaftaranVesel: (daratVessel as any).registration_number || '',
         noGeran: null,
-        noPatilKekal: daratVessel.registration_number || '',
-        tarikhDaftar: daratVessel.created_at?.toISOString().split('T')[0] || '',
-        lokasiPembinaanVesel: pengkalan || '',
+        noPatilKekal: (daratVessel as any).registration_number || '',
+        tarikhDaftar: (daratVessel as any).created_at?.toISOString().split('T')[0] || '',
+        lokasiPembinaanVesel: (vessel as any)?.pangkalan || '',
         negaraAsal: 'Malaysia',
         pemasanganMTU: false,
         noPendaftaranMTU: null,
         hakMilik: 'Persendirian',
         kodRFIDQR: 'RFID0001',
         pengkalanUtama: true,
-        pelabuhanUtama: daratVessel.pangkalan || '',
-        pelabuhanTambahan: daratVessel.pangkalan || '',
+        pelabuhanUtama: (daratVessel as any).pangkalan || '',
+        pelabuhanTambahan: (daratVessel as any).pangkalan || '',
       },
       lesen: {
-        noLesen: daratVessel.vessel_no || '',
-        tarikhMula: daratVessel.license_start ? new Date(daratVessel.license_start).toISOString().split('T')[0] : '',
-        tarikhTamat: daratVessel.license_end ? new Date(daratVessel.license_end).toISOString().split('T')[0] : '',
-        zon: daratVessel.zon || '',
-        noPatil: daratVessel.vessel_no || '',
+        noLesen: (daratVessel as any).vessel_no || '',
+        tarikhMula: (daratVessel as any).license_start ? new Date((daratVessel as any).license_start).toISOString().split('T')[0] : '',
+        tarikhTamat: (daratVessel as any).license_end ? new Date((daratVessel as any).license_end).toISOString().split('T')[0] : '',
+        zon: (daratVessel as any).zon || '',
+        noPatil: (daratVessel as any).vessel_no || '',
         status: 'aktif',
         statusIUUU: 'Tidak Aktif',
       },
@@ -139,7 +137,7 @@ export class VesselDetailsService {
         panjangMeter: parseFloat(kulit?.panjang || '0'),
         lebarMeter: parseFloat(kulit?.lebar || '0'),
         kedalamanMeter: parseFloat(kulit?.dalam || '0'),
-        muatanGRT: vessel?.grt || 0,
+        muatanGRT: (vessel as any)?.grt || 0,
         status: kulit?.status_kulit || 'Tidak Aktif',
         tindakan: null,
       },
@@ -164,21 +162,21 @@ export class VesselDetailsService {
           generatorUrl: enjin?.gambar_generator || 'https//dof.gov/abcg.png',
         },
       },
-      peralatan: peralatan.map(p => ({
+      peralatan: peralatan.map((p: any) => ({
         nama: p.equipment_name,
         jenisPeralatan: this.mapEquipmentType(p.equipment_type),
         kuantiti: p.amount, // Default value, can be updated based on requirements
         tarikDilesen: p.date_licensed ? new Date(p.date_licensed).toISOString().split('T')[0] : '',
         status: p.is_active ? 'Aktif' : 'Tidak Aktif',
       })),
-      kru: kru.map(k => ({
+      kru: kru.map((k: any) => ({
         noKadPendaftaran: k.no_kad || '',
         nama: k.nama_kru || '',
         negara: k.negara || 'MALAYSIA',
         noKadPengenalan: k.no_kp_baru || k.no_kp_lama || '',
         jawatan: k.jawatan || 'Pembantu Nelayan',
       })),
-      pengkalan: pengkalan.map(p => ({
+      pengkalan: pengkalan.map((p: any) => ({
         noRujukanPengkalan: p.id,
         namaPengkalan: p.name || '',
         jenisPengkalan: 'Utama',
@@ -221,7 +219,7 @@ export class VesselDetailsService {
             panjangMeter: parseFloat(kulit?.panjang || '0'),
             lebarMeter: parseFloat(kulit?.lebar || '0'),
             kedalamanMeter: parseFloat(kulit?.dalam || '0'),
-            muatanGRT: vessel?.grt || 0,
+            muatanGRT: (vessel as any)?.grt || 0,
           },
           ukuranGeometriVesel: {
             a: null,
@@ -359,12 +357,10 @@ export class VesselDetailsService {
   }
 
   async findAll(): Promise<VesselDetailsResponseDto> {
-    const vessels = await this.vesselRepository.find({
-      relations: ['entity'],
-    });
+    const vessels = await this.vesselRepository.find();
 
     const data: ProfilVeselDto[] = await Promise.all(
-      vessels.map(async (vessel) => {
+      vessels.map(async (vessel: any) => {
         const kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
         const enjin = await this.enjinRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
         const kesalahan = await this.kesalahanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
@@ -402,50 +398,50 @@ export class VesselDetailsService {
             statusIUUU: 'Tidak Aktif',
           },
           kulit: {
-            tarikhDilesen: kulit?.tarikh_kulit_dilesenkan || '',
-            panjangMeter: parseFloat(kulit?.panjang || '0'),
-            lebarMeter: parseFloat(kulit?.lebar || '0'),
-            kedalamanMeter: parseFloat(kulit?.dalam || '0'),
+            tarikhDilesen: (kulit as any)?.tarikh_kulit_dilesenkan || '',
+            panjangMeter: parseFloat((kulit as any)?.panjang || '0'),
+            lebarMeter: parseFloat((kulit as any)?.lebar || '0'),
+            kedalamanMeter: parseFloat((kulit as any)?.dalam || '0'),
             muatanGRT: vessel.grt || 0,
-            status: kulit?.status_kulit || 'Tidak Aktif',
+            status: (kulit as any)?.status_kulit || 'Tidak Aktif',
             tindakan: null,
           },
           enjin: {
             maklumatAmEjin: {
-              jenisEnjin: enjin?.jenis_enjin === 1 ? 'Sangkut' : 'Unknown',
-              bahanApi: enjin?.bahan_api || 'Diesel',
-              jenamaEnjin: enjin?.jenama || '',
-              kuasaKuda: enjin?.kuasa_kuda || 0,
-              noEnjin: enjin?.no_enjin || '',
-              model: enjin?.model || '',
-              turbo: enjin?.has_turbo === 1 ? 'Ada' : 'Tiada',
-              tarikhPEV: enjin?.tarikh_enjin_dilesenkan?.toISOString().split('T')[0] || '',
-              kategoriEnjin: enjin?.kategori_enjin || '',
-              status: enjin?.status_enjin || 'aktif',
+              jenisEnjin: (enjin as any)?.jenis_enjin === 1 ? 'Sangkut' : 'Unknown',
+              bahanApi: (enjin as any)?.bahan_api || 'Diesel',
+              jenamaEnjin: (enjin as any)?.jenama || '',
+              kuasaKuda: (enjin as any)?.kuasa_kuda || 0,
+              noEnjin: (enjin as any)?.no_enjin || '',
+              model: (enjin as any)?.model || '',
+              turbo: (enjin as any)?.has_turbo === 1 ? 'Ada' : 'Tiada',
+              tarikhPEV: (enjin as any)?.tarikh_enjin_dilesenkan?.toISOString().split('T')[0] || '',
+              kategoriEnjin: (enjin as any)?.kategori_enjin || '',
+              status: (enjin as any)?.status_enjin || 'aktif',
             },
             gambar: {
-              enjinUrl: enjin?.gambar_enjin || 'https//dof.gov/abcg.png',
-              noEnjinUrl: enjin?.gambar_no_enjin || 'https//dof.gov/abcg.png',
-              penandaPEVUrl: enjin?.gambar_pev || 'https//dof.gov/abcg.png',
-              turboUrl: enjin?.gambar_turbo || 'https//dof.gov/abcg.png',
-              generatorUrl: enjin?.gambar_generator || 'https//dof.gov/abcg.png',
+              enjinUrl: (enjin as any)?.gambar_enjin || 'https//dof.gov/abcg.png',
+              noEnjinUrl: (enjin as any)?.gambar_no_enjin || 'https//dof.gov/abcg.png',
+              penandaPEVUrl: (enjin as any)?.gambar_pev || 'https//dof.gov/abcg.png',
+              turboUrl: (enjin as any)?.gambar_turbo || 'https//dof.gov/abcg.png',
+              generatorUrl: (enjin as any)?.gambar_generator || 'https//dof.gov/abcg.png',
             },
           },
-          peralatan: peralatanList.map(p => ({
+          peralatan: peralatanList.map((p: any) => ({
             nama: p.equipment_name,
             jenisPeralatan: this.mapEquipmentType(p.equipment_type),
             kuantiti: p.amount || null, // Default value, can be updated based on requirements
             tarikDilesen: p.date_licensed ? new Date(p.date_licensed).toISOString().split('T')[0] : '',
             status: p.is_active ? 'Aktif' : 'Tidak Aktif',
           })),
-          kru: kru.map(k => ({
+          kru: kru.map((k: any) => ({
             noKadPendaftaran: k.no_kad || '',
             nama: k.nama_kru || '',
             negara: k.negara || 'MALAYSIA',
             noKadPengenalan: k.no_kp_baru || k.no_kp_lama || '',
             jawatan: k.jawatan || 'Pembantu Nelayan',
           })),
-          pengkalan: pengkalan.map(p => ({
+          pengkalan: pengkalan.map((p: any) => ({
             noRujukanPengkalan: p.id,
             namaPengkalan: p.name || '',
             jenisPengkalan: 'Utama',
@@ -455,13 +451,13 @@ export class VesselDetailsService {
             status: p.is_active === 1 ? 'Aktif' : 'Tidak Aktif',
           })),
           pemilikan: {
-            namaPemilik: pemilikan?.nama_pemilik || pentadbirHarta?.pemilik_vesel || '',
-            noKadPengenalan: pemilikan?.no_ic_atau_syarikat || '',
-            jenisPemilikan: pemilikan?.jenis_pemilikan || 'Individu',
-            district: pemilikan?.daerah || '',
-            state: pemilikan?.negeri || '',
-            tarikhPemilikan: pemilikan?.tarikh_aktif_pemilikan?.toISOString().split('T')[0] || '',
-            status: pemilikan?.status_pemilikan || 'Aktif',
+            namaPemilik: (pemilikan as any)?.nama_pemilik || (pentadbirHarta as any)?.pemilik_vesel || '',
+            noKadPengenalan: (pemilikan as any)?.no_ic_atau_syarikat || '',
+            jenisPemilikan: (pemilikan as any)?.jenis_pemilikan || 'Individu',
+            district: (pemilikan as any)?.daerah || '',
+            state: (pemilikan as any)?.negeri || '',
+            tarikhPemilikan: (pemilikan as any)?.tarikh_aktif_pemilikan?.toISOString().split('T')[0] || '',
+            status: (pemilikan as any)?.status_pemilikan || 'Aktif',
           },
           pematuhan: {
             maklumatVesel: {
@@ -485,9 +481,9 @@ export class VesselDetailsService {
                 gambar: 'https//dof.gov/abcg.png',
               },
               ukuranDimensiVesel: {
-                panjangMeter: parseFloat(kulit?.panjang || '0'),
-                lebarMeter: parseFloat(kulit?.lebar || '0'),
-                kedalamanMeter: parseFloat(kulit?.dalam || '0'),
+                panjangMeter: parseFloat((kulit as any)?.panjang || '0'),
+                lebarMeter: parseFloat((kulit as any)?.lebar || '0'),
+                kedalamanMeter: parseFloat((kulit as any)?.dalam || '0'),
                 muatanGRT: vessel.grt || 0,
               },
               ukuranGeometriVesel: {
@@ -508,19 +504,19 @@ export class VesselDetailsService {
             },
             enjin: {
               maklumatEnjin: {
-                jenama: enjin?.jenama || '',
-                model: enjin?.model || '',
-                turbo: enjin?.has_turbo === 1 ? 'Ada' : null,
-                kuasaKuda: enjin?.kuasa_kuda || 0,
-                noEnjin: enjin?.no_enjin || '',
+                jenama: (enjin as any)?.jenama || '',
+                model: (enjin as any)?.model || '',
+                turbo: (enjin as any)?.has_turbo === 1 ? 'Ada' : null,
+                kuasaKuda: (enjin as any)?.kuasa_kuda || 0,
+                noEnjin: (enjin as any)?.no_enjin || '',
                 penandaVesel: '07-05-2025',
               },
               gambar: {
-                enjinUrl: enjin?.gambar_enjin || 'https//dof.gov/abcg.png',
-                noEnjinUrl: enjin?.gambar_no_enjin || 'https//dof.gov/abcg.png',
-                penandaEnjinUrl: enjin?.gambar_pev || 'https//dof.gov/abcg.png',
-                turboUrl: enjin?.gambar_turbo || 'https//dof.gov/abcg.png',
-                generatorUrl: enjin?.gambar_generator || 'https//dof.gov/abcg.png',
+                enjinUrl: (enjin as any)?.gambar_enjin || 'https//dof.gov/abcg.png',
+                noEnjinUrl: (enjin as any)?.gambar_no_enjin || 'https//dof.gov/abcg.png',
+                penandaEnjinUrl: (enjin as any)?.gambar_pev || 'https//dof.gov/abcg.png',
+                turboUrl: (enjin as any)?.gambar_turbo || 'https//dof.gov/abcg.png',
+                generatorUrl: (enjin as any)?.gambar_generator || 'https//dof.gov/abcg.png',
               },
             },
             peralatanPelayaran: {
@@ -606,21 +602,21 @@ export class VesselDetailsService {
             },
           },
           kesalahan: {
-            nama: kesalahan?.pesalah || '',
-            noKadPengenalan: kesalahan?.no_ic_pesalah || '',
-            akta: kesalahan?.akta || 'Akta Perikanan 1985',
-            seksyen: kesalahan?.seksyen || 'Seksyen 15',
-            kesalahan: kesalahan?.kesalahan || 'Memancing di kawasan larangan',
-            tarikh: kesalahan?.tarikh?.toISOString().split('T')[0] || '',
-            keputusan: kesalahan?.keputusan || 'Denda RM500',
+            nama: (kesalahan as any)?.pesalah || '',
+            noKadPengenalan: (kesalahan as any)?.no_ic_pesalah || '',
+            akta: (kesalahan as any)?.akta || 'Akta Perikanan 1985',
+            seksyen: (kesalahan as any)?.seksyen || 'Seksyen 15',
+            kesalahan: (kesalahan as any)?.kesalahan || 'Memancing di kawasan larangan',
+            tarikh: (kesalahan as any)?.tarikh?.toISOString().split('T')[0] || '',
+            keputusan: (kesalahan as any)?.keputusan || 'Denda RM500',
           },
           pendaftaranAntarabangsa: {
             namaVesel: null,
-            noPendaftaran: pendaftaranAntarabangsa?.no_pendaftaran || '',
-            noIRCS: pendaftaranAntarabangsa?.no_ircs || '',
-            noIMO: pendaftaranAntarabangsa?.no_rfmo || '',
-            zonPenangkapan: pendaftaranAntarabangsa?.kawasan_penangkapan || '',
-            spesisSasaran: pendaftaranAntarabangsa?.spesis_sasaran || '',
+            noPendaftaran: (pendaftaranAntarabangsa as any)?.no_pendaftaran || '',
+            noIRCS: (pendaftaranAntarabangsa as any)?.no_ircs || '',
+            noIMO: (pendaftaranAntarabangsa as any)?.no_rfmo || '',
+            zonPenangkapan: (pendaftaranAntarabangsa as any)?.kawasan_penangkapan || '',
+            spesisSasaran: (pendaftaranAntarabangsa as any)?.spesis_sasaran || '',
           },
         };
       })
@@ -629,25 +625,9 @@ export class VesselDetailsService {
     return { data };
   }
 
-  // async findOne(id: string): Promise<VesselDetailsResponseDto> {
-  //   const vessel = await this.vesselRepository.findOne({
-  //     where: { id },
-  //     relations: ['entity'],
-  //   });
-
-  //   if (!vessel) {
-  //     throw new Error('Vessel not found');
-  //   }
-
-  //   const data = await this.findAll();
-  //   const vesselDetail = data.data.find(v => v.maklumatAmVesel.noPendaftaranVesel === vessel.no_pendaftaran);
-
-  //   return { data: vesselDetail ? [vesselDetail] : [] };
-  
   async getOwnershipAndCaptain(noVessel: string): Promise<VesselOwnershipCaptainResponseDto> {
     const vessel = await this.vesselRepository.findOne({
       where: { no_pendaftaran: noVessel },
-      relations: ['entity'],
     });
 
     if (!vessel) {
@@ -655,28 +635,25 @@ export class VesselDetailsService {
     }
 
     // Get ownership information from pemilikan and pentadbirHarta
-    const pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } });
-    const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+    const pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: (vessel as any).id } });
+    const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: (vessel as any).no_pendaftaran } });
 
     // Get captain (nakhoda) information from kru table
-    const kru = await this.kruRepository.find({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-    const nakhoda = kru.find(k => k.jawatan?.toLowerCase().includes('nakhoda') || k.jawatan?.toLowerCase().includes('kapten')) || kru[0];
+    const kru = await this.kruRepository.find({ where: { no_pendaftaran: (vessel as any).no_pendaftaran } });
+    const nakhoda = kru.find((k: any) => k.jawatan?.toLowerCase().includes('nakhoda') || k.jawatan?.toLowerCase().includes('kapten')) || kru[0];
 
     return {
       noVessel: noVessel,
       pemilikan: {
-        namaPemilik: pemilikan?.nama_pemilik || pentadbirHarta?.pemilik_vesel || '',
-        noKadPengenalan: pemilikan?.no_ic_atau_syarikat || '',
+        namaPemilik: (pemilikan as any)?.nama_pemilik || (pentadbirHarta as any)?.pemilik_vesel || '',
+        noKadPengenalan: (pemilikan as any)?.no_ic_atau_syarikat || '',
       },
       nakhoda: {
-        namaNakhoda: nakhoda?.nama_kru || '',
-        noKadPengenalan: nakhoda?.no_kp_baru || nakhoda?.no_kp_lama || '',
+        namaNakhoda: (nakhoda as any)?.nama_kru || '',
+        noKadPengenalan: (nakhoda as any)?.no_kp_baru || (nakhoda as any)?.no_kp_lama || '',
       },
     };
   }
-
-  
-  // }
 
   private mapEquipmentType(equipmentType: number): string {
     switch (equipmentType) {
