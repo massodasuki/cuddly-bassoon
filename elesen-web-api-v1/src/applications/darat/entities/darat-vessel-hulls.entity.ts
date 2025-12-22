@@ -15,10 +15,10 @@ export class DaratVesselHullEntity {
   hull_type: string;
 
   @Column({ nullable: true })
-  drilled: number;
+  drilled: boolean;
 
   @Column({ nullable: true })
-  brightly_painted: number;
+  brightly_painted: boolean;
 
   @Column({ nullable: true })
   vessel_registration_remarks: string;
@@ -39,10 +39,10 @@ export class DaratVesselHullEntity {
   right_side_image_path: string;
 
   @Column({ nullable: false })
-  is_active: number;
+  is_active: boolean;
 
   @Column({ nullable: false })
-  is_approved: number;
+  is_approved: boolean;
 
   @Column({ nullable: true })
   created_by: string;

@@ -77,10 +77,10 @@ export class DaratVesselInspectionEntity {
   engine_number: string;
 
   @Column({ nullable: true })
-  safety_jacket_status: number;
+  safety_jacket_status: string;
 
   @Column({ nullable: true })
-  safety_jacket_quantity: number;
+  safety_jacket_quantity: string;
 
   @Column({ nullable: true })
   safety_jacket_condition: string;

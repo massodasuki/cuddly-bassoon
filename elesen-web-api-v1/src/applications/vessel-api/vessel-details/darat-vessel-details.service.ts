@@ -198,8 +198,8 @@ export class VesselDetailsService {
         maklumatVesel: {
           pakuPenandaLebar: null,
           rumahKemudi: {
-            diCatBetul: true,
-            diCatTerang: false,
+            diCatBetul: hull?.brightly_painted ? true : false,
+            diCatTerang: hull?.brightly_painted ? true : false,
             kodZon: null,
             diAtasBumbung: false,
           },
@@ -208,7 +208,7 @@ export class VesselDetailsService {
             hurufKodTanda: null,
           },
           noPendaftaranVesel: {
-            diTebuk: false,
+            diTebuk: hull?.drilled ? true : false,
             diCat: true,
           },
           QRCode: {
@@ -285,9 +285,9 @@ export class VesselDetailsService {
         },
         peralatanKeselamatan: {
           jaketKeselamatan: {
-            status: 'Tiada',
-            kuantiti: 'Tiada',
-            keadaan: 'Tiada',
+            status: inspection?.safety_jacket_status ? inspection?.safety_jacket_status : 'Tiada',
+            kuantiti: inspection?.safety_jacket_quantity ? inspection?.safety_jacket_quantity : 'Tiada',
+            keadaan: inspection?.safety_jacket_condition ? inspection?.safety_jacket_condition : 'Tiada',
           },
           boyaKeselamatan: {
             status: 'Tiada',
@@ -356,278 +356,6 @@ export class VesselDetailsService {
     };
   }
 
-  async findAll(): Promise<VesselDetailsResponseDto> {
-    const vessels = await this.vesselRepository.find();
-
-    const data: ProfilVeselDto[] = await Promise.all(
-      vessels.map(async (vessel: any) => {
-        const kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-        const enjin = await this.enjinRepository.findOne({ where: { vessel_id: vessel.id } });
-        const kesalahan = await this.kesalahanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-        const pengkalan = await this.jettieRepository.find({ where: { state_id: vessel.negeri } });
-        const pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } });
-        const kru = await this.kruRepository.find({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-        const pemilikan = await this.pemilikanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-        const pematuhan = await this.pematuhanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-        const pendaftaranAntarabangsa = await this.pendaftaranAntarabangsaRepository.findOne({ where: { vessel_id: vessel.id } });
-        const peralatanList = await this.cmEquipmentRepository.find({ where: { vessel_id: vessel.no_pendaftaran, is_active: true } });
-
-        return {
-          maklumatAmVesel: {
-            noPendaftaranVesel: vessel.no_pendaftaran || '',
-            noGeran: null,
-            noPatilKekal: vessel.vessel_no || '',
-            tarikhDaftar: vessel.created_at?.toISOString().split('T')[0] || '',
-            lokasiPembinaanVesel: vessel.pangkalan || '',
-            negaraAsal: 'Malaysia',
-            pemasanganMTU: false,
-            noPendaftaranMTU: null,
-            hakMilik: 'Persendirian',
-            kodRFIDQR: 'RFID0001',
-            pengkalanUtama: true,
-            pelabuhanUtama: vessel.pangkalan || '',
-            pelabuhanTambahan: vessel.pangkalan || '',
-          },
-          lesen: {
-            noLesen: vessel.vessel_no || '',
-            tarikhMula: vessel.license_start ? new Date(vessel.license_start).toISOString().split('T')[0] : '',
-            tarikhTamat: vessel.license_end ? new Date(vessel.license_end).toISOString().split('T')[0] : '',
-            zon: vessel.zon || '',
-            noPatil: vessel.vessel_no || '',
-            status: 'aktif',
-            statusIUUU: 'Tidak Aktif',
-          },
-          kulit: {
-            tarikhDilesen: (kulit as any)?.tarikh_kulit_dilesenkan || '',
-            panjangMeter: parseFloat((kulit as any)?.panjang || '0'),
-            lebarMeter: parseFloat((kulit as any)?.lebar || '0'),
-            kedalamanMeter: parseFloat((kulit as any)?.dalam || '0'),
-            muatanGRT: vessel.grt || 0,
-            status: (kulit as any)?.status_kulit || 'Tidak Aktif',
-            tindakan: null,
-          },
-          enjin: {
-            maklumatAmEjin: {
-              jenisEnjin: 'Unknown',
-              bahanApi: 'Diesel',
-              jenamaEnjin: enjin?.brand || '',
-              kuasaKuda: enjin?.horsepower || 0,
-              noEnjin: enjin?.engine_number || '',
-              model: enjin?.model || '',
-              turbo: 'Tiada',
-              tarikhPEV: '',
-              kategoriEnjin: '',
-              status: enjin?.is_active === 1 ? 'aktif' : 'tidak aktif',
-            },
-            gambar: {
-              enjinUrl: enjin?.engine_image_path || 'https//dof.gov/abcg.png',
-              noEnjinUrl: enjin?.engine_number_image_path || 'https//dof.gov/abcg.png',
-              penandaPEVUrl: 'https//dof.gov/abcg.png',
-              turboUrl: 'https//dof.gov/abcg.png',
-              generatorUrl: 'https//dof.gov/abcg.png',
-            },
-          },
-          peralatan: peralatanList.map((p: any) => ({
-            nama: p.equipment_name,
-            jenisPeralatan: this.mapEquipmentType(p.equipment_type),
-            kuantiti: p.amount || null, // Default value, can be updated based on requirements
-            tarikDilesen: p.date_licensed ? new Date(p.date_licensed).toISOString().split('T')[0] : '',
-            status: p.is_active ? 'Aktif' : 'Tidak Aktif',
-          })),
-          kru: kru.map((k: any) => ({
-            noKadPendaftaran: k.no_kad || '',
-            nama: k.nama_kru || '',
-            negara: k.negara || 'MALAYSIA',
-            noKadPengenalan: k.no_kp_baru || k.no_kp_lama || '',
-            jawatan: k.jawatan || 'Pembantu Nelayan',
-          })),
-          pengkalan: pengkalan.map((p: any) => ({
-            noRujukanPengkalan: p.id,
-            namaPengkalan: p.name || '',
-            jenisPengkalan: 'Utama',
-            district: p.district_id || '',
-            state: p.state_id || '',
-            tahunMula: p.created_at?.toISOString().split('T')[0] || '',
-            status: p.is_active === 1 ? 'Aktif' : 'Tidak Aktif',
-          })),
-          pemilikan: {
-            namaPemilik: (pemilikan as any)?.nama_pemilik || (pentadbirHarta as any)?.pemilik_vesel || '',
-            noKadPengenalan: (pemilikan as any)?.no_ic_atau_syarikat || '',
-            jenisPemilikan: (pemilikan as any)?.jenis_pemilikan || 'Individu',
-            district: (pemilikan as any)?.daerah || '',
-            state: (pemilikan as any)?.negeri || '',
-            tarikhPemilikan: (pemilikan as any)?.tarikh_aktif_pemilikan?.toISOString().split('T')[0] || '',
-            status: (pemilikan as any)?.status_pemilikan || 'Aktif',
-          },
-          pematuhan: {
-            maklumatVesel: {
-              pakuPenandaLebar: null,
-              rumahKemudi: {
-                diCatBetul: true,
-                diCatTerang: false,
-                kodZon: null,
-                diAtasBumbung: false,
-              },
-              tandaPenukulBesi: {
-                tandaBahagianLaluan: false,
-                hurufKodTanda: null,
-              },
-              noPendaftaranVesel: {
-                diTebuk: false,
-                diCat: true,
-              },
-              QRCode: {
-                diPasang: false,
-                gambar: 'https//dof.gov/abcg.png',
-              },
-              ukuranDimensiVesel: {
-                panjangMeter: parseFloat((kulit as any)?.panjang || '0'),
-                lebarMeter: parseFloat((kulit as any)?.lebar || '0'),
-                kedalamanMeter: parseFloat((kulit as any)?.dalam || '0'),
-                muatanGRT: vessel.grt || 0,
-              },
-              ukuranGeometriVesel: {
-                a: null,
-                b: null,
-                c: null,
-                d: null,
-                e: null,
-                f: null,
-              },
-              gambar: {
-                kiri: 'https//dof.gov/abcg.png',
-                kanan: 'https//dof.gov/abcg.png',
-                hadapan: 'https//dof.gov/abcg.png',
-                belakang: 'https//dof.gov/abcg.png',
-                keseluruhan: 'https//dof.gov/abcg.png',
-              },
-            },
-            enjin: {
-              maklumatAmEjin: {
-                jenisEnjin: 'Unknown',
-                bahanApi: 'Diesel',
-                jenamaEnjin: enjin?.brand || '',
-                kuasaKuda: enjin?.horsepower || 0,
-                noEnjin: enjin?.engine_number || '',
-                model: enjin?.model || '',
-                turbo: 'Tiada',
-                tarikhPEV: '',
-                kategoriEnjin: '',
-                status: enjin?.is_active === 1 ? 'aktif' : 'tidak aktif',
-              },
-              gambar: {
-                enjinUrl: enjin?.engine_image_path || 'https//dof.gov/abcg.png',
-                noEnjinUrl: enjin?.engine_number_image_path || 'https//dof.gov/abcg.png',
-                penandaPEVUrl: 'https//dof.gov/abcg.png',
-                turboUrl: 'https//dof.gov/abcg.png',
-                generatorUrl: 'https//dof.gov/abcg.png',
-              },
-            },
-            peralatanPelayaran: {
-              lampuPelayaran: {
-                status: 'Tiada',
-                kuantiti: 'Tiada',
-                keadaan: 'Tiada',
-              },
-              MTU: {
-                status: 'Tiada',
-                kuantiti: 'Tiada',
-                keadaan: 'Tiada',
-              },
-              AIS: {
-                status: 'Ada',
-                keadaan: 'Baik',
-              },
-              CCTV: {
-                status: 'Ada',
-                keadaan: 'Baik',
-              },
-              GPS: {
-                status: 'Tiada',
-              },
-              gambar: {
-                MTUUrl: 'https//dof.gov/abcg.png',
-                AISUrl: 'https//dof.gov/abcg.png',
-                lampuPelayaranUrl: 'https//dof.gov/abcg.png',
-                QRCodeUrl: 'https//dof.gov/abcg.png',
-              },
-            },
-            peralatanKeselamatan: {
-              jaketKeselamatan: {
-                status: 'Tiada',
-                kuantiti: 'Tiada',
-                keadaan: 'Tiada',
-              },
-              boyaKeselamatan: {
-                status: 'Tiada',
-                kuantiti: 'Tiada',
-                keadaan: 'Tiada',
-              },
-              alatPemadamApi: {
-                status: 'Tiada',
-                kuantiti: 'Tiada',
-                keadaan: 'Tiada',
-              },
-              rakitKeselamatan: {
-                status: 'Tiada',
-                kuantiti: 'Tiada',
-                keadaan: 'Tiada',
-              },
-              radioWireless: {
-                status: 'Tiada',
-                kuantiti: 'Tiada',
-                keadaan: 'Tiada',
-              },
-              gambar: {
-                MTUUrl: 'https//dof.gov/abcg.png',
-                AISUrl: 'https//dof.gov/abcg.png',
-              },
-            },
-            kelengkapanMenangkapIkan: {
-              echoSounder: false,
-              sonar: false,
-              netHouler: false,
-              powerBlock: false,
-              petakIkan: false,
-              RSW: false,
-            },
-            dokumen: {
-              generalAgreementUrl: 'https//dof.gov/abcg.png',
-              vesselMarkingUrl: 'https//dof.gov/abcg.png',
-              laporanPemeriksaanKejuruteraanUrl: 'https//dof.gov/abcg.png',
-              laporanPemeriksaanSurveyorUrl: 'https//dof.gov/abcg.png',
-              certOfRegistrationUrl: 'https//dof.gov/abcg.png',
-              gearMakingUrl: 'https//dof.gov/abcg.png',
-              hygeineOnBoardUrl: 'https//dof.gov/abcg.png',
-              internationalOilPollutionPreventionCertUrl: 'https//dof.gov/abcg.png',
-              internationalTonnageCertUrl: 'https//dof.gov/abcg.png',
-              sijilKompetensiKakitanganUrl: 'https//dof.gov/abcg.png',
-              sijilPeralatanKeselmatanUrl: 'https//dof.gov/abcg.png',
-            },
-          },
-          kesalahan: {
-            nama: kesalahan?.pesalah || '',
-            noKadPengenalan: kesalahan?.no_ic_pesalah || '',
-            akta: kesalahan?.akta || '',
-            seksyen: kesalahan?.seksyen || '',
-            kesalahan: kesalahan?.kesalahan || '',
-            tarikh: kesalahan?.tarikh?.toISOString().split('T')[0] || '',
-            keputusan: kesalahan?.keputusan || '',
-          },
-          pendaftaranAntarabangsa: {
-            namaVesel: null,
-            noPendaftaran: pendaftaranAntarabangsa?.no_pendaftaran || '',
-            noIRCS: pendaftaranAntarabangsa?.no_ircs || '',
-            noIMO: pendaftaranAntarabangsa?.no_rfmo || '',
-            zonPenangkapan: pendaftaranAntarabangsa?.kawasan_penangkapan || '',
-            spesisSasaran: pendaftaranAntarabangsa?.spesis_sasaran || '',
-          },
-        };
-      })
-    );
-
-    return { data };
-  }
 
   async getOwnershipAndCaptain(noVessel: string): Promise<VesselOwnershipCaptainResponseDto> {
     const vessel = await this.vesselRepository.findOne({

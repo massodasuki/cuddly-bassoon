@@ -97,7 +97,7 @@ export class PemilikanDto {
 }
 
 export class RumahKemudiDto {
-  diCatBetul: boolean;
+  diCatBetul: boolean ;
   diCatTerang: boolean;
   kodZon: string | null;
   diAtasBumbung: boolean;
@@ -218,8 +218,8 @@ export class PeralatanPelayaranDto {
 }
 
 export class JaketKeselamatanDto {
-  status: string;
-  kuantiti: string;
+  status: string | null;
+  kuantiti: string | null;
   keadaan: string;
 }
 
