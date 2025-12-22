@@ -4,6 +4,12 @@ import { Repository } from 'typeorm';
 import { VesselDetailsResponseDto, ProfilVeselDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 import { DaratVesselEntity } from 'src/components/darat-vessels/darat-vessels.entity';
 import { JettieEntity } from 'src/components/jetties/jetties.entity';
+import { UserEntity } from 'src/components/users/users.entity';
+import { DaratVesselInspectionEntity } from 'src/components/darat-vessel-inspections/darat-vessel-inspections.entity';
+import { DaratVesselEngineEntity } from 'src/components/darat-vessel-engines/darat-vessel-engines.entity';
+import { DaratVesselHullEntity } from 'src/components/darat-vessel-hulls/darat-vessel-hulls.entity';
+import { DaratApplicationEntity } from 'src/components/darat-applications/darat-applications.entity';
+import { CodeMaster } from 'src/components/code-masters/code-masters.entity';
 
 @Injectable()
 export class DaratVesselDetailsService {
@@ -12,61 +18,73 @@ export class DaratVesselDetailsService {
     private readonly daratRepository: Repository<DaratVesselEntity>,
     @InjectRepository(JettieEntity)
     private readonly jettieRepository: Repository<JettieEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(DaratVesselInspectionEntity)
+    private readonly inspectionRepository: Repository<DaratVesselInspectionEntity>,
+    @InjectRepository(DaratVesselEngineEntity)
+    private readonly engineRepository: Repository<DaratVesselEngineEntity>,
+    @InjectRepository(DaratVesselHullEntity)
+    private readonly hullRepository: Repository<DaratVesselHullEntity>,
+    @InjectRepository(DaratApplicationEntity)
+    private readonly applicationRepository: Repository<DaratApplicationEntity>,
+    @InjectRepository(CodeMaster)
+    private readonly codeMasterRepository: Repository<CodeMaster>,
   ) {}
 
   async findOne(registrationNo : string): Promise<ProfilVeselDto> {
-    const query = `SELECT
-        dv.id,
-        dv.registration_number,
-        dv.length,
-        dv.width,
-        dv.depth,
-        dv.transportation,
-        dv.is_approved,
-        dv.is_active,
-        dv.negeri,
-        u.name AS user_name,
-        u.email AS user_email,
-        dvi.inspection_date,
-        dvi.vessel_condition,
-        dvi.hull_type,
-        dvi.engine_brand,
-        dvi.engine_model,
-        dvi.horsepower,
-        dvi.safety_jacket_status,
-        dvi.safety_jacket_quantity,
-        dvi.safety_jacket_condition,
-        dve.model AS engine_model,
-        dve.brand AS engine_brand,
-        dve.horsepower AS engine_hp,
-        dve.engine_number,
-        dvh.hull_type AS hull_type,
-        dvh.length AS hull_length,
-        dvh.width AS hull_width,
-        dvh.depth AS hull_depth,
-        da.no_rujukan,
-        da.is_approved AS application_approved,
-        cm_type.name AS application_type,
-        cm_status.name AS application_status
-    FROM
-        darat_vessels dv
-    LEFT JOIN users u ON dv.user_id = u.id
-    LEFT JOIN darat_vessel_inspections dvi ON dv.id = dvi.vessel_id
-    LEFT JOIN darat_vessel_engines dve ON dv.id = dve.vessel_id
-    LEFT JOIN darat_vessel_hulls dvh ON dv.id = dvh.vessel_id
-    LEFT JOIN darat_applications da ON dvi.application_id = da.id
-    LEFT JOIN code_masters cm_type ON da.application_type_id = cm_type.id
-    LEFT JOIN code_masters cm_status ON da.application_status_id = cm_status.id
-    WHERE
-        dv.registration_number = ? AND dv.is_active = 1`;
+    const queryBuilder = this.daratRepository.createQueryBuilder('dv')
+      .select([
+        'dv.id',
+        'dv.registration_number',
+        'dv.length',
+        'dv.width',
+        'dv.depth',
+        'dv.transportation',
+        'dv.is_approved',
+        'dv.is_active',
+        'dv.negeri',
+        'u.name AS user_name',
+        'u.email AS user_email',
+        'dvi.inspection_date',
+        'dvi.vessel_condition',
+        'dvi.hull_type',
+        'dvi.engine_brand',
+        'dvi.engine_model',
+        'dvi.horsepower',
+        'dvi.safety_jacket_status',
+        'dvi.safety_jacket_quantity',
+        'dvi.safety_jacket_condition',
+        'dve.model AS engine_model',
+        'dve.brand AS engine_brand',
+        'dve.horsepower AS engine_hp',
+        'dve.engine_number',
+        'dvh.hull_type AS hull_type',
+        'dvh.length AS hull_length',
+        'dvh.width AS hull_width',
+        'dvh.depth AS hull_depth',
+        'da.no_rujukan',
+        'da.is_approved AS application_approved',
+        'cm_type.name AS application_type',
+        'cm_status.name AS application_status'
+      ])
+      .leftJoin('users', 'u', 'dv.user_id = u.id')
+      .leftJoin('darat_vessel_inspections', 'dvi', 'dv.id = dvi.vessel_id')
+      .leftJoin('darat_vessel_engines', 'dve', 'dv.id = dve.vessel_id')
+      .leftJoin('darat_vessel_hulls', 'dvh', 'dv.id = dvh.vessel_id')
+      .leftJoin('darat_applications', 'da', 'dvi.application_id = da.id')
+      .leftJoin('code_masters', 'cm_type', 'da.application_type_id = cm_type.id')
+      .leftJoin('code_masters', 'cm_status', 'da.application_status_id = cm_status.id')
+      .where('dv.registration_number = :registrationNo', { registrationNo })
+      .andWhere('dv.is_active = 1');
 
-    const result = await this.daratRepository.query(query, [registrationNo]);
+    const result = await queryBuilder.getRawOne();
 
-    if (!result || result.length === 0) {
+    if (!result) {
       throw new Error('Vessel not found');
     }
 
-    const data = result[0];
+    const data = result;
 
     const pengkalan = await this.jettieRepository.find({ where: { state_id: data.negeri } });
 
