@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VesselDetailsApiController } from './vessel-details-api.controller';
 import { VesselDetailsApiService } from './vessel-details-api.service';
-import { VesselDetailsService as DaratVesselDetailsService } from '../vessel-details/darat-vessel-details.service';
-import { VesselDetailsService as MarinVesselDetailsService } from '../vessel-details/vessel-details.service';
+import { VesselDetailsService as DaratVesselDetailsService } from './darat-vessel-details.service';
+import { VesselDetailsService as MarinVesselDetailsService } from './vessel-details.service';
 
 // Entities from darat service
 import { DaratVesselEntity } from '../../darat/entities/darat-vessels.entity';

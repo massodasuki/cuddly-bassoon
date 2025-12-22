@@ -1,7 +1,7 @@
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { VesselDetailsApiService } from './vessel-details-api.service';
-import { ProfilVeselDto, VesselDetailsResponseDto, VesselOwnershipCaptainResponseDto } from '../vessel-details/dto/vessel-details-response.dto';
+import { ProfilVeselDto, VesselDetailsResponseDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 
 @ApiTags('Vessel Details API')
 @Controller('/api/v1/applications')

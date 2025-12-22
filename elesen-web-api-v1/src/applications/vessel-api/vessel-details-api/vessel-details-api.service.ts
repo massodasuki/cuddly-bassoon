@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { VesselDetailsService as DaratVesselDetailsService } from '../vessel-details/darat-vessel-details.service';
-import { VesselDetailsService as MarinVesselDetailsService } from '../vessel-details/vessel-details.service';
-import { ProfilVeselDto, VesselDetailsResponseDto, VesselOwnershipCaptainResponseDto } from '../vessel-details/dto/vessel-details-response.dto';
+import { VesselDetailsService as DaratVesselDetailsService } from './darat-vessel-details.service';
+import { VesselDetailsService as MarinVesselDetailsService } from './vessel-details.service';
+import { ProfilVeselDto, VesselDetailsResponseDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 
 @Injectable()
 export class VesselDetailsApiService {
