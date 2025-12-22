@@ -76,7 +76,7 @@ export class VesselDetailsService {
     const user = await this.userRepository.findOne({ where: { id: (daratVessel as any).user_id } });
     const hull = await this.hullRepository.findOne({ where: { user_id : (daratVessel as any).user_id } });
     const codeMaster = await this.codeMasterRepository.findOne({ where: { code: (daratVessel as any).negeri } });
-    const enjin = await this.enjinRepository.findOne({ where: { no_pendaftaran: (daratVessel as any).no_pendaftaran } });
+    const enjin = await this.enjinRepository.findOne({ where: { vessel_id: (daratVessel as any).id } });
 
 
     // below cannot related to darat_vessel but add here just incase
@@ -142,24 +142,24 @@ export class VesselDetailsService {
         tindakan: null,
       },
       enjin: {
-        maklumatAmEjin: {
-          jenisEnjin: enjin?.jenis_enjin === 1 ? 'Sangkut' : 'Unknown',
-          bahanApi: enjin?.bahan_api || 'Diesel',
-          jenamaEnjin: enjin?.jenama || '',
-          kuasaKuda: enjin?.kuasa_kuda || 0,
-          noEnjin: enjin?.no_enjin || '',
+        engineInfo: {
+          engineType: 'Unknown',
+          fuelType: 'Diesel',
+          engineBrand: enjin?.brand || '',
+          horsepower: enjin?.horsepower || 0,
+          engineNumber: enjin?.engine_number || '',
           model: enjin?.model || '',
-          turbo: enjin?.has_turbo === 1 ? 'Ada' : 'Tiada',
-          tarikhPEV: enjin?.tarikh_enjin_dilesenkan?.toISOString().split('T')[0] || '',
-          kategoriEnjin: enjin?.kategori_enjin || '',
-          status: enjin?.status_enjin || 'aktif',
+          turbo: 'Tiada',
+          pevDate: '',
+          engineCategory: '',
+          status: enjin?.is_active === 1 ? 'aktif' : 'tidak aktif',
         },
-        gambar: {
-          enjinUrl: enjin?.gambar_enjin || 'https//dof.gov/abcg.png',
-          noEnjinUrl: enjin?.gambar_no_enjin || 'https//dof.gov/abcg.png',
-          penandaPEVUrl: enjin?.gambar_pev || 'https//dof.gov/abcg.png',
-          turboUrl: enjin?.gambar_turbo || 'https//dof.gov/abcg.png',
-          generatorUrl: enjin?.gambar_generator || 'https//dof.gov/abcg.png',
+        images: {
+          engineUrl: enjin?.engine_image_path || 'https//dof.gov/abcg.png',
+          engineNumberUrl: enjin?.engine_number_image_path || 'https//dof.gov/abcg.png',
+          pevMarkerUrl: 'https//dof.gov/abcg.png',
+          turboUrl: 'https//dof.gov/abcg.png',
+          generatorUrl: 'https//dof.gov/abcg.png',
         },
       },
       peralatan: peralatan.map((p: any) => ({
@@ -238,20 +238,20 @@ export class VesselDetailsService {
           },
         },
         enjin: {
-          maklumatEnjin: {
-            jenama: enjin?.jenama || '',
+          engineInfo: {
+            brand: enjin?.brand || '',
             model: enjin?.model || '',
-            turbo: enjin?.has_turbo === 1 ? 'Ada' : null,
-            kuasaKuda: enjin?.kuasa_kuda || 0,
-            noEnjin: enjin?.no_enjin || '',
-            penandaVesel: '07-05-2025',
+            turbo: null,
+            horsepower: enjin?.horsepower || 0,
+            engineNumber: enjin?.engine_number || '',
+            vesselMarker: '07-05-2025',
           },
-          gambar: {
-            enjinUrl: enjin?.gambar_enjin || 'https//dof.gov/abcg.png',
-            noEnjinUrl: enjin?.gambar_no_enjin || 'https//dof.gov/abcg.png',
-            penandaEnjinUrl: enjin?.gambar_pev || 'https//dof.gov/abcg.png',
-            turboUrl: enjin?.gambar_turbo || 'https//dof.gov/abcg.png',
-            generatorUrl: enjin?.gambar_generator || 'https//dof.gov/abcg.png',
+          images: {
+            engineUrl: enjin?.engine_image_path || 'https//dof.gov/abcg.png',
+            engineNumberUrl: enjin?.engine_number_image_path || 'https//dof.gov/abcg.png',
+            engineMarkerUrl: 'https//dof.gov/abcg.png',
+            turboUrl: 'https//dof.gov/abcg.png',
+            generatorUrl: 'https//dof.gov/abcg.png',
           },
         },
         peralatanPelayaran: {
@@ -362,7 +362,7 @@ export class VesselDetailsService {
     const data: ProfilVeselDto[] = await Promise.all(
       vessels.map(async (vessel: any) => {
         const kulit = await this.kulitRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
-        const enjin = await this.enjinRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
+        const enjin = await this.enjinRepository.findOne({ where: { vessel_id: vessel.id } });
         const kesalahan = await this.kesalahanRepository.findOne({ where: { no_pendaftaran: vessel.no_pendaftaran } });
         const pengkalan = await this.jettieRepository.find({ where: { state_id: vessel.negeri } });
         const pentadbirHarta = await this.pentadbirHartaRepository.findOne({ where: { vessel_id: vessel.id } });
@@ -407,24 +407,24 @@ export class VesselDetailsService {
             tindakan: null,
           },
           enjin: {
-            maklumatAmEjin: {
-              jenisEnjin: (enjin as any)?.jenis_enjin === 1 ? 'Sangkut' : 'Unknown',
-              bahanApi: (enjin as any)?.bahan_api || 'Diesel',
-              jenamaEnjin: (enjin as any)?.jenama || '',
-              kuasaKuda: (enjin as any)?.kuasa_kuda || 0,
-              noEnjin: (enjin as any)?.no_enjin || '',
+            engineInfo: {
+              engineType: 'Unknown',
+              fuelType: 'Diesel',
+              engineBrand: (enjin as any)?.brand || '',
+              horsepower: (enjin as any)?.horsepower || 0,
+              engineNumber: (enjin as any)?.engine_number || '',
               model: (enjin as any)?.model || '',
-              turbo: (enjin as any)?.has_turbo === 1 ? 'Ada' : 'Tiada',
-              tarikhPEV: (enjin as any)?.tarikh_enjin_dilesenkan?.toISOString().split('T')[0] || '',
-              kategoriEnjin: (enjin as any)?.kategori_enjin || '',
-              status: (enjin as any)?.status_enjin || 'aktif',
+              turbo: 'Tiada',
+              pevDate: '',
+              engineCategory: '',
+              status: (enjin as any)?.is_active === 1 ? 'aktif' : 'tidak aktif',
             },
-            gambar: {
-              enjinUrl: (enjin as any)?.gambar_enjin || 'https//dof.gov/abcg.png',
-              noEnjinUrl: (enjin as any)?.gambar_no_enjin || 'https//dof.gov/abcg.png',
-              penandaPEVUrl: (enjin as any)?.gambar_pev || 'https//dof.gov/abcg.png',
-              turboUrl: (enjin as any)?.gambar_turbo || 'https//dof.gov/abcg.png',
-              generatorUrl: (enjin as any)?.gambar_generator || 'https//dof.gov/abcg.png',
+            images: {
+              engineUrl: (enjin as any)?.engine_image_path || 'https//dof.gov/abcg.png',
+              engineNumberUrl: (enjin as any)?.engine_number_image_path || 'https//dof.gov/abcg.png',
+              pevMarkerUrl: 'https//dof.gov/abcg.png',
+              turboUrl: 'https//dof.gov/abcg.png',
+              generatorUrl: 'https//dof.gov/abcg.png',
             },
           },
           peralatan: peralatanList.map((p: any) => ({
@@ -503,20 +503,20 @@ export class VesselDetailsService {
               },
             },
             enjin: {
-              maklumatEnjin: {
-                jenama: (enjin as any)?.jenama || '',
+              engineInfo: {
+                brand: (enjin as any)?.brand || '',
                 model: (enjin as any)?.model || '',
-                turbo: (enjin as any)?.has_turbo === 1 ? 'Ada' : null,
-                kuasaKuda: (enjin as any)?.kuasa_kuda || 0,
-                noEnjin: (enjin as any)?.no_enjin || '',
-                penandaVesel: '07-05-2025',
+                turbo: null,
+                horsepower: (enjin as any)?.horsepower || 0,
+                engineNumber: (enjin as any)?.engine_number || '',
+                vesselMarker: '07-05-2025',
               },
-              gambar: {
-                enjinUrl: (enjin as any)?.gambar_enjin || 'https//dof.gov/abcg.png',
-                noEnjinUrl: (enjin as any)?.gambar_no_enjin || 'https//dof.gov/abcg.png',
-                penandaEnjinUrl: (enjin as any)?.gambar_pev || 'https//dof.gov/abcg.png',
-                turboUrl: (enjin as any)?.gambar_turbo || 'https//dof.gov/abcg.png',
-                generatorUrl: (enjin as any)?.gambar_generator || 'https//dof.gov/abcg.png',
+              images: {
+                engineUrl: (enjin as any)?.engine_image_path || 'https//dof.gov/abcg.png',
+                engineNumberUrl: (enjin as any)?.engine_number_image_path || 'https//dof.gov/abcg.png',
+                engineMarkerUrl: 'https//dof.gov/abcg.png',
+                turboUrl: 'https//dof.gov/abcg.png',
+                generatorUrl: 'https//dof.gov/abcg.png',
               },
             },
             peralatanPelayaran: {
