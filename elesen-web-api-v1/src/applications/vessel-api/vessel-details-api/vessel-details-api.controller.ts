@@ -1,4 +1,4 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { VesselDetailsApiService } from './vessel-details-api.service';
 import { ProfilVeselDto, VesselDetailsResponseDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
@@ -14,8 +14,8 @@ export class VesselDetailsApiController {
   }
 
   @Get('/vessel-details-api/:registrationNo')
-  async findOne(@Param('registrationNo') registrationNo: string) {
-    const data = await this.vesselDetailsApiService.findOne(registrationNo);
+  async findOne(@Param('registrationNo') registrationNo: string, @Query('jenis') jenis?: string) {
+    const data = await this.vesselDetailsApiService.findOne(registrationNo, jenis);
     if (!data) {
       throw new NotFoundException(`Vessel with registration number ${registrationNo} not found`);
     }

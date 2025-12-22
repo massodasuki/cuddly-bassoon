@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VesselDetailsApiController } from './vessel-details-api.controller';
 import { VesselDetailsApiService } from './vessel-details-api.service';
-import { VesselDetailsService as DaratVesselDetailsService } from './darat-vessel-details.service';
+import { DaratVesselDetailsService as DaratVesselDetailsService } from './darat-vessel-details.service';
 import { VesselDetailsService as MarinVesselDetailsService } from './vessel-details.service';
 
 // Entities from darat service

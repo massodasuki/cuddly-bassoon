@@ -21,8 +21,7 @@ import { UserEntity } from '../../users/entities/user.entity';
 import { VesselEntity } from 'src/legacy/vessels/vessel.entity';
 
 @Injectable()
-export class VesselDetailsService {
-
+export class DaratVesselDetailsService {
 
   constructor(
     @InjectRepository(DaratVesselEntity)

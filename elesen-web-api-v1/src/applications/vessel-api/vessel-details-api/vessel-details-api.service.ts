@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { VesselDetailsService as DaratVesselDetailsService } from './darat-vessel-details.service';
+import { DaratVesselDetailsService as DaratVesselDetailsService } from './darat-vessel-details.service';
 import { VesselDetailsService as MarinVesselDetailsService } from './vessel-details.service';
 import { ProfilVeselDto, VesselDetailsResponseDto, VesselOwnershipCaptainResponseDto } from './dto/vessel-details-response.dto';
 
@@ -10,13 +10,18 @@ export class VesselDetailsApiService {
     private readonly marinService: MarinVesselDetailsService,
   ) {}
 
-  async findOne(registrationNo: string): Promise<ProfilVeselDto> {
-    try {
-      // Try darat service first
+  async findOne(registrationNo: string, jenist?: string): Promise<ProfilVeselDto> {
+    if (jenist === 'darat') {
       return await this.daratService.findOne(registrationNo);
-    } catch (error) {
-      // If not found in darat, try marin
+    } else if (jenist === 'marin') {
       return await this.marinService.findOne(registrationNo);
+    } else {
+      // Default behavior: try darat first, then marin
+      try {
+        return await this.daratService.findOne(registrationNo);
+      } catch (error) {
+        return await this.marinService.findOne(registrationNo);
+      }
     }
   }
 
