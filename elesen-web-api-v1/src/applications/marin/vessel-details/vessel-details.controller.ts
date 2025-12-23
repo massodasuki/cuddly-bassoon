@@ -8,12 +8,12 @@ import { ProfilVeselDto, VesselDetailsResponseDto, VesselOwnershipCaptainRespons
 export class VesselDetailsController {
   constructor(private readonly vesselDetailsService: VesselDetailsService) {}
 
-  @Get('vessel-details')
+  @Get('marin-vessel-details')
   async findAll(): Promise<VesselDetailsResponseDto> {
     return this.vesselDetailsService.findAll();
   }
 
-  @Get('/vessel-details/:noVesel')
+  @Get('/marin-vessel-details/:noVesel')
   async findOne(@Param('noVesel') noVesel: string) {
     const data = await this.vesselDetailsService.findOne(noVesel);
     if (!data) {
@@ -22,7 +22,7 @@ export class VesselDetailsController {
     return { data };
   }
 
-  @Get('/vessel-details-owner/:noVesel')
+  @Get('/marin-vessel-details-owner/:noVesel')
   async getOwnershipAndCaptain(@Param('noVesel') noVesel: string): Promise<VesselOwnershipCaptainResponseDto> {
     const data = await this.vesselDetailsService.getOwnershipAndCaptain(noVesel);
     if (!data) {
