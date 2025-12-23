@@ -21,6 +21,7 @@ import { ProfileUserDetailsModule } from './applications/users/profile-user-deta
 import { ProfileUserModule } from './applications/users/profile-users/profile-users.module';
 import { UsersModule } from './applications/users/users/users.module';
 import { LpiFormModule } from './applications/lpi/lpi-form/lpi-form.module';
+import { InspectionsModule } from './applications/lpi/inspections/inspections.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { LpiFormModule } from './applications/lpi/lpi-form/lpi-form.module';
     ProfileUserModule,
     UsersModule,
     LpiFormModule,
+    InspectionsModule,
 
   ],
   controllers: [AppController],

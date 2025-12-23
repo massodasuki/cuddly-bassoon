@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 
 @Entity('lpi_inspections')
-export class LpiInspectionsEntity {
+export class LpiInspection {
   @PrimaryColumn({ type: 'char', length: 36 })
   id: string;
 
