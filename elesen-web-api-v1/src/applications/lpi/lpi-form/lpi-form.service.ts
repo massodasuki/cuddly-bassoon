@@ -222,6 +222,20 @@ export class LpiFormService {
     });
     await this.inlandFishingEquipmentsRepository.save(inlandFishing);
 
+    // Create inland fishing equipment items record
+    const inlandFishingItems = this.inlandFishingEquipmentItemsRepository.create({
+      full_inspection_lpi_id: savedInspection.id,
+      equipment_id: dto.peralatan_utama,
+      type: 'Utama',
+      quantity: 1,
+      condition: 1,
+      remarks: dto.peralatan_dijumpai,
+      created_by: dto.createdBy,
+      updated_by: dto.updatedBy,
+      created_at: new Date(),
+    });
+    await this.inlandFishingEquipmentItemsRepository.save(inlandFishingItems);
+
     // Create inspection details record
     const inspectionDetails = this.inspectionDetailsRepository.create({
       created_by: dto.createdBy,
