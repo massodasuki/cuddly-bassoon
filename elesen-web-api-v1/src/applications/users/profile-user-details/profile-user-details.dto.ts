@@ -66,7 +66,7 @@ export class VeseIDto {
 }
 
 export class JetiDto {
-  kawasan: string;
+  kawasan: string | null;
 }
 
 export class AktivitiPenangkapanIkanDto {

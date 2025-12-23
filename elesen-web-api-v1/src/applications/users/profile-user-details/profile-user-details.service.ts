@@ -24,6 +24,8 @@ import { DaratVesselEngineEntity } from 'src/components/darat-vessel-engines/dar
 import { DaratVesselHullEntity } from 'src/components/darat-vessel-hulls/darat-vessel-hulls.entity';
 import { DaratApplicationEntity } from 'src/components/darat-applications/darat-applications.entity';
 import { CodeMaster } from 'src/legacy/code-masters/code-masters.entity';
+import { DaratBaseJettieEntity } from 'src/components/darat-base-jetties/darat-base-jetties.entity';
+import { DaratUserEquipmentEntity } from 'src/components/darat-user-equipments/darat-user-equipments.entity';
 
 @Injectable()
 export class ProfileUserDetailsService {
@@ -73,6 +75,10 @@ export class ProfileUserDetailsService {
       private readonly hullRepository: Repository<DaratVesselHullEntity>,
     @InjectRepository(DaratApplicationEntity)
       private readonly applicationRepository: Repository<DaratApplicationEntity>,
+    @InjectRepository(DaratBaseJettieEntity)
+      private readonly daratBaseJettyRepository: Repository<DaratBaseJettieEntity>,
+    @InjectRepository(DaratUserEquipmentEntity)
+      private readonly daratUserEquipmentRepository: Repository<DaratUserEquipmentEntity>,
     @InjectRepository(CodeMaster)
       private readonly codeMasterRepository: Repository<CodeMaster>,
     
@@ -364,7 +370,7 @@ export class ProfileUserDetailsService {
     let daratEngin : DaratVesselEngineEntity | null = null;
     if (daratVessel) {
       daratEngin = await this.daratEnjinRepository.findOne({
-        where: { no_pendaftaran : daratVessel.no_pendaftaran }
+        where: { vessel_id : daratVessel.id }
       });
       console.log('Fetching enjin details:', JSON.stringify(daratEngin, null, 2));
     }
@@ -376,7 +382,7 @@ export class ProfileUserDetailsService {
       jenamaEnjin: string | null;
       kuasaKuda: number | null;
     } = {
-      noPendaftaran: daratVessel?.vessel_no || null,
+      noPendaftaran: daratVessel?.registration_number || null,
       jenisKulit: kulit?.jenis_kulit || null,
       panjangMeter: kulit?.panjang || null,
       jenamaEnjin: daratEngin?.brand || null,
@@ -397,11 +403,14 @@ export class ProfileUserDetailsService {
       .getCount();
 
     // Get jeti information (assuming first vessel's pangkalan)
+    const daratBaseJetty = await this.daratBaseJettyRepository.findOne({
+      where: { user_id: user.id }
+    });
     let jetiKawasan: string | null = null;
-    if (daratVessel?.pangkalan_utama_id) {
+    if (daratBaseJetty != null) {
       console.log('Fetching jeti information');
       const jeti = await this.jettiesRepository.findOne({
-        where: { id: daratVessel.pangkalan_utama_id.toString() }
+        where: { id: daratBaseJetty?.jetty_id }
       });
       jetiKawasan = jeti?.name || null;
     }
@@ -424,6 +433,14 @@ export class ProfileUserDetailsService {
     const kesalahan = await this.kesalahanRepository.findOne({
       where: { no_ic_pesalah: user.icno },
       order: { tarikh: 'DESC' }
+    });
+
+    const peralatanUtama = await this.daratUserEquipmentRepository.findOne({
+      where: { user_id: user.id, type : "UTAMA" }
+    });
+
+    const peralatanTambahan = await this.daratUserEquipmentRepository.findOne({
+      where: { user_id: user.id, type : "TAMBAHAN" }
     });
 
     
@@ -483,8 +500,8 @@ export class ProfileUserDetailsService {
         kawasan: catchingLogNds?.location_name || null, // Placeholder fallback
         noLesenPeralatan: sklInfo?.no_lesen_skl || "KIV",
         tempohSahLesen: sklInfo?.tarikh_tamat_lesen ? new Date(sklInfo.tarikh_tamat_lesen).toISOString().split('T')[0] : "KIV",
-        peralatanUtama: daratVessel?.peralatan_utama || "KIV", // Placeholder fallback
-        peralatanTambahan: "KIV" // Placeholder
+        peralatanUtama: peralatanUtama?.name as any, // Placeholder fallback
+        peralatanTambahan: peralatanTambahan?.name as any // Placeholder
       },
       vesel: daratVessel ? {
         noPendaftaran: vesselDetails.noPendaftaran,
@@ -500,7 +517,7 @@ export class ProfileUserDetailsService {
         kuasaKuda: null
       },
       jeti: {
-        kawasan: jetiKawasan || "KIV" // Placeholder fallback
+        kawasan: jetiKawasan || null // Placeholder fallback
       },
       aktivitiPenangkapanIkan: {
         pekerjaanLain: null, // Placeholder

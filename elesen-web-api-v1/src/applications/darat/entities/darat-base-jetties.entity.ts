@@ -1,27 +1,27 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('darat_user_equipments')
-export class DaratUserEquipmentsEntity {
+@Entity('darat_base_jetties')
+export class DaratBaseJettiesEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ nullable: true })
-  user_id: string;
+  state_id: string;
 
   @Column({ nullable: true })
-  application_id: string;
+  district_id: string;
 
   @Column({ nullable: true })
-  name: string;
-
-  @Column({ type: 'int', nullable: false })
-  quantity: number;
+  river_id: string;
 
   @Column({ nullable: true })
-  condition: string;
+  jetty_id: string;
 
   @Column({ nullable: false })
-  is_approved: number;
+  user_id: string;
+
+  @Column({ type: 'bigint', nullable: true })
+  entity_id: number;
 
   @Column({ nullable: false })
   is_active: number;
@@ -43,10 +43,4 @@ export class DaratUserEquipmentsEntity {
 
   @Column({ nullable: true })
   deleted_at: Date;
-
-  @Column({ nullable: false })
-  type: string;
-
-  @Column({ nullable: true })
-  file_path: string;
 }
