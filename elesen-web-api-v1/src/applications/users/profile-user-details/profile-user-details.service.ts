@@ -18,6 +18,12 @@ import { KulitEntity } from '../../marin/entities/kulit.entity';
 import { EnjinEntity } from '../../marin/entities/enjin.entity';
 import { DaratHelpAgencyFishermansEntity } from '../../darat/entities/darat-help-agency-fishermans.entity';
 import { DaratUserFishermanInfosEntity } from '../../darat/entities/darat-user-fisherman-infos.entity';
+import { DaratVesselEntity } from 'src/components/darat-vessels/darat-vessels.entity';
+import { DaratVesselInspectionEntity } from 'src/components/darat-vessel-inspections/darat-vessel-inspections.entity';
+import { DaratVesselEngineEntity } from 'src/components/darat-vessel-engines/darat-vessel-engines.entity';
+import { DaratVesselHullEntity } from 'src/components/darat-vessel-hulls/darat-vessel-hulls.entity';
+import { DaratApplicationEntity } from 'src/components/darat-applications/darat-applications.entity';
+import { CodeMaster } from 'src/legacy/code-masters/code-masters.entity';
 
 @Injectable()
 export class ProfileUserDetailsService {
@@ -54,6 +60,22 @@ export class ProfileUserDetailsService {
       private readonly daratHelpAgencyFishermansRepository: Repository<DaratHelpAgencyFishermansEntity>,
     @InjectRepository(DaratUserFishermanInfosEntity)
       private readonly daratUserFishermanInfosRepository: Repository<DaratUserFishermanInfosEntity>,
+
+
+    // Darat
+    @InjectRepository(DaratVesselEntity)
+        private readonly daratVesselRepository: Repository<DaratVesselEntity>,
+    @InjectRepository(DaratVesselInspectionEntity)
+      private readonly inspectionRepository: Repository<DaratVesselInspectionEntity>,
+    @InjectRepository(DaratVesselEngineEntity)
+      private readonly daratEnjinRepository: Repository<DaratVesselEngineEntity>,
+    @InjectRepository(DaratVesselHullEntity)
+      private readonly hullRepository: Repository<DaratVesselHullEntity>,
+    @InjectRepository(DaratApplicationEntity)
+      private readonly applicationRepository: Repository<DaratApplicationEntity>,
+    @InjectRepository(CodeMaster)
+      private readonly codeMasterRepository: Repository<CodeMaster>,
+    
     
   ) {}
 
@@ -322,29 +344,29 @@ export class ProfileUserDetailsService {
       .where('puv.profile_user_id = :userId', { userId: user.id })
       .getMany();
 
-    let vessel: VesselEntity | null = null;
+    let daratVessel: DaratVesselEntity | null = null;
     if (userVessels.length > 0) {
       
-      vessel = await this.vesselsRepository.findOne({
+      daratVessel = await this.daratVesselRepository.findOne({
         where: { id: userVessels[0].vessel_id }
       });
-      console.log('Fetching vessel ' + vessel?.no_pendaftaran);
+      console.log('Fetching vessel ' + daratVessel?.registration_number);
     }
 
     let kulit : KulitEntity | null = null;
-    if (vessel) {
+    if (daratVessel) {
       kulit = await this.kulitRepository.findOne({
-        where: { no_pendaftaran : vessel.no_pendaftaran }
+        where: { no_pendaftaran : daratVessel.registration_number }
       });
       console.log('Fetching kulit details:', JSON.stringify(kulit, null, 2));
     }
 
-    let enjin : EnjinEntity | null = null;
-    if (vessel) {
-      enjin = await this.enjinRepository.findOne({
-        where: { no_pendaftaran : vessel.no_pendaftaran }
+    let daratEngin : DaratVesselEngineEntity | null = null;
+    if (daratVessel) {
+      daratEngin = await this.daratEnjinRepository.findOne({
+        where: { no_pendaftaran : daratVessel.no_pendaftaran }
       });
-      console.log('Fetching enjin details:', JSON.stringify(enjin, null, 2));
+      console.log('Fetching enjin details:', JSON.stringify(daratEngin, null, 2));
     }
 
     let vesselDetails: {
@@ -354,11 +376,11 @@ export class ProfileUserDetailsService {
       jenamaEnjin: string | null;
       kuasaKuda: number | null;
     } = {
-      noPendaftaran: vessel?.vessel_no || null,
+      noPendaftaran: daratVessel?.vessel_no || null,
       jenisKulit: kulit?.jenis_kulit || null,
       panjangMeter: kulit?.panjang || null,
-      jenamaEnjin: enjin?.jenama || null,
-      kuasaKuda: enjin?.kuasa_kuda || null,
+      jenamaEnjin: daratEngin?.brand || null,
+      kuasaKuda: daratEngin?.horsepower || null,
     };
 
     // Get SKL information
@@ -376,10 +398,10 @@ export class ProfileUserDetailsService {
 
     // Get jeti information (assuming first vessel's pangkalan)
     let jetiKawasan: string | null = null;
-    if (vessel?.pangkalan_utama_id) {
+    if (daratVessel?.pangkalan_utama_id) {
       console.log('Fetching jeti information');
       const jeti = await this.jettiesRepository.findOne({
-        where: { id: vessel.pangkalan_utama_id.toString() }
+        where: { id: daratVessel.pangkalan_utama_id.toString() }
       });
       jetiKawasan = jeti?.name || null;
     }
@@ -406,7 +428,7 @@ export class ProfileUserDetailsService {
 
     
     console.log(user);
-    console.log(vessel);
+    console.log(daratVessel);
     console.log(kulit)
     console.log(catchingLogNds)
 
@@ -461,10 +483,10 @@ export class ProfileUserDetailsService {
         kawasan: catchingLogNds?.location_name || null, // Placeholder fallback
         noLesenPeralatan: sklInfo?.no_lesen_skl || "KIV",
         tempohSahLesen: sklInfo?.tarikh_tamat_lesen ? new Date(sklInfo.tarikh_tamat_lesen).toISOString().split('T')[0] : "KIV",
-        peralatanUtama: vessel?.peralatan_utama || "KIV", // Placeholder fallback
+        peralatanUtama: daratVessel?.peralatan_utama || "KIV", // Placeholder fallback
         peralatanTambahan: "KIV" // Placeholder
       },
-      vesel: vessel ? {
+      vesel: daratVessel ? {
         noPendaftaran: vesselDetails.noPendaftaran,
         jenisKulit: vesselDetails.jenisKulit, // Placeholder - would need vessel type table
         panjangMeter: vesselDetails.panjangMeter, // Placeholder - would need vessel dimensions table
