@@ -326,4 +326,22 @@ export class CreateLpiFormDto {
   
     @IsString()
     tandaTanganEmpunyaVeselImg: string;
+
+    @IsString()
+    veselKiriImg: string;
+
+    @IsString()
+    veselKananImg: string;
+
+    @IsString()
+    veselHadapanImg: string;
+
+    @IsString()
+    veselBelakangImg: string;
+
+    @IsString()
+    MTUImg: string;
+
+    @IsString()
+    AISImg: string;
 }

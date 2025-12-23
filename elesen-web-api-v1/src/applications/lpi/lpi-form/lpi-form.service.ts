@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateLpiFormDto } from './dto/create-lpi-form.dto';
+import { ImageUploadService } from './image-upload.service';
 import { LpiEnginesEntity } from '../entities/lpi-engines.entity';
 import { LpiEquipmentItemsEntity } from '../entities/lpi-equipment-items.entity';
 import { LpiEquipmentsEntity } from '../entities/lpi-equipments.entity';
@@ -48,10 +49,26 @@ export class LpiFormService {
     private sailingEquipmentsRepository: Repository<LpiSailingEquipmentsEntity>,
     @InjectRepository(LpiVesselsEntity)
     private vesselsRepository: Repository<LpiVesselsEntity>,
+    private readonly imageUploadService: ImageUploadService,
   ) {}
 
    async createWithFiles(dto: CreateLpiFormDto, files: { [key: string]: Express.Multer.File[] }): Promise<any> {
        console.log('Creating LPI form with files:', { dto: dto, files });
+
+       // Upload files
+       const allFiles: Express.Multer.File[] = [];
+       Object.values(files).forEach(fileArray => {
+         if (fileArray) allFiles.push(...fileArray);
+       });
+       const uploadedFiles = await this.imageUploadService.uploadImages(allFiles, dto.applicationId);
+
+       // Update dto with uploaded paths
+       Object.keys(uploadedFiles).forEach(fieldname => {
+         if (dto.hasOwnProperty(fieldname)) {
+           (dto as any)[fieldname] = uploadedFiles[fieldname];
+         }
+       });
+
     // Create main inspection record
     const inspection = this.inspectionsRepository.create({
       vessel_condition: dto.keadaanVeselSemasa,
@@ -134,6 +151,29 @@ export class LpiFormService {
       created_at: new Date(),
     });
     await this.safetyEquipmentsRepository.save(safetyEquipment);
+
+    // Create sailing equipment record
+    const sailingEquipment = this.sailingEquipmentsRepository.create({
+      full_inspection_lpi_id: savedInspection.id,
+      shipping_lights_status: dto.lampuPelayaran_status === 'Ada' ? 1 : 0,
+      shipping_lights_quantity: parseInt(dto.lampuPelayaran_kuantiti) || 0,
+      shipping_lights_condition: dto.lampuPelayaran_keadaan === 'Baik' ? 1 : 0,
+      mtu_status: dto.mtu_status === 'Ada' ? 1 : 0,
+      mtu_quantity: parseInt(dto.mtu_kuantiti) || 0,
+      mtu_condition: dto.mtu_keadaan === 'Baik' ? 1 : 0,
+      ais_status: dto.ais_status === 'Ada' ? 1 : 0,
+      ais_quantity: parseInt(dto.ais_kuantiti) || 0,
+      ais_condition: dto.ais_keadaan === 'Baik' ? 1 : 0,
+      gps_status: dto.GPS ? 1 : 0,
+      gps_quantity: 1,
+      gps_condition: 1,
+      mtu_ais_picture_path: dto.MTUImg || dto.AISImg,
+      shipping_lights_picture_path: '',
+      created_by: dto.createdBy,
+      updated_by: dto.updatedBy,
+      created_at: new Date(),
+    });
+    await this.sailingEquipmentsRepository.save(sailingEquipment);
 
     // Create fishing equipment record
     const fishingEquipment = this.fishingEquipmentsRepository.create({

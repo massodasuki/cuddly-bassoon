@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LpiFormService } from './lpi-form.service';
 import { LpiFormController } from './lpi-form.controller';
+import { ImageUploadService } from './image-upload.service';
 import { LpiEnginesEntity } from '../entities/lpi-engines.entity';
 import { LpiEquipmentItemsEntity } from '../entities/lpi-equipment-items.entity';
 import { LpiEquipmentsEntity } from '../entities/lpi-equipments.entity';
@@ -37,6 +38,6 @@ import { LpiVesselsEntity } from '../entities/lpi-vessels.entity';
     ]),
   ],
   controllers: [LpiFormController],
-  providers: [LpiFormService],
+  providers: [LpiFormService, ImageUploadService],
 })
 export class LpiFormModule {}
