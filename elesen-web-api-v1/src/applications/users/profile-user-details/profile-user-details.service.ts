@@ -16,6 +16,8 @@ import { FishingLogNdEntity } from '../../marin/entities/fishing-log-nds.entity'
 import { CatchingLocationNdEntity } from '../../marin/entities/catching-location-nds.entity';
 import { KulitEntity } from '../../marin/entities/kulit.entity';
 import { EnjinEntity } from '../../marin/entities/enjin.entity';
+import { DaratHelpAgencyFishermansEntity } from '../../darat/entities/darat-help-agency-fishermans.entity';
+import { DaratUserFishermanInfosEntity } from '../../darat/entities/darat-user-fisherman-infos.entity';
 
 @Injectable()
 export class ProfileUserDetailsService {
@@ -48,6 +50,11 @@ export class ProfileUserDetailsService {
     private parliamentsRepository: Repository<ParliamentEntity>,
     @InjectRepository(ParliamentSeatEntity)
     private parliamentSeatsRepository: Repository<ParliamentSeatEntity>,
+    @InjectRepository(DaratHelpAgencyFishermansEntity)
+      private readonly daratHelpAgencyFishermansRepository: Repository<DaratHelpAgencyFishermansEntity>,
+    @InjectRepository(DaratUserFishermanInfosEntity)
+      private readonly daratUserFishermanInfosRepository: Repository<DaratUserFishermanInfosEntity>,
+    
   ) {}
 
 
@@ -153,20 +160,6 @@ export class ProfileUserDetailsService {
       });
       jetiKawasan = jeti?.name || null;
     }
-
-    // Get river information
-    // let namaSungai: string | null = null;
-    // if (vessel?.daerah) {
-    //   // Assuming river is linked to district
-    //   console.log('Fetching river information');
-    //   const river = await this.riversRepository.findOne({
-    //     where: { district_id: vessel.daerah }
-    //   });
-    //   namaSungai = river?.name || null;
-    // }
-
-    // Get river information by fishing_log_nds
-    // let namaSungai: string | null = null;
     let catchingLogNds;
     if (user.id) {
       console.log('Fetching catching location information');
@@ -237,6 +230,229 @@ export class ProfileUserDetailsService {
           penerimaBantuan: "KIV", // Placeholder
           pencarumKWSP: "KIV", // Placeholder
           penerimaPencen: "KIV" // Placeholder
+        }
+      },
+      pengkalanPendaratan: {
+        namaSungai: catchingLogNds?.river_name || null, // Placeholder fallback
+        district: catchingLogNds?.district_name || null,
+        kawasan: catchingLogNds?.location_name || null, // Placeholder fallback
+        noLesenPeralatan: sklInfo?.no_lesen_skl || "KIV",
+        tempohSahLesen: sklInfo?.tarikh_tamat_lesen ? new Date(sklInfo.tarikh_tamat_lesen).toISOString().split('T')[0] : "KIV",
+        peralatanUtama: vessel?.peralatan_utama || "KIV", // Placeholder fallback
+        peralatanTambahan: "KIV" // Placeholder
+      },
+      vesel: vessel ? {
+        noPendaftaran: vesselDetails.noPendaftaran,
+        jenisKulit: vesselDetails.jenisKulit, // Placeholder - would need vessel type table
+        panjangMeter: vesselDetails.panjangMeter, // Placeholder - would need vessel dimensions table
+        jenamaEnjin: vesselDetails.jenamaEnjin, // Placeholder
+        kuasaKuda: vesselDetails.kuasaKuda // Placeholder
+      } : {
+        noPendaftaran: null, // Placeholder fallback
+        jenisKulit: null,
+        panjangMeter: null,
+        jenamaEnjin: null,
+        kuasaKuda: null
+      },
+      jeti: {
+        kawasan: jetiKawasan || "KIV" // Placeholder fallback
+      },
+      aktivitiPenangkapanIkan: {
+        pekerjaanLain: null, // Placeholder
+        tempoh: 4, // Placeholder - calculate from license dates
+        tahunMula: 2020 // Placeholder
+      },
+      kesalahan: kesalahan ? {
+        akta: kesalahan.akta,
+        seksyen: kesalahan.seksyen,
+        kesalahan: kesalahan.kesalahan,
+        tarikh: new Date(kesalahan.tarikh).toISOString().split('T')[0],
+        keputusan: kesalahan.keputusan
+      } : {
+        akta: null, // Placeholder fallback
+        seksyen: null, // Placeholder fallback
+        kesalahan: null, // Placeholder fallback
+        tarikh: null, // Placeholder fallback
+        keputusan:null // Placeholder fallback
+      }
+    };
+  }
+
+    async getDaratProfileUserDetailById(id: string): Promise<ProfileUserDetailsDto | null> {
+    // Get specific profile user
+    console.log(`Fetching profile user with id: ${id}`);
+    const user = await this.profileUsersRepository.findOne({
+      where: { user_id : id, is_active: 1 }
+    });
+
+    if (!user) {
+      return null;
+    }
+    
+    const daratFishermanInfo = await this.daratUserFishermanInfosRepository.findOne({ where: {  user_id : user.id } });
+    const daratHelp = await this.daratHelpAgencyFishermansRepository.findOne({ where: { fisherman_info_id: (daratFishermanInfo as any).id } });
+
+
+    // Get parliament and parliament seat information
+    let dun: string | null = null;
+    let parlimen: string | null = null;
+
+    if (user.parliament_seat) {
+      console.log('Fetching parliament seat');
+      const parliamentSeat = await this.parliamentSeatsRepository.findOne({
+        where: { id: user.parliament_seat }
+      });
+      if (parliamentSeat) {
+        dun = parliamentSeat.parliament_seat_name;
+        console.log('Fetching parliament');
+        const parliament = await this.parliamentsRepository.findOne({
+          where: { id: parliamentSeat.parliament_id }
+        });
+        if (parliament) {
+          parlimen = parliament.parliament_name;
+        }
+      }
+    }
+    console.log(user.id);
+    // Get vessel information
+    console.log('Fetching user vessels');
+    const userVessels = await this.profileUserVesselRepository
+      .createQueryBuilder('puv')
+      .select(['puv.profile_user_id', 'puv.vessel_id', 'puv.role', 'puv.status', 'puv.created_at', 'puv.updated_at'])
+      .where('puv.profile_user_id = :userId', { userId: user.id })
+      .getMany();
+
+    let vessel: VesselEntity | null = null;
+    if (userVessels.length > 0) {
+      
+      vessel = await this.vesselsRepository.findOne({
+        where: { id: userVessels[0].vessel_id }
+      });
+      console.log('Fetching vessel ' + vessel?.no_pendaftaran);
+    }
+
+    let kulit : KulitEntity | null = null;
+    if (vessel) {
+      kulit = await this.kulitRepository.findOne({
+        where: { no_pendaftaran : vessel.no_pendaftaran }
+      });
+      console.log('Fetching kulit details:', JSON.stringify(kulit, null, 2));
+    }
+
+    let enjin : EnjinEntity | null = null;
+    if (vessel) {
+      enjin = await this.enjinRepository.findOne({
+        where: { no_pendaftaran : vessel.no_pendaftaran }
+      });
+      console.log('Fetching enjin details:', JSON.stringify(enjin, null, 2));
+    }
+
+    let vesselDetails: {
+      noPendaftaran: string | null;
+      jenisKulit: string | null;
+      panjangMeter: string | null;
+      jenamaEnjin: string | null;
+      kuasaKuda: number | null;
+    } = {
+      noPendaftaran: vessel?.vessel_no || null,
+      jenisKulit: kulit?.jenis_kulit || null,
+      panjangMeter: kulit?.panjang || null,
+      jenamaEnjin: enjin?.jenama || null,
+      kuasaKuda: enjin?.kuasa_kuda || null,
+    };
+
+    // Get SKL information
+    console.log('Fetching SKL information');
+    const sklInfo = await this.profilePengusahaSklRepository.findOne({
+      where: { profile_id: user.id }
+    });
+
+    // Get application count
+    console.log('Fetching application count');
+    const applicationCount = await this.applicationV2ProfileUserRepository
+      .createQueryBuilder('avpu')
+      .where('avpu.profile_user_id = :userId', { userId: user.id })
+      .getCount();
+
+    // Get jeti information (assuming first vessel's pangkalan)
+    let jetiKawasan: string | null = null;
+    if (vessel?.pangkalan_utama_id) {
+      console.log('Fetching jeti information');
+      const jeti = await this.jettiesRepository.findOne({
+        where: { id: vessel.pangkalan_utama_id.toString() }
+      });
+      jetiKawasan = jeti?.name || null;
+    }
+    let catchingLogNds;
+    if (user.id) {
+      console.log('Fetching catching location information');
+      const fishingLogNds = await this.fishingLogRepository.findOne({
+        where: { user_id: user.id }
+      });
+      if(fishingLogNds){
+        catchingLogNds = await this.catchingLocationRepository.findOne({
+          where: { fishing_log_id : fishingLogNds.fishing_log_id }
+        });
+      }
+      // namaSungai = catchingLogNds?.river_name || null;
+    }
+
+    // Get kesalahan information
+    console.log('Fetching kesalahan information');
+    const kesalahan = await this.kesalahanRepository.findOne({
+      where: { no_ic_pesalah: user.icno },
+      order: { tarikh: 'DESC' }
+    });
+
+    
+    console.log(user);
+    console.log(vessel);
+    console.log(kulit)
+    console.log(catchingLogNds)
+
+    return {
+      maklumatIndividu: {
+        id: user.id,
+        name: user.name,
+        username: user.icno,
+        profile_picture: null, // Assuming no profile picture field
+        maklumatAm: {
+          email: user.email,
+          contact_number: user.no_phone,
+          religion: user.religion,
+          bumiputera: user.bumiputera_status === 1 ? "Bumiputera" : null,
+          OKU: user.oku_status === 1,
+          dun: dun,
+          parlimen: parlimen
+        },
+        alamatSemasa: {
+          address1: user.address1,
+          address2: user.address2,
+          address3: user.address3,
+          postcode: user.poskod,
+          district: user.district,
+          state: user.state
+        },
+        alamatSurat: {
+          address1: user.secondary_address_1 || user.address1,
+          address2: user.secondary_address_2 || user.address2,
+          address3: user.secondary_address_3 || user.address3,
+          postcode: parseInt(user.secondary_postcode) || user.poskod,
+          district: user.secondary_district || user.district,
+          state: user.secondary_state || user.state
+        }
+      },
+      maklumatKewangan: {
+        maklumatBank: {
+          nama: "KIV", // Placeholder - would need bank info table
+          cawangan: "KIV", // Placeholder
+          noAkaun: 0 // Placeholder
+        },
+        maklumatTambahan: {
+          penerimaESP: daratFishermanInfo?.receive_pension ? true : false, // KIV
+          penerimaBantuan: daratFishermanInfo?.receive_financial_aid ? true : false, // Placeholder
+          pencarumKWSP: daratFishermanInfo?.epf_contributor ? true : false, // Placeholder
+          penerimaPencen: daratFishermanInfo?.receive_pension ? true : false // Placeholder
         }
       },
       pengkalanPendaratan: {
@@ -447,11 +663,11 @@ export class ProfileUserDetailsService {
           tarikh: new Date(kesalahan.tarikh).toISOString().split('T')[0],
           keputusan: kesalahan.keputusan
         } : {
-          akta: "Akta Perikanan 1985", // Placeholder fallback
-          seksyen: "Seksyen 15", // Placeholder fallback
-          kesalahan: "Memancing di kawasan larangan", // Placeholder fallback
-          tarikh: "2025-03-26", // Placeholder fallback
-          keputusan: "Denda RM500" // Placeholder fallback
+          akta: "", // Placeholder fallback
+          seksyen: "", // Placeholder fallback
+          kesalahan: "", // Placeholder fallback
+          tarikh: "", // Placeholder fallback
+          keputusan: "" // Placeholder fallback
         }
       });
     }
