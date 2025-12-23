@@ -210,6 +210,21 @@ export class LpiFormService {
     });
     await this.fishingEquipmentsRepository.save(fishingEquipment);
 
+    // Create fishing gears record
+    const fishingGears = this.fishingGearsRepository.create({
+      lpi_inspection_id: savedInspection.id,
+      has_echo_sounder: dto.echoSounder ? 1 : 0,
+      has_sonar: dto.sonar ? 1 : 0,
+      has_net_hauler: dto.netHouler ? 1 : 0,
+      has_power_block: dto.powerBlock ? 1 : 0,
+      fish_compartment_quantity: 0, // not in dto
+      has_rsw: dto.RSW ? 1 : 0,
+      created_by: dto.createdBy,
+      updated_by: dto.updatedBy,
+      created_at: new Date(),
+    });
+    await this.fishingGearsRepository.save(fishingGears);
+
     // Create inland fishing equipments record
     const inlandFishing = this.inlandFishingEquipmentsRepository.create({
       full_inspection_lpi_id: savedInspection.id,
@@ -251,6 +266,18 @@ export class LpiFormService {
       created_at: new Date(),
     });
     await this.inspectionItemsRepository.save(inspectionItems);
+
+    // Create equipment items record
+    const equipmentItems = this.equipmentItemsRepository.create({
+      lpi_inspection_id: savedInspection.id,
+      equipment_id: dto.peralatan_utama,
+      quantity: 1,
+      note: dto.peralatan_dijumpai,
+      created_by: dto.createdBy,
+      updated_by: dto.updatedBy,
+      created_at: new Date(),
+    });
+    await this.equipmentItemsRepository.save(equipmentItems);
 
     // Create equipment record
     const equipment = this.equipmentsRepository.create({
