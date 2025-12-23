@@ -175,6 +175,27 @@ export class LpiFormService {
     });
     await this.sailingEquipmentsRepository.save(sailingEquipment);
 
+    // Create navigation record
+    const navigation = this.navigationsRepository.create({
+      lpi_inspection_id: savedInspection.id,
+      shipping_lights_status: dto.lampuPelayaran_status === 'Ada' ? 1 : 0,
+      shipping_lights_quantity: parseInt(dto.lampuPelayaran_kuantiti) || 0,
+      shipping_lights_condition: dto.lampuPelayaran_keadaan === 'Baik' ? 1 : 0,
+      mtu_status: dto.mtu_status === 'Ada' ? 1 : 0,
+      mtu_serial_no: dto.mtu_kuantiti,
+      mtu_active: dto.mtu_keadaan === 'Baik' ? 1 : 0,
+      ais_status: dto.ais_status === 'Ada' ? 1 : 0,
+      ais_serial_no: dto.ais_kuantiti,
+      ais_active: dto.ais_keadaan === 'Baik' ? 1 : 0,
+      gps_status: dto.GPS ? 1 : 0,
+      gps_serial_no: '1',
+      gps_condition: 1,
+      created_by: dto.createdBy,
+      updated_by: dto.updatedBy,
+      created_at: new Date(),
+    });
+    await this.navigationsRepository.save(navigation);
+
     // Create fishing equipment record
     const fishingEquipment = this.fishingEquipmentsRepository.create({
       has_echo_sounder: dto.echoSounder ? 1 : 0,
