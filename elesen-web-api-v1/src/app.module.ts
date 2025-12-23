@@ -20,6 +20,7 @@ import { AuthModule } from './applications/users/auth/auth.module';
 import { ProfileUserDetailsModule } from './applications/users/profile-user-details/profile-user-details.module';
 import { ProfileUserModule } from './applications/users/profile-users/profile-users.module';
 import { UsersModule } from './applications/users/users/users.module';
+import { LpiFormModule } from './applications/lpi/lpi-form/lpi-form.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { UsersModule } from './applications/users/users/users.module';
     ProfileUserDetailsModule,
     ProfileUserModule,
     UsersModule,
+    LpiFormModule,
 
   ],
   controllers: [AppController],
