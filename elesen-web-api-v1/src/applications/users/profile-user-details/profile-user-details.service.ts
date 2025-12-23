@@ -87,7 +87,17 @@ export class ProfileUserDetailsService {
 
 
 
-  async getProfileUserDetailById(id: string): Promise<ProfileUserDetailsDto | null> {
+    async getProfileUserDetailById(id: string): Promise<ProfileUserDetailsDto | null> {
+    // Get specific profile user
+    const marinResult = await this.getMarinProfileUserDetailById(id);
+    if (marinResult != null) {
+      return marinResult;
+    } else {
+      return await this.getDaratProfileUserDetailById(id);
+    }
+  }
+
+  async getMarinProfileUserDetailById(id: string): Promise<ProfileUserDetailsDto | null> {
     // Get specific profile user
     console.log(`Fetching profile user with id: ${id}`);
     const user = await this.profileUsersRepository.findOne({
