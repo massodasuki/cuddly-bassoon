@@ -50,6 +50,53 @@ export class LpiFormService {
     private vesselsRepository: Repository<LpiVesselsEntity>,
   ) {}
 
+   async createWithFiles(dto: CreateLpiFormDto) {
+    // Insert into each table
+    if (dto.engines) {
+      await this.enginesRepository.save(dto.engines);
+    }
+    if (dto.equipmentItems) {
+      await this.equipmentItemsRepository.save(dto.equipmentItems);
+    }
+    if (dto.equipments) {
+      await this.equipmentsRepository.save(dto.equipments);
+    }
+    if (dto.fishingEquipments) {
+      await this.fishingEquipmentsRepository.save(dto.fishingEquipments);
+    }
+    if (dto.fishingGears) {
+      await this.fishingGearsRepository.save(dto.fishingGears);
+    }
+    if (dto.inlandFishingEquipmentItems) {
+      await this.inlandFishingEquipmentItemsRepository.save(dto.inlandFishingEquipmentItems);
+    }
+    if (dto.inlandFishingEquipments) {
+      await this.inlandFishingEquipmentsRepository.save(dto.inlandFishingEquipments);
+    }
+    if (dto.inspectionDetails) {
+      await this.inspectionDetailsRepository.save(dto.inspectionDetails);
+    }
+    if (dto.inspectionItems) {
+      await this.inspectionItemsRepository.save(dto.inspectionItems);
+    }
+    if (dto.inspections) {
+      await this.inspectionsRepository.save(dto.inspections);
+    }
+    if (dto.navigations) {
+      await this.navigationsRepository.save(dto.navigations);
+    }
+    if (dto.safetyEquipments) {
+      await this.safetyEquipmentsRepository.save(dto.safetyEquipments);
+    }
+    if (dto.sailingEquipments) {
+      await this.sailingEquipmentsRepository.save(dto.sailingEquipments);
+    }
+    if (dto.vessels) {
+      await this.vesselsRepository.save(dto.vessels);
+    }
+    return { message: 'LPI form data inserted successfully' };
+  }
+
   async createLpiForm(dto: CreateLpiFormDto) {
     // Insert into each table
     if (dto.engines) {
