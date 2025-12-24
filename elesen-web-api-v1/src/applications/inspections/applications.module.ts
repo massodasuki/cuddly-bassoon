@@ -7,10 +7,12 @@ import { Inspections } from './entities/inspections.entity';
 import { DaratVessels } from './entities/darat-vessels.entity';
 import { DaratVesselInspections } from './entities/darat-vessel-inspections.entity';
 import { Vessels } from './entities/vessels.entity';
+import { UsersModule } from '../users/users/users.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Applications, Inspections, DaratVessels, DaratVesselInspections, Vessels]),
+    UsersModule,
   ],
   controllers: [ApplicationsController],
   providers: [ApplicationsService],

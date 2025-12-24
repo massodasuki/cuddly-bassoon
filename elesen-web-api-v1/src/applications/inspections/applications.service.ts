@@ -8,6 +8,7 @@ import { Applications } from './entities/applications.entity';
 // import { Vessels } from './entities/vessels.entity';
 import { ApplicationListResponseDto } from './dto/application-list-response.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { UsersService } from '../users/users/users.service';
 
 @Injectable()
 export class ApplicationsService {
@@ -22,9 +23,10 @@ export class ApplicationsService {
     // private daratVesselInspectionsRepository: Repository<DaratVesselInspections>,
     // @InjectRepository(Vessels)
     // private vesselsRepository: Repository<Vessels>,
+    private usersService: UsersService,
   ) {}
 
-  async findAll(paginationQuery: PaginationQueryDto): Promise<ApplicationListResponseDto[]> {
+  async findAll(paginationQuery: PaginationQueryDto, user?: any): Promise<ApplicationListResponseDto[]> {
     const { limit = 10, page = 1, marin } = paginationQuery;
     const query = this.applicationsRepository
       .createQueryBuilder('app')
@@ -43,6 +45,13 @@ export class ApplicationsService {
       ])
       .skip((page - 1) * limit)
       .take(limit);
+
+    if (user?.username) {
+      const dbUser = await this.usersService.findByUsername(user.username);
+      if (dbUser?.entity_id) {
+        query.andWhere('app.entity_id = :entityId', { entityId: dbUser.entity_id });
+      }
+    }
 
     if (marin && marin.length > 0) {
       const normalizedMarin = marin.map(m => m.toLowerCase().trim());

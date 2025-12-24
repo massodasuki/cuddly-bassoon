@@ -1,4 +1,6 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards, Req } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 import { ApplicationsService } from './applications.service';
 import { ApplicationListResponseDto } from './dto/application-list-response.dto';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
@@ -13,12 +15,13 @@ export class ApplicationsController {
 //     return this.applicationsService.findAll();
 //   }
 
-  @Get('darat-applications-minimal')
+  @UseGuards(AuthGuard('jwt'))
+  @Get('applications-minimal')
     @ApiQuery({ name: 'page', required: false, type: Number })
     @ApiQuery({ name: 'limit', required: false, type: Number })
     @ApiQuery({ name: 'marin', required: false, type: [String] })
-    async findAll(@Query() query: PaginationQueryDto) {
-      return this.applicationsService.findAll(query);
+    async findAll(@Query() query: PaginationQueryDto, @Req() req: Request) {
+      return this.applicationsService.findAll(query, (req as any).user);
     }
   
     @Get('applications/:id')
