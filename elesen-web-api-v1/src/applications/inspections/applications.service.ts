@@ -25,7 +25,7 @@ export class ApplicationsService {
   ) {}
 
   async findAll(paginationQuery: PaginationQueryDto): Promise<ApplicationListResponseDto[]> {
-    const { limit = 10, page = 1 } = paginationQuery;
+    const { limit = 10, page = 1, marin } = paginationQuery;
     const query = this.applicationsRepository
       .createQueryBuilder('app')
       .leftJoin('inspections', 'insp', 'insp.application_id = app.id')
@@ -43,6 +43,10 @@ export class ApplicationsService {
       ])
       .skip((page - 1) * limit)
       .take(limit);
+
+    if (marin) {
+      query.andWhere('v.zone = :marin', { marin });
+    }
 
     const result = await query.getRawMany();
 

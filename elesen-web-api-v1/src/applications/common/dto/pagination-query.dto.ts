@@ -1,5 +1,5 @@
 // dto/pagination-query.dto.ts
-import { IsOptional, IsPositive } from 'class-validator';
+import { IsOptional, IsPositive, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class PaginationQueryDto {
@@ -12,5 +12,9 @@ export class PaginationQueryDto {
   @Type(() => Number)
   @IsPositive()
   page?: number;
+
+  @IsOptional()
+  @IsString()
+  marin?: string;
 }
 

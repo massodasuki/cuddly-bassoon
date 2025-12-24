@@ -13,9 +13,10 @@ export class ApplicationsController {
 //     return this.applicationsService.findAll();
 //   }
 
-  @Get('applications-minimal')
+  @Get('darat-applications-minimal')
     @ApiQuery({ name: 'page', required: false, type: Number })
     @ApiQuery({ name: 'limit', required: false, type: Number })
+    @ApiQuery({ name: 'marin', required: false, type: String })
     async findAll(@Query() query: PaginationQueryDto) {
       return this.applicationsService.findAll(query);
     }
