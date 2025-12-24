@@ -114,8 +114,8 @@ export class DaratVesselDetailsService {
         tarikhDaftar: (daratVessel as any).created_at?.toISOString().split('T')[0] || '',
         lokasiPembinaanVesel: (vessel as any)?.pangkalan || '',
         negaraAsal: 'Malaysia',
-        pemasanganMTU: false,
-        noPendaftaranMTU: null,
+        pemasanganMTU: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('mtu')),
+        noPendaftaranMTU: peralatan.find((p: any) => p.equipment_name?.toLowerCase().includes('mtu'))?.registration_number || null,
         hakMilik: pemilikan?.jenis_pemilikan || 'Persendirian',
         kodRFIDQR: (vessel as any)?.rfid_code || 'RFID0001',
         pengkalanUtama: (vessel as any)?.pangkalan_utama_id ? true : false,
@@ -138,7 +138,7 @@ export class DaratVesselDetailsService {
         kedalamanMeter: parseFloat(kulit?.dalam || '0'),
         muatanGRT: (vessel as any)?.grt || 0,
         status: kulit?.status_kulit || 'Tidak Aktif',
-        tindakan: null,
+        tindakan: kulit?.catatan || null,
       },
       enjin: {
         maklumatAmEjin: {
@@ -148,9 +148,9 @@ export class DaratVesselDetailsService {
           kuasaKuda: enjin?.horsepower || 0,
           noEnjin: enjin?.engine_number || '',
           model: enjin?.model || '',
-          turbo: 'Tiada', // Default as not in entity
-          tarikhPEV: '', // Default as not in entity
-          kategoriEnjin: '', // Default as not in entity
+          turbo: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('turbo')) ? 'Ada' : 'Tiada',
+          tarikhPEV: inspection?.inspection_date ? new Date(inspection.inspection_date).toISOString().split('T')[0] : '',
+          kategoriEnjin: enjin?.brand || '',
           status: enjin?.is_active === 1 ? 'aktif' : 'tidak aktif',
         },
         gambar: {
@@ -195,24 +195,24 @@ export class DaratVesselDetailsService {
       },
       pematuhan: {
         maklumatVesel: {
-          pakuPenandaLebar: null,
+          pakuPenandaLebar: hull?.vessel_registration_remarks || null,
           rumahKemudi: {
             diCatBetul: hull?.brightly_painted ? true : false,
             diCatTerang: hull?.brightly_painted ? true : false,
-            kodZon: null,
-            diAtasBumbung: false,
+            kodZon: (daratVessel as any)?.zon || null,
+            diAtasBumbung: hull?.brightly_painted ? true : false,
           },
           tandaPenukulBesi: {
-            tandaBahagianLaluan: false,
-            hurufKodTanda: null,
+            tandaBahagianLaluan: hull?.drilled ? true : false,
+            hurufKodTanda: hull?.hull_type || null,
           },
           noPendaftaranVesel: {
             diTebuk: hull?.drilled ? true : false,
-            diCat: true,
+            diCat: hull?.brightly_painted ? true : false,
           },
           QRCode: {
-            diPasang: false,
-            gambar: 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
+            diPasang: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('qr') || p.equipment_name?.toLowerCase().includes('rfid')),
+            gambar: inspection?.vessel_image_path || 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
           },
           ukuranDimensiVesel: {
             panjangMeter: parseFloat(kulit?.panjang || '0'),
