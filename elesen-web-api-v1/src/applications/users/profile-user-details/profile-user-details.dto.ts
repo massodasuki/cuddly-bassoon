@@ -36,10 +36,10 @@ export class MaklumatBankDto {
 }
 
 export class MaklumatTambahanDto {
-  penerimaESP: boolean | string;
-  penerimaBantuan: boolean | string;
-  pencarumKWSP: boolean | string;
-  penerimaPencen: boolean | string;
+  penerimaESP: boolean | string | null;
+  penerimaBantuan: boolean | string | null;
+  pencarumKWSP: boolean | string | null;
+  penerimaPencen: boolean | string | null;
 }
 
 export class MaklumatKewanganDto {
@@ -53,8 +53,8 @@ export class PengkalanPendaratanDto {
   kawasan: string | null ;
   noLesenPeralatan: string | null;
   tempohSahLesen: string | null;
-  peralatanUtama: string;
-  peralatanTambahan: string;
+  peralatanUtama: string  | null;
+  peralatanTambahan: string | null;
 }
 
 export class VeseIDto {

@@ -91,8 +91,10 @@ export class ProfileUserDetailsService {
     // Get specific profile user
     const marinResult = await this.getMarinProfileUserDetailById(id);
     if (marinResult != null) {
+      console.log("marin");
       return marinResult;
     } else {
+      console.log("marin");
       return await this.getDaratProfileUserDetailById(id);
     }
   }
@@ -264,20 +266,20 @@ export class ProfileUserDetailsService {
           noAkaun: 0 // Placeholder
         },
         maklumatTambahan: {
-          penerimaESP: "KIV", // Placeholder
-          penerimaBantuan: "KIV", // Placeholder
-          pencarumKWSP: "KIV", // Placeholder
-          penerimaPencen: "KIV" // Placeholder
+          penerimaESP: null, // Placeholder
+          penerimaBantuan: null, // Placeholder
+          pencarumKWSP: null, // Placeholder
+          penerimaPencen: null // Placeholder
         }
       },
       pengkalanPendaratan: {
         namaSungai: catchingLogNds?.river_name || null, // Placeholder fallback
         district: catchingLogNds?.district_name || null,
         kawasan: catchingLogNds?.location_name || null, // Placeholder fallback
-        noLesenPeralatan: sklInfo?.no_lesen_skl || "KIV",
+        noLesenPeralatan: sklInfo?.no_lesen_skl || null,
         tempohSahLesen: sklInfo?.tarikh_tamat_lesen ? new Date(sklInfo.tarikh_tamat_lesen).toISOString().split('T')[0] : "KIV",
-        peralatanUtama: vessel?.peralatan_utama || "KIV", // Placeholder fallback
-        peralatanTambahan: "KIV" // Placeholder
+        peralatanUtama: vessel?.peralatan_utama || null, // Placeholder fallback
+        peralatanTambahan:  null, // Placeholder
       },
       vesel: vessel ? {
         noPendaftaran: vesselDetails.noPendaftaran,
@@ -293,7 +295,7 @@ export class ProfileUserDetailsService {
         kuasaKuda: null
       },
       jeti: {
-        kawasan: jetiKawasan || "KIV" // Placeholder fallback
+        kawasan: jetiKawasan || null // Placeholder fallback
       },
       aktivitiPenangkapanIkan: {
         pekerjaanLain: null, // Placeholder
