@@ -23,6 +23,7 @@ import { UsersModule } from './applications/users/users/users.module';
 import { LpiFormModule } from './applications/lpi/lpi-form/lpi-form.module';
 import { InspectionsModule } from './applications/lpi/inspections/inspections.module';
 import { ApplicationsModule } from './applications/inspections/applications.module';
+import { VesselDetailsApiModule } from './applications/vessel-api/vessel-details-api/vessel-details-api.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { ApplicationsModule } from './applications/inspections/applications.modu
     VesselDetailsModule,
     MarinVesselsModule,
     VesselsApiModule,
+    VesselDetailsApiModule,
     FcmModule,
     AuthModule,
     ProfileUserDetailsModule,
