@@ -35,8 +35,8 @@ export class ProfileUserEntity {
   @Column({ length: 100, nullable: true })
   district: string;
 
-  @Column({ length: 100, nullable: true })
-  state: string;
+  // @Column({ length: 100, nullable: true })
+  // state: string;
 
   @Column({ length: 50, nullable: true })
   user_type: string;
@@ -178,6 +178,10 @@ export class ProfileUserEntity {
   @ManyToOne(() => CodeMaster)
   @JoinColumn({ name: 'type_id' })
   type: CodeMaster;
+
+  @ManyToOne(() => CodeMaster)
+  @JoinColumn({ name: 'state' })
+  state: CodeMaster;
 
   @OneToOne(() => ProfilePentadbirHartaEntity, pentadbirHartas => pentadbirHartas.id, { cascade: true })
   pentadbirHartas: ProfilePentadbirHartaEntity;

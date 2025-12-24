@@ -26,10 +26,22 @@ import { DaratApplicationEntity } from 'src/components/darat-applications/darat-
 import { CodeMaster } from 'src/legacy/code-masters/code-masters.entity';
 import { DaratBaseJettieEntity } from 'src/components/darat-base-jetties/darat-base-jetties.entity';
 import { DaratUserEquipmentEntity } from 'src/components/darat-user-equipments/darat-user-equipments.entity';
+import { UserBankAccountEntity } from '../entities/user-bank-accounts.entity';
 
 @Injectable()
 export class ProfileUserDetailsService {
   constructor(
+
+    @InjectRepository(KesalahanEntity)
+    private kesalahanRepository: Repository<KesalahanEntity>,
+    @InjectRepository(ParliamentEntity)
+    private parliamentsRepository: Repository<ParliamentEntity>,
+    @InjectRepository(ParliamentSeatEntity)
+    private parliamentSeatsRepository: Repository<ParliamentSeatEntity>,
+    @InjectRepository(UserBankAccountEntity)
+    private bankAccountRepository: Repository<UserBankAccountEntity>,
+
+
     @InjectRepository(ProfileUserEntity)
     private profileUsersRepository: Repository<ProfileUserEntity>,
     @InjectRepository(FishingLogNdEntity)
@@ -52,16 +64,10 @@ export class ProfileUserDetailsService {
     private jettiesRepository: Repository<JettieEntity>,
     @InjectRepository(RiverEntity)
     private riversRepository: Repository<RiverEntity>,
-    @InjectRepository(KesalahanEntity)
-    private kesalahanRepository: Repository<KesalahanEntity>,
-    @InjectRepository(ParliamentEntity)
-    private parliamentsRepository: Repository<ParliamentEntity>,
-    @InjectRepository(ParliamentSeatEntity)
-    private parliamentSeatsRepository: Repository<ParliamentSeatEntity>,
     @InjectRepository(DaratHelpAgencyFishermansEntity)
-      private readonly daratHelpAgencyFishermansRepository: Repository<DaratHelpAgencyFishermansEntity>,
+    private readonly daratHelpAgencyFishermansRepository: Repository<DaratHelpAgencyFishermansEntity>,
     @InjectRepository(DaratUserFishermanInfosEntity)
-      private readonly daratUserFishermanInfosRepository: Repository<DaratUserFishermanInfosEntity>,
+    private readonly daratUserFishermanInfosRepository: Repository<DaratUserFishermanInfosEntity>,
 
 
     // Darat
@@ -99,11 +105,11 @@ export class ProfileUserDetailsService {
     }
   }
 
-  async getMarinProfileUserDetailById(id: string): Promise<ProfileUserDetailsDto | null> {
+  async getMarinProfileUserDetailById(userId: string): Promise<ProfileUserDetailsDto | null> {
     // Get specific profile user
-    console.log(`Fetching profile user with id: ${id}`);
+    console.log(`Fetching profile user with id: ${userId}`);
     const user = await this.profileUsersRepository.findOne({
-      where: { user_id : id, is_active: 1 }
+      where: { user_id : userId, is_active: 1 }
     });
 
     if (!user) {
@@ -130,13 +136,13 @@ export class ProfileUserDetailsService {
         }
       }
     }
-    console.log(user.id);
+    console.log(userId);
     // Get vessel information
     console.log('Fetching user vessels');
     const userVessels = await this.profileUserVesselRepository
       .createQueryBuilder('puv')
       .select(['puv.profile_user_id', 'puv.vessel_id', 'puv.role', 'puv.status', 'puv.created_at', 'puv.updated_at'])
-      .where('puv.profile_user_id = :userId', { userId: user.id })
+      .where('puv.profile_user_id = :userId', { userId: userId })
       .getMany();
 
     let vessel: VesselEntity | null = null;
@@ -178,17 +184,41 @@ export class ProfileUserDetailsService {
       kuasaKuda: enjin?.kuasa_kuda || null,
     };
 
+    let bank : UserBankAccountEntity | null = null;
+    let bankCode : CodeMaster | null = null;
+    if (user) {
+      bank = await this.bankAccountRepository.findOne({
+        where: { user_id : user.user_id }
+      });
+      bankCode = await this.codeMasterRepository.findOne({
+        where: { id : bank?.bank_code_cm_id }
+      });
+      console.log('Fetching bank details:', JSON.stringify(bank, null, 2));
+    }
+    
+
+    console.log(bank?.bankCode)
+    let bankInfo: {
+      nama: string | null;
+      cawangan: CodeMaster | string | null;
+      noAkaun: string | null;
+    } = {
+      nama: bank?.account_owner || null,
+      cawangan: bankCode?.code || null,
+      noAkaun: bank?.account_number || null
+    };
+
     // Get SKL information
     console.log('Fetching SKL information');
     const sklInfo = await this.profilePengusahaSklRepository.findOne({
-      where: { profile_id: user.id }
+      where: { profile_id: userId }
     });
 
     // Get application count
     console.log('Fetching application count');
     const applicationCount = await this.applicationV2ProfileUserRepository
       .createQueryBuilder('avpu')
-      .where('avpu.profile_user_id = :userId', { userId: user.id })
+      .where('avpu.profile_user_id = :userId', { userId: userId })
       .getCount();
 
     // Get jeti information (assuming first vessel's pangkalan)
@@ -201,10 +231,10 @@ export class ProfileUserDetailsService {
       jetiKawasan = jeti?.name || null;
     }
     let catchingLogNds;
-    if (user.id) {
+    if (userId) {
       console.log('Fetching catching location information');
       const fishingLogNds = await this.fishingLogRepository.findOne({
-        where: { user_id: user.id }
+        where: { user_id: userId }
       });
       if(fishingLogNds){
         catchingLogNds = await this.catchingLocationRepository.findOne({
@@ -229,7 +259,7 @@ export class ProfileUserDetailsService {
 
     return {
       maklumatIndividu: {
-        id: user.id,
+        id: userId,
         name: user.name,
         username: user.icno,
         profile_picture: null, // Assuming no profile picture field
@@ -261,9 +291,9 @@ export class ProfileUserDetailsService {
       },
       maklumatKewangan: {
         maklumatBank: {
-          nama: "KIV", // Placeholder - would need bank info table
-          cawangan: "KIV", // Placeholder
-          noAkaun: 0 // Placeholder
+          nama: bankInfo?.nama || null, // Placeholder - would need bank info table
+          cawangan: bankInfo?.cawangan || null, // Placeholder
+          noAkaun: bankInfo?.noAkaun || null // Placeholder
         },
         maklumatTambahan: {
           penerimaESP: null, // Placeholder
@@ -277,7 +307,7 @@ export class ProfileUserDetailsService {
         district: catchingLogNds?.district_name || null,
         kawasan: catchingLogNds?.location_name || null, // Placeholder fallback
         noLesenPeralatan: sklInfo?.no_lesen_skl || null,
-        tempohSahLesen: sklInfo?.tarikh_tamat_lesen ? new Date(sklInfo.tarikh_tamat_lesen).toISOString().split('T')[0] : "KIV",
+        tempohSahLesen: sklInfo?.tarikh_tamat_lesen ? new Date(sklInfo.tarikh_tamat_lesen).toISOString().split('T')[0] : null,
         peralatanUtama: vessel?.peralatan_utama || null, // Placeholder fallback
         peralatanTambahan:  null, // Placeholder
       },
@@ -299,8 +329,8 @@ export class ProfileUserDetailsService {
       },
       aktivitiPenangkapanIkan: {
         pekerjaanLain: null, // Placeholder
-        tempoh: 4, // Placeholder - calculate from license dates
-        tahunMula: 2020 // Placeholder
+        tempoh: null, // Placeholder - calculate from license dates
+        tahunMula: null // Placeholder
       },
       kesalahan: kesalahan ? {
         akta: kesalahan.akta,
@@ -318,18 +348,18 @@ export class ProfileUserDetailsService {
     };
   }
 
-    async getDaratProfileUserDetailById(id: string): Promise<ProfileUserDetailsDto | null> {
+    async getDaratProfileUserDetailById(userId: string): Promise<ProfileUserDetailsDto | null> {
     // Get specific profile user
-    console.log(`Fetching profile user with id: ${id}`);
+    console.log(`Fetching profile user with id: ${userId}`);
     const user = await this.profileUsersRepository.findOne({
-      where: { user_id : id, is_active: 1 }
+      where: { user_id : userId, is_active: 1 }
     });
 
     if (!user) {
       return null;
     }
     
-    const daratFishermanInfo = await this.daratUserFishermanInfosRepository.findOne({ where: {  user_id : user.id } });
+    const daratFishermanInfo = await this.daratUserFishermanInfosRepository.findOne({ where: {  user_id : userId } });
     const daratHelp = await this.daratHelpAgencyFishermansRepository.findOne({ where: { fisherman_info_id: (daratFishermanInfo as any).id } });
 
 
@@ -353,13 +383,13 @@ export class ProfileUserDetailsService {
         }
       }
     }
-    console.log(user.id);
+    console.log(userId);
     // Get vessel information
     console.log('Fetching user vessels');
     const userVessels = await this.profileUserVesselRepository
       .createQueryBuilder('puv')
       .select(['puv.profile_user_id', 'puv.vessel_id', 'puv.role', 'puv.status', 'puv.created_at', 'puv.updated_at'])
-      .where('puv.profile_user_id = :userId', { userId: user.id })
+      .where('puv.profile_user_id = :userId', { userId: userId })
       .getMany();
 
     let daratVessel: DaratVesselEntity | null = null;
@@ -401,22 +431,46 @@ export class ProfileUserDetailsService {
       kuasaKuda: daratEngin?.horsepower || null,
     };
 
+let bank : UserBankAccountEntity | null = null;
+    let bankCode : CodeMaster | null = null;
+    if (user) {
+      bank = await this.bankAccountRepository.findOne({
+        where: { user_id : user.user_id }
+      });
+      bankCode = await this.codeMasterRepository.findOne({
+        where: { id : bank?.bank_code_cm_id }
+      });
+      console.log('Fetching bank details:', JSON.stringify(bank, null, 2));
+    }
+    
+
+    console.log(bank?.bankCode)
+    let bankInfo: {
+      nama: string | null;
+      cawangan: CodeMaster | string | null;
+      noAkaun: string | null;
+    } = {
+      nama: bank?.account_owner || null,
+      cawangan: bankCode?.code || null,
+      noAkaun: bank?.account_number || null
+    };
+
     // Get SKL information
     console.log('Fetching SKL information');
     const sklInfo = await this.profilePengusahaSklRepository.findOne({
-      where: { profile_id: user.id }
+      where: { profile_id: userId }
     });
 
     // Get application count
     console.log('Fetching application count');
     const applicationCount = await this.applicationV2ProfileUserRepository
       .createQueryBuilder('avpu')
-      .where('avpu.profile_user_id = :userId', { userId: user.id })
+      .where('avpu.profile_user_id = :userId', { userId: userId })
       .getCount();
 
     // Get jeti information (assuming first vessel's pangkalan)
     const daratBaseJetty = await this.daratBaseJettyRepository.findOne({
-      where: { user_id: user.id }
+      where: { user_id: userId }
     });
     let jetiKawasan: string | null = null;
     if (daratBaseJetty != null) {
@@ -427,10 +481,10 @@ export class ProfileUserDetailsService {
       jetiKawasan = jeti?.name || null;
     }
     let catchingLogNds;
-    if (user.id) {
+    if (userId) {
       console.log('Fetching catching location information');
       const fishingLogNds = await this.fishingLogRepository.findOne({
-        where: { user_id: user.id }
+        where: { user_id: userId }
       });
       if(fishingLogNds){
         catchingLogNds = await this.catchingLocationRepository.findOne({
@@ -448,11 +502,11 @@ export class ProfileUserDetailsService {
     });
 
     const peralatanUtama = await this.daratUserEquipmentRepository.findOne({
-      where: { user_id: user.id, type : "UTAMA" }
+      where: { user_id: userId, type : "UTAMA" }
     });
 
     const peralatanTambahan = await this.daratUserEquipmentRepository.findOne({
-      where: { user_id: user.id, type : "TAMBAHAN" }
+      where: { user_id: userId, type : "TAMBAHAN" }
     });
 
     
@@ -463,7 +517,7 @@ export class ProfileUserDetailsService {
 
     return {
       maklumatIndividu: {
-        id: user.id,
+        id: userId,
         name: user.name,
         username: user.icno,
         profile_picture: null, // Assuming no profile picture field
@@ -495,9 +549,9 @@ export class ProfileUserDetailsService {
       },
       maklumatKewangan: {
         maklumatBank: {
-          nama: "KIV", // Placeholder - would need bank info table
-          cawangan: "KIV", // Placeholder
-          noAkaun: 0 // Placeholder
+          nama: bankInfo?.nama || null, // Placeholder - would need bank info table
+          cawangan: bankInfo?.cawangan || null, // Placeholder
+          noAkaun: bankInfo?.noAkaun || null // Placeholder
         },
         maklumatTambahan: {
           penerimaESP: daratFishermanInfo?.receive_pension ? true : false, // KIV
@@ -510,7 +564,7 @@ export class ProfileUserDetailsService {
         namaSungai: catchingLogNds?.river_name || null, // Placeholder fallback
         district: catchingLogNds?.district_name || null,
         kawasan: catchingLogNds?.location_name || null, // Placeholder fallback
-        noLesenPeralatan: sklInfo?.no_lesen_skl || "KIV",
+        noLesenPeralatan: sklInfo?.no_lesen_skl || null,
         tempohSahLesen: sklInfo?.tarikh_tamat_lesen ? new Date(sklInfo.tarikh_tamat_lesen).toISOString().split('T')[0] : "KIV",
         peralatanUtama: peralatanUtama?.name as any, // Placeholder fallback
         peralatanTambahan: peralatanTambahan?.name as any // Placeholder
@@ -587,7 +641,7 @@ export class ProfileUserDetailsService {
       const userVessels = await this.profileUserVesselRepository
         .createQueryBuilder('puv')
         .select(['puv.profile_user_id', 'puv.vessel_id', 'puv.role', 'puv.status', 'puv.created_at', 'puv.updated_at'])
-        .where('puv.profile_user_id = :userId', { userId: user.id })
+        .where('puv.profile_user_id = :userId', { userId: user.user_id })
         .getMany();
 
       let vessel: VesselEntity | null = null;
@@ -599,12 +653,12 @@ export class ProfileUserDetailsService {
 
       // Get SKL information
       const sklInfo = await this.profilePengusahaSklRepository.findOne({
-        where: { profile_id: user.id }
+        where: { profile_id: user.user_id }
       });
 
       // Get application count
       const applicationCount = await this.applicationV2ProfileUserRepository.count({
-        where: { profile_user_id: user.id }
+        where: { profile_user_id: user.user_id }
       });
 
       // Get jeti information (assuming first vessel's pangkalan)
@@ -634,7 +688,7 @@ export class ProfileUserDetailsService {
 
       results.push({
         maklumatIndividu: {
-          id: user.id,
+          id: user.user_id,
           name: user.name,
           username: user.icno,
           profile_picture: null, // Assuming no profile picture field
@@ -668,7 +722,7 @@ export class ProfileUserDetailsService {
           maklumatBank: {
             nama: "Bank Islam", // Placeholder - would need bank info table
             cawangan: "Terengganu", // Placeholder
-            noAkaun: 12323213123 // Placeholder
+            noAkaun: "12323213123" // Placeholder
           },
           maklumatTambahan: {
             penerimaESP: true, // Placeholder

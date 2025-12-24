@@ -26,6 +26,7 @@ import { DaratApplicationEntity } from '../../../components/darat-applications/d
 import { CodeMaster } from '../../../legacy/code-masters/code-masters.entity';
 import { DaratBaseJettieEntity } from '../../../components/darat-base-jetties/darat-base-jetties.entity';
 import { DaratUserEquipmentEntity } from '../../../components/darat-user-equipments/darat-user-equipments.entity';
+import { UserBankAccountEntity } from '../entities/user-bank-accounts.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -52,7 +53,8 @@ import { DaratUserEquipmentEntity } from '../../../components/darat-user-equipme
     DaratApplicationEntity,
     CodeMaster,
     DaratBaseJettieEntity,
-    DaratUserEquipmentEntity
+    DaratUserEquipmentEntity,
+    UserBankAccountEntity
   ])],
   providers: [ProfileUserDetailsService],
   controllers: [ProfileUserDetailsController],

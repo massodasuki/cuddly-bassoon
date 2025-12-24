@@ -6,7 +6,7 @@ export class AlamatDto {
   address3: string | null;
   postcode: number;
   district: string;
-  state: string;
+  state: string | CodeMaster | null;
 }
 
 export class MaklumatAmDto {
@@ -30,9 +30,9 @@ export class MaklumatIndividuDto {
 }
 
 export class MaklumatBankDto {
-  nama: string;
-  cawangan: string;
-  noAkaun: number;
+  nama: string | null;
+  cawangan: CodeMaster | string | null;
+  noAkaun: string | null;
 }
 
 export class MaklumatTambahanDto {
@@ -71,8 +71,8 @@ export class JetiDto {
 
 export class AktivitiPenangkapanIkanDto {
   pekerjaanLain: string | null;
-  tempoh: number;
-  tahunMula: number;
+  tempoh: number | null;
+  tahunMula: number | null;
 }
 
 export class KesalahanDto {
