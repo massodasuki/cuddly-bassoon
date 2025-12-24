@@ -116,9 +116,9 @@ export class DaratVesselDetailsService {
         negaraAsal: 'Malaysia',
         pemasanganMTU: false,
         noPendaftaranMTU: null,
-        hakMilik: 'Persendirian',
-        kodRFIDQR: 'RFID0001',
-        pengkalanUtama: true,
+        hakMilik: pemilikan?.jenis_pemilikan || 'Persendirian',
+        kodRFIDQR: (vessel as any)?.rfid_code || 'RFID0001',
+        pengkalanUtama: (vessel as any)?.pangkalan_utama_id ? true : false,
         pelabuhanUtama: (daratVessel as any).pangkalan || '',
         pelabuhanTambahan: (daratVessel as any).pangkalan || '',
       },
@@ -128,8 +128,8 @@ export class DaratVesselDetailsService {
         tarikhTamat: (daratVessel as any).license_end ? new Date((daratVessel as any).license_end).toISOString().split('T')[0] : '',
         zon: (daratVessel as any).zon || '',
         noPatil: (daratVessel as any).vessel_no || '',
-        status: 'aktif',
-        statusIUUU: 'Tidak Aktif',
+        status: (daratVessel as any).is_active === 1 ? 'aktif' : 'tidak aktif',
+        statusIUUU: (vessel as any)?.iuu_status || 'Tidak Aktif',
       },
       kulit: {
         tarikhDilesen: kulit?.tarikh_kulit_dilesenkan || '',
@@ -142,15 +142,15 @@ export class DaratVesselDetailsService {
       },
       enjin: {
         maklumatAmEjin: {
-          jenisEnjin: 'Unknown',
-          bahanApi: 'Diesel',
+          jenisEnjin: enjin?.model || 'Unknown',
+          bahanApi: 'Diesel', // Default as not in entity
           jenamaEnjin: enjin?.brand || '',
           kuasaKuda: enjin?.horsepower || 0,
           noEnjin: enjin?.engine_number || '',
           model: enjin?.model || '',
-          turbo: 'Tiada',
-          tarikhPEV: '',
-          kategoriEnjin: '',
+          turbo: 'Tiada', // Default as not in entity
+          tarikhPEV: '', // Default as not in entity
+          kategoriEnjin: '', // Default as not in entity
           status: enjin?.is_active === 1 ? 'aktif' : 'tidak aktif',
         },
         gambar: {
@@ -178,7 +178,7 @@ export class DaratVesselDetailsService {
       pengkalan: pengkalan.map((p: any) => ({
         noRujukanPengkalan: p.id,
         namaPengkalan: p.name || '',
-        jenisPengkalan: 'Utama',
+        jenisPengkalan: p.type || 'Utama',
         district: p.district_id || '',
         state: p.state_id || '',
         tahunMula: p.created_at?.toISOString().split('T')[0] || '',
@@ -229,11 +229,11 @@ export class DaratVesselDetailsService {
             f: null,
           },
           gambar: {
-            kiri: 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
-            kanan: 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
-            hadapan: 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
-            belakang: 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
-            keseluruhan: 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
+            kiri: inspection?.vessel_image_path || 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
+            kanan: inspection?.overall_image_path || 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
+            hadapan: inspection?.inspector_owner_image_path || 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
+            belakang: inspection?.safety_jacket_image_path || 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
+            keseluruhan: inspection?.vessel_image_path || 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
           },
         },
         enjin: {
@@ -243,7 +243,7 @@ export class DaratVesselDetailsService {
             turbo: null,
             kuasaKuda: enjin?.horsepower || 0,
             noEnjin: enjin?.engine_number || '',
-            penandaVesel: '07-05-2025',
+            penandaVesel: inspection?.valid_date ? new Date(inspection.valid_date).toISOString().split('T')[0] : '',
           },
           gambar: {
             enjinUrl: enjin?.engine_image_path || 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
@@ -255,25 +255,25 @@ export class DaratVesselDetailsService {
         },
         peralatanPelayaran: {
           lampuPelayaran: {
-            status: 'Tiada',
-            kuantiti: 'Tiada',
-            keadaan: 'Tiada',
+            status: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('lampu')) ? 'Ada' : 'Tiada',
+            kuantiti: peralatan.find((p: any) => p.equipment_name?.toLowerCase().includes('lampu'))?.amount || 'Tiada',
+            keadaan: peralatan.find((p: any) => p.equipment_name?.toLowerCase().includes('lampu'))?.is_active ? 'Baik' : 'Tiada',
           },
           MTU: {
-            status: 'Tiada',
-            kuantiti: 'Tiada',
-            keadaan: 'Tiada',
+            status: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('mtu')) ? 'Ada' : 'Tiada',
+            kuantiti: peralatan.find((p: any) => p.equipment_name?.toLowerCase().includes('mtu'))?.amount || 'Tiada',
+            keadaan: peralatan.find((p: any) => p.equipment_name?.toLowerCase().includes('mtu'))?.is_active ? 'Baik' : 'Tiada',
           },
           AIS: {
-            status: 'Ada',
-            keadaan: 'Baik',
+            status: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('ais')) ? 'Ada' : 'Tiada',
+            keadaan: peralatan.find((p: any) => p.equipment_name?.toLowerCase().includes('ais'))?.is_active ? 'Baik' : 'Tiada',
           },
           CCTV: {
-            status: 'Ada',
-            keadaan: 'Baik',
+            status: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('cctv')) ? 'Ada' : 'Tiada',
+            keadaan: peralatan.find((p: any) => p.equipment_name?.toLowerCase().includes('cctv'))?.is_active ? 'Baik' : 'Tiada',
           },
           GPS: {
-            status: 'Tiada',
+            status: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('gps')) ? 'Ada' : 'Tiada',
           },
           gambar: {
             MTUUrl: 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
@@ -314,12 +314,12 @@ export class DaratVesselDetailsService {
           },
         },
         kelengkapanMenangkapIkan: {
-          echoSounder: false,
-          sonar: false,
-          netHouler: false,
-          powerBlock: false,
-          petakIkan: false,
-          RSW: false,
+          echoSounder: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('echo') || p.equipment_name?.toLowerCase().includes('sounder')),
+          sonar: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('sonar')),
+          netHouler: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('net') || p.equipment_name?.toLowerCase().includes('houler')),
+          powerBlock: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('power') || p.equipment_name?.toLowerCase().includes('block')),
+          petakIkan: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('petak') || p.equipment_name?.toLowerCase().includes('ikan')),
+          RSW: peralatan.some((p: any) => p.equipment_name?.toLowerCase().includes('rsw')),
         },
         dokumen: {
           generalAgreementUrl: 'https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU',
