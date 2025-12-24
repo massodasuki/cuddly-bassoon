@@ -134,23 +134,29 @@ export class CreateLpiFormDto {
     @IsString()
     noEnjin_semasaDiperiksa: string;
   
+    @IsOptional()
     @IsString()
-    veselKeseluruhanImg: string;
-  
+    veselKeseluruhanImg?: string;
+
+    @IsOptional()
     @IsString()
-    enjinImg: string;
-  
+    enjinImg?: string;
+
+    @IsOptional()
     @IsString()
-    noEnjinImg: string;
-  
+    noEnjinImg?: string;
+
+    @IsOptional()
     @IsString()
-    penandaEnjinImg: string;
-  
+    penandaEnjinImg?: string;
+
+    @IsOptional()
     @IsString()
-    turboImg: string;
-  
+    turboImg?: string;
+
+    @IsOptional()
     @IsString()
-    generatorImg: string;
+    generatorImg?: string;
   
     @IsString()
     pelampungKeselamatan_status: string;
@@ -311,37 +317,46 @@ export class CreateLpiFormDto {
   
     @IsString()
     permohonan_tarikhPemeriksaan: string;
-  
+       
+    @IsOptional()
     @IsString()
-    tandaTanganPembantuImg: string;
-  
+    tandaTanganPembantuImg?: string;
+       
+    @IsOptional()
     @IsString()
-    tandatanganPegawaiImg: string;
-  
+    tandatanganPegawaiImg?: string;
+       
     @IsString()
     jenisPermohonan: string;
   
     @IsString()
     perakuanPemilik_tarikhPemeriksaan: string;
-  
+       
+    @IsOptional()
     @IsString()
-    tandaTanganEmpunyaVeselImg: string;
-
+    tandaTanganEmpunyaVeselImg?: string;
+       
+    @IsOptional()
     @IsString()
-    veselKiriImg: string;
-
+    veselKiriImg?: string;
+       
+    @IsOptional()
     @IsString()
-    veselKananImg: string;
-
+    veselKananImg?: string;
+       
+    @IsOptional()
     @IsString()
-    veselHadapanImg: string;
-
+    veselHadapanImg?: string;
+       
+    @IsOptional()
     @IsString()
-    veselBelakangImg: string;
-
+    veselBelakangImg?: string;
+       
+    @IsOptional()
     @IsString()
-    MTUImg: string;
-
+    MTUImg?: string;
+       
+    @IsOptional()
     @IsString()
-    AISImg: string;
+    AISImg?: string;
 }
