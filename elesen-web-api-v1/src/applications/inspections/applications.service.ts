@@ -56,4 +56,39 @@ export class ApplicationsService {
       penyediaanLaporan: row.penyediaanLaporan,
     }));
   }
+
+  async findOne(id: string, paginationQuery: PaginationQueryDto): Promise<ApplicationListResponseDto | null> {
+    const query = this.applicationsRepository
+      .createQueryBuilder('app')
+      .leftJoin('inspections', 'insp', 'insp.application_id = app.id')
+      .leftJoin('darat_vessels', 'dv', 'dv.id = app.vessel_id')
+      .leftJoin('darat_vessel_inspections', 'dvi', 'dvi.application_id = app.id')
+      .leftJoin('vessels', 'v', 'v.id = app.vessel_id')
+      .select([
+        'app.id as applicationId',
+        'app.vessel_id as vesselId',
+        'app.user_id as userId',
+        'COALESCE(v.vessel_no, dv.registration_number) as noVesel',
+        'COALESCE(insp.inspection_date, dvi.inspection_date) as tarikhPemeriksaan',
+        'v.zone as zonOperasi',
+        'COALESCE(insp.inspection_status, dvi.inspection_summary) as penyediaanLaporan',
+      ])
+      .where('app.id = :id', { id });
+
+    const result = await query.getRawOne();
+
+    if (!result) {
+      return null;
+    }
+
+    return {
+      applicationId: result.applicationId,
+      vesselId: result.vesselId,
+      userId: result.userId,
+      noVesel: result.noVesel,
+      tarikhPemeriksaan: result.tarikhPemeriksaan,
+      zonOperasi: result.zonOperasi,
+      penyediaanLaporan: result.penyediaanLaporan,
+    };
+  }
 }
