@@ -1,4 +1,6 @@
-import { Controller, Post, Get, Patch, Delete, Param, Body, Query } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Delete, Param, Body, Query, UseGuards, Req } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 import { VesselsApiService } from './vessels-api.service';
 import { CreateVesselDto } from './dto/create-vessel-api.dto';
 import { UpdateVesselDto } from './dto/update-vessel-api.dto';
@@ -16,10 +18,11 @@ export class VesselsApiController {
   }
 
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('vessels-minimal')
-  findAllVesselMinimal(@Query() paginationQuery: PaginationQueryDto, 
-    @Query('jenis') jenis?: string) {
-    return this.vesselsApiService.findAllMinimalVessels(paginationQuery, jenis);
+  findAllVesselMinimal(@Query() paginationQuery: PaginationQueryDto,
+    @Req() req: Request, @Query('jenis') jenis?: string) {
+    return this.vesselsApiService.findAllMinimalVessels(paginationQuery, jenis, (req as any).token);
   }
 
   @Get('vessels')

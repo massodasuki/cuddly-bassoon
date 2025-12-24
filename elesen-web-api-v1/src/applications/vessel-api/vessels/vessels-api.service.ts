@@ -8,6 +8,8 @@ import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 import { DaratVesselEntity } from '../../darat/entities/darat-vessels.entity';
 import { CreateDaratVesselDto } from '../../darat/darat-vessels/dto/create-darat-vessels.dto';
 import { UpdateDaratVesselDto } from '../../darat/darat-vessels/dto/update-darat-vessels.dto';
+import { RoleEntity } from 'src/legacy/roles/roles.entity';
+import { UserEntity } from '../../users/users/entities/user.entity';
 
 @Injectable()
 export class VesselsApiService {
@@ -16,6 +18,9 @@ export class VesselsApiService {
     private readonly vesselRepository: Repository<VesselEntity>,
     @InjectRepository(DaratVesselEntity)
     private readonly daratVesselRepository: Repository<DaratVesselEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
+
 
   ) {}
 
@@ -51,7 +56,7 @@ export class VesselsApiService {
     return { data, total, page, pageSize, totalPages };
   }
 
-  async findAllMinimalVessels(paginationQuery: PaginationQueryDto, jenis?: string): Promise<{
+  async findAllMinimalVessels(paginationQuery: PaginationQueryDto, jenis?: string, token?: any): Promise<{
     data: { id: string; vessel_no: string; zone: string; start_date: Date; end_date: Date; nelayan: string }[];
     total: number;
     page: number;
@@ -63,10 +68,19 @@ export class VesselsApiService {
     const skip = (page - 1) * pageSize;
 
     console.log(jenis);
+    console.log(token);
+
+    let entityFilter = '';
+    if (token?.username) {
+      const user = await this.userRepository.findOneBy({ username: token.username });
+      if (user?.entity_id) {
+        entityFilter = `WHERE entity_id = '${user.entity_id}'`;
+      }
+    }
 
     if (jenis && jenis.toLowerCase() === 'marin') {
       const marinQuery = `
-        SELECT id, vessel_no, zon AS zone, license_start AS start_date, license_end AS end_date, 'marin' AS nelayan FROM vessels
+        SELECT id, vessel_no, zon AS zone, license_start AS start_date, license_end AS end_date, 'marin' AS nelayan FROM vessels ${entityFilter}
         LIMIT ${pageSize} OFFSET ${skip}
       `;
       return this.getPaginatedData(page, pageSize, marinQuery, this.vesselRepository);
@@ -81,7 +95,7 @@ export class VesselsApiService {
     }
 
     const unionQuery = `
-      SELECT id, vessel_no, zon AS zone, license_start AS start_date, license_end AS end_date, 'marin' AS nelayan FROM vessels
+      SELECT id, vessel_no, zon AS zone, license_start AS start_date, license_end AS end_date, 'marin' AS nelayan FROM vessels ${entityFilter}
       UNION
       SELECT dv.id, dv.registration_number AS registration_number, dv.transportation AS zone, dv.created_at AS start_date, dv.updated_at AS end_date, 'darat' AS nelayan FROM darat_vessels dv
       LIMIT ${pageSize} OFFSET ${skip}
@@ -89,7 +103,7 @@ export class VesselsApiService {
 
     const totalQuery = `
       SELECT COUNT(*) as total FROM (
-        SELECT id FROM vessels
+        SELECT id FROM vessels ${entityFilter.replace('WHERE', 'WHERE entity_id =')}
         UNION
         SELECT id FROM darat_vessels
       ) AS combined
