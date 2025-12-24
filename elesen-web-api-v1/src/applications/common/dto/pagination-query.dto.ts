@@ -14,7 +14,7 @@ export class PaginationQueryDto {
   page?: number;
 
   @IsOptional()
-  @IsString()
-  marin?: string;
+  @IsString({ each: true })
+  marin?: string[];
 }
 

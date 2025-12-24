@@ -44,8 +44,9 @@ export class ApplicationsService {
       .skip((page - 1) * limit)
       .take(limit);
 
-    if (marin) {
-      query.andWhere('LOWER(TRIM(v.zone)) = LOWER(TRIM(:marin))', { marin });
+    if (marin && marin.length > 0) {
+      const normalizedMarin = marin.map(m => m.toLowerCase().trim());
+      query.andWhere('LOWER(TRIM(v.zone)) IN (:...marin)', { marin: normalizedMarin });
     }
 
     const result = await query.getRawMany();
