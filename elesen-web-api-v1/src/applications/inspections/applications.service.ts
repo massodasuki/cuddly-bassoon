@@ -45,7 +45,7 @@ export class ApplicationsService {
       .take(limit);
 
     if (marin) {
-      query.andWhere('v.zone = :marin', { marin });
+      query.andWhere('LOWER(TRIM(v.zone)) = LOWER(TRIM(:marin))', { marin });
     }
 
     const result = await query.getRawMany();
