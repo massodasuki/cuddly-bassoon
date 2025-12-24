@@ -1,0 +1,1289 @@
+{
+  "info": {
+    "name": "eLesen API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Appointment",
+      "item": [
+        {
+          "name": "Create Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/appointments",
+              "host": ["{{baseUrl}}"],
+              "path": ["appointments"]
+            }
+          }
+        },
+        {
+          "name": "Get All Appointments",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/appointments",
+              "host": ["{{baseUrl}}"],
+              "path": ["appointments"]
+            }
+          }
+        },
+        {
+          "name": "Get Appointment by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/appointments/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["appointments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Appointment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/appointments/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["appointments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appointment Inspections",
+      "item": [
+        {
+          "name": "Create Appointment Inspection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "appointments-inspections"]
+            }
+          }
+        },
+        {
+          "name": "Create Appointment Inspection with Files",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/inspection",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "appointments-inspections", "inspection"]
+            }
+          }
+        },
+        {
+          "name": "Get All Appointment Inspections",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "appointments-inspections"]
+            }
+          }
+        },
+        {
+          "name": "Get Appointment Inspection by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "appointments-inspections", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Appointment Inspection by Application ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/application-id/:applicationId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "appointments-inspections", "application-id", ":applicationId"],
+              "variable": [
+                {
+                  "key": "applicationId",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Appointment Inspection",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "appointments-inspections", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Appointment Inspection",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/appointments-inspections/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "appointments-inspections", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "auth", "logout"]
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/auth/refresh",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "auth", "refresh"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Code Masters",
+      "item": [
+        {
+          "name": "Create Code Master",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/code-masters",
+              "host": ["{{baseUrl}}"],
+              "path": ["code-masters"]
+            }
+          }
+        },
+        {
+          "name": "Get All Code Masters",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/code-masters",
+              "host": ["{{baseUrl}}"],
+              "path": ["code-masters"]
+            }
+          }
+        },
+        {
+          "name": "Get Code Master by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/code-masters/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["code-masters", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Code Master",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/code-masters/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["code-masters", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Code Master",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/code-masters/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["code-masters", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Darat Applications",
+      "item": [
+        {
+          "name": "Get All Applications Minimal",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/applications-minimal",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "applications-minimal"]
+            }
+          }
+        },
+        {
+          "name": "Get Application by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/applications/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "applications", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Darat Vessel Inspections",
+      "item": [
+        {
+          "name": "Get All Darat Vessel Inspections",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/darat-vessel-inspections",
+              "host": ["{{baseUrl}}"],
+              "path": ["darat-vessel-inspections"]
+            }
+          }
+        },
+        {
+          "name": "Get Darat Vessel Inspection by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/darat-vessel-inspections/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["darat-vessel-inspections", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Darat Vessels",
+      "item": [
+        {
+          "name": "Get All Darat Vessels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/darat-vessels",
+              "host": ["{{baseUrl}}"],
+              "path": ["darat-vessels"]
+            }
+          }
+        },
+        {
+          "name": "Get Darat Vessel by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/darat-vessels/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["darat-vessels", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Darat Vesel LPI Form",
+      "item": [
+        {
+          "name": "Get All Darat Vesel LPI Forms",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/darat-vesel-lpi-form",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "darat-vesel-lpi-form"]
+            }
+          }
+        },
+        {
+          "name": "Get Darat Vesel LPI Form by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/darat-vesel-lpi-form/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "darat-vesel-lpi-form", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Darat Vesel LPI Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/darat-vesel-lpi-form",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "darat-vesel-lpi-form"]
+            }
+          }
+        },
+        {
+          "name": "Create Darat Vesel LPI Form with Files",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/darat-vesel-lpi-form/inspection",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "darat-vesel-lpi-form", "inspection"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Device Registration",
+      "item": [
+        {
+          "name": "Create Device Registration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/device-registration",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "device-registration"]
+            }
+          }
+        },
+        {
+          "name": "Get All Device Registrations",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/device-registration",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "device-registration"]
+            }
+          }
+        },
+        {
+          "name": "Get Device Registration by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/device-registration/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "device-registration", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Device Registration",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/device-registration/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "device-registration", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Device Registration",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/device-registration/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "device-registration", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Entities",
+      "item": [
+        {
+          "name": "Get All Entities",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entities",
+              "host": ["{{baseUrl}}"],
+              "path": ["entities"]
+            }
+          }
+        },
+        {
+          "name": "Get Entity by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entities/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["entities", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "FCM",
+      "item": [
+        {
+          "name": "Send Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/fcm/send",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "fcm", "send"]
+            }
+          }
+        },
+        {
+          "name": "Send to All",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/fcm/send/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "fcm", "send", "all"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "LPI Form",
+      "item": [
+        {
+          "name": "Create LPI Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/lpi-form",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "lpi-form"]
+            }
+          }
+        },
+        {
+          "name": "Create LPI Form with Files",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/lpi-form/inspection",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "lpi-form", "inspection"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "LPI Inspections",
+      "item": [
+        {
+          "name": "Get All LPI Inspections",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/lpi/inspections",
+              "host": ["{{baseUrl}}"],
+              "path": ["lpi", "inspections"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Marin Vessel Details",
+      "item": [
+        {
+          "name": "Get All Marin Vessel Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/marin-vessel-details",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "marin-vessel-details"]
+            }
+          }
+        },
+        {
+          "name": "Get Marin Vessel Detail by No Vesel",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/marin-vessel-details/:noVesel",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "marin-vessel-details", ":noVesel"],
+              "variable": [
+                {
+                  "key": "noVesel",
+                  "value": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Marin Vessel Ownership and Captain",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/marin-vessel-details-owner/:noVesel",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "marin-vessel-details-owner", ":noVesel"],
+              "variable": [
+                {
+                  "key": "noVesel",
+                  "value": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Marin Vessels",
+      "item": [
+        {
+          "name": "Create Marin Vessel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications"]
+            }
+          }
+        },
+        {
+          "name": "Get All Marin Vessels Minimal",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/marin-minimal",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "marin-minimal"]
+            }
+          }
+        },
+        {
+          "name": "Get All Marin Vessels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/marin",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "marin"]
+            }
+          }
+        },
+        {
+          "name": "Get Marin Vessel by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/marin/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "marin", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Marin Vessel",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/marin/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "marin", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profile User Details",
+      "item": [
+        {
+          "name": "Get Profile User Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/profile-user-details",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "profile-user-details"]
+            }
+          }
+        },
+        {
+          "name": "Get Profile User Detail by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/profile-user-details/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "profile-user-details", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profile Users",
+      "item": [
+        {
+          "name": "Create Profile User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/profile-users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "profile-users"]
+            }
+          }
+        },
+        {
+          "name": "Get All Profile Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/profile-users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "profile-users"]
+            }
+          }
+        },
+        {
+          "name": "Get Profile User by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/profile-users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "profile-users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Profile User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/profile-users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "profile-users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Profile User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/profile-users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "profile-users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Nelayan",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/nelayan",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "nelayan"]
+            }
+          }
+        },
+        {
+          "name": "Get All Nelayan Minimal",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/nelayan-minimal",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "nelayan-minimal"]
+            }
+          }
+        },
+        {
+          "name": "Get Nelayan by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/nelayan/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "nelayan", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Users by Level",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/level/:level",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "level", ":level"],
+              "variable": [
+                {
+                  "key": "level",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User by Role and IC",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/n",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "n"]
+            }
+          }
+        },
+        {
+          "name": "Get User by Vessels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/v",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "v"]
+            }
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users"]
+            }
+          }
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users"]
+            }
+          }
+        },
+        {
+          "name": "Get User Profile by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/profile/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "profile", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/id/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "id", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User by Username",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/username/:username",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "username", ":username"],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update User by Username",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/users/username/:username",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "users", "username", ":username"],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vessel API",
+      "item": [
+        {
+          "name": "Create Vessel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications"]
+            }
+          }
+        },
+        {
+          "name": "Get All Vessels Minimal",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/vessels-minimal",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "vessels-minimal"]
+            }
+          }
+        },
+        {
+          "name": "Get All Vessels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/vessels",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "vessels"]
+            }
+          }
+        },
+        {
+          "name": "Get Vessel by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/vessels/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "vessels", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Vessel",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/vessels/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "vessels", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "uuid"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vessel Details API",
+      "item": [
+        {
+          "name": "Get All Vessel Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/vessel-details",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "vessel-details"]
+            }
+          }
+        },
+        {
+          "name": "Get Vessel Detail by Registration No",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/vessel-details/:registrationNo",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "vessel-details", ":registrationNo"],
+              "variable": [
+                {
+                  "key": "registrationNo",
+                  "value": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Vessel Ownership and Captain",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/applications/vessel-details-owner/:noVessel",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "applications", "vessel-details-owner", ":noVessel"],
+              "variable": [
+                {
+                  "key": "noVessel",
+                  "value": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
