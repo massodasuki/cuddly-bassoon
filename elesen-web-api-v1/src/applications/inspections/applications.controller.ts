@@ -23,6 +23,15 @@ export class ApplicationsController {
     async findAll(@Query() query: PaginationQueryDto, @Req() req: Request) {
       return this.applicationsService.findAll(query, (req as any).user);
     }
+
+      @UseGuards(AuthGuard('jwt'))
+  @Get('applications-minimal')
+    @ApiQuery({ name: 'page', required: false, type: Number })
+    @ApiQuery({ name: 'limit', required: false, type: Number })
+    @ApiQuery({ name: 'marin', required: false, type: [String] })
+    async findInspection(@Query() query: PaginationQueryDto, @Req() req: Request) {
+      return this.applicationsService.findInspections(query, (req as any).user);
+    }
   
     @Get('applications/:id')
     @ApiQuery({ name: 'page', required: false, type: Number })

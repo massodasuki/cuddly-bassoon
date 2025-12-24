@@ -2,11 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Applications } from './entities/applications.entity';
-// import { Inspections } from './entities/inspections.entity';
+import { Inspections } from './entities/inspections.entity';
 // import { DaratVessels } from './entities/darat-vessels.entity';
 // import { DaratVesselInspections } from './entities/darat-vessel-inspections.entity';
 // import { Vessels } from './entities/vessels.entity';
 import { ApplicationListResponseDto } from './dto/application-list-response.dto';
+import { InspectionApplicationListResponseDto } from './dto/inspection-application-list-response.dto';
+import { PaginatedInspectionApplicationListResponseDto } from './dto/paginated-inspection-application-list-response.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { UsersService } from '../users/users/users.service';
 
@@ -15,8 +17,8 @@ export class ApplicationsService {
   constructor(
     @InjectRepository(Applications)
     private applicationsRepository: Repository<Applications>,
-    // @InjectRepository(Inspections)
-    // private inspectionsRepository: Repository<Inspections>,
+    @InjectRepository(Inspections)
+    private inspectionsRepository: Repository<Inspections>,
     // @InjectRepository(DaratVessels)
     // private daratVesselsRepository: Repository<DaratVessels>,
     // @InjectRepository(DaratVesselInspections)
@@ -109,5 +111,66 @@ export class ApplicationsService {
       zonOperasi: result.zonOperasi,
       penyediaanLaporan: result.penyediaanLaporan,
     };
+  }
+
+  async findInspections(code: string, zone: string, entityId: number | undefined, paginationQuery: PaginationQueryDto): Promise<PaginatedInspectionApplicationListResponseDto> {
+    const { limit = 10, page = 1 } = paginationQuery;
+
+    const countQuery = this.inspectionsRepository
+      .createQueryBuilder('i')
+      .leftJoin('applications', 'app', 'i.application_id = app.id')
+      .leftJoin('code_masters', 'cm', 'cm.id = app.application_type_id')
+      .leftJoin('darat_vessels', 'dv', 'dv.id = app.vessel_id')
+      .leftJoin('darat_vessel_inspections', 'dvi', 'dvi.application_id = app.id')
+      .leftJoin('vessels', 'v', 'v.id = app.vessel_id')
+      .select('COUNT(*) as total')
+      .where('COALESCE(v.vessel_no, dv.registration_number) IS NOT NULL')
+      .andWhere('(cm.code = :code OR v.zone = :zone)', { code, zone })
+      .andWhere('(:entityId IS NULL OR app.entity_id = :entityId)', { entityId });
+
+    const totalResult = await countQuery.getRawOne();
+    const total = parseInt(totalResult.total);
+
+    const query = this.inspectionsRepository
+      .createQueryBuilder('i')
+      .leftJoin('applications', 'app', 'i.application_id = app.id')
+      .leftJoin('code_masters', 'cm', 'cm.id = app.application_type_id')
+      .leftJoin('darat_vessels', 'dv', 'dv.id = app.vessel_id')
+      .leftJoin('darat_vessel_inspections', 'dvi', 'dvi.application_id = app.id')
+      .leftJoin('vessels', 'v', 'v.id = app.vessel_id')
+      .select([
+        'app.id AS applicationId',
+        'app.vessel_id AS vesselId',
+        'app.user_id AS userId',
+        'COALESCE(v.vessel_no, dv.registration_number) AS noVesel',
+        'i.inspection_date AS tarikhPemeriksaan',
+        'v.zone AS zonOperasi',
+        'i.inspection_status AS penyediaanLaporan',
+        'cm.code AS codeMasterCode',
+        'cm.name AS codeMasterName',
+      ])
+      .where('COALESCE(v.vessel_no, dv.registration_number) IS NOT NULL')
+      .andWhere('(cm.code = :code OR v.zone = :zone)', { code, zone })
+      .andWhere('(:entityId IS NULL OR app.entity_id = :entityId)', { entityId })
+      .orderBy('(i.inspection_date IS NULL)', 'ASC')
+      .addOrderBy('i.inspection_date', 'ASC')
+      .skip((page - 1) * limit)
+      .take(limit);
+
+    const result = await query.getRawMany();
+
+    const data = result.map(row => ({
+      applicationId: row.applicationId,
+      vesselId: row.vesselId,
+      userId: row.userId,
+      noVesel: row.noVesel,
+      tarikhPemeriksaan: row.tarikhPemeriksaan,
+      zonOperasi: row.zonOperasi,
+      penyediaanLaporan: row.penyediaanLaporan,
+      codeMasterCode: row.codeMasterCode,
+      codeMasterName: row.codeMasterName,
+    }));
+
+    return { data, total, page, limit };
   }
 }
