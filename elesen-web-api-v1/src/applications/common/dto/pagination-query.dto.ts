@@ -20,5 +20,13 @@ export class PaginationQueryDto {
   @IsOptional()
   @IsString()
   type?: string;
+
+  @IsOptional()
+  @IsString()
+  borang?: string;
+
+  @IsOptional()
+  @IsString()
+  zone?: string;
 }
 

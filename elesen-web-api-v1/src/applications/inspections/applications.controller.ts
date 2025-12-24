@@ -16,7 +16,7 @@ export class ApplicationsController {
 //   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('applications-minimal')
+  @Get('applications-minimal-old')
     @ApiQuery({ name: 'page', required: false, type: Number })
     @ApiQuery({ name: 'limit', required: false, type: Number })
     @ApiQuery({ name: 'marin', required: false, type: [String] })
@@ -29,6 +29,8 @@ export class ApplicationsController {
     @ApiQuery({ name: 'page', required: false, type: Number })
     @ApiQuery({ name: 'limit', required: false, type: Number })
     @ApiQuery({ name: 'marin', required: false, type: [String] })
+    @ApiQuery({ name: 'borang', required: false, type: String })
+    @ApiQuery({ name: 'zone', required: false, type: String })
     async findInspection(@Query() query: PaginationQueryDto, @Req() req: Request) {
       return this.applicationsService.findInspections(query, (req as any).user);
     }

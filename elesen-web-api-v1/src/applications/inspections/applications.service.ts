@@ -113,31 +113,48 @@ export class ApplicationsService {
     };
   }
 
-  async findInspections(code: string, zone: string, entityId: number | undefined, paginationQuery: PaginationQueryDto): Promise<PaginatedInspectionApplicationListResponseDto> {
-    const { limit = 10, page = 1 } = paginationQuery;
+  async findInspections(paginationQuery: PaginationQueryDto, user?: any): Promise<PaginatedInspectionApplicationListResponseDto> {
+    const { borang, zone, limit = 10, page = 1 } = paginationQuery;
+    console.log(zone)
 
-    const countQuery = this.inspectionsRepository
+    let entityId: string | undefined | null;
+    if (user?.username) {
+      const dbUser = await this.usersService.findByUsername(user.username);
+      entityId = dbUser?.entity_id ? dbUser.entity_id : null;;
+    }
+
+    const baseQuery = this.inspectionsRepository
       .createQueryBuilder('i')
       .leftJoin('applications', 'app', 'i.application_id = app.id')
       .leftJoin('code_masters', 'cm', 'cm.id = app.application_type_id')
       .leftJoin('darat_vessels', 'dv', 'dv.id = app.vessel_id')
       .leftJoin('darat_vessel_inspections', 'dvi', 'dvi.application_id = app.id')
       .leftJoin('vessels', 'v', 'v.id = app.vessel_id')
-      .select('COUNT(*) as total')
-      .where('COALESCE(v.vessel_no, dv.registration_number) IS NOT NULL')
-      .andWhere('(cm.code = :code OR v.zone = :zone)', { code, zone })
-      .andWhere('(:entityId IS NULL OR app.entity_id = :entityId)', { entityId });
+      .where('COALESCE(v.vessel_no, dv.registration_number) IS NOT NULL');
 
+    if (entityId) {
+      baseQuery.andWhere('app.entity_id = :entityId', { entityId });
+    }
+
+    const conditions: string[] = [];
+    const params: any = {};
+    if (borang) {
+      conditions.push('cm.code = :borang');
+      params.borang = borang;
+    }
+    if (zone) {
+      conditions.push('v.zone = :zone');
+      params.zone = zone;
+    }
+    if (conditions.length > 0) {
+      baseQuery.andWhere(`(${conditions.join(' OR ')})`, params);
+    }
+
+    const countQuery = baseQuery.clone().select('COUNT(*) as total');
     const totalResult = await countQuery.getRawOne();
     const total = parseInt(totalResult.total);
 
-    const query = this.inspectionsRepository
-      .createQueryBuilder('i')
-      .leftJoin('applications', 'app', 'i.application_id = app.id')
-      .leftJoin('code_masters', 'cm', 'cm.id = app.application_type_id')
-      .leftJoin('darat_vessels', 'dv', 'dv.id = app.vessel_id')
-      .leftJoin('darat_vessel_inspections', 'dvi', 'dvi.application_id = app.id')
-      .leftJoin('vessels', 'v', 'v.id = app.vessel_id')
+    const query = baseQuery
       .select([
         'app.id AS applicationId',
         'app.vessel_id AS vesselId',
@@ -149,9 +166,6 @@ export class ApplicationsService {
         'cm.code AS codeMasterCode',
         'cm.name AS codeMasterName',
       ])
-      .where('COALESCE(v.vessel_no, dv.registration_number) IS NOT NULL')
-      .andWhere('(cm.code = :code OR v.zone = :zone)', { code, zone })
-      .andWhere('(:entityId IS NULL OR app.entity_id = :entityId)', { entityId })
       .orderBy('(i.inspection_date IS NULL)', 'ASC')
       .addOrderBy('i.inspection_date', 'ASC')
       .skip((page - 1) * limit)
