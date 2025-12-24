@@ -8,7 +8,7 @@ import { DaratApplicationEntity } from '../entities/darat-applications.entity';
 import { DaratVesselEntity } from '../darat-vessels/darat-vessels.entity';
 import { DaratApplicationLogEntity } from '../entities/darat-application-logs.entity';
 import { DaratInspectionEquipmentEntity } from '../entities/darat-inspection-equipments.entity';
-import { DaratUserEquipmentEntity } from '../entities/darat-user-equipments.entity';
+import { DaratUserEquipmentsEntity } from '../entities/darat-user-equipments.entity';
 import { DaratVesselEngineEntity } from '../../../components/darat-vessel-engines/darat-vessel-engines.entity';
 import { DaratVesselHullEntity } from '../../../components/darat-vessel-hulls/darat-vessel-hulls.entity';
 import { DaratVesselHullHistorieEntity } from '../entities/darat-vessel-hull-histories.entity';
@@ -33,8 +33,8 @@ export class DaratVeselLpiFormService {
     private readonly applicationLogRepo: Repository<DaratApplicationLogEntity>,
     @InjectRepository(DaratInspectionEquipmentEntity)
     private readonly inspectionEquipmentRepo: Repository<DaratInspectionEquipmentEntity>,
-    @InjectRepository(DaratUserEquipmentEntity)
-    private readonly userEquipmentRepo: Repository<DaratUserEquipmentEntity>,
+    @InjectRepository(DaratUserEquipmentsEntity)
+    private readonly userEquipmentRepo: Repository<DaratUserEquipmentsEntity>,
     @InjectRepository(DaratTemporaryPinEntity)
     private readonly temporaryPinRepo: Repository<DaratTemporaryPinEntity>,
     

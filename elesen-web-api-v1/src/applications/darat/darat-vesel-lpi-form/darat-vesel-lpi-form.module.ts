@@ -13,7 +13,7 @@ import { DaratInspectionEquipmentEntity } from '../entities/darat-inspection-equ
 import { DaratItemFoundEntity } from '../entities/darat-item-founds.entity';
 import { DaratPaymentReceiptEntity } from '../entities/darat-payment-receipts.entity';
 import { DaratTemporaryPinEntity } from '../entities/darat-temporary-pins.entity';
-import { DaratUserEquipmentEntity } from '../entities/darat-user-equipments.entity';
+import { DaratUserEquipmentsEntity } from '../entities/darat-user-equipments.entity';
 import { DaratVesselDisposalEntity } from '../entities/darat-vessel-disposals.entity';
 import { DaratVesselEngineHistorieEntity } from '../entities/darat-vessel-engine-histories.entity';
 import { DaratVesselEngineEntity } from '../../../components/darat-vessel-engines/darat-vessel-engines.entity';
@@ -33,7 +33,7 @@ import { DaratVesselHullHistorieEntity } from '../entities/darat-vessel-hull-his
     DaratItemFoundEntity,
     DaratPaymentReceiptEntity,
     DaratTemporaryPinEntity,
-    DaratUserEquipmentEntity,
+    DaratUserEquipmentsEntity,
     DaratVesselDisposalEntity,
     DaratVesselEngineHistorieEntity,
     DaratVesselEngineEntity,
