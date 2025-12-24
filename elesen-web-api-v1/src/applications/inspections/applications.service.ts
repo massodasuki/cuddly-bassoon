@@ -27,9 +27,10 @@ export class ApplicationsService {
   ) {}
 
   async findAll(paginationQuery: PaginationQueryDto, user?: any): Promise<ApplicationListResponseDto[]> {
-    const { limit = 10, page = 1, marin } = paginationQuery;
+    const { limit = 10, page = 1, marin, type } = paginationQuery;
     const query = this.applicationsRepository
       .createQueryBuilder('app')
+      .leftJoin('code_masters', 'cm', 'cm.id = app.application_type_id')
       .leftJoin('inspections', 'insp', 'insp.application_id = app.id')
       .leftJoin('darat_vessels', 'dv', 'dv.id = app.vessel_id')
       .leftJoin('darat_vessel_inspections', 'dvi', 'dvi.application_id = app.id')
@@ -56,6 +57,10 @@ export class ApplicationsService {
     if (marin && marin.length > 0) {
       const normalizedMarin = marin.map(m => m.toLowerCase().trim());
       query.andWhere('LOWER(TRIM(v.zone)) IN (:...marin)', { marin: normalizedMarin });
+    }
+
+    if (type) {
+      query.andWhere('cm.type = :type', { type });
     }
 
     const result = await query.getRawMany();

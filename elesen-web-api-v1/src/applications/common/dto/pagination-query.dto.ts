@@ -16,5 +16,9 @@ export class PaginationQueryDto {
   @IsOptional()
   @IsString({ each: true })
   marin?: string[];
+
+  @IsOptional()
+  @IsString()
+  type?: string;
 }
 
