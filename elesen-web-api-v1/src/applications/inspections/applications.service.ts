@@ -25,6 +25,7 @@ export class ApplicationsService {
   ) {}
 
   async findAll(paginationQuery: PaginationQueryDto): Promise<ApplicationListResponseDto[]> {
+    const { limit = 10, page = 1 } = paginationQuery;
     const query = this.applicationsRepository
       .createQueryBuilder('app')
       .leftJoin('inspections', 'insp', 'insp.application_id = app.id')
@@ -39,7 +40,9 @@ export class ApplicationsService {
         'COALESCE(insp.inspection_date, dvi.inspection_date) as tarikhPemeriksaan',
         'v.zone as zonOperasi',
         'COALESCE(insp.inspection_status, dvi.inspection_summary) as penyediaanLaporan',
-      ]);
+      ])
+      .skip((page - 1) * limit)
+      .take(limit);
 
     const result = await query.getRawMany();
 
