@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { randomUUID } from 'crypto';
 import { CreateLpiFormDto } from './dto/create-lpi-form.dto';
 import { ImageUploadService } from './image-upload.service';
 import { LpiEnginesEntity } from '../entities/lpi-engines.entity';
@@ -71,9 +72,10 @@ export class LpiFormService {
 
     // Create main inspection record
     const inspection = this.inspectionsRepository.create({
+      id: randomUUID(),
       vessel_condition: dto.keadaanVeselSemasa,
       hull_type: dto.jenisKulitVesel,
-      inspection_date: new Date(dto.tarikhPemeriksaan),
+      inspection_date: new Date(dto.tarikhPemeriksaan.replace(/(\d{4}-\d{2}-\d{2})\s+(\d{2})\s*:\s*(\d{2})\s*:\s*(\d{2}\.\d+)/, '$1T$2:$3:$4')),
       location: dto.kodZon,
       vessel_picture: dto.veselKeseluruhanImg,
       owner_inspector_picture: dto.tandatanganPegawaiImg,
@@ -241,7 +243,7 @@ export class LpiFormService {
     const inlandFishingItems = this.inlandFishingEquipmentItemsRepository.create({
       full_inspection_lpi_id: savedInspection.id,
       equipment_id: dto.peralatan_utama,
-      type: 'Utama',
+      type: 'main',
       quantity: 1,
       condition: 1,
       remarks: dto.peralatan_dijumpai,
@@ -253,6 +255,7 @@ export class LpiFormService {
 
     // Create inspection details record
     const inspectionDetails = this.inspectionDetailsRepository.create({
+      full_inspection_lpi_id: savedInspection.id,
       created_by: dto.createdBy,
       updated_by: dto.updatedBy,
       created_at: new Date(),
@@ -261,6 +264,8 @@ export class LpiFormService {
 
     // Create inspection items record
     const inspectionItems = this.inspectionItemsRepository.create({
+      inspection_id: savedInspection.id,
+      nama_peralatan: dto.peralatan_utama,
       created_by: dto.createdBy,
       updated_by: dto.updatedBy,
       created_at: new Date(),
@@ -299,9 +304,10 @@ export class LpiFormService {
   async createLpiForm(dto: CreateLpiFormDto) {
     // Similar to createWithFiles but without files
     const inspection = this.inspectionsRepository.create({
+      id: randomUUID(),
       vessel_condition: dto.keadaanVeselSemasa,
       hull_type: dto.jenisKulitVesel,
-      inspection_date: new Date(dto.tarikhPemeriksaan),
+      inspection_date: new Date(dto.tarikhPemeriksaan.replace(/(\d{4}-\d{2}-\d{2})\s+(\d{2})\s*:\s*(\d{2})\s*:\s*(\d{2}\.\d+)/, '$1T$2:$3:$4')),
       location: dto.kodZon,
       vessel_picture: dto.veselKeseluruhanImg,
       owner_inspector_picture: dto.tandatanganPegawaiImg,
