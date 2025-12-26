@@ -158,23 +158,27 @@ export class CreateLpiFormDto {
     @IsString()
     generatorImg?: string;
   
-    @IsString()
-    pelampungKeselamatan_status: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    jaketKeselamatan_status: boolean;
   
-    @IsString()
-    pelampungKeselamatan_keadaan: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    jaketKeselamatan_keadaan: boolean;
   
-    @IsString()
-    pelampungKeselamatan_kuantiti: string;
+    @IsNumber()
+    jaketKeselamatan_kuantiti: number;
   
-    @IsString()
-    boyaKeselamatan_status: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    boyaKeselamatan_status: boolean;
   
-    @IsString()
-    boyaKeselamatan_keadaan: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    boyaKeselamatan_keadaan: boolean;
   
-    @IsString()
-    boyaKeselamatan_kuantiti: string;
+    @IsNumber()
+    boyaKeselamatan_kuantiti: number;
   
     @IsString()
     alatPemadamApi_status: string;
@@ -182,17 +186,19 @@ export class CreateLpiFormDto {
     @IsString()
     alatPemadamApi_keadaan: string;
   
-    @IsString()
-    alatPemadamApi_kuantiti: string;
+    @IsNumber()
+    alatPemadamApi_kuantiti: number;
   
-    @IsString()
-    lampuPelayaran_status: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    wirelessRadio_status: boolean;
   
-    @IsString()
-    lampuPelayaran_keadaan: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    wirelessRadio_keadaan: boolean;
   
-    @IsString()
-    lampuPelayaran_kuantiti: string;
+    @IsNumber()
+    wirelessRadio_kuantiti: number;
   
     @IsString()
     rakitKeselamatan_status: string;
@@ -203,31 +209,54 @@ export class CreateLpiFormDto {
     @IsString()
     rakitKeselamatan_kuantiti: string;
   
-    @IsString()
-    mtu_status: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    mtu_status: boolean;
   
-    @IsString()
-    mtu_keadaan: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    mtu_keadaan: boolean;
   
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsNumber()
+    mtu_kuantiti: number;
+
     @IsString()
-    mtu_kuantiti: string;
+    mtu_serialNo: string;
   
-    @IsString()
-    ais_status: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    ais_status: boolean;
   
-    @IsString()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
     ais_keadaan: string;
   
+    @IsNumber()
+    ais_kuantiti: number;
+
     @IsString()
-    ais_kuantiti: string;
+    ais_serialNo: string;
+
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    gps_status : boolean ;
+
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    gps_keadaan : boolean;
+
+    @IsNumber()
+    gps_kuantiti : number;
+
+    @IsString()
+    gps_serialNo : string
+
+
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    GPS: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    echoSounder: boolean;
+    alatTangkapIkan_echoSounder: boolean;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -239,7 +268,7 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    sonar: boolean;
+    alatTangkapIkan_sonar: boolean;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -255,11 +284,11 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    netHouler: boolean;
+    alatTangkapIkan_netHauler: boolean;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    powerBlock: boolean;
+    alatTangkapIkan_powerBlock: boolean;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -267,7 +296,7 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    RSW: boolean;
+    alatTangkapIkan_rsw: boolean;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -668,7 +697,7 @@ export class CreateLpiFormDto {
     // Additional fields for lpi_safety_equipments
     @IsOptional()
     @IsString()
-    jacket_picture_path?: string;
+    jaketKeselamatanImg?: string;
 
     @IsOptional()
     @IsString()
@@ -727,7 +756,7 @@ export class CreateLpiFormDto {
     @IsOptional()
     @Transform(({ value }) => parseInt(value))
     @IsNumber()
-    fish_compartment_quantity?: number;
+    alatTangkapIkan_jumlahPetakIkan?: number;
 
     @IsOptional()
     @IsString()
