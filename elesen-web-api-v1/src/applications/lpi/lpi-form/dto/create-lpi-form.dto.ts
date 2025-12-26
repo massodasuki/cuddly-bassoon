@@ -103,36 +103,71 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    isNoPEV: boolean;
+    enjinAdaPEV_semasaDiperiksa: boolean;
   
     @IsString()
-    noPEV: string;
+    enjinNomborPEV_semasaDiperiksa: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @IsNumber()
+    enjinAdaTurbo_semasaDiperiksa?: number;
   
     @IsString()
-    jenama_dalamLesen: string;
+    enjinJenama_semasaDiperiksa: string;
   
     @IsString()
-    jenama_semasaDiperiksa: string;
+    enjinModel_semasaDiperiksa: string;
+
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    enjinKuasaKuda_semasaDiperiksa: number;
+
+    @IsString()
+    enjinNombor_semasaDiperiksa: string;
+
+
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    enjinAdaPEV_tambahan: boolean;
+  
+    @IsString()
+    enjinNomborPEV_tambahan: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @IsNumber()
+    enjinAdaTurbo_tambahan?: number;
+  
+    @IsString()
+    enjinJenama_tambahan: string;
+  
+    @IsString()
+    enjinModel_tambahan: string;
+
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    enjinKuasaKuda_tambahan: number;
+
+    @IsString()
+    enjinNombor_tambahan: string;
   
     @IsString()
     model_dalamLesen: string;
-  
+
     @IsString()
-    model_semasaDiperiksa: string;
-  
+    jenama_dalamLesen: string;
+
+    
+
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
     kuasaKuda_dalamLesen: number;
   
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    kuasaKuda_semasaDiperiksa: number;
-  
     @IsString()
     noEnjin_dalamLesen: string;
   
-    @IsString()
-    noEnjin_semasaDiperiksa: string;
+    
   
     @IsOptional()
     @IsString()
@@ -200,14 +235,27 @@ export class CreateLpiFormDto {
     @IsNumber()
     wirelessRadio_kuantiti: number;
   
-    @IsString()
-    rakitKeselamatan_status: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    rakitKeselamatan_status: boolean;
   
-    @IsString()
-    rakitKeselamatan_keadaan: string;
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    rakitKeselamatan_keadaan: boolean;
   
-    @IsString()
-    rakitKeselamatan_kuantiti: string;
+    @IsNumber()
+    rakitKeselamatan_kuantiti: number;
+
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    lampuPelayaran_status: boolean;
+  
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    lampuPelayaran_keadaan: boolean;
+  
+    @IsNumber()
+    lampuPelayaran_kuantiti: number;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -563,10 +611,7 @@ export class CreateLpiFormDto {
     @IsString()
     engine_model_field?: string;
 
-    @IsOptional()
-    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
-    @IsNumber()
-    engine_turbo?: number;
+    
 
     @IsOptional()
     @IsString()
