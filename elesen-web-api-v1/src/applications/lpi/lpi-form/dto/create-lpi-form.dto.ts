@@ -22,11 +22,11 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    noVesel_ditebuk: boolean;
+    noPendaftaranVesel_diTebuk: boolean;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    noVesel_dicat: boolean;
+    noPendaftaranVesel_diCat: boolean;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -55,7 +55,7 @@ export class CreateLpiFormDto {
     rumahKemudi_ditebuk: boolean;
   
     @IsString()
-    kodZon: string;
+    rumahKemudi_hurufKodZon: string;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -63,11 +63,11 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    jalurPutih: boolean;
+    pukatTundaBerlesen_jalurPutih: boolean;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    pukatTundaBerlesen_dicat: boolean;
+    pukatTundaBerlesen_diCat: boolean;
   
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
@@ -75,7 +75,7 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    panjangMeter_semasaDiperiksa: number;
+    UDV_panjangMeter: number;
   
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
@@ -83,7 +83,7 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    lebarMeter_semasaDiperiksa: number;
+    UDV_lebarMeter: number;
   
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
@@ -91,7 +91,7 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    kedalamanMeter_semasaDiperiksa: number;
+    UDV_dalamMeter: number;
   
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
@@ -99,7 +99,7 @@ export class CreateLpiFormDto {
   
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    muatanGRT_semasaDiperiksa: number;
+    UDV_muatanGRT: number;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -136,7 +136,7 @@ export class CreateLpiFormDto {
   
     @IsOptional()
     @IsString()
-    veselKeseluruhanImg?: string;
+    veselImg_keseluruhan?: string;
 
     @IsOptional()
     @IsString()
@@ -371,11 +371,11 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    fishery_type?: string;
+    jenisIkan?: string;
 
     @IsOptional()
     @IsString()
-    owner_health?: string;
+    kesihatanPemilik?: string;
 
     @IsOptional()
     @IsString()
@@ -396,38 +396,38 @@ export class CreateLpiFormDto {
     // Additional fields for lpi_vessels
     @IsOptional()
     @IsString()
-    width_marker_nail_comment?: string;
+    pakuPenandaLebarKomen?: string;
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
     @IsNumber()
-    pilot_house_paint_bright?: number;
+    rumahKemudi_diCatTerang?: number;
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
     @IsNumber()
-    pilot_house_has_zone_code?: number;
+    rumahKemudi_adaKodZon?: number;
 
     @IsOptional()
     @IsString()
-    pilot_house_comment?: string;
+    rumahKemudi_komen?: string;
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
     @IsNumber()
-    iron_hammer_marker?: number;
+    tandaPenukulBesi_bahagianHaluan?: number;
 
     @IsOptional()
     @IsString()
-    iron_hammer_alphabet?: string;
+    tandaPenukulBesi_hurufKodTanda?: string;
 
     @IsOptional()
     @IsString()
-    iron_hammer_comment?: string;
+    tandaPenukulBesi_komen?: string;
 
     @IsOptional()
     @IsString()
-    registration_number_comment?: string;
+    noPendaftaranVesel_komen?: string;
 
     @IsOptional()
     @IsString()
@@ -436,85 +436,85 @@ export class CreateLpiFormDto {
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
     @IsNumber()
-    has_qr_code?: number;
+    QR_diPasang?: number;
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
     @IsNumber()
-    qr_code_is_working?: number;
+    QR_berfungsi?: number;
 
     @IsOptional()
     @IsString()
-    qr_picture_path?: string;
+    QRImg?: string;
 
     @IsOptional()
     @IsString()
-    qr_picture_comment?: string;
+    QR_komen?: string;
 
     @IsOptional()
     @Transform(({ value }) => parseInt(value))
     @IsNumber()
-    net_drum_quantity?: number;
+    pukatTundaBerlesen_jumlahNetDrum?: number;
 
     @IsOptional()
     @IsString()
-    pukat_tunda_comment?: string;
+    pukatTundaBerlesen_komen?: string;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    gt_amount?: number;
+    UDV_muatanGT?: number;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    ugv_a?: number;
+    UGV_A_semasaDiperiksa?: number;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    ugv_b?: number;
+    UGV_B_semasaDiperiksa?: number;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    ugv_c?: number;
+    UGV_C_semasaDiperiksa?: number;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    ugv_d?: number;
+    UGV_D_semasaDiperiksa?: number;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    ugv_e?: number;
+    UGV_E_semasaDiperiksa?: number;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    ugv_f?: number;
+    UGV_F_semasaDiperiksa?: number;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    ugv_g?: number;
+    UGV_G_semasaDiperiksa?: number;
 
     @IsOptional()
     @IsString()
-    vessel_picture_left_path?: string;
+    veselImg_kiri?: string;
 
     @IsOptional()
     @IsString()
-    vessel_picture_right_path?: string;
+    veselImg_kanan?: string;
 
     @IsOptional()
     @IsString()
-    vessel_picture_front_path?: string;
+    veselImg_depan?: string;
 
     @IsOptional()
     @IsString()
-    vessel_picture_back_path?: string;
+    veselImg_hadapan?: string;
 
     @IsOptional()
     @IsString()
@@ -784,7 +784,7 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    jenis_vesel?: string;
+    jenisVesel?: string;
 
     @IsOptional()
     @IsString()
