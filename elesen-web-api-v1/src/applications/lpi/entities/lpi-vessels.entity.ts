@@ -129,7 +129,7 @@ export class LpiVesselsEntity {
   vessel_picture_overall_path: string;
 
   @Column({ nullable: true })
-  full_inspection_lpi_id: number;
+  full_inspection_lpi_id: string;
 
   @Column({ nullable: true })
   created_by: string;
