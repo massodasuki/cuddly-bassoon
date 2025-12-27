@@ -397,11 +397,15 @@ export class CreateLpiFormDto {
        
     @IsOptional()
     @IsString()
-    tandaTanganPembantuImg?: string;
+    pemeriksaanImg_borangKehadiran?: string;
+
+    @IsOptional()
+    @IsString()
+    pemeriksaanImg_veselKeseluruhan ?: string;
        
     @IsOptional()
     @IsString()
-    tandatanganPegawaiImg?: string;
+    pemeriksaanImg_PemeriksaDanPemilik?: string;
        
     @IsString()
     jenisPermohonan: string;
