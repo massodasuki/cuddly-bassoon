@@ -114,6 +114,9 @@ export class LpiVesselsEntity {
   ugv_f: number;
 
   @Column({ nullable: true })
+  ugv_g: number;
+
+  @Column({ nullable: true })
   vessel_picture_left_path: string;
 
   @Column({ nullable: true })
@@ -153,5 +156,7 @@ export class LpiVesselsEntity {
   lpi_inspection_id: string;
 
   @Column({ nullable: true })
-  ugv_g: number;
+  ada_item: string;
+
+  
 }

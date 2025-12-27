@@ -144,6 +144,7 @@ export class LpiFormService {
            vessel_picture_front_path: dto.veselImg_depan,
            vessel_picture_back_path: dto.veselImg_hadapan,
            vessel_picture_overall_path: dto.veselImg_keseluruhan,
+           ada_items : dto.vesel_peralatanDijumpai,
            full_inspection_lpi_id: savedInspection.id,
            lpi_inspection_id: savedInspection.id,
            created_by: dto.createdBy,
@@ -155,14 +156,16 @@ export class LpiFormService {
 
          // Create engine record
          const engine = this.enginesRepository.create({
-            generator_picture_path: dto.generatorImg_semasaDiperiksa,
-            engine_number: dto.engine_number,
-            brand: dto.engine_brand_field,
-            model: dto.engine_model_field,
-            turbo: dto.enjinAdaTurbo_semasaDiperiksa,
-            serial_no: dto.engine_serial_no,
-            power_hp: dto.enjinKuasaKuda_semasaDiperiksa,
-            power_kw: dto.engine_power_kw,
+          
+            engine_number: dto.generator_enjinNumber,
+            brand: dto.generator_enjinJenama,
+            model: dto.generator_enjinModel,
+            turbo: dto.generator_adaTurbo ? 1 : 0,
+            serial_no: dto.generator_enjinNo, // kiv
+            power_hp: dto.generator_kuasaKuda,
+            power_kw: dto.generator_enjinKW,
+            generator_picture_path: dto.generatorImg,
+
             cylinders: dto.engine_cylinders,
             stroke: dto.engine_stroke,
             displacement: dto.engine_displacement,
@@ -173,23 +176,32 @@ export class LpiFormService {
             is_compliant: dto.is_compliant,
 
             generator_picture_path_additional: dto.generatorImg_tambahan,
+            // engine_number_additional: dto.engine_number,
+            // brand_additional: dto.engine_brand_field,
+            // model_additional: dto.engine_model_field,
+            // turbo_additional: dto.enjinAdaTurbo_semasaDiperiksa,
+            // serial_no_additional: dto.engine_serial_no,
+            // power_hp_additional: dto.enjinKuasaKuda_semasaDiperiksa,
+            // power_kw_additional: dto.engine_power_kw,
+            
+            // cylinders_additional: dto.engine_cylinders,
+            // stroke_additional: dto.engine_stroke,
+            // displacement_additional: dto.engine_displacement,
+            // fuel_type_code_id_additional: dto.fuel_type_code_id,
+            // condition_code_id_additional: dto.condition_code_id,
+            // is_main_engine_additional: dto.is_main_engine,
+            // is_functional_additional: dto.is_functional,
+            // is_compliant_additional: dto.is_compliant,
 
-            engine_overall_picture_path: dto.engine_overall_picture_path,
-            engine_plate_picture_path: dto.engine_plate_picture_path,
-            engine_brand_additional: dto.engine_brand_additional,
-            engine_model_additional: dto.engine_model_additional,
-            engine_has_turbo_additional: dto.engine_has_turbo_additional,
-            turbo_hp_additional: dto.turbo_hp_additional,
-            engine_no_additional: dto.engine_no_additional,
-            has_pev_additional: dto.has_pev_additional,
-            pev_no_additional: dto.pev_no_additional,
+            
+           
 
+            // enjin semasa
 
-            remarks: dto.engine_remarks,
             engine_brand: dto.enjinJenama_semasaDiperiksa,
             engine_model: dto.enjinModel_semasaDiperiksa,
-            engine_has_turbo: dto.engine_has_turbo,
-            turbo_hp: dto.engine_turbo_hp,
+            engine_has_turbo: dto.enjinAdaTurbo_semasaDiperiksa,
+            turbo_hp: dto.enjinKuasaKuda_semasaDiperiksa,
             engine_no: dto.enjinNombor_semasaDiperiksa,
             has_pev: dto.enjinAdaPEV_semasaDiperiksa ? 1 : 0,
             pev_no: dto.enjinNomborPEV_semasaDiperiksa,
@@ -197,13 +209,24 @@ export class LpiFormService {
             engine_no_picture_path: dto.enjinNomborImg_semasaDiperiksa,
             pev_no_picture_path: dto.enjinNomborPEVImg_semasaDiperiksa,
             turbo_picture_path: dto.enjinTurboImg_semasaDiperiksa,
-            
-            
+
+            // enjin tambahan
+            engine_brand_additional: dto.enjinJenama_tambahan,
+            engine_model_additional: dto.enjinModel_tambahan,
+            engine_has_turbo_additional: dto.enjinAdaTurbo_tambahan,
+            turbo_hp_additional: dto.enjinKuasaKuda_tambahan,
+            engine_no_additional: dto.enjinNombor_tambahan,
+            has_pev_additional: dto.enjinAdaPEV_tambahan,
+            pev_no_additional: dto.enjinNomborPEV_tambahan,
             engine_picture_path_additional: dto.enjinImg_tambahan,
             engine_no_picture_path_additional: dto.enjinNomborImg_tambahan,
             pev_no_picture_path_additional: dto.enjinNomborPEVImg_tambahan,
             turbo_picture_path_additional: dto.enjinTurboImg_tambahan,
             
+            engine_overall_picture_path: dto.engine_overall_picture_path,
+            engine_plate_picture_path: dto.engine_plate_picture_path,
+            remarks: dto.engine_remarks,
+
             full_inspection_lpi_id: savedInspection.id,
             lpi_inspection_id: savedInspection.id,
             created_by: dto.createdBy,
@@ -245,23 +268,27 @@ export class LpiFormService {
          // Create sailing equipment record
          const sailingEquipment = this.sailingEquipmentsRepository.create({
            full_inspection_lpi_id: savedInspection.id,
-           shipping_lights_status: dto.wirelessRadio_status  ? 1 : 0,
-           shipping_lights_quantity: parseInt(dto.wirelessRadio_kuantiti) || 0,
-           shipping_lights_condition: dto.wirelessRadio_keadaan  ? 1 : 0,
+           shipping_lights_status: dto.lampuPelayaran_status  ? 1 : 0,
+           shipping_lights_quantity: dto.lampuPelayaran_kuantiti || 0,
+           shipping_lights_condition: dto.lampuPelayaran_keadaan  ? 1 : 0,
+           shipping_lights_picture_path: dto.lampuPelayaranImg,
+
            mtu_status: dto.mtu_status  ? 1 : 0,
            mtu_quantity: dto.mtu_kuantiti || 0,
            mtu_condition: dto.mtu_keadaan  ? 1 : 0,
            mtu_serial_no : dto.mtu_serialNo,
+           mtu_ais_picture_path: dto.mtuImg || dto.aisImg,
+
            ais_status: dto.ais_status ? 1 : 0,
            ais_quantity: dto.ais_kuantiti || 0,
            ais_condition: dto.ais_keadaan ? 1 : 0,
            ais_serial_no : dto.ais_serialNo,
+
            gps_status: dto.gps_status ? 1 : 0,
            gps_quantity: dto.gps_kuantiti,
            gps_condition: dto.gps_keadaan ? 1 : 0,
-           gps_serial_no : dto.gps_serialNo
-           mtu_ais_picture_path: dto.MTUImg || dto.AISImg,
-           shipping_lights_picture_path: dto.shipping_lights_picture_path,
+           gps_serial_no : dto.gps_serialNo,
+           
            created_by: dto.createdBy,
            updated_by: dto.updatedBy,
            deleted_by: dto.sailing_deleted_by,
@@ -275,22 +302,27 @@ export class LpiFormService {
            shipping_lights_status: dto.lampuPelayaran_status ? 1 : 0,
            shipping_lights_quantity: dto.lampuPelayaran_kuantiti || 0,
            shipping_lights_condition: dto.lampuPelayaran_keadaan ? 1 : 0,
-           shipping_lights_picture_path: dto.shipping_lights_picture_path,
+           shipping_lights_picture_path: dto.lampuPelayaranImg,
+
            ems_status: dto.ems_status,
            ems_quantity: dto.ems_quantity,
            ems_condition: dto.ems_condition,
-           ems_picture_path: dto.ems_picture_path,
+           ems_picture_path: dto.emsImg,
+
            mtu_status: dto.mtu_status ? 1 : 0,
            mtu_serial_no: dto.mtu_kuantiti,
            mtu_active: dto.mtu_keadaan ? 1 : 0,
-           mtu_picture_path: dto.mtu_picture_path,
+           mtu_picture_path: dto.mtuImg,
+
            ais_status: dto.ais_status ? 1 : 0,
            ais_serial_no: dto.ais_kuantiti,
            ais_active: dto.ais_keadaan  ? 1 : 0,
-           ais_picture_path: dto.ais_picture_path,
+           ais_picture_path: dto.aisImg,
+
            gps_status: dto.gps_status ? 1 : 0,
            gps_serial_no: dto.gps_serialNo,
            gps_condition: dto.gps_keadaan ? 1 : 0,
+
            created_by: dto.createdBy,
            updated_by: dto.updatedBy,
            deleted_by: dto.navigation_deleted_by,
@@ -333,13 +365,13 @@ export class LpiFormService {
          // Create inland fishing equipments record
          const inlandFishing = this.inlandFishingEquipmentsRepository.create({
            full_inspection_lpi_id: savedInspection.id,
-           main_equipment_cm_id: dto.peralatan_utama,
+           main_equipment_cm_id: dto.pemeriksaanPeralatan_Utama,
            extra_equipment_1_cm_id: dto.peralatan_tambahan,
            extra_equipment_2_cm_id: dto.extra_equipment_2_cm_id,
            extra_equipment_3_cm_id: dto.extra_equipment_3_cm_id,
            extra_equipment_4_cm_id: dto.extra_equipment_4_cm_id,
            extra_equipment_5_cm_id: dto.extra_equipment_5_cm_id,
-           remarks: dto.peralatan_dijumpai,
+           remarks: dto.pemeriksaanPeralatan_diJumpai,
            created_by: dto.createdBy,
            updated_by: dto.updatedBy,
            deleted_by: dto.inland_fishing_deleted_by,
@@ -350,12 +382,12 @@ export class LpiFormService {
          // Create inland fishing equipment items record
          const inlandFishingItems = this.inlandFishingEquipmentItemsRepository.create({
            full_inspection_lpi_id: savedInspection.id,
-           equipment_id: dto.peralatan_utama,
+           equipment_id: dto.pemeriksaanPeralatan_Utama,
            type: 'main',
            quantity: 1,
            condition: 1,
            position: dto.position,
-           remarks: dto.peralatan_dijumpai,
+           remarks: dto.pemeriksaanPeralatan_diJumpai,
            created_by: dto.createdBy,
            updated_by: dto.updatedBy,
            deleted_by: dto.inland_item_deleted_by,
@@ -385,11 +417,11 @@ export class LpiFormService {
          // Create inspection items record
          const inspectionItems = this.inspectionItemsRepository.create({
            inspection_id: savedInspection.id,
-           kumpulan_peralatan: dto.kumpulan_peralatan,
-           nama_peralatan: dto.peralatan_utama,
-           kuantiti: dto.kuantiti,
-           catatan: dto.catatan,
-           display_order: dto.display_order,
+           kumpulan_peralatan: dto.pemeriksaanPeralatan_kumpulan,
+           nama_peralatan: dto.pemeriksaanPeralatan_Utama,
+           kuantiti: dto.pemeriksaanPeralatan_kuantiti,
+           catatan: dto.pemeriksaanPeralatan_catatan,
+           display_order: dto.pemeriksaanPeralatan_displayOrder,
            created_by: dto.createdBy,
            updated_by: dto.updatedBy,
            deleted_by: dto.inspection_items_deleted_by,
@@ -397,21 +429,7 @@ export class LpiFormService {
          });
          await queryRunner.manager.save(inspectionItems);
 
-         // Create equipment items record
-         const equipmentItems = this.equipmentItemsRepository.create({
-           lpi_inspection_id: savedInspection.id,
-           group_id: dto.group_id,
-           equipment_id: dto.peralatan_utama,
-           quantity: 1,
-           note: dto.peralatan_dijumpai,
-           created_by: dto.createdBy,
-           updated_by: dto.updatedBy,
-           deleted_by: dto.equipment_items_deleted_by,
-           created_at: new Date(),
-         });
-         await queryRunner.manager.save(equipmentItems);
-
-         // Create equipment record
+          // Create equipment record
          const equipment = this.equipmentsRepository.create({
            main_equipment_id: dto.peralatan_utama,
            additional_equipment_id: dto.peralatan_tambahan,
@@ -422,6 +440,22 @@ export class LpiFormService {
            created_at: new Date(),
          });
          await queryRunner.manager.save(equipment);
+
+         // Create equipment items record
+         const equipmentItems = this.equipmentItemsRepository.create({
+           lpi_inspection_id: savedInspection.id,
+           group_id: dto.group_id,
+           equipment_id: dto.pemeriksaanPeralatan_Utama,
+           quantity: 1,
+           note: dto.pemeriksaanPeralatan_diJumpai,
+           created_by: dto.createdBy,
+           updated_by: dto.updatedBy,
+           deleted_by: dto.equipment_items_deleted_by,
+           created_at: new Date(),
+         });
+         await queryRunner.manager.save(equipmentItems);
+
+        
 
          // Similarly for other repositories, but for brevity, assuming they are optional or similar
          // You can add more as needed
@@ -435,6 +469,11 @@ export class LpiFormService {
          await queryRunner.release();
        }
   }
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
 
   async createLpiForm(dto: CreateLpiFormDto) {
     // Similar to createWithFiles but without files
@@ -520,14 +559,14 @@ export class LpiFormService {
 
       const engine = this.enginesRepository.create({
         
-        generator_picture_path: dto.generatorImg_semasaDiperiksa,
-        engine_number: dto.engine_number,
-        brand: dto.engine_brand_field,
-        model: dto.engine_model_field,
+        generator_picture_path: dto.generatorImg,
+        engine_number: dto.generator_enjinNumber,
+        brand: dto.generator_enjinJenama,
+        model: dto.generator_enjinModel,
         turbo: dto.enjinAdaTurbo_semasaDiperiksa,
-        serial_no: dto.engine_serial_no,
+        serial_no: dto.generator_enjinNo,
         power_hp: dto.enjinKuasaKuda_semasaDiperiksa,
-        power_kw: dto.engine_power_kw,
+        power_kw: dto.generator_enjinKW,
         cylinders: dto.engine_cylinders,
         stroke: dto.engine_stroke,
         displacement: dto.engine_displacement,
@@ -541,13 +580,13 @@ export class LpiFormService {
 
         engine_overall_picture_path: dto.engine_overall_picture_path,
         engine_plate_picture_path: dto.engine_plate_picture_path,
-        engine_brand_additional: dto.engine_brand_additional,
-        engine_model_additional: dto.engine_model_additional,
-        engine_has_turbo_additional: dto.engine_has_turbo_additional,
-        turbo_hp_additional: dto.turbo_hp_additional,
-        engine_no_additional: dto.engine_no_additional,
-        has_pev_additional: dto.has_pev_additional,
-        pev_no_additional: dto.pev_no_additional,
+        engine_brand_additional: dto.enjinJenama_tambahan,
+        engine_model_additional: dto.enjinModel_tambahan,
+        engine_has_turbo_additional: dto.enjinAdaTurbo_tambahan,
+        turbo_hp_additional: dto.enjinAdaTurbo_tambahan,
+        engine_no_additional: dto.enjinNombor_tambahan,
+        has_pev_additional: dto.enjinAdaPEV_tambahan,
+        pev_no_additional: dto.enjinNomborPEV_tambahan,
 
 
         remarks: dto.engine_remarks,
@@ -622,7 +661,7 @@ export class LpiFormService {
       await queryRunner.manager.save(fishingEquipment);
 
       const equipment = this.equipmentsRepository.create({
-        main_equipment_id: dto.peralatan_utama,
+        main_equipment_id: dto.pemeriksaanPeralatan_Utama,
         additional_equipment_id: dto.peralatan_tambahan,
         lpi_inspection_id: savedInspection.id,
         created_by: dto.createdBy,

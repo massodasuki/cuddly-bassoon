@@ -19,6 +19,9 @@ export class CreateLpiFormDto {
   
     @IsString()
     noVesel: string;
+
+    @IsString()
+    vesel_peralatanDijumpai : string;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -191,7 +194,7 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    generatorImg_semasaDiperiksa?: string;
+    generatorImg?: string;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -351,8 +354,12 @@ export class CreateLpiFormDto {
     CCTV: boolean;
   
     @IsString()
-    peralatan_utama: string;
+    pemeriksaanPeralatan_Utama: string;
   
+
+    @IsString()
+    peralatan_utama: string;
+
     @IsString()
     peralatan_tambahan: string;
   
@@ -361,7 +368,7 @@ export class CreateLpiFormDto {
     sizeMataPukat: number;
   
     @IsString()
-    peralatan_dijumpai: string;
+    pemeriksaanPeralatan_diJumpai: string;
   
     @IsString()
     vesel_keadaan: string;
@@ -618,26 +625,34 @@ export class CreateLpiFormDto {
     @IsOptional()
     @Transform(({ value }) => parseInt(value))
     @IsNumber()
-    engine_number?: number;
+    generator_enjinNumber?: number;
 
     @IsOptional()
     @IsString()
-    engine_brand_field?: string;
+    generator_enjinJenama?: string;
 
     @IsOptional()
     @IsString()
-    engine_model_field?: string;
+    generator_enjinModel?: string;
 
-    
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @IsNumber()
+    generator_adaTurbo?: string;
 
     @IsOptional()
     @IsString()
-    engine_serial_no?: string;
+    generator_kuasaKuda?: string;
+
+
+    @IsOptional()
+    @IsString()
+    generator_enjinNo?: string;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    engine_power_kw?: number;
+    generator_enjinKW?: number;
 
     @IsOptional()
     @Transform(({ value }) => parseInt(value))
@@ -703,34 +718,34 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    engine_brand_additional?: string;
+    enjinJenama_tambahan?: string;
 
     @IsOptional()
     @IsString()
-    engine_model_additional?: string;
+    enjinModel_tambahan?: string;
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
     @IsNumber()
-    engine_has_turbo_additional?: number;
+    enjinAdaTurbo_tambahan?: number;
 
     @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    turbo_hp_additional?: number;
+    enjinAdaTurbo_tambahan?: number;
 
     @IsOptional()
     @IsString()
-    engine_no_additional?: string;
+    enjinNombor_tambahan?: string;
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
     @IsNumber()
-    has_pev_additional?: number;
+    enjinAdaPEV_tambahan?: number;
 
     @IsOptional()
     @IsString()
-    pev_no_additional?: string;
+    enjinNomborPEV_tambahan?: string;
 
     @IsOptional()
     @IsString()
@@ -781,7 +796,7 @@ export class CreateLpiFormDto {
     // Additional fields for lpi_navigations
     @IsOptional()
     @IsString()
-    shipping_lights_picture_path?: string;
+    lampuPelayaranImg?: string;
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
@@ -800,15 +815,15 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    ems_picture_path?: string;
+    emsImg?: string;
 
     @IsOptional()
     @IsString()
-    mtu_picture_path?: string;
+    mtuImg?: string;
 
     @IsOptional()
     @IsString()
-    ais_picture_path?: string;
+    aisImg?: string;
 
     @IsOptional()
     @IsString()
@@ -904,21 +919,21 @@ export class CreateLpiFormDto {
     // Additional fields for lpi_inspection_items
     @IsOptional()
     @IsString()
-    kumpulan_peralatan?: string;
+    pemeriksaanPeralatan_kumpulan?: string;
 
     @IsOptional()
     @Transform(({ value }) => parseInt(value))
     @IsNumber()
-    kuantiti?: number;
+    pemeriksaanPeralatan_kuantiti?: number;
 
     @IsOptional()
     @IsString()
-    catatan?: string;
+    pemeriksaanPeralatan_catatan?: string;
 
     @IsOptional()
     @Transform(({ value }) => parseInt(value))
     @IsNumber()
-    display_order?: number;
+    pemeriksaanPeralatan_displayOrder?: number;
 
     @IsOptional()
     @IsString()
