@@ -763,11 +763,11 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    raft_picture_path?: string;
+    rakitKeselamatanImg?: string;
 
     @IsOptional()
     @IsString()
-    fire_extinguisher_picture_path?: string;
+    alatPemadamApiImg?: string;
 
     @IsOptional()
     @IsString()
