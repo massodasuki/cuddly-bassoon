@@ -175,11 +175,11 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    enjinImg?: string;
+    enjinImg_semasaDiperiksa?: string;
 
     @IsOptional()
     @IsString()
-    noEnjinImg?: string;
+    enjinNomborImg_semasaDiperiksa?: string;
 
     @IsOptional()
     @IsString()
@@ -187,11 +187,11 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    turboImg?: string;
+    enjinTurboImg_semasaDiperiksa?: string;
 
     @IsOptional()
     @IsString()
-    generatorImg?: string;
+    generatorImg_semasaDiperiksa?: string;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -364,7 +364,7 @@ export class CreateLpiFormDto {
     peralatan_dijumpai: string;
   
     @IsString()
-    keadaanVeselSemasa: string;
+    vesel_keadaan: string;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -386,7 +386,7 @@ export class CreateLpiFormDto {
     longitude?: number;
   
     @IsString()
-    tarikhPemeriksaan: string;
+    pemeriksaan_tarikhMula: string;
   
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
@@ -456,7 +456,11 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    vessel_originality?: string;
+    vesel_ketulenan?: string;
+
+    @IsOptional()
+    @IsString()
+    vesel_jenisKulit?: string;
 
     @IsOptional()
     @IsString()
@@ -464,7 +468,11 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    end_date?: string;
+    pemeriksaan_tarikhTamat?: string;
+
+    @IsOptional()
+    @IsString()
+    pemeriksaan_lokasi?: string;
 
     @IsOptional()
     @IsString()
@@ -474,6 +482,11 @@ export class CreateLpiFormDto {
     @IsOptional()
     @IsString()
     pakuPenandaLebarKomen?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @IsNumber()
+    rumahKemudi_diCatBetul?: number;
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
@@ -717,27 +730,27 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    engine_picture_path_additional?: string;
+    enjinImg_tambahan?: string;
 
     @IsOptional()
     @IsString()
-    engine_no_picture_path_additional?: string;
+    enjinNomborImg_tambahan?: string;
 
     @IsOptional()
     @IsString()
-    pev_no_picture_path_additional?: string;
+    enjinNomborPEVImg_tambahan?: string;
 
     @IsOptional()
     @IsString()
-    turbo_picture_path_additional?: string;
+    enjinTurboImg_tambahan?: string;
 
     @IsOptional()
     @IsString()
-    generator_picture_path_additional?: string;
+    generatorImg_tambahan?: string;
 
     @IsOptional()
     @IsString()
-    pev_no_picture_path?: string;
+    enjinNomborPEVImg_semasaDiperiksa?: string;
 
     // Additional fields for lpi_safety_equipments
     @IsOptional()
@@ -858,7 +871,7 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @IsString()
-    jenisVesel?: string;
+    vesel_statusKulit?: string;
 
     @IsOptional()
     @IsString()
