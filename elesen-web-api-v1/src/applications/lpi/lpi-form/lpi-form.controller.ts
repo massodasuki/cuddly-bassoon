@@ -16,10 +16,6 @@ export class LpiFormController {
   
   @Post('inspection')
   @UseInterceptors(FileFieldsInterceptor([
-   { name: 'enjinImg', maxCount: 1 },
-   { name: 'noEnjinImg', maxCount: 1 },
-   { name: 'penandaEnjinImg', maxCount: 1 },
-   { name: 'turboImg', maxCount: 1 },
    { name: 'generatorImg', maxCount: 1 },
    { name: 'veselKiriImg', maxCount: 1 },
    { name: 'veselKananImg', maxCount: 1 },
@@ -28,9 +24,6 @@ export class LpiFormController {
    { name: 'veselKeseluruhanImg', maxCount: 1 },
    { name: 'MTUImg', maxCount: 1 },
    { name: 'AISImg', maxCount: 1 },
-   { name: 'tandaTanganPembantuImg', maxCount: 1 },
-   { name: 'tandatanganPegawaiImg', maxCount: 1 },
-   { name: 'tandaTanganEmpunyaVeselImg', maxCount: 1 },
    { name: 'pemeriksaanImg_borangKehadiran', maxCount: 1 },
    { name: 'veselImg_keseluruhan', maxCount: 1 },
    { name: 'pemeriksaanImg_PemeriksaDanPemilik', maxCount: 1 },
@@ -55,7 +48,16 @@ export class LpiFormController {
    { name: 'mtuImg', maxCount: 1 },
    { name: 'aisImg', maxCount: 1 },
    { name: 'emsImg', maxCount: 1 },
-   { name: 'pemeriksaanImg_veselKeseluruhan', maxCount: 1 }
+   { name: 'pemeriksaanImg_veselKeseluruhan', maxCount: 1 },
+
+   
+   { name: 'turboImg', maxCount: 1 },
+   { name: 'tandaTanganPembantuImg', maxCount: 1 },
+   { name: 'tandatanganPegawaiImg', maxCount: 1 },
+   { name: 'tandaTanganEmpunyaVeselImg', maxCount: 1 },
+   { name: 'enjinImg', maxCount: 1 },
+   { name: 'noEnjinImg', maxCount: 1 },
+   { name: 'penandaEnjinImg', maxCount: 1 },
    ]))
     createWithFiles(
     @Body() createDto: CreateLpiFormDto,
