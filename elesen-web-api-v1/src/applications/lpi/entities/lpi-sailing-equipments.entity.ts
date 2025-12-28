@@ -30,9 +30,6 @@ export class LpiSailingEquipmentsEntity {
   mtu_condition: number;
 
   @Column({ nullable: true })
-  mtu_serial_no: string;
-
-  @Column({ nullable: true })
   ais_status: number;
 
   @Column({ nullable: true })
@@ -40,9 +37,6 @@ export class LpiSailingEquipmentsEntity {
 
   @Column({ nullable: true })
   ais_condition: number;
-
-  @Column({ nullable: true })
-  ais_serial_no : string
 
   @Column({ nullable: true })
   gps_status: number;
@@ -53,8 +47,6 @@ export class LpiSailingEquipmentsEntity {
   @Column({ nullable: true })
   gps_condition: number;
 
-  @Column({ nullable: true })
-  gps_serial_no : string
 
   @Column({ nullable: true })
   mtu_ais_picture_path: string;

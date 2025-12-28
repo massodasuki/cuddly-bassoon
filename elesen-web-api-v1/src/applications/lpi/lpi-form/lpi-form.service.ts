@@ -62,7 +62,7 @@ export class LpiFormService {
        Object.values(files).forEach(fileArray => {
          if (fileArray) allFiles.push(...fileArray);
        });
-       const uploadedFiles = await this.imageUploadService.uploadImages(allFiles, dto.applicationId);
+       const uploadedFiles = await this.imageUploadService.uploadImages(allFiles, dto.applicationId ?? '');
 
        // Update dto with uploaded paths
        Object.keys(uploadedFiles).forEach(fieldname => {
@@ -77,6 +77,9 @@ export class LpiFormService {
 
        try {
          // Create main inspection record
+         if (!dto.pemeriksaan_tarikhMula) {
+           throw new Error('pemeriksaan_tarikhMula is required');
+         }
          const inspection = this.inspectionsRepository.create({
            id: randomUUID(),
            inspection_id: dto.inspection_id,
@@ -91,7 +94,7 @@ export class LpiFormService {
            end_date: dto.pemeriksaan_tarikhTamat ? new Date(dto.pemeriksaan_tarikhTamat) : undefined,
            location: dto.pemeriksaan_lokasi,
            attandane_form: dto.pemeriksaanImg_borangKehadiran,
-           vessel_picture: dto.veselImg_keseluruhan, 
+           vessel_picture: dto.veselImg_keseluruhan,
            owner_inspector_picture: dto.pemeriksaanImg_PemeriksaDanPemilik,
            created_by: dto.createdBy,
            updated_by: dto.updatedBy,
@@ -144,7 +147,7 @@ export class LpiFormService {
            vessel_picture_front_path: dto.veselImg_depan,
            vessel_picture_back_path: dto.veselImg_hadapan,
            vessel_picture_overall_path: dto.veselImg_keseluruhan,
-           ada_item : dto.vesel_peralatanDijumpai,
+          //  ada_item : dto.vesel_peralatanDijumpai,
            full_inspection_lpi_id: savedInspection.id,
            lpi_inspection_id: savedInspection.id,
            created_by: dto.createdBy,
@@ -276,18 +279,15 @@ export class LpiFormService {
            mtu_status: dto.mtu_status  ? 1 : 0,
            mtu_quantity: dto.mtu_kuantiti || 0,
            mtu_condition: dto.mtu_keadaan  ? 1 : 0,
-           mtu_serial_no : dto.mtu_serialNo,
            mtu_ais_picture_path: dto.mtuImg || dto.aisImg,
 
            ais_status: dto.ais_status ? 1 : 0,
            ais_quantity: dto.ais_kuantiti || 0,
            ais_condition: dto.ais_keadaan ? 1 : 0,
-           ais_serial_no : dto.ais_serialNo,
 
            gps_status: dto.gps_status ? 1 : 0,
            gps_quantity: dto.gps_kuantiti,
            gps_condition: dto.gps_keadaan ? 1 : 0,
-           gps_serial_no : dto.gps_serialNo,
            
            created_by: dto.createdBy,
            updated_by: dto.updatedBy,
@@ -362,39 +362,6 @@ export class LpiFormService {
          });
          await queryRunner.manager.save(fishingGears);
 
-         // Create inland fishing equipments record
-         const inlandFishing = this.inlandFishingEquipmentsRepository.create({
-           full_inspection_lpi_id: savedInspection.id,
-           main_equipment_cm_id: dto.pemeriksaanPeralatan_Utama,
-           extra_equipment_1_cm_id: dto.peralatan_tambahan,
-           extra_equipment_2_cm_id: dto.extra_equipment_2_cm_id,
-           extra_equipment_3_cm_id: dto.extra_equipment_3_cm_id,
-           extra_equipment_4_cm_id: dto.extra_equipment_4_cm_id,
-           extra_equipment_5_cm_id: dto.extra_equipment_5_cm_id,
-           remarks: dto.pemeriksaanPeralatan_diJumpai,
-           created_by: dto.createdBy,
-           updated_by: dto.updatedBy,
-           deleted_by: dto.inland_fishing_deleted_by,
-           created_at: new Date(),
-         });
-         await queryRunner.manager.save(inlandFishing);
-
-         // Create inland fishing equipment items record
-         const inlandFishingItems = this.inlandFishingEquipmentItemsRepository.create({
-           full_inspection_lpi_id: savedInspection.id,
-           equipment_id: dto.pemeriksaanPeralatan_Utama,
-           type: 'main',
-           quantity: 1,
-           condition: 1,
-           position: dto.position,
-           remarks: dto.pemeriksaanPeralatan_diJumpai,
-           created_by: dto.createdBy,
-           updated_by: dto.updatedBy,
-           deleted_by: dto.inland_item_deleted_by,
-           created_at: new Date(),
-         });
-         await queryRunner.manager.save(inlandFishingItems);
-
          // Create inspection details record
          const inspectionDetails = this.inspectionDetailsRepository.create({
            full_inspection_lpi_id: savedInspection.id,
@@ -418,7 +385,7 @@ export class LpiFormService {
          const inspectionItems = this.inspectionItemsRepository.create({
            inspection_id: savedInspection.id,
            kumpulan_peralatan: dto.pemeriksaanPeralatan_kumpulan,
-           nama_peralatan: dto.pemeriksaanPeralatan_Utama,
+           nama_peralatan: dto.pemeriksaanPeralatan_utama,
            kuantiti: dto.pemeriksaanPeralatan_kuantiti,
            catatan: dto.pemeriksaanPeralatan_catatan,
            display_order: dto.pemeriksaanPeralatan_displayOrder,
@@ -445,7 +412,7 @@ export class LpiFormService {
          const equipmentItems = this.equipmentItemsRepository.create({
            lpi_inspection_id: savedInspection.id,
            group_id: dto.group_id,
-           equipment_id: dto.pemeriksaanPeralatan_Utama,
+           equipment_id: equipment.id,
            quantity: 1,
            note: dto.pemeriksaanPeralatan_diJumpai,
            created_by: dto.createdBy,
@@ -455,7 +422,38 @@ export class LpiFormService {
          });
          await queryRunner.manager.save(equipmentItems);
 
-        
+          // Create inland fishing equipments record
+         const inlandFishing = this.inlandFishingEquipmentsRepository.create({
+           full_inspection_lpi_id: savedInspection.id,
+           main_equipment_cm_id: savedInspection.id, // KIV
+           extra_equipment_1_cm_id: dto.peralatan_tambahan,
+           extra_equipment_2_cm_id: dto.extra_equipment_2_cm_id,
+           extra_equipment_3_cm_id: dto.extra_equipment_3_cm_id,
+           extra_equipment_4_cm_id: dto.extra_equipment_4_cm_id,
+           extra_equipment_5_cm_id: dto.extra_equipment_5_cm_id,
+           remarks: dto.pemeriksaanPeralatan_diJumpai,
+           created_by: dto.createdBy,
+           updated_by: dto.updatedBy,
+           deleted_by: dto.inland_fishing_deleted_by,
+           created_at: new Date(),
+         });
+         await queryRunner.manager.save(inlandFishing);
+
+         // Create inland fishing equipment items record
+         const inlandFishingItems = this.inlandFishingEquipmentItemsRepository.create({
+           full_inspection_lpi_id: savedInspection.id,
+           equipment_id: equipment.id,
+           type: 'main',
+           quantity: 1,
+           condition: 1,
+           position: dto.position,
+           remarks: dto.pemeriksaanPeralatan_diJumpai,
+           created_by: dto.createdBy,
+           updated_by: dto.updatedBy,
+           deleted_by: dto.inland_item_deleted_by,
+           created_at: new Date(),
+         });
+         await queryRunner.manager.save(inlandFishingItems);
 
          // Similarly for other repositories, but for brevity, assuming they are optional or similar
          // You can add more as needed
@@ -482,6 +480,9 @@ export class LpiFormService {
     await queryRunner.startTransaction();
 
     try {
+      if (!dto.pemeriksaan_tarikhMula) {
+        throw new Error('pemeriksaan_tarikhMula is required');
+      }
       const inspection = this.inspectionsRepository.create({
         id: randomUUID(),
         inspection_id: dto.inspection_id,
@@ -661,7 +662,7 @@ export class LpiFormService {
       await queryRunner.manager.save(fishingEquipment);
 
       const equipment = this.equipmentsRepository.create({
-        main_equipment_id: dto.pemeriksaanPeralatan_Utama,
+        main_equipment_id: dto.pemeriksaanPeralatan_utama,
         additional_equipment_id: dto.peralatan_tambahan,
         lpi_inspection_id: savedInspection.id,
         created_by: dto.createdBy,

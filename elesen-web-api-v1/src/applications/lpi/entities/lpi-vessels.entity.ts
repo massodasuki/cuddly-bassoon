@@ -155,8 +155,5 @@ export class LpiVesselsEntity {
   @Column({ nullable: true })
   lpi_inspection_id: string;
 
-  @Column({ nullable: true })
-  ada_item: string;
-
   
 }

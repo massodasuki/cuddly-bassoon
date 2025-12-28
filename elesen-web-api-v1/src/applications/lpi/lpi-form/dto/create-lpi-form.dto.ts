@@ -2,152 +2,191 @@ import { IsString, IsBoolean, IsNumber, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class CreateLpiFormDto {
-  @IsString()
-    userId: string;
-  
+    @IsOptional()
     @IsString()
-    vesselId: string;
-  
-    @IsString()
-    applicationId: string;
-  
-    @IsString()
-    createdBy: string;
-  
-    @IsString()
-    updatedBy: string;
-  
-    @IsString()
-    noVesel: string;
+    userId?: string;
 
+    @IsOptional()
     @IsString()
-    vesel_peralatanDijumpai : string;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    noPendaftaranVesel_diTebuk: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    noPendaftaranVesel_diCat: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    noVesel_diBumbung: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    tandaBahagianLaluan: boolean;
-  
+    vesselId?: string;
+
+    @IsOptional()
     @IsString()
-    hurufKodTanda: string;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    tinPlate: boolean;
-  
+    applicationId?: string;
+
+    @IsOptional()
     @IsString()
-    noTinPlate: string;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    pakuPenandaLebar: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    rumahKemudi_ditebuk: boolean;
-  
+    createdBy?: string;
+
+    @IsOptional()
     @IsString()
-    rumahKemudi_hurufKodZon: string;
+    updatedBy?: string;
   
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    rumahKemudi_diBumbung: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    pukatTundaBerlesen_jalurPutih: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    pukatTundaBerlesen_diCat: boolean;
-  
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    panjangMeter_dalamLesen: number;
-  
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    UDV_panjangMeter: number;
-  
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    lebarMeter_dalamLesen: number;
-  
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    UDV_lebarMeter: number;
-  
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    kedalamanMeter_dalamLesen: number;
-  
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    UDV_dalamMeter: number;
-  
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    muatanGRT_dalamLesen: number;
-  
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    UDV_muatanGRT: number;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    enjinAdaPEV_semasaDiperiksa: boolean;
-  
+    @IsOptional()
     @IsString()
-    enjinNomborPEV_semasaDiperiksa: string;
+    noVesel?: string;
+
+    @IsOptional()
+    @IsString()
+    vesel_peralatanDijumpai ?: string;
+  
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    noPendaftaranVesel_diTebuk?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    noPendaftaranVesel_diCat?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    noVesel_diBumbung?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    tandaBahagianLaluan?: boolean;
+  
+    @IsOptional()
+    @IsString()
+    hurufKodTanda?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    tinPlate?: boolean;
+
+    @IsOptional()
+    @IsString()
+    noTinPlate?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    pakuPenandaLebar?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    rumahKemudi_ditebuk?: boolean;
+
+    @IsOptional()
+    @IsString()
+    rumahKemudi_hurufKodZon?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    rumahKemudi_diBumbung?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    pukatTundaBerlesen_jalurPutih?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    pukatTundaBerlesen_diCat?: boolean;
+  
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    panjangMeter_dalamLesen?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    UDV_panjangMeter?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    lebarMeter_dalamLesen?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    UDV_lebarMeter?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    kedalamanMeter_dalamLesen?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    UDV_dalamMeter?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    muatanGRT_dalamLesen?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    UDV_muatanGRT?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    enjinAdaPEV_semasaDiperiksa?: boolean;
+
+    @IsOptional()
+    @IsString()
+    enjinNomborPEV_semasaDiperiksa?: string;
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
     @IsNumber()
     enjinAdaTurbo_semasaDiperiksa?: number;
   
+    @IsOptional()
     @IsString()
-    enjinJenama_semasaDiperiksa: string;
-  
-    @IsString()
-    enjinModel_semasaDiperiksa: string;
+    enjinJenama_semasaDiperiksa?: string;
 
+    @IsOptional()
+    @IsString()
+    enjinModel_semasaDiperiksa?: string;
+
+    @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    enjinKuasaKuda_semasaDiperiksa: number;
+    enjinKuasaKuda_semasaDiperiksa?: number;
 
+    @IsOptional()
     @IsString()
-    enjinNombor_semasaDiperiksa: string;
+    enjinNombor_semasaDiperiksa?: string;
 
 
+    @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    enjinKuasaKuda_tambahan: number;
-  
+    enjinKuasaKuda_tambahan?: number;
+
+    @IsOptional()
     @IsString()
-    model_dalamLesen: string;
+    model_dalamLesen?: string;
 
+    @IsOptional()
     @IsString()
-    jenama_dalamLesen: string;
+    jenama_dalamLesen?: string;
 
-    
 
+
+    @IsOptional()
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
-    kuasaKuda_dalamLesen: number;
-  
+    kuasaKuda_dalamLesen?: number;
+
+    @IsOptional()
     @IsString()
-    noEnjin_dalamLesen: string;
+    noEnjin_dalamLesen?: string;
   
     
   
@@ -175,211 +214,277 @@ export class CreateLpiFormDto {
     @IsString()
     generatorImg?: string;
   
+    @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    jaketKeselamatan_status: boolean;
-  
+    jaketKeselamatan_status?: boolean;
+
+    @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    jaketKeselamatan_keadaan: boolean;
-  
+    jaketKeselamatan_keadaan?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
     @IsNumber()
-    jaketKeselamatan_kuantiti: number;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    boyaKeselamatan_status: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    boyaKeselamatan_keadaan: boolean;
-  
-    @IsNumber()
-    boyaKeselamatan_kuantiti: number;
-  
-    @IsString()
-    alatPemadamApi_status: string;
-  
-    @IsString()
-    alatPemadamApi_keadaan: string;
-  
-    @IsNumber()
-    alatPemadamApi_kuantiti: number;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    wirelessRadio_status: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    wirelessRadio_keadaan: boolean;
-  
-    @IsNumber()
-    wirelessRadio_kuantiti: number;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    rakitKeselamatan_status: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    rakitKeselamatan_keadaan: boolean;
-  
-    @IsNumber()
-    rakitKeselamatan_kuantiti: number;
-
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    lampuPelayaran_status: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    lampuPelayaran_keadaan: boolean;
-  
-    @IsNumber()
-    lampuPelayaran_kuantiti: number;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    mtu_status: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    mtu_keadaan: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsNumber()
-    mtu_kuantiti: number;
-
-    @IsString()
-    mtu_serialNo: string;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    ais_status: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    ais_keadaan: string;
-  
-    @IsNumber()
-    ais_kuantiti: number;
-
-    @IsString()
-    ais_serialNo: string;
-
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    gps_status : boolean ;
-
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    gps_keadaan : boolean;
-
-    @IsNumber()
-    gps_kuantiti : number;
-
-    @IsString()
-    gps_serialNo : string
-
-
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    alatTangkapIkan_echoSounder: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    radar: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    satNavigation: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    alatTangkapIkan_sonar: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    fishFinder: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    radioWireless: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    ATUR: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    alatTangkapIkan_netHauler: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    alatTangkapIkan_powerBlock: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    netDrum: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    alatTangkapIkan_rsw: boolean;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    CCTV: boolean;
-  
-    @IsString()
-    pemeriksaanPeralatan_Utama: string;
-  
-
-    @IsString()
-    peralatan_utama: string;
-
-    @IsString()
-    peralatan_tambahan: string;
-  
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    sizeMataPukat: number;
-  
-    @IsString()
-    pemeriksaanPeralatan_diJumpai: string;
-  
-    @IsString()
-    vesel_keadaan: string;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    veselAsal: boolean;
-  
-    @IsString()
-    jenisKulitVesel: string;
-  
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    veselBaru: boolean;
+    jaketKeselamatan_kuantiti?: number;
   
     @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    boyaKeselamatan_status?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    boyaKeselamatan_keadaan?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    boyaKeselamatan_kuantiti?: number;
+  
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    alatPemadamApi_status?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    alatPemadamApi_keadaan?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    alatPemadamApi_kuantiti?: number;
+  
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    wirelessRadio_status?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    wirelessRadio_keadaan?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    wirelessRadio_kuantiti?: number;
+  
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    rakitKeselamatan_status?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    rakitKeselamatan_keadaan?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    rakitKeselamatan_kuantiti?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    lampuPelayaran_status?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    lampuPelayaran_keadaan?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    lampuPelayaran_kuantiti?: number;
+  
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    mtu_status?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    mtu_keadaan?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    mtu_kuantiti?: number;
+
+    @IsOptional()
+    @IsString()
+    mtu_serialNo?: string;
+  
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    ais_status?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    ais_keadaan?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    ais_kuantiti?: number;
+
+    @IsOptional()
+    @IsString()
+    ais_serialNo?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    gps_status ?: boolean ;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    gps_keadaan ?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    gps_kuantiti ?: number;
+
+    @IsOptional()
+    @IsString()
+    gps_serialNo ?: string
+
+
+  
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    alatTangkapIkan_echoSounder?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    radar?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    satNavigation?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    alatTangkapIkan_sonar?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    fishFinder?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    radioWireless?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    ATUR?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    alatTangkapIkan_netHauler?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    alatTangkapIkan_powerBlock?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    netDrum?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    alatTangkapIkan_rsw?: boolean;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    CCTV?: boolean;
+  
+    @IsOptional()
+    @IsString()
+    pemeriksaanPeralatan_utama?: string;
+
+
+    @IsOptional()
+    @IsString()
+    peralatan_utama?: string;
+
+    @IsOptional()
+    @IsString()
+    peralatan_tambahan?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    sizeMataPukat?: number;
+
+    @IsOptional()
+    @IsString()
+    pemeriksaanPeralatan_diJumpai?: string;
+
+    @IsOptional()
+    @IsString()
+    vesel_keadaan?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    veselAsal?: boolean;
+
+    @IsOptional()
+    @IsString()
+    jenisKulitVesel?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true)
+    @IsBoolean()
+    veselBaru?: boolean;
+  
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
     @IsNumber()
     latitude?: number;
   
     @IsOptional()
+    @Transform(({ value }) => parseInt(value))
     @IsNumber()
     longitude?: number;
   
+    @IsOptional()
     @IsString()
-    pemeriksaan_tarikhMula: string;
-  
+    pemeriksaan_tarikhMula?: string;
+
+    @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
-    permohonan_diSokong: boolean;
-  
+    permohonan_diSokong?: boolean;
+
+    @IsOptional()
     @IsString()
-    permohonan_tarikhPemeriksaan: string;
+    permohonan_tarikhPemeriksaan?: string;
        
     @IsOptional()
     @IsString()
@@ -393,11 +498,13 @@ export class CreateLpiFormDto {
     @IsString()
     pemeriksaanImg_PemeriksaDanPemilik?: string;
        
+    @IsOptional()
     @IsString()
-    jenisPermohonan: string;
-  
+    jenisPermohonan?: string;
+
+    @IsOptional()
     @IsString()
-    perakuanPemilik_tarikhPemeriksaan: string;
+    perakuanPemilik_tarikhPemeriksaan?: string;
        
     @IsOptional()
     @IsString()
@@ -775,8 +882,8 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
-    @IsNumber()
-    ems_status?: number;
+    @IsBoolean()
+    ems_status?: boolean;
 
     @IsOptional()
     @Transform(({ value }) => parseInt(value))
@@ -785,8 +892,8 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
-    @IsNumber()
-    ems_condition?: number;
+    @IsBoolean()
+    ems_condition?: boolean;
 
     @IsOptional()
     @IsString()
