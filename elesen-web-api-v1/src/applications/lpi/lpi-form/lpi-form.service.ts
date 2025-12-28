@@ -111,7 +111,7 @@ export class LpiFormService {
            pilot_house_on_roof: dto.rumahKemudi_diBumbung ? 1 : 0,
            pilot_house_comment: dto.rumahKemudi_komen,
            iron_hammer_marker: dto.tandaPenukulBesi_bahagianHaluan ? 1 : 0,
-           iron_hammer_alphabet: dto.tandaPenukulBesi_hurufKodTanda ? 1 : 0,
+           iron_hammer_alphabet: dto.tandaPenukulBesi_hurufKodTanda,
            iron_hammer_comment: dto.tandaPenukulBesi_komen,
            registration_number_is_punch: dto.noPendaftaranVesel_diTebuk ? 1 : 0,
            registration_number_is_paint: dto.noPendaftaranVesel_diCat ? 1 : 0,
@@ -144,7 +144,7 @@ export class LpiFormService {
            vessel_picture_front_path: dto.veselImg_depan,
            vessel_picture_back_path: dto.veselImg_hadapan,
            vessel_picture_overall_path: dto.veselImg_keseluruhan,
-           ada_items : dto.vesel_peralatanDijumpai,
+           ada_item : dto.vesel_peralatanDijumpai,
            full_inspection_lpi_id: savedInspection.id,
            lpi_inspection_id: savedInspection.id,
            created_by: dto.createdBy,
@@ -310,12 +310,12 @@ export class LpiFormService {
            ems_picture_path: dto.emsImg,
 
            mtu_status: dto.mtu_status ? 1 : 0,
-           mtu_serial_no: dto.mtu_kuantiti,
+           mtu_serial_no: dto.mtu_serialNo,
            mtu_active: dto.mtu_keadaan ? 1 : 0,
            mtu_picture_path: dto.mtuImg,
 
            ais_status: dto.ais_status ? 1 : 0,
-           ais_serial_no: dto.ais_kuantiti,
+           ais_serial_no: dto.ais_serialNo,
            ais_active: dto.ais_keadaan  ? 1 : 0,
            ais_picture_path: dto.aisImg,
 

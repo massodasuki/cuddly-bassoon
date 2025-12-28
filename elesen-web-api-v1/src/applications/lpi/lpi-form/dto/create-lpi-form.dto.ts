@@ -130,30 +130,9 @@ export class CreateLpiFormDto {
     enjinNombor_semasaDiperiksa: string;
 
 
-    @Transform(({ value }) => value === 'true' || value === true)
-    @IsBoolean()
-    enjinAdaPEV_tambahan: boolean;
-  
-    @IsString()
-    enjinNomborPEV_tambahan: string;
-
-    @IsOptional()
-    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
-    @IsNumber()
-    enjinAdaTurbo_tambahan?: number;
-  
-    @IsString()
-    enjinJenama_tambahan: string;
-  
-    @IsString()
-    enjinModel_tambahan: string;
-
     @Transform(({ value }) => parseFloat(value))
     @IsNumber()
     enjinKuasaKuda_tambahan: number;
-
-    @IsString()
-    enjinNombor_tambahan: string;
   
     @IsString()
     model_dalamLesen: string;
@@ -638,11 +617,12 @@ export class CreateLpiFormDto {
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
     @IsNumber()
-    generator_adaTurbo?: string;
+    generator_adaTurbo?: number;
 
     @IsOptional()
-    @IsString()
-    generator_kuasaKuda?: string;
+    @Transform(({ value }) => parseFloat(value))
+    @IsNumber()
+    generator_kuasaKuda?: number;
 
 
     @IsOptional()
@@ -726,11 +706,6 @@ export class CreateLpiFormDto {
 
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
-    @IsNumber()
-    enjinAdaTurbo_tambahan?: number;
-
-    @IsOptional()
-    @Transform(({ value }) => parseFloat(value))
     @IsNumber()
     enjinAdaTurbo_tambahan?: number;
 
