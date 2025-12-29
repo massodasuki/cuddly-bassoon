@@ -881,7 +881,7 @@ export class CreateLpiFormDto {
     lampuPelayaranImg?: string;
 
     @IsOptional()
-    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
     ems_status?: boolean;
 
@@ -891,7 +891,7 @@ export class CreateLpiFormDto {
     ems_quantity?: number;
 
     @IsOptional()
-    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @Transform(({ value }) => value === 'true' || value === true)
     @IsBoolean()
     ems_condition?: boolean;
 

@@ -304,9 +304,9 @@ export class LpiFormService {
            shipping_lights_condition: dto.lampuPelayaran_keadaan ? 1 : 0,
            shipping_lights_picture_path: dto.lampuPelayaranImg,
 
-           ems_status: dto.ems_status,
+           ems_status: dto.ems_status ? 1 : 0,
            ems_quantity: dto.ems_quantity,
-           ems_condition: dto.ems_condition,
+           ems_condition: dto.ems_condition ? 1 : 0,
            ems_picture_path: dto.emsImg,
 
            mtu_status: dto.mtu_status ? 1 : 0,
@@ -327,7 +327,7 @@ export class LpiFormService {
            updated_by: dto.updatedBy,
            deleted_by: dto.navigation_deleted_by,
            created_at: new Date(),
-         });
+         } as any);
          await queryRunner.manager.save(navigation);
 
          // Create fishing equipment record
