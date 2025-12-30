@@ -65,6 +65,7 @@ import { VesselDetailsApiModule } from './applications/vessel-api/vessel-details
     LpiFormModule,
     InspectionsModule,
     ApplicationsModule,
+    CodeMastersModule
 
   ],
   controllers: [AppController],

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CodeMaster } from './code-masters.entity';
@@ -23,6 +23,25 @@ export class CodeMastersService {
     }
     return codeMaster;
   }
+
+  // async findByType(type?: string): Promise<CodeMaster> {
+  //   const codeMaster = await this.codeMastersRepository.find( {where: { type },});
+  //   if (!codeMaster) {
+  //     throw new Error('CodeMaster not found');
+  //   }
+  //   return codeMaster;
+  // }
+
+  async findByType(type: string) {
+  if (!type) {
+    throw new BadRequestException('Type query parameter is required');
+  }
+
+  return await this.codeMastersRepository.find({
+    where: { type },
+  });
+}
+
 
   async create(createCodeMasterDto: CreateCodeMasterDto): Promise<CodeMaster> {
     const codeMaster = this.codeMastersRepository.create(createCodeMasterDto);
