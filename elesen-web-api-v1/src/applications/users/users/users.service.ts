@@ -288,6 +288,7 @@ export class UsersService {
     let query = this.userRepo
       .createQueryBuilder('user')
       .leftJoin('user.profile', 'profile')
+      .leftJoin('user.roles', 'roles')
       .select(['user.id', 'user.name', 'user.username', 'user.start_date', 'user.end_date', 'user.district', 'user.entity_id'])
       .addSelect('user.entity_id', 'entity_id')
       .where('user.entity_id IS NULL')
