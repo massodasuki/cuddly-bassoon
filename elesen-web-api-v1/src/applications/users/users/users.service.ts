@@ -279,9 +279,9 @@ export class UsersService {
     const skip = (page - 1) * pageSize
 
     let roleName: string | undefined
-    if (lesen === 'MARIN') {
+    if (lesen?.toLowerCase() === 'marin') {
       roleName = 'NELAYAN LAUT'
-    } else if (lesen === 'DARAT') {
+    } else if (lesen?.toLowerCase() === 'darat') {
       roleName = 'NELAYAN DARAT'
     }
 
@@ -293,7 +293,7 @@ export class UsersService {
       .where('user.entity_id IS NULL')
 
     if (roleName) {
-      query = query.andWhere('LOWER(role.name) LIKE LOWER(:roleName)', { roleName: `%${roleName}%` })
+      query = query.andWhere('LOWER(roles.name) LIKE LOWER(:roleName)', { roleName: `%${roleName}%` })
     }
 
     const [data, total] = await query
