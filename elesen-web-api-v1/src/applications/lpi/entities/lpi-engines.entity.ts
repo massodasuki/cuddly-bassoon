@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity('lpi_engines')
 export class LpiEnginesEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('varchar', { length: 36 })
   id: string;
 
   @Column({ nullable: true })
@@ -26,7 +26,7 @@ export class LpiEnginesEntity {
   @Column({ nullable: true })
   power_hp: number;
 
-  @Column({ nullable: true })
+  @Column('decimal', { precision: 10, scale: 2, nullable: true })
   power_kw: number;
 
   @Column({ nullable: true })
@@ -59,7 +59,7 @@ export class LpiEnginesEntity {
   @Column({ nullable: true })
   engine_plate_picture_path: string;
 
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   remarks: string;
 
   @Column({ nullable: true })
@@ -151,6 +151,51 @@ export class LpiEnginesEntity {
 
   @Column({ nullable: true })
   turbo_picture_path_additional: string;
+
+  @Column({ nullable: true })
+  has_generator: number;
+
+  @Column({ nullable: true })
+  generator_brand: string;
+
+  @Column({ nullable: true })
+  generator_model: string;
+
+  @Column({ nullable: true })
+  generator_has_turbo: number;
+
+  @Column({ nullable: true })
+  generator_wattage: number;
+
+  @Column({ nullable: true })
+  generator_no: string;
+
+  @Column({ nullable: true })
+  generator_has_pev: number;
+
+  @Column({ nullable: true })
+  generator_pev_no: string;
+
+  @Column({ nullable: true })
+  generator_brand_additional: string;
+
+  @Column({ nullable: true })
+  generator_model_additional: string;
+
+  @Column({ nullable: true })
+  generator_has_turbo_additional: number;
+
+  @Column({ nullable: true })
+  generator_wattage_additional: number;
+
+  @Column({ nullable: true })
+  generator_no_additional: string;
+
+  @Column({ nullable: true })
+  generator_has_pev_additional: number;
+
+  @Column({ nullable: true })
+  generator_pev_no_additional: string;
 
   @Column({ nullable: true })
   generator_picture_path_additional: string;

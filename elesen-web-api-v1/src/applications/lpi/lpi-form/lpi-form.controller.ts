@@ -58,6 +58,8 @@ export class LpiFormController {
    { name: 'enjinImg', maxCount: 1 },
    { name: 'noEnjinImg', maxCount: 1 },
    { name: 'penandaEnjinImg', maxCount: 1 },
+   { name: 'generatorImg', maxCount: 1 },
+   { name: 'generatorImg_tambahan', maxCount: 1 },
    ]))
     createWithFiles(
     @Body() createDto: CreateLpiFormDto,

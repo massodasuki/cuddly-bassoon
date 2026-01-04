@@ -160,25 +160,24 @@ export class LpiFormService {
          // Create engine record
          const engine = this.enginesRepository.create({
           
-            engine_number: dto.generator_enjinNumber,
-            brand: dto.generator_enjinJenama,
-            model: dto.generator_enjinModel,
-            turbo: dto.generator_adaTurbo ? 1 : 0,
-            serial_no: dto.generator_enjinNo, // kiv
-            power_hp: dto.generator_kuasaKuda,
-            power_kw: dto.generator_enjinKW,
-            generator_picture_path: dto.generatorImg,
-
-            cylinders: dto.engine_cylinders,
-            stroke: dto.engine_stroke,
-            displacement: dto.engine_displacement,
-            fuel_type_code_id: dto.fuel_type_code_id,
-            condition_code_id: dto.condition_code_id,
-            is_main_engine: dto.is_main_engine,
-            is_functional: dto.is_functional,
-            is_compliant: dto.is_compliant,
-
-            generator_picture_path_additional: dto.generatorImg_tambahan,
+            // engine_number: dto.generator_enjinNumber,
+            // brand: dto.generator_enjinJenama,
+            // model: dto.generator_enjinModel,
+            // turbo: dto.generator_adaTurbo ? 1 : 0,
+            // serial_no: dto.generator_enjinNo, // kiv
+            // power_hp: dto.generator_kuasaKuda,
+            // power_kw: dto.generator_enjinKW,
+            // generator_picture_path: dto.generatorImg,
+            // cylinders: dto.engine_cylinders,
+            // stroke: dto.engine_stroke,
+            // displacement: dto.engine_displacement,
+            // fuel_type_code_id: dto.fuel_type_code_id,
+            // condition_code_id: dto.condition_code_id,
+            // is_main_engine: dto.is_main_engine,
+            // is_functional: dto.is_functional,
+            // is_compliant: dto.is_compliant,
+            // generator_picture_path_additional: dto.generatorImg_tambahan,
+            // has_generator: dto.generator_enjinNumber ? 1 : 0,
             // engine_number_additional: dto.engine_number,
             // brand_additional: dto.engine_brand_field,
             // model_additional: dto.engine_model_field,
@@ -186,7 +185,6 @@ export class LpiFormService {
             // serial_no_additional: dto.engine_serial_no,
             // power_hp_additional: dto.enjinKuasaKuda_semasaDiperiksa,
             // power_kw_additional: dto.engine_power_kw,
-            
             // cylinders_additional: dto.engine_cylinders,
             // stroke_additional: dto.engine_stroke,
             // displacement_additional: dto.engine_displacement,
@@ -196,8 +194,26 @@ export class LpiFormService {
             // is_functional_additional: dto.is_functional,
             // is_compliant_additional: dto.is_compliant,
 
-            
-           
+            // generator
+            generator_brand: dto.generator_jenama,
+            generator_model: dto.generator_model,
+            generator_has_turbo: dto.generator_adaTurbo ? 1 : 0,
+            generator_wattage: dto.generator_kuasaKW,
+            generator_no: dto.generator_noEnjin,
+            generator_has_pev: dto.generator_adaPEV ? 1 : 0,
+            generator_pev_no: dto.generator_noPEV,
+            generator_picture_path : dto.generatorImg,
+
+
+            generator_brand_additional: dto.generator_jenama_tambahan,
+            generator_model_additional: dto.generator_model_tambahan,
+            generator_has_turbo_additional: dto.generator_adaTurbo_tambahan ? 1 : 0,
+            generator_wattage_additional: dto.generator_kuasaKW_tambahan,
+            generator_no_additional: dto.generator_noEnjin_tambahan,
+            generator_has_pev_additional: dto.generator_adaPEV_tambahan ? 1 : 0,
+            generator_pev_no_additional: dto.generator_noPEV_tambahan,
+            generator_picture_path_additional : dto.generatorImg_tambahan,
+
 
             // enjin semasa
 
@@ -560,24 +576,60 @@ export class LpiFormService {
 
       const engine = this.enginesRepository.create({
         
-        generator_picture_path: dto.generatorImg,
-        engine_number: dto.generator_enjinNumber,
-        brand: dto.generator_enjinJenama,
-        model: dto.generator_enjinModel,
-        turbo: dto.enjinAdaTurbo_semasaDiperiksa,
-        serial_no: dto.generator_enjinNo,
-        power_hp: dto.enjinKuasaKuda_semasaDiperiksa,
-        power_kw: dto.generator_enjinKW,
-        cylinders: dto.engine_cylinders,
-        stroke: dto.engine_stroke,
-        displacement: dto.engine_displacement,
-        fuel_type_code_id: dto.fuel_type_code_id,
-        condition_code_id: dto.condition_code_id,
-        is_main_engine: dto.is_main_engine,
-        is_functional: dto.is_functional,
-        is_compliant: dto.is_compliant,
+                  
+            // engine_number: dto.generator_enjinNumber,
+            // brand: dto.generator_enjinJenama,
+            // model: dto.generator_enjinModel,
+            // turbo: dto.generator_adaTurbo ? 1 : 0,
+            // serial_no: dto.generator_enjinNo, // kiv
+            // power_hp: dto.generator_kuasaKuda,
+            // power_kw: dto.generator_enjinKW,
+            // generator_picture_path: dto.generatorImg,
+            // cylinders: dto.engine_cylinders,
+            // stroke: dto.engine_stroke,
+            // displacement: dto.engine_displacement,
+            // fuel_type_code_id: dto.fuel_type_code_id,
+            // condition_code_id: dto.condition_code_id,
+            // is_main_engine: dto.is_main_engine,
+            // is_functional: dto.is_functional,
+            // is_compliant: dto.is_compliant,
+            // generator_picture_path_additional: dto.generatorImg_tambahan,
+            // has_generator: dto.generator_enjinNumber ? 1 : 0,
+            // engine_number_additional: dto.engine_number,
+            // brand_additional: dto.engine_brand_field,
+            // model_additional: dto.engine_model_field,
+            // turbo_additional: dto.enjinAdaTurbo_semasaDiperiksa,
+            // serial_no_additional: dto.engine_serial_no,
+            // power_hp_additional: dto.enjinKuasaKuda_semasaDiperiksa,
+            // power_kw_additional: dto.engine_power_kw,
+            // cylinders_additional: dto.engine_cylinders,
+            // stroke_additional: dto.engine_stroke,
+            // displacement_additional: dto.engine_displacement,
+            // fuel_type_code_id_additional: dto.fuel_type_code_id,
+            // condition_code_id_additional: dto.condition_code_id,
+            // is_main_engine_additional: dto.is_main_engine,
+            // is_functional_additional: dto.is_functional,
+            // is_compliant_additional: dto.is_compliant,
 
-        generator_picture_path_additional: dto.generatorImg_tambahan,
+            // generator
+            generator_brand: dto.generator_jenama,
+            generator_model: dto.generator_model,
+            generator_has_turbo: dto.generator_adaTurbo ? 1 : 0,
+            generator_wattage: dto.generator_kuasaKW,
+            generator_no: dto.generator_noEnjin,
+            generator_has_pev: dto.generator_adaPEV ? 1 : 0,
+            generator_pev_no: dto.generator_noPEV,
+            generator_picture_path : dto.generatorImg,
+
+
+            generator_brand_additional: dto.generator_jenama_tambahan,
+            generator_model_additional: dto.generator_model_tambahan,
+            generator_has_turbo_additional: dto.generator_adaTurbo_tambahan ? 1 : 0,
+            generator_wattage_additional: dto.generator_kuasaKW_tambahan,
+            generator_no_additional: dto.generator_noEnjin_tambahan,
+            generator_has_pev_additional: dto.generator_adaPEV_tambahan ? 1 : 0,
+            generator_pev_no_additional: dto.generator_noPEV_tambahan,
+            generator_picture_path_additional : dto.generatorImg_tambahan,
 
         engine_overall_picture_path: dto.engine_overall_picture_path,
         engine_plate_picture_path: dto.engine_plate_picture_path,

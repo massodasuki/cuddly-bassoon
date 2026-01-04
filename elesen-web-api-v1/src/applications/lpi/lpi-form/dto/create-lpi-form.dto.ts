@@ -209,10 +209,6 @@ export class CreateLpiFormDto {
     @IsOptional()
     @IsString()
     enjinTurboImg_semasaDiperiksa?: string;
-
-    @IsOptional()
-    @IsString()
-    generatorImg?: string;
   
     @IsOptional()
     @Transform(({ value }) => value === 'true' || value === true)
@@ -707,39 +703,7 @@ export class CreateLpiFormDto {
     @IsString()
     vessel_deleted_by?: string;
 
-    // Additional fields for lpi_engines
-    @IsOptional()
-    @Transform(({ value }) => parseInt(value))
-    @IsNumber()
-    generator_enjinNumber?: number;
-
-    @IsOptional()
-    @IsString()
-    generator_enjinJenama?: string;
-
-    @IsOptional()
-    @IsString()
-    generator_enjinModel?: string;
-
-    @IsOptional()
-    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
-    @IsNumber()
-    generator_adaTurbo?: number;
-
-    @IsOptional()
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    generator_kuasaKuda?: number;
-
-
-    @IsOptional()
-    @IsString()
-    generator_enjinNo?: string;
-
-    @IsOptional()
-    @Transform(({ value }) => parseFloat(value))
-    @IsNumber()
-    generator_enjinKW?: number;
+    // Additional fields for lpi_engine
 
     @IsOptional()
     @Transform(({ value }) => parseInt(value))
@@ -844,6 +808,79 @@ export class CreateLpiFormDto {
     @IsOptional()
     @IsString()
     enjinTurboImg_tambahan?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @IsNumber()
+    has_generator?: number;
+
+    @IsOptional()
+    @IsString()
+    generator_jenama?: string;
+
+    @IsOptional()
+    @IsString()
+    generator_model?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @IsNumber()
+    generator_adaTurbo?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    generator_kuasaKW?: number;
+
+    @IsOptional()
+    @IsString()
+    generator_noEnjin?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @IsNumber()
+    generator_adaPEV?: number;
+
+    @IsOptional()
+    @IsString()
+    generator_noPEV?: string;
+
+    @IsOptional()
+    @IsString()
+    generatorImg?: string;
+
+
+
+    @IsOptional()
+    @IsString()
+    generator_jenama_tambahan?: string;
+
+    @IsOptional()
+    @IsString()
+    generator_model_tambahan?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @IsNumber()
+    generator_adaTurbo_tambahan?: number;
+
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    @IsNumber()
+    generator_kuasaKW_tambahan?: number;
+
+    @IsOptional()
+    @IsString()
+    generator_noEnjin_tambahan?: string;
+
+    @IsOptional()
+    @Transform(({ value }) => value === 'true' || value === true ? 1 : 0)
+    @IsNumber()
+    generator_adaPEV_tambahan?: number;
+
+    @IsOptional()
+    @IsString()
+    generator_noPEV_tambahan?: string;
 
     @IsOptional()
     @IsString()
