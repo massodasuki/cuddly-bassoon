@@ -83,7 +83,7 @@ export class UsersService {
   }
 
   async saveLoginTimestamp (user: UserEntity): Promise<UserEntity> {
-    user = this.userRepo.create({ last_online_at : Date.now()})
+    user = this.userRepo.create({ username : user.username, last_online_at : Date.now()})
     return this.userRepo.save(user)
   }
 
