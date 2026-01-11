@@ -66,11 +66,11 @@ export class AuthService {
     async loginWithProfile(user: any, res: any) {
     const tokens = this.getTokens(user.id, user.username);
     let userProflie =  await this.usersService.getUserWithProfile(user.id);
-    console.log(userProflie);
+    // console.log(userProflie);
 
-    const currentUser = this.usersService.findByUsername(user.username);
-    await this.usersService.saveLoginTimestamp(currentUser); // save this timestamp
-    
+    // const currentUser = this.usersService.findByUsername(user.username);
+    // await this.usersService.saveLoginTimestamp(currentUser); // save this timestamp
+
     res.cookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: true,

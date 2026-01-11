@@ -82,9 +82,13 @@ export class UsersService {
     return this.userRepo.save(user)
   }
 
-  async saveLoginTimestamp (user: UserEntity): Promise<UserEntity> {
-    user = this.userRepo.create({ last_online_at : Date.now()})
-    return this.userRepo.save(user)
+  async saveLoginTimestamp (user) {
+    const existing = await this.userRepo.findOne({ where: { username: user.username } })
+    console.log("saveLoginTimestamp")
+    if (existing) {
+      existing.last_online_at = new Date()
+      await this.userRepo.save(existing)
+    }
   }
 
   // async getAllUsers(): Promise<User[]> {
