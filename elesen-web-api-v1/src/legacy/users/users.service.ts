@@ -82,9 +82,9 @@ export class UsersService {
     return this.userRepo.save(user)
   }
 
-  async saveLoginTimestamp (user: UserEntity): Promise<UserEntity> {
+  async saveLoginTimestamp (user) {
     user = this.userRepo.create({ username : user.username, last_online_at : Date.now()})
-    return this.userRepo.save(user)
+    await this.userRepo.save(user)
   }
 
   // async getAllUsers(): Promise<User[]> {

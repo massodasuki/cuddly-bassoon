@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcryptjs';
 import { JwtPayload } from './types/jwtPayload';
+import { UserEntity } from '../users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -66,7 +67,10 @@ export class AuthService {
     const tokens = this.getTokens(user.id, user.username);
     let userProflie =  await this.usersService.getUserWithProfile(user.id);
     console.log(userProflie);
-    await this.usersService.saveLoginTimestamp(user); // save this timestamp
+
+    const currentUser = this.usersService.findByUsername(user.username);
+    await this.usersService.saveLoginTimestamp(currentUser); // save this timestamp
+    
     res.cookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: true,
