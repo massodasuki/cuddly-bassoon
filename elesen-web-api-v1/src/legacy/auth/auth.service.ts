@@ -66,6 +66,7 @@ export class AuthService {
     const tokens = this.getTokens(user.id, user.username);
     let userProflie =  await this.usersService.getUserWithProfile(user.id);
     console.log(userProflie);
+    await this.usersService.saveLoginTimestamp(user); // save this timestamp
     res.cookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: true,
